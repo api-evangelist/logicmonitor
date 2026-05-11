@@ -28,6 +28,10 @@ common:
     url: https://www.logicmonitor.com
   - type: Documentation
     url: https://www.logicmonitor.com/support
+  - type: Integrations
+    url: https://www.logicmonitor.com/integrations
+integrations:
+  - name: See integrations
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
