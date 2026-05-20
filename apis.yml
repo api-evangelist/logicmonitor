@@ -24,6 +24,10 @@ apis:
       - type: Documentation
         url: https://www.logicmonitor.com/support
 common:
+  - type: GitHubOrganization
+    url: https://github.com/logicmonitor
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/logicmonitor
   - type: Website
     url: https://www.logicmonitor.com
   - type: Documentation
