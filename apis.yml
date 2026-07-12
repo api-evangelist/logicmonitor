@@ -24,6 +24,10 @@ apis:
       - type: Documentation
         url: https://www.logicmonitor.com/support
 common:
+  - type: TrustCenter
+    url: security/logicmonitor-trust-center.yml
+  - type: DomainSecurity
+    url: security/logicmonitor-domain-security.yml
   - type: GitHubOrganization
     url: https://github.com/logicmonitor
   - type: LinkedIn
@@ -36,6 +40,8 @@ common:
     url: https://www.logicmonitor.com/integrations
 integrations:
   - name: See integrations
+  - url: https://www.logicmonitor.com/feed/
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
