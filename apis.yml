@@ -3,6 +3,17 @@ name: LogicMonitor
 description: >-
   LogicMonitor is an AI-powered infrastructure monitoring and observability platform for hybrid IT environments.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - none
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
