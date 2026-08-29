@@ -1,0 +1,141 @@
+specification: API Commons Tool Crosswalk
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: derived
+source: >-
+  Derived by binding the 13 tools in https://github.com/logicmonitor/logicmonitor-api-mcp
+  (src/tools/registry.ts) to operationIds in openapi/logicmonitor-rest-api-v3-swagger.json
+  (LogicMonitor REST API v3 Swagger, 220 paths / 403 operations).
+description: >-
+  Binds each MCP tool to the REST operations that back it. The MCP server exposes RESOURCE-shaped tools with
+  an `operation` discriminator rather than one tool per endpoint, so every row is one-to-many: lm_device
+  alone fans out to five REST operations. Because the live tools/list is gated behind a tenant bearer token,
+  each tool inherits its real parameters from the bound REST operation's parameters/body rather than from a
+  fetched inputSchema — confidence is set accordingly.
+surfaces:
+  openapi:
+    path: openapi/logicmonitor-rest-api-v3-swagger.json
+    base_url: https://{account}.logicmonitor.com/santaba/rest
+    gated: false
+    note: Spec is published anonymously at https://www.logicmonitor.com/swagger-ui-master/dist/swagger.json; calling it requires a tenant.
+  graphql:
+    endpoint: null
+    note: LogicMonitor publishes no GraphQL surface.
+  mcp:
+    url: null
+    install: npx -y logicmonitor-api-mcp --stdio
+    gated: true
+    note: Local stdio only; live schema introspection requires LM_ACCOUNT + LM_BEARER_TOKEN.
+crosswalk:
+  - tool: lm_device
+    category: resources
+    rest: [getDeviceList, getDeviceById, addDevice, patchDevice, updateDevice, deleteDeviceById]
+    binding: resource-verb
+    confidence: high
+    note: operation=list|get|create|update|delete. update maps to PATCH /device/devices/{id} and PUT /device/devices/{id}.
+  - tool: lm_device_group
+    category: resources
+    rest: [getDeviceGroupList, getDeviceGroupById, addDeviceGroup, patchDeviceGroupById, updateDeviceGroupById, deleteDeviceGroupById, getImmediateDeviceListByDeviceGroupId]
+    binding: resource-verb
+    confidence: high
+  - tool: lm_alert
+    category: alerting
+    rest: [getAlertList, getAlertById, ackAlertById, addAlertNoteById]
+    binding: resource-verb
+    confidence: high
+    note: >-
+      operation=update covers ack and note, which are two distinct POST sub-resources in REST
+      (/alert/alerts/{id}/ack and /alert/alerts/{id}/note). No create or delete exists on either side.
+  - tool: lm_website
+    category: synthetics
+    rest: [getWebsiteList, getWebsiteById, addWebsite, patchWebsiteById, updateWebsiteById, deleteWebsiteById]
+    binding: resource-verb
+    confidence: high
+  - tool: lm_website_group
+    category: synthetics
+    rest: [getWebsiteGroupList, getWebsiteGroupById, addWebsiteGroup, patchWebsiteGroupById, updateWebsiteGroupById, deleteWebsiteGroupById]
+    binding: resource-verb
+    confidence: high
+  - tool: lm_collector
+    category: infrastructure
+    rest: [getCollectorList, getCollectorById, addCollector, patchCollectorById, updateCollectorById, deleteCollectorById]
+    binding: resource-verb
+    confidence: high
+  - tool: lm_collector_group
+    category: infrastructure
+    rest: [getCollectorGroupList, getCollectorGroupById, addCollectorGroup, patchCollectorGroupById, updateCollectorGroupById, deleteCollectorGroupById]
+    binding: resource-verb
+    confidence: high
+  - tool: lm_user
+    category: administration
+    rest: [getAdminList, getAdminById, addAdmin, patchAdminById, updateAdminById, deleteAdminById]
+    binding: semantic
+    confidence: medium
+    note: >-
+      REST calls the entity "admin" (/setting/admins) while the tool calls it "user"; the mapping is by
+      semantics, not by shared naming.
+  - tool: lm_dashboard
+    category: visualization
+    rest: [getDashboardList, getDashboardById, addDashboard, patchDashboardById, updateDashboardById, deleteDashboardById]
+    binding: resource-verb
+    confidence: high
+  - tool: lm_device_data
+    category: telemetry
+    rest: [getDeviceDatasourceList, getDeviceDatasourceInstanceList, getDeviceDatasourceInstanceData]
+    binding: operation-alias
+    confidence: high
+    note: list_datasources / list_instances / get_data map one-to-one onto these three GETs.
+  - tool: lm_sdt
+    category: maintenance
+    rest: [getSDTList, getSdtById, addSDT, patchSdtById, updateSdtById, deleteSdtById]
+    binding: resource-verb
+    confidence: high
+    note: >-
+      The tool's SDT type discriminators (ResourceSDT, ResourceGroupSDT, WebsiteSDT, WebsiteGroupSDT,
+      CollectorSDT, DeviceDataSourceSDT, DeviceDataSourceInstanceSDT) are body variants of POST /sdt/sdts,
+      not separate REST operations.
+  - tool: lm_opsnote
+    category: annotations
+    rest: [getOpsNoteList, getOpsNoteById, addOpsNote, patchOpsNoteById, updateOpsNoteById, deleteOpsNoteById]
+    binding: resource-verb
+    confidence: high
+mcp_only:
+  - tool: lm_session
+    reason: >-
+      Server-side session state (recent results, stored variables, request history) used by applyToPrevious
+      batch operations. There is no LogicMonitor REST endpoint behind it.
+rest_only:
+  - area: Alert Rules, Escalation Chains, Recipient Groups
+    operations: [getAlertRuleList, addEscalationChain, getRecipientGroupList]
+    reason: Alert routing and notification configuration is not exposed as an MCP tool.
+  - area: DataSources / ConfigSources / EventSources / PropertySources modules
+    operations: [getDatasourceList, importDataSource, importConfigSource, getEventSourceList]
+    reason: LogicModule authoring and XML/JSON import have no tool.
+  - area: Reports and Report Groups
+    operations: [getReportList, getReportGroupList]
+    reason: No reporting tool.
+  - area: Roles / API Tokens / Audit Logs
+    operations: [getRoleList, getApiTokenList, getAuditLogList]
+    reason: Governance and credential surfaces are deliberately absent from the tool set.
+  - area: Netflow
+    operations: [getNetflowFlowList, getNetflowPortList, getNetflowEndpointList, getTopTalkersGraph]
+    reason: Traffic analysis has no tool.
+  - area: Thresholds and alert settings
+    operations: [getDeviceDatasourceInstanceAlertSettingListOfDSI, addDeviceGroupClusterAlertConf]
+    reason: Threshold tuning has no tool.
+  - area: Widgets and widget data
+    operations: [getWidgetListByDashboardId, getWidgetDataById]
+    reason: lm_dashboard stops at the dashboard object; widgets are not reachable.
+coverage:
+  mcp_tools: 13
+  tools_bound_to_rest: 12
+  mcp_only_tools: 1
+  rest_operations_total: 403
+  rest_operations_reachable_via_tools: 68
+  rest_operations_unreachable: 335
+  note: >-
+    Roughly a sixth of the published REST surface (68 of 403 operations) is reachable through the MCP tool
+    set. The unreachable remainder is concentrated in LogicModule authoring, reporting, alert routing,
+    thresholds, log pipelines, cost optimization and governance.

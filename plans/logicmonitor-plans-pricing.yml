@@ -1,141 +1,45 @@
 specification: API Commons Plans
 specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: LogicMonitor
 providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: https://www.logicmonitor.com/pricing
+docs: https://www.logicmonitor.com/pricing
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-29'
 tags:
   - AIOps
   - Monitoring
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
-plans:
-  - id: logicmonitor-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the LogicMonitor API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: LogicMonitor
-  - id: logicmonitor-pro
-    name: Professional
-    type: paid
-    description: Production tier for LogicMonitor. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: LogicMonitor
-  - id: logicmonitor-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for LogicMonitor. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: LogicMonitor
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+description: >-
+  LogicMonitor publishes NO machine-readable or human-readable price for any tier. The pricing page at
+  https://www.logicmonitor.com/pricing returned HTTP 200 but renders its plan comparison client-side; the
+  server-delivered document contains no tier name, no currency figure and no quota. Every documented path
+  to a number is a form — "Try it free" (a 14-day trial of the full platform) or a demo/quote request.
+  This artifact replaces the 2026-05-04 bulk-sweep scaffold, which invented a Free / Pro / Enterprise
+  ladder with fabricated request quotas that LogicMonitor has never published.
+plan_count: 0
+plans: []
+pricing_model: quote-only
+trial:
+  available: true
+  length_days: 14
+  scope: full LogicMonitor platform
+  url: https://www.logicmonitor.com/signup
+  note: Signup page returns HTTP 200; the trial is the only self-serve entry point found.
+api_pricing:
+  metered: false
+  note: >-
+    The REST API is not separately priced or metered. It is included with the platform subscription and
+    governed by the published rate limits in rate-limits/logicmonitor-rate-limits.yml, not by a paid quota.
+    Usage is reported inside the product (Usage Reporting by contributor, resource, logs, synthetics),
+    which implies a resource/unit-based commercial model, but LogicMonitor publishes no unit price.
+evidence:
+  - url: https://www.logicmonitor.com/pricing
+    status: 200
+    finding: server-rendered document contains no plan names, prices, currencies or quotas
+  - url: https://www.logicmonitor.com/signup
+    status: 200
+    finding: 14-day free trial form
+  - url: https://www.logicmonitor.com/free-trial
+    status: 404

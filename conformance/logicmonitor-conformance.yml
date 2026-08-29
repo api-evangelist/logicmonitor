@@ -1,0 +1,168 @@
+specification: API Commons Conformance
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api ;
+  https://www.logicmonitor.com/support/system-for-cross-domain-identity-management-overview ;
+  https://www.logicmonitor.com/support/tracing/lm-apm-overview ;
+  https://trust.logicmonitor.com/ ; openapi/logicmonitor-rest-api-v3-swagger.json
+description: >-
+  Cross-cutting and domain standards asserted for LogicMonitor, each with the evidence it was read from.
+  Absence is recorded as honestly as presence.
+standards:
+  - id: openapi
+    name: OpenAPI / Swagger
+    conforms: true
+    version: 'Swagger 2.0'
+    evidence:
+      location: https://www.logicmonitor.com/swagger-ui-master/api-v3/dist/swagger.json
+      detail: >-
+        HTTP 200, 813KB, parses as swagger 2.0 with 220 paths, 403 operations and 743 definitions.
+        info.title "LogicMonitor REST API", basePath /santaba/rest. Still Swagger 2.0 in 2026 — LogicMonitor
+        has not migrated the published contract to OpenAPI 3.x.
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: false
+    evidence:
+      location: securityDefinitions in the published Swagger
+      detail: Only an apiKey scheme named LMv1 is declared. No OAuth flow is documented for the REST API.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence:
+      location: https://www.logicmonitor.com/.well-known/openid-configuration
+      detail: HTTP 404. Portal SSO is SAML 2.0 based, not OIDC-published.
+  - id: saml2
+    name: SAML 2.0
+    conforms: true
+    evidence:
+      location: https://www.logicmonitor.com/support/single-sign-on-overview
+      detail: >-
+        Portal single sign-on is SAML 2.0; a SAML troubleshooting guide is published and Microsoft Entra ID
+        is documented as a supported IdP. This governs portal login, not API token auth.
+  - id: scim
+    name: SCIM (System for Cross-domain Identity Management)
+    conforms: true
+    domain_standard: true
+    evidence:
+      location: https://www.logicmonitor.com/support/system-for-cross-domain-identity-management-overview
+      detail: >-
+        "LogicMonitor supports SCIM to synchronize user lifecycle changes from supported identity providers,
+        enabling automatic user de-provisioning." Configuration and management pages are published
+        (…-configuration, management-of-…), gated on a Manage permission for Single Sign-On and an SCIM
+        toggle on the SSO settings page. Documented IdPs: Microsoft Entra ID, Okta.
+      contract_declared: false
+      contract_note: >-
+        Recorded from the documentation, NOT from the contract. The published v3 Swagger declares no
+        urn:ietf:params:scim:schemas:* URN and exposes no /scim/v2 path — LogicMonitor's own user surface in
+        the API is /setting/admins with a proprietary schema. The SCIM endpoint is provisioned per tenant
+        and is not represented in any published machine-readable artifact.
+  - id: opentelemetry
+    name: OpenTelemetry / OTLP
+    conforms: true
+    domain_standard: true
+    evidence:
+      location: https://www.logicmonitor.com/support/tracing/lm-apm-overview
+      detail: >-
+        "LM APM supports distributed tracing using OpenTelemetry." The docs publish language-specific
+        instrumentation for .NET, Java and Python, automatic instrumentation, and an OpenTelemetry Operator
+        path for Kubernetes. This is the load-bearing domain standard for the observability market: a buyer
+        already emitting OTLP integrates without a bespoke connector.
+      contract_declared: false
+      contract_note: >-
+        Ingestion is out-of-band of the v3 REST contract; no OTLP endpoint is declared in the Swagger.
+  - id: openmetrics
+    name: OpenMetrics / Prometheus exposition format
+    conforms: true
+    domain_standard: true
+    evidence:
+      location: https://www.logicmonitor.com/support/tracing/lm-apm-overview
+      detail: >-
+        "OpenMetrics Integration — Ingest metrics in OpenMetrics or Prometheus exposition format", with an
+        OpenMetrics DataSource wizard published in the docs.
+      contract_declared: false
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence:
+      location: '#/definitions/ErrorResponse in the published Swagger'
+      detail: >-
+        Errors use a vendor envelope of errorCode / errorMessage / errorDetail with application/json, not
+        application/problem+json. See errors/logicmonitor-problem-types.yml.
+  - id: rfc8594
+    name: RFC 8594 Sunset header
+    conforms: false
+    evidence:
+      location: https://www.logicmonitor.com/support/rest-api-change-log
+      detail: >-
+        Endpoint removals (three in the v242 platform release) are announced in a changelog against a
+        release number. No Sunset or Deprecation response header is documented, and zero of the 403
+        operations in the spec carry deprecated:true.
+  - id: pagination
+    name: Offset/limit pagination
+    conforms: true
+    evidence:
+      location: parameters on 69 operations in the published v3 Swagger
+      detail: >-
+        size (default 50) and offset (default 0) query parameters with *PaginationResponse envelopes
+        carrying total, items and searchId. No cursor, no link header.
+  - id: idempotency
+    name: Idempotency keys for unsafe methods
+    conforms: false
+    evidence:
+      location: full-spec and full-docs search
+      detail: >-
+        No Idempotency-Key header, no request-replay window, no safe-retry contract. Duplicate creates are
+        surfaced only as a 1409 conflict after the fact.
+  - id: json-api
+    name: JSON:API
+    conforms: false
+    evidence:
+      location: response schemas in the published Swagger
+      detail: Responses are plain vendor JSON; no JSON:API document structure.
+  - id: odata
+    name: OData
+    conforms: false
+    evidence:
+      location: full-spec search
+      detail: No $metadata surface and no OData query options; filtering uses a proprietary filter syntax.
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    evidence:
+      location: https://www.logicmonitor.com/asyncapi.yaml
+      detail: >-
+        HTTP 404. The outbound event surface (Custom HTTP alert delivery) is user-templated and has no
+        published AsyncAPI document. See asyncapi/logicmonitor-webhooks.yml.
+  - id: mcp
+    name: Model Context Protocol
+    conforms: partial
+    evidence:
+      location: https://github.com/logicmonitor/logicmonitor-api-mcp
+      detail: >-
+        An MCP server exists in the vendor's GitHub organization and on npm, but its own README disclaims
+        official support and it is local-stdio only — no hosted endpoint. See mcp/logicmonitor-mcp.yml.
+  - id: a2a
+    name: A2A Agent Card
+    conforms: false
+    evidence:
+      location: https://www.logicmonitor.com/.well-known/agent-card.json
+      detail: HTTP 404; /.well-known/agent.json also 404.
+compliance:
+  published: true
+  source: https://trust.logicmonitor.com/
+  certifications:
+    - SOC 2 Type 2
+    - ISO 27001
+    - ISO 27017
+    - ISO 27018
+    - HIPAA
+    - FedRAMP
+    - GDPR
+  note: >-
+    Also stated on https://www.logicmonitor.com/security — "AICPA SOC 2 Type 2 audits validate the controls
+    that provide for security, high availability, and data confidentiality" and certification to the
+    ISO 27000 family, with third-party application penetration testing.

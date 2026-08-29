@@ -1,0 +1,106 @@
+specification: API Commons MCP
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://github.com/logicmonitor/logicmonitor-api-mcp (README + src/tools/registry.ts, read 2026-08-29) ;
+  https://www.npmjs.com/package/logicmonitor-api-mcp ; announcement thread at
+  https://community.logicmonitor.com/forum/product-discussions-68/topic/announcing-the-logicmonitor-mcp-server-bringing-real-time-observability-to-ai-agents-2397/
+name: LogicMonitor MCP Server
+status: published
+description: >-
+  An MCP server over the LogicMonitor REST API v3, published to npm as logicmonitor-api-mcp and hosted in
+  the logicmonitor GitHub organization. It is NOT a vendor-hosted remote endpoint: there is no URL an agent
+  can POST to today. The README states the project "is an open-source community project and is not officially
+  supported by LogicMonitor", so this is recorded as a vendor-org community server rather than a first-party
+  product. LogicMonitor separately markets an "MCP" governance capability for Edwin AI on
+  https://www.logicmonitor.com/platform/edwin-ai-mcp-model-context-protocol and documents it at
+  https://www.logicmonitor.com/support/mcp-server, but that support page renders its body client-side and
+  returned no machine-readable endpoint, install command or tool list to this probe.
+deployment:
+  mode: local-stdio
+  endpoint: null
+  install: npx -y logicmonitor-api-mcp --stdio
+  package: https://www.npmjs.com/package/logicmonitor-api-mcp
+  auth: api-key
+  verified: searched
+  note: >-
+    The server also ships an HTTP transport, but it is SELF-HOSTED — the README's example client config
+    points at "http://your-server:3000/mcp", a host the operator stands up. LogicMonitor publishes no
+    hosted MCP URL, so mode stays local-stdio. LogicMonitor credentials are supplied per request via
+    X-LM-Account and X-LM-Bearer-Token headers, or via LM_ACCOUNT / LM_BEARER_TOKEN environment variables;
+    optional MCP-client authentication is a static bearer token (AUTH_MODE=bearer). There is no OAuth flow.
+transports:
+  - stdio
+  - streamable-http (self-hosted only)
+backing_api:
+  name: LogicMonitor REST API v3
+  openapi: openapi/logicmonitor-rest-api-v3-swagger.json
+  base_url: https://{account}.logicmonitor.com/santaba/rest
+tools:
+  - name: lm_device
+    title: LogicMonitor Device Management
+    operations: [list, get, create, update, delete]
+  - name: lm_device_group
+    title: LogicMonitor Device Group Management
+    operations: [list, get, create, update, delete]
+  - name: lm_alert
+    title: LogicMonitor Alert Management
+    operations: [list, get, update]
+    note: Tool description states alert creation and deletion are not supported by the API.
+  - name: lm_website
+    title: LogicMonitor Website Management
+    operations: [list, get, create, update, delete]
+  - name: lm_website_group
+    title: LogicMonitor Website Group Management
+    operations: [list, get, create, update, delete]
+  - name: lm_collector
+    title: LogicMonitor Collector Management
+    operations: [list, get, create, update, delete]
+  - name: lm_collector_group
+    title: LogicMonitor Collector Group Management
+    operations: [list, get, create, update, delete]
+  - name: lm_user
+    title: LogicMonitor User Management
+    operations: [list, get, create, update, delete]
+  - name: lm_dashboard
+    title: LogicMonitor Dashboard Management
+    operations: [list, get, create, update, delete]
+  - name: lm_device_data
+    title: LogicMonitor Device Data Management
+    operations: [list_datasources, list_instances, get_data]
+  - name: lm_sdt
+    title: LogicMonitor SDT Management
+    operations: [list, get, create, update, delete]
+  - name: lm_opsnote
+    title: LogicMonitor OpsNote Management
+    operations: [list, get, create, update, delete]
+  - name: lm_session
+    title: LogicMonitor Session Management
+    operations: []
+    note: >-
+      Server-side session context — recent results, stored variables and request history — so follow-up
+      calls can reference prior output. Has no backing REST operation.
+tool_count: 13
+prompts:
+  note: >-
+    The repository ships guided workflow prompts in src/tools/prompts.ts (for example an export-device-metrics
+    flow). Names were not enumerated in this pass; the live schemas require running the server.
+schemas_gated: true
+schemas_note: >-
+  tools/list was not called live because the server is local-stdio only and requires a LogicMonitor tenant
+  bearer token. Tool names, titles and operation verbs above are read verbatim from src/tools/registry.ts;
+  the full inputSchema for each tool lives in the Zod schemas under src/resources/*/. Parameter-level detail
+  in the crosswalk is therefore inherited from the backing REST operations, not from a live introspection.
+alternatives:
+  - name: monitoringartist/logicmonitor-mcp-server
+    url: https://github.com/monitoringartist/logicmonitor-mcp-server
+    official: false
+    note: The community server named in LogicMonitor's own community announcement thread.
+  - name: lm-mcp (ryanmat/mcp-server-logicmonitor)
+    url: https://pypi.org/project/lm-mcp/
+    official: false
+    version: 4.2.0
+    published: '2026-08-11'

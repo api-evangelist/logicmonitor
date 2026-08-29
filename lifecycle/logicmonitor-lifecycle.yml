@@ -1,0 +1,81 @@
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api ;
+  https://www.logicmonitor.com/support/rest-api-change-log ;
+  https://www.logicmonitor.com/support/migration-from-logicmonitor-rest-api-v1-to-api-v3 ;
+  https://status.logicmonitor.com/api/v2/status.json (HTTP 200, probed 2026-08-29)
+description: >-
+  Versioning, deprecation and operational-status posture for the LogicMonitor REST API.
+versioning:
+  scheme: semver-major-only
+  current: v3
+  selector:
+    - style: query
+      example: '?v=3'
+    - style: header
+      example: 'X-Version: 3'
+  policy: >-
+    "We follow Semantic versioning, but only major version is allowed in requests (the most recent minor /
+    patch versions will always be returned)." All updates and enhancements go to version 3 only.
+  note: >-
+    A request with no version selector is served by the default version, so pinning is opt-in. Because only
+    the major is selectable, a consumer cannot pin a minor or patch and cannot avoid receiving additive
+    changes shipped inside v3.
+versions:
+  - version: v1
+    status: legacy
+    auth: HTTP Basic (only version supporting it)
+    note: Docs state Basic "may not be available with future versions"; a v1-to-v3 migration guide is published.
+  - version: v2
+    status: legacy
+    auth: LMv1 / Bearer
+  - version: v3
+    status: current
+    auth: LMv1 / Bearer
+    note: The only version receiving updates and enhancements.
+deprecation:
+  policy_published: true
+  policy_url: https://www.logicmonitor.com/support/migration-from-logicmonitor-rest-api-v1-to-api-v3
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  in_spec: false
+  spec_note: >-
+    Zero of the 235 operations in the published v3 Swagger carry `deprecated: true`. Removal is announced in
+    the REST API Change Log against a platform release number, not signalled in the contract or in response
+    headers, so an integration learns an endpoint is gone when it starts failing.
+  events:
+    - release: v242
+      date_observed: '2026-07-21'
+      removed:
+        - PATCH /setting/action/rules/{id}/status
+        - PATCH /setting/collector/collectors/{id}/agentloglevels/{component}
+        - PUT /setting/collector/collectors/{id}/agentloglevels/{component}
+      replacement: PUT /setting/collector/collectors/{id}/agentloglevels (bulk update of all components)
+      note: >-
+        A breaking removal shipped inside major version 3 with a documented replacement but no Sunset or
+        Deprecation header and no `deprecated` flag in the spec beforehand.
+status_page:
+  url: https://status.logicmonitor.com/
+  vendor: Atlassian Statuspage
+  machine_readable: https://status.logicmonitor.com/api/v2/status.json
+  probed: '2026-08-29'
+  http_status: 200
+  observed: '{"status":{"indicator":"none","description":"All Systems Operational"}}'
+  note: >-
+    Full Statuspage v2 API surface (status.json, summary.json, components.json, incidents, scheduled
+    maintenances, subscriber endpoints) is available on this host.
+sla:
+  published: false
+  note: >-
+    No public uptime SLA document was found. LogicMonitor's public commitments on availability appear in the
+    SOC 2 Type 2 / ISO 27001 material referenced from the trust center rather than as a numeric API SLA.
+release_notes:
+  url: https://www.logicmonitor.com/release-notes
+  http_status: 200
+  cadence: platform releases (…v224, v228, v232, v237, v239, v242)

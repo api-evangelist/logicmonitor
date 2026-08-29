@@ -1,0 +1,586 @@
+specification: API Commons OAuth Scopes
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: derived
+source: Derived from x-minimum-permissions on all 403 operations in openapi/logicmonitor-rest-api-v3-swagger.json
+docs: https://www.logicmonitor.com/support/determining-api-v3-swagger-permissions
+model: rbac-role-permissions
+oauth2: false
+description: 'LogicMonitor has NO OAuth scopes. Authorization is role-based: an LMv1 or Bearer token inherits the
+  permissions of the LogicMonitor role attached to the user that owns it. What the v3 Swagger DOES publish, uniquely
+  among LogicMonitor artifacts, is x-minimum-permissions on every one of its 403 operations — a machine-readable
+  statement of the minimum role permission each call needs. That is the nearest equivalent to a scope catalog this
+  API has, and it is genuinely least-privilege readable: an agent can compute the minimum role for a workflow before
+  it runs. This file enumerates the distinct permission/level pairs the contract declares. Note the vocabulary is
+  not normalised — LogicMonitor ships several spellings of the same module permission (for example "Modules -> All
+  Installed modules" and "Modules -> All Installed Module"), so string equality across operations is unsafe.'
+levels:
+- Acknowledge
+- Checked
+- Manage
+- Manage (all)
+- NA
+- No RBAC permission needed
+- No RBAC permissions needed
+- Unchecked
+- View
+- View (all)
+- View permissions for all pages
+- View permissions on Resources page
+- View permissions on Services and Resources page
+- View permissions on Services and Website page
+note_levels: Levels are taken verbatim from the contract and are NOT a clean enum. Alongside View, Manage and Acknowledge
+  the spec ships free-text values such as 'No RBAC permission needed', 'View permissions on Services and Resources
+  page', 'Checked'/'Unchecked' and 'NA'. Recorded as published rather than normalised.
+permission_count: 74
+permissions:
+- permission: Resources
+  level: View
+  operation_count: 65
+  examples:
+  - collectDeviceConfigSourceConfig
+  - executeDebugCommand
+  - fetchDeviceInstancesData
+  - getAlertById
+  - getAlertList
+- permission: Resources
+  level: Manage
+  operation_count: 64
+  examples:
+  - addDevice
+  - addDeviceDatasourceInstance
+  - addDeviceDatasourceInstanceGroup
+  - addDeviceGroup
+  - addDeviceGroupClusterAlertConf
+- permission: Modules -> Access Groups
+  level: Manage
+  operation_count: 27
+  examples:
+  - addAccessGroup
+  - addDatasourceById
+  - addEventSource
+  - addTopologySource
+  - deleteAccessGroup
+- permission: Modules -> All Installed modules
+  level: Manage
+  operation_count: 23
+  examples:
+  - addEventSource
+  - addOid
+  - addPropertyRule
+  - addTopologySource
+  - deleteEventSourceById
+- permission: Settings -> Collectors
+  level: Manage
+  operation_count: 19
+  examples:
+  - ackCollectorDownAlertById
+  - addCollector
+  - addCollectorGroup
+  - addDNSMapping
+  - batchUpdateCollectorAgentLogLevels
+- permission: Modules ->  All Installed modules
+  level: Manage
+  operation_count: 17
+  examples:
+  - addJobMonitor
+  - addLogSource
+  - deleteJobMonitor
+  - deleteLogSource
+  - importAppliesToFunctionJson
+- permission: Dashboards
+  level: Manage
+  operation_count: 15
+  examples:
+  - addDashboard
+  - addDashboardGroup
+  - addDashboardGroupAsynchronously
+  - addWidget
+  - deleteDashboardById
+- permission: Logs & Traces -> Logs
+  level: Manage
+  operation_count: 15
+  examples:
+  - addLogAlertGroup
+  - addLogAlerts
+  - createLogPartition
+  - deleteLogAlertGroup
+  - deleteLogAlertsById
+- permission: Settings -> Collectors
+  level: View
+  operation_count: 14
+  examples:
+  - addDevice
+  - getCollectorAgentLogLevelByComponent
+  - getCollectorAgentLogLevels
+  - getCollectorById
+  - getCollectorEvents
+- permission: Websites
+  level: View
+  operation_count: 13
+  examples:
+  - getAllSDTListByWebsiteGroupId
+  - getImmediateWebsiteListByWebsiteGroupId
+  - getSDTHistoryByWebsiteGroupId
+  - getSDTHistoryByWebsiteId
+  - getSiteMonitorCheckPointList
+- permission: Modules -> All Installed modules
+  level: View
+  operation_count: 11
+  examples:
+  - getEventSourceById
+  - getEventSourceList
+  - getLogSourceById
+  - getLogSourceList
+  - getOIDList
+- permission: Settings -> Action Settings
+  level: Manage
+  operation_count: 10
+  examples:
+  - addActionChain
+  - addActionRule
+  - deleteActionChainById
+  - deleteActionRuleById
+  - patchActionChainById
+- permission: Websites
+  level: Manage
+  operation_count: 10
+  examples:
+  - addWebsite
+  - addWebsiteGroup
+  - deleteWebsiteById
+  - deleteWebsiteGroupById
+  - getWebsiteAlertListByWebsiteId
+- permission: Reports
+  level: Manage
+  operation_count: 9
+  examples:
+  - addReport
+  - addReportGroup
+  - deleteReportById
+  - deleteReportGroupById
+  - generateReportById
+- permission: Users -> Permissions -> Reports
+  level: View
+  operation_count: 9
+  examples:
+  - addReportGroup
+  - deleteReportById
+  - generateReportById
+  - getReportGroupById
+  - getReportGroupList
+- permission: Logs -> Log query group
+  level: Manage
+  operation_count: 8
+  examples:
+  - addLogQueryGroup
+  - deleteLogQueryGroup
+  - getLogQueryGroupById
+  - getLogQueryGroupListByGroupType
+  - importLogQueryGroups
+- permission: Modules -> Access Group
+  level: Manage
+  operation_count: 8
+  examples:
+  - addDiagnosticSource
+  - addRemediationSource
+  - deleteDiagnosticSourceById
+  - deleteRemediationSourceById
+  - patchDiagnosticSourceById
+- permission: Modules -> Access Groups
+  level: View
+  operation_count: 8
+  examples:
+  - getAssociatedDeviceListByDataSourceId
+  - getDataSourceOverviewGraphList
+  - getDatasourceById
+  - getDatasourceList
+  - getEventSourceById
+- permission: Modules -> All Installed Module
+  level: Manage
+  operation_count: 8
+  examples:
+  - addDiagnosticSource
+  - addRemediationSource
+  - deleteDiagnosticSourceById
+  - deleteRemediationSourceById
+  - patchDiagnosticSourceById
+- permission: Settings -> Role Access
+  level: Manage
+  operation_count: 8
+  examples:
+  - addAdmin
+  - addRole
+  - deleteAdminById
+  - deleteRoleById
+  - patchAdminById
+- permission: Settings -> User Access
+  level: Manage
+  operation_count: 8
+  examples:
+  - addAdmin
+  - addApiTokenByAdminId
+  - deleteAdminById
+  - deleteApiTokenById
+  - patchAdminById
+- permission: Dashboards
+  level: View
+  operation_count: 7
+  examples:
+  - getAlertList
+  - getDashboardGroupById
+  - getDashboardGroupList
+  - getDashboardList
+  - getWidgetById
+- permission: Settings -> Alert Settings -> Escalation Chains
+  level: Manage
+  operation_count: 7
+  examples:
+  - addAlertRule
+  - addEscalationChain
+  - deleteEscalationChainById
+  - patchAlertRuleById
+  - patchEscalationChainById
+- permission: Settings -> User Access
+  level: View
+  operation_count: 7
+  examples:
+  - addEscalationChain
+  - getAdminById
+  - getAdminList
+  - getApiTokenList
+  - getApiTokenListByAdminId
+- permission: Logs
+  level: View
+  operation_count: 6
+  examples:
+  - createTrackedQueryGroup
+  - deleteTrackedQueryGroup
+  - getTrackedQueryGroupById
+  - getTrackedQueryGroupList
+  - patchTrackedQueryGroup
+- permission: Logs & Traces -> Logs
+  level: View
+  operation_count: 6
+  examples:
+  - getAllLogPartitions
+  - getLogAlertGroupById
+  - getLogAlertGroupsList
+  - getLogAlerts
+  - getLogAlertsById
+- permission: Logs & Traces -> Partitions
+  level: Manage
+  operation_count: 6
+  examples:
+  - createLogPartition
+  - deleteLogPartitionById
+  - getRetentionList
+  - partitionAction
+  - patchLogPartition
+- permission: Settings -> Access Groups
+  level: Manage
+  operation_count: 6
+  examples:
+  - addAccessGroup
+  - deleteAccessGroup
+  - getAccessGroupById
+  - getAccessGroupList
+  - patchAccessGroup
+- permission: Modules -> My Module Toolbox -> All Installed Modules
+  level: Manage
+  operation_count: 5
+  examples:
+  - addConfigSource
+  - deleteConfigSourceById
+  - importConfigSource
+  - patchConfigSourceById
+  - updateConfigSourceById
+- permission: Reports
+  level: View
+  operation_count: 5
+  examples:
+  - fetchReportUsingTaskId
+  - getReportById
+  - getReportGroupById
+  - getReportGroupList
+  - getReportList
+- permission: Settings -> Action Settings
+  level: View
+  operation_count: 5
+  examples:
+  - getActionChainById
+  - getActionChainsList
+  - getActionRuleById
+  - getActionRuleStatusById
+  - getActionRulesList
+- permission: Settings -> Alert Settings -> Recipient Groups
+  level: View
+  operation_count: 5
+  examples:
+  - addEscalationChain
+  - getRecipientGroupById
+  - getRecipientGroupList
+  - patchEscalationChainById
+  - updateEscalationChainById
+- permission: Modules -> Access Group
+  level: View
+  operation_count: 4
+  examples:
+  - getDiagnosticSourcesById
+  - getDiagnosticSourcesList
+  - getRemediationSourcesById
+  - getRemediationSourcesList
+- permission: Modules -> All Installed Module
+  level: View
+  operation_count: 4
+  examples:
+  - getDiagnosticSourcesById
+  - getDiagnosticSourcesList
+  - getRemediationSourcesById
+  - getRemediationSourcesList
+- permission: Modules -> My Module Toolbox -> All Installed modules
+  level: Manage
+  operation_count: 4
+  examples:
+  - addAppliesToFunction
+  - deleteAppliesToFunctionById
+  - patchAppliesToFunction
+  - updateAppliesToFunction
+- permission: Modules -> My Module Toolbox -> PushModules
+  level: Manage
+  operation_count: 4
+  examples:
+  - addConfigSource
+  - deleteConfigSourceById
+  - patchConfigSourceById
+  - updateConfigSourceById
+- permission: Settings -> Alert Settings -> Recipient Groups
+  level: Manage
+  operation_count: 4
+  examples:
+  - addRecipientGroup
+  - deleteRecipientGroupById
+  - patchRecipientGroupById
+  - updateRecipientGroupById
+- permission: Settings -> Alert settings -> Alert Rules
+  level: Manage
+  operation_count: 4
+  examples:
+  - addAlertRule
+  - deleteAlertRuleById
+  - patchAlertRuleById
+  - updateAlertRuleById
+- permission: Settings -> Netscans
+  level: Manage
+  operation_count: 4
+  examples:
+  - addNetscan
+  - deleteNetscanById
+  - patchNetscan
+  - updateNetscan
+- permission: Settings -> Ops Notes
+  level: Manage
+  operation_count: 4
+  examples:
+  - addOpsNote
+  - deleteOpsNoteById
+  - patchOpsNoteById
+  - updateOpsNoteById
+- permission: Settings -> Role Access
+  level: View
+  operation_count: 4
+  examples:
+  - getAdminById
+  - getAdminList
+  - getRoleById
+  - getRoleList
+- permission: Users -> Permissions
+  level: View permissions on Services and Resources page
+  operation_count: 4
+  examples:
+  - collectDeviceConfigSourceConfig
+  - getDeviceConfigSourceConfigById
+  - getDeviceConfigSourceConfigList
+  - getDeviceDatasourceInstanceData
+- permission: Modules -> Access Groups
+  level: View (all)
+  operation_count: 3
+  examples:
+  - getAppliesToFunctionList
+  - getDataSourceOverviewGraphById
+  - getUpdateReasonListByDataSourceId
+- permission: Note
+  level: No RBAC permissions needed
+  operation_count: 3
+  examples:
+  - getCollectorVersionList
+  - getExternalApiStats
+  - getRecommendationCategoriesList
+- permission: Resources
+  level: Acknowledge
+  operation_count: 3
+  examples:
+  - ackAlertById
+  - addAlertNoteById
+  - escalatedAlertById
+- permission: Resources -> Configs tab only visible with Manage permissions
+  level: Unchecked
+  operation_count: 3
+  examples:
+  - collectDeviceConfigSourceConfig
+  - getDeviceConfigSourceConfigById
+  - getDeviceConfigSourceConfigList
+- permission: Cost Optimization -> Recommendations
+  level: View
+  operation_count: 2
+  examples:
+  - getRecommendationById
+  - getRecommendationsList
+- permission: Logs & Traces -> Partitions
+  level: View
+  operation_count: 2
+  examples:
+  - getAllLogPartitions
+  - getPartitionById
+- permission: Logs -> Log query group
+  level: View
+  operation_count: 2
+  examples:
+  - getLogQueriesByGroupId
+  - getLogQueryGroupList
+- permission: Modules -> Default Access Group
+  level: Manage
+  operation_count: 2
+  examples:
+  - importDiagnosticSourceJson
+  - importEventSourceJson
+- permission: Modules -> My Module Toolbox -> All Installed Modules
+  level: View
+  operation_count: 2
+  examples:
+  - getConfigSourceList
+  - getUpdateReasonListByConfigSourceId
+- permission: Note
+  level: No RBAC permission needed
+  operation_count: 2
+  examples:
+  - patchDefaultDashboard
+  - updateDefaultDashboard
+- permission: Setting -> Alert settings -> Audit Logs
+  level: View
+  operation_count: 2
+  examples:
+  - getAuditLogById
+  - getAuditLogList
+- permission: Settings -> Account Information
+  level: View
+  operation_count: 2
+  examples:
+  - getMetricsSummary
+  - getMetricsUsage
+- permission: Settings -> Alert Settings -> Escalation Chains
+  level: View
+  operation_count: 2
+  examples:
+  - getEscalationChainById
+  - getEscalationChainList
+- permission: Settings -> Netscans
+  level: View
+  operation_count: 2
+  examples:
+  - getNetscanById
+  - getNetscanList
+- permission: Settings -> Ops Notes
+  level: View
+  operation_count: 2
+  examples:
+  - getOpsNoteById
+  - getOpsNoteList
+- permission: Settings -> Usage
+  level: View
+  operation_count: 2
+  examples:
+  - getContractInfoByCompany
+  - getFocusCostUsage
+- permission: Host -> Diagnostic Source
+  level: NA
+  operation_count: 1
+  examples:
+  - executeDiagnosticsManually
+- permission: Host -> remediation Source
+  level: NA
+  operation_count: 1
+  examples:
+  - executeRemediationManually
+- permission: Modules
+  level: View
+  operation_count: 1
+  examples:
+  - getConfigSourceById
+- permission: Modules ->  Access Group
+  level: View
+  operation_count: 1
+  examples:
+  - getJobMonitorById
+- permission: Modules ->  All Installed modules
+  level: View
+  operation_count: 1
+  examples:
+  - getJobMonitorList
+- permission: Modules -> Access Groups
+  level: Manage (all)
+  operation_count: 1
+  examples:
+  - importDataSource
+- permission: Modules -> Access Groups -> Map and unmap Modules to Access Groups
+  level: Checked
+  operation_count: 1
+  examples:
+  - mapUnMapModuleToAccessGroup
+- permission: Modules -> My Module Toolbox -> All Installed modules
+  level: View
+  operation_count: 1
+  examples:
+  - getAppliesToFunctionById
+- permission: Setting -> Alert settings -> Alert Rules
+  level: View
+  operation_count: 1
+  examples:
+  - getAlertRuleList
+- permission: Settings -> Alert settings -> Alert Rules
+  level: View
+  operation_count: 1
+  examples:
+  - getAlertRuleById
+- permission: Settings -> Integrations
+  level: View
+  operation_count: 1
+  examples:
+  - getIntegrationAuditLogs
+- permission: Users -> Permissions
+  level: View permissions for all pages
+  operation_count: 1
+  examples:
+  - getOpsNoteList
+- permission: Users -> Permissions
+  level: View permissions on Resources page
+  operation_count: 1
+  examples:
+  - getDeviceEventsourceList
+- permission: Users -> Permissions
+  level: View permissions on Services and Website page
+  operation_count: 1
+  examples:
+  - getWebsiteCheckpointDataById
+- permission: Users -> Permissions -> Websites
+  level: Checked
+  operation_count: 1
+  examples:
+  - getWebsiteGraphData
+- permission: Websites
+  level: Acknowledge
+  operation_count: 1
+  examples:
+  - addAlertNoteById

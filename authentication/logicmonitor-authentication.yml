@@ -1,0 +1,62 @@
+specification: API Commons Authentication
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: https://www.logicmonitor.com/support/rest-api-authentication
+docs: https://www.logicmonitor.com/support/rest-api-authentication
+spec: openapi/logicmonitor-rest-api-v3-swagger.json
+description: >-
+  LogicMonitor REST API authentication. The published v3 Swagger declares exactly one security scheme —
+  an apiKey named LMv1 carried in the Authorization header — and applies it per operation rather than
+  globally. The docs add two further methods the contract does not model: a Bearer token (the recommended
+  method for v3 and for the Python and Go SDKs) and HTTP Basic, which is v1-only and explicitly discouraged.
+  There is no OAuth 2.0, no OpenID Connect and no mutual TLS on this API.
+schemes:
+  - id: LMv1
+    type: apiKey
+    in: header
+    name: Authorization
+    declared_in_spec: true
+    format: 'Authorization: LMv1 AccessId:Signature:Timestamp'
+    signing: HMAC-SHA256, base64-encoded
+    signing_string: HTTP_VERB + TIMESTAMP_EPOCH_MS + POST_OR_PUT_BODY + RESOURCE_PATH
+    clock_skew: request timestamp must be within 30 minutes of server time
+    note: >-
+      Query parameters (filter, fields, sort, size) are NOT part of the resource path and must be excluded
+      from the signature calculation. Permissions are those of the API token's role.
+  - id: Bearer
+    type: http
+    scheme: bearer
+    in: header
+    name: Authorization
+    declared_in_spec: false
+    note: >-
+      Auto-generated per user, unique per user, no specific role required to obtain one. Recommended for
+      REST API v3 and required by the documented Python and Go v3 SDKs (configuration.auth_type = 'Bearer' /
+      config.SetBearerToken()). Partially masked with asterisks once saved in the portal.
+  - id: Basic
+    type: http
+    scheme: basic
+    in: header
+    name: Authorization
+    declared_in_spec: false
+    deprecated: true
+    note: >-
+      Supported only by REST API v1. The docs say it "may not be available with future versions of the API"
+      and recommend token-based authentication instead.
+oauth2: false
+openid_connect: false
+mutual_tls: false
+transport: HTTPS required on every request
+identity_federation:
+  sso:
+    - SAML 2.0
+    - Microsoft Entra ID (Azure Active Directory)
+    - Okta
+  scim: true
+  scim_note: >-
+    SCIM is supported for user lifecycle synchronization and de-provisioning from an IdP, gated on a
+    Manage permission for Single Sign-On. See conformance/logicmonitor-conformance.yml.
+  mfa: Two-factor authentication and passkeys are available on portal accounts; error 1412/HTTP 412 signals an unmet 2FA precondition.

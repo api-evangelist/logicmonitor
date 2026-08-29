@@ -1,89 +1,164 @@
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: LogicMonitor
 providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/rest-api-rate-limit
+docs: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/rest-api-rate-limit
+docs_last_updated: '2026-05-29'
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-29'
 tags:
   - AIOps
   - Monitoring
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the LogicMonitor API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: >-
+  Published LogicMonitor REST API rate limits, replacing the 2026-05-04 generated scaffold that carried
+  invented per-tier numbers. Limits are assigned per endpoint AND method combination, not per tier and not
+  per user — they apply to every request made for the account. LogicMonitor states it reserves the right to
+  reduce limits below these defaults when portal performance, alerting or data collection are affected.
+scope: per-account
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: X-Rate-Limit-Limit
+  remaining: X-Rate-Limit-Remaining
+  window: X-Rate-Limit-Window
+  retryAfter: null
+  policy: null
+header_notes: >-
+  X-Rate-Limit-Limit is the request limit per X-Rate-Limit-Window; X-Rate-Limit-Remaining is the requests
+  left in the current window; X-Rate-Limit-Window is the rolling window length in seconds. LogicMonitor
+  does NOT send Retry-After, and does not use the RFC 9239 RateLimit-* header family. The documented
+  recovery pattern is to sleep for X-Rate-Limit-Window seconds when X-Rate-Limit-Remaining reaches zero.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  errorCode: 1429
+  errorMessage: Too many requests (exceeded rate limits)
+limit_count: 20
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
+  - name: Default DELETE
+    scope: per-account
+    method: DELETE
+    endpoint: '*'
+    limit: 300
     timeFrame: minute
-    applies:
-      - LogicMonitor
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - name: Default GET
+    scope: per-account
+    method: GET
+    endpoint: '*'
+    limit: 500
+    timeFrame: minute
+  - name: Default PATCH
+    scope: per-account
+    method: PATCH
+    endpoint: '*'
+    limit: 250
+    timeFrame: minute
+  - name: Default POST
+    scope: per-account
+    method: POST
+    endpoint: '*'
+    limit: 200
+    timeFrame: minute
+  - name: Default PUT
+    scope: per-account
+    method: PUT
+    endpoint: '*'
+    limit: 200
+    timeFrame: minute
+  - name: Trigger RemediationSource module for host
+    scope: per-endpoint
+    method: POST
+    endpoint: /setting/remediationsources/executemanually
+    limit: 20
+    timeFrame: minute
+  - name: Trigger DiagnosticSource module for host
+    scope: per-endpoint
+    method: POST
+    endpoint: /setting/diagnosticsources/executemanually
+    limit: 20
+    timeFrame: minute
+  - name: Get a list of recommendations
+    scope: per-endpoint
+    method: GET
+    endpoint: /cost-optimization/recommendations
+    limit: 200
+    timeFrame: minute
+  - name: Get details of a specific recommendation
+    scope: per-endpoint
+    method: GET
+    endpoint: /cost-optimization/recommendations/{id}
+    limit: 200
+    timeFrame: minute
+  - name: Get recommendation categories
+    scope: per-endpoint
+    method: GET
+    endpoint: /cost-optimization/recommendations/categories
+    limit: 200
+    timeFrame: minute
+  - name: Get alert list
+    scope: per-endpoint
+    method: GET
+    endpoint: /santaba/rest/alert/alerts
+    limit: 400
+    timeFrame: minute
+  - name: Get alerts for a device
+    scope: per-endpoint
+    method: GET
+    endpoint: /santaba/rest/device/devices/{id}/alerts
+    limit: 600
+    timeFrame: minute
+  - name: Get device group list
+    scope: per-endpoint
+    method: GET
+    endpoint: /santaba/rest/device/groups
+    limit: 400
+    timeFrame: minute
+  - name: Get device group by ID
+    scope: per-endpoint
+    method: GET
+    endpoint: /santaba/rest/device/groups/{id}
     limit: 1000
-    timeFrame: month
-    applies:
-      - LogicMonitor
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    timeFrame: minute
+  - name: Get device properties
+    scope: per-endpoint
+    method: GET
+    endpoint: /santaba/rest/device/devices/{deviceId}/properties
+    limit: 700
+    timeFrame: minute
+  - name: Get device list
+    scope: per-endpoint
+    method: GET
+    endpoint: /santaba/rest/device/devices
+    limit: 700
+    timeFrame: minute
+  - name: Get device instance list
+    scope: per-endpoint
+    method: GET
+    endpoint: /santaba/rest/device/devices/{deviceId}/devicedatasources/{hdsId}/instances
+    limit: 500
+    timeFrame: minute
+  - name: Add opsnote
+    scope: per-endpoint
+    method: POST
+    endpoint: /santaba/rest/setting/opsnotes
     limit: 100
-    burst: 200
     timeFrame: minute
-    applies:
-      - LogicMonitor
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - LogicMonitor
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
+  - name: Swagger documentation
+    scope: per-endpoint
+    method: GET
+    endpoint: santaba/rest/swagger.json
+    limit: 10
     timeFrame: minute
-    applies:
-      - LogicMonitor
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+  - name: Get instances data
+    scope: per-endpoint
+    method: POST
+    endpoint: santaba/rest/device/instances/datafetch
+    limit: 5
+    timeFrame: minute
+caveats:
+  - >-
+    Defaults are documented as tested for occasional peak usage, not continuous use. LogicMonitor states it
+    gives highest precedence to portal availability and reserves the right to reduce limits from the defaults.
+  - Customers whose needs exceed these design limits are directed to their customer success manager.
+  - Endpoints not listed in the exceptions table follow the default per-method limit.

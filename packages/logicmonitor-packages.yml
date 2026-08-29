@@ -1,0 +1,146 @@
+specification: API Commons Packages
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://www.logicmonitor.com/support/logicmonitor-v3-sdk ; https://github.com/logicmonitor ;
+  registry metadata read live from registry.npmjs.org, pypi.org, proxy.golang.org, rubygems.org,
+  search.maven.org, www.powershellgallery.com and registry.terraform.io on 2026-08-29
+description: >-
+  First-party LogicMonitor client libraries, ingestion SDKs, log shippers and infrastructure-as-code
+  providers. LogicMonitor's documented SDK story for REST API v3 is Python and Go, both auto-generated
+  from the v3 Swagger with Swagger Codegen; the remaining entries are first-party data-ingestion and
+  log-forwarding libraries published from the logicmonitor GitHub organization.
+packages:
+  - name: logicmonitor-sdk
+    registry: pypi
+    url: https://pypi.org/project/logicmonitor-sdk/
+    repository: https://github.com/logicmonitor/lm-sdk-python
+    language: python
+    official: true
+    version: 3.0.256
+    published: '2026-07-30'
+    covers: REST API v3
+    note: >-
+      Documented as the LogicMonitor v3 Python SDK; install with `pip install logicmonitor-sdk`.
+      Auto-generated from the REST API v3 Swagger via Swagger Codegen. Supports LMv1 and Bearer auth.
+  - name: github.com/logicmonitor/lm-sdk-go
+    registry: go
+    url: https://pkg.go.dev/github.com/logicmonitor/lm-sdk-go
+    repository: https://github.com/logicmonitor/lm-sdk-go
+    language: go
+    official: true
+    version: v1.3.0-rc01
+    published: '2023-12-07'
+    covers: REST API v3
+    note: >-
+      Documented as the LogicMonitor v3 Go SDK. Latest module version published to proxy.golang.org is a
+      release candidate dated 2023-12-07, while the REST API v3 Swagger it wraps was last changed in the
+      v242 platform release (changelog updated 2026-07-21) — the Go SDK trails the contract it wraps.
+  - name: Logic.Monitor
+    registry: powershell-gallery
+    url: https://www.powershellgallery.com/packages/Logic.Monitor
+    repository: https://github.com/logicmonitor/lm-powershell-module
+    language: powershell
+    official: true
+    version: 7.9.6
+    published: '2026-07-27'
+    covers: REST API v3
+    note: PowerShell module for the LogicMonitor REST API; also the provider's de facto command-line surface.
+  - name: logicmonitor/logicmonitor
+    registry: terraform-registry
+    url: https://registry.terraform.io/providers/logicmonitor/logicmonitor/latest
+    repository: https://github.com/logicmonitor/terraform-provider-logicmonitor
+    language: hcl
+    official: true
+    version: 2.1.4
+    published: '2026-08-21'
+    covers: REST API v3 (infrastructure as code)
+    note: >-
+      Published Terraform provider. proxy.golang.org still reports v1.3.4 (2021-03-16) for the module path
+      because the provider is distributed through the Terraform Registry, not as an importable Go module.
+  - name: logicmonitor-api-mcp
+    registry: npm
+    url: https://www.npmjs.com/package/logicmonitor-api-mcp
+    repository: https://github.com/logicmonitor/logicmonitor-api-mcp
+    language: typescript
+    official: false
+    version: 2.1.2
+    published: '2026-05-04'
+    covers: MCP server over REST API v3
+    note: >-
+      Hosted in the logicmonitor GitHub organization but the README states plainly it is "an open-source
+      community project and is not officially supported by LogicMonitor" — recorded official:false on the
+      provider's own words.
+  - name: logicmonitor-data-sdk
+    registry: pypi
+    url: https://pypi.org/project/logicmonitor-data-sdk/
+    repository: https://github.com/logicmonitor/logicmonitor_data_sdk_py
+    language: python
+    official: true
+    version: 0.0.9b3
+    published: '2025-08-28'
+    covers: Push Metrics / log ingestion API
+    note: Pre-release versioning (0.0.9b3) after five years of publication.
+  - name: github.com/logicmonitor/lm-data-sdk-go
+    registry: go
+    url: https://pkg.go.dev/github.com/logicmonitor/lm-data-sdk-go
+    repository: https://github.com/logicmonitor/lm-data-sdk-go
+    language: go
+    official: true
+    version: v1.4.0
+    published: '2026-08-28'
+    covers: Metric and log ingestion
+    note: Most recently released first-party LogicMonitor package found in this pass.
+  - name: com.logicmonitor:lm-logs-sdk-java
+    registry: maven
+    url: https://central.sonatype.com/artifact/com.logicmonitor/lm-logs-sdk-java
+    repository: https://github.com/logicmonitor/lm-logs-sdk-java
+    language: java
+    official: true
+    version: '1.2'
+    published: '2021-03-03'
+    covers: Log ingestion
+    note: >-
+      Only artifact published under the com.logicmonitor Maven groupId; last release 2021-03-03. The
+      lm-data-sdk-java repository is still active on GitHub but publishes no Maven Central coordinate
+      under that groupId.
+  - name: fluent-plugin-lm-logs
+    registry: rubygems
+    url: https://rubygems.org/gems/fluent-plugin-lm-logs
+    repository: https://github.com/logicmonitor/lm-logs-fluentd
+    language: ruby
+    official: true
+    version: 1.2.8
+    published: '2025-07-01'
+    covers: Fluentd output plugin for LM Logs
+  - name: logstash-output-lmlogs
+    registry: rubygems
+    url: https://rubygems.org/gems/logstash-output-lmlogs
+    repository: https://github.com/logicmonitor/logstash-output-lmlogs
+    language: ruby
+    official: true
+    version: 2.0.5
+    published: '2025-07-03'
+    covers: Logstash output plugin for LM Logs
+absent:
+  - registry: npm
+    checked:
+      - lm-data-sdk-js
+      - '@logicmonitor/data-sdk'
+    result: 404
+    note: >-
+      The logicmonitor/lm-data-sdk-js repository exists on GitHub (last pushed 2023-09-25) but no matching
+      package is published to npm under either name; there is no first-party JavaScript client on a registry.
+  - registry: nuget
+    checked:
+      - LogicMonitor.Api
+      - LogicMonitor.PowerShell
+      - Serilog.Sinks.LogicMonitor
+    result: present-but-third-party
+    note: >-
+      Every LogicMonitor package on NuGet is authored by third parties (Panoramic Data Limited, David Bond,
+      Ian Kluhsman), not by LogicMonitor. The logicmonitor/lm-data-sdk-dotnet repository publishes no
+      first-party NuGet coordinate. Recorded as an honest absence rather than credited to the provider.

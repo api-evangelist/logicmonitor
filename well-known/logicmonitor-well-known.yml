@@ -1,0 +1,41 @@
+specification: API Commons Well-Known
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: probed
+source: live HTTP probes of https://www.logicmonitor.com/.well-known/* on 2026-08-29
+description: >-
+  Well-known document probe for LogicMonitor. Every standard path returned 404. Two distinct 404 bodies
+  were observed — an nginx 404 for /.well-known/security.txt and the WordPress marketing 404 template for
+  the rest — so nothing here is a soft-200 shell being mistaken for a document. No WellKnown or SecurityTxt
+  pointer is emitted, because the provider serves none of these surfaces. The API base host is a per-tenant
+  subdomain (https://{account}.logicmonitor.com) that cannot be probed anonymously and is therefore not
+  represented here.
+hosts:
+  - host: www.logicmonitor.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null

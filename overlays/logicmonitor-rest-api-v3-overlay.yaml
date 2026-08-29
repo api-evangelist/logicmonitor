@@ -1,0 +1,127 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the LogicMonitor REST API v3
+  version: 1.0.0
+x-provenance:
+  provider: LogicMonitor
+  providerId: logicmonitor
+  generated: '2026-08-29'
+  method: generated
+  extends: openapi/logicmonitor-rest-api-v3-swagger.json
+  source: >-
+    Authored by API Evangelist. Captures facts LogicMonitor publishes in its documentation but does not
+    carry in the contract itself — the server host, the Bearer security scheme, rate-limit semantics, the
+    error envelope and the version selector. Applying this overlay does not change any LogicMonitor
+    behaviour; it makes the published behaviour readable from the spec. The original spec is never mutated.
+  docs:
+    - https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    - https://www.logicmonitor.com/support/rest-api-authentication
+    - https://www.logicmonitor.com/support/rest-api-developers-guide/overview/rest-api-rate-limit
+    - https://www.logicmonitor.com/support/rest-api-status-codes
+actions:
+  - target: $.info
+    description: Record the real contact and documentation surface, which the published spec omits.
+    update:
+      contact:
+        name: LogicMonitor Support
+        url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+      termsOfService: https://www.logicmonitor.com/legal/terms-of-use
+      x-api-version-selector:
+        header: 'X-Version: 3'
+        query: v=3
+        note: Only the major version is selectable; minor and patch always return latest.
+  - target: $
+    description: >-
+      The published Swagger declares basePath /santaba/rest with NO host. Record the per-tenant host form
+      documented as https://COMPANY.logicmonitor.com/santaba/rest so a client can construct a request.
+    update:
+      x-server-template: https://{account}.logicmonitor.com/santaba/rest
+      x-server-variables:
+        account:
+          description: The customer's LogicMonitor portal subdomain.
+          example: acmecorp
+  - target: $.securityDefinitions
+    description: >-
+      Add the Bearer token scheme. It is the method LogicMonitor recommends for v3 and the one the
+      documented Python and Go SDKs use, but the published spec declares only LMv1.
+    update:
+      Bearer:
+        type: apiKey
+        in: header
+        name: Authorization
+        description: >-
+          'Authorization: Bearer <token>'. Auto-generated per user in Settings > Users > API Tokens.
+          Documented at https://www.logicmonitor.com/support/rest-api-authentication.
+  - target: $.securityDefinitions.LMv1
+    description: Document the LMv1 signing algorithm, which the spec declares as a bare apiKey with no description.
+    update:
+      description: >-
+        'Authorization: LMv1 AccessId:Signature:Timestamp' where Signature =
+        base64(HMAC-SHA256(AccessKey, HTTP_VERB + TIMESTAMP_EPOCH_MS + BODY + RESOURCE_PATH)).
+        The timestamp must be within 30 minutes of server time. Query parameters (filter, fields, sort,
+        size) are NOT part of the signed resource path.
+  - target: $.paths.*.*.responses
+    description: >-
+      Most operations declare only 200 and default. Attach the documented failure surface so an agent can
+      plan for it without reading two separate support pages.
+    update:
+      x-documented-errors:
+        '400': 'errorCode 1400 — bad request or resource dependency'
+        '401': 'errorCode 1401 — authentication failed'
+        '403': 'errorCode 1403 — permission denied (token role)'
+        '404': 'errorCode 1404 — no such resource'
+        '409': 'errorCode 1409 — record already exists'
+        '412': 'errorCode 1412 — precondition failed (two-factor authentication)'
+        '413': 'errorCode 1413 — request entity too large'
+        '429': 'errorCode 1429 — rate limit exceeded'
+        '500': 'errorCode 1500 — internal error'
+      x-error-envelope:
+        contentType: application/json
+        fields: [errorCode, errorMessage, errorDetail]
+        rfc9457: false
+  - target: $.paths.*.*
+    description: Attach rate-limit semantics, which are documented but absent from the contract.
+    update:
+      x-rate-limit:
+        headers:
+          - X-Rate-Limit-Limit
+          - X-Rate-Limit-Remaining
+          - X-Rate-Limit-Window
+        retryAfter: false
+        status: 429
+        defaultsByMethod:
+          GET: 500/min
+          POST: 200/min
+          PUT: 200/min
+          PATCH: 250/min
+          DELETE: 300/min
+        note: >-
+          Per-account, not per-user. Endpoint-specific exceptions are listed in
+          rate-limits/logicmonitor-rate-limits.yml.
+  - target: $.paths['/device/devices/{id}'].delete
+    description: >-
+      Flag the reversal window on the highest-consequence delete an agent can call. LogicMonitor publishes a
+      seven-day Recently Deleted grace period, but exposes NO restore operation in this API.
+    update:
+      x-reversibility:
+        reversible: true
+        via: UI only — Recently Deleted folder in the Resources tree
+        api_operation: null
+        window: P7D
+        source: https://www.logicmonitor.com/support/deleting-and-restoring-resource-groups
+  - target: $.paths['/device/groups/{id}'].delete
+    description: Flag cascade-delete blast radius, which the spec does not warn about at all.
+    update:
+      x-reversibility:
+        reversible: true
+        via: UI only — Recently Deleted folder; restoring a group restores its subgroups and member resources
+        api_operation: null
+        window: P7D
+        source: https://www.logicmonitor.com/support/deleting-and-restoring-resource-groups
+      x-blast-radius: >-
+        Cascade Delete removes the group, its subgroups and ALL member resources across the entire account,
+        including resources that also belong to other groups.
+  - target: $.tags
+    description: Record that the tag set is the resource taxonomy this API is navigated by.
+    update:
+      x-tag-count: 56

@@ -1,0 +1,331 @@
+specification: API Commons Data Model
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: derived
+source: >-
+  Derived from the 743 definitions and 403 operations in
+  openapi/logicmonitor-rest-api-v3-swagger.json (LogicMonitor REST API v3 Swagger), by following $ref links
+  and id-reference fields between schemas.
+description: >-
+  Entity-relationship graph for the LogicMonitor REST API v3. The model is a monitoring hierarchy: a
+  Collector polls Devices, Devices belong to Device Groups, a Device applies DataSources which instantiate
+  Instances, Instances produce Datapoints which raise Alerts, and Alerts route through Alert Rules to
+  Escalation Chains. Identifiers are opaque integers scoped to the tenant portal — there are no prefixed or
+  globally unique ids, so an id is only meaningful alongside the account it came from.
+identifiers:
+  style: integer
+  prefixed: false
+  note: >-
+    Every entity uses a bare numeric `id`. The API has no natural-key lookup, so agents must resolve names
+    to ids via list+filter before acting. `searchId` on pagination envelopes is a search-session handle,
+    not an entity id.
+entities:
+  - name: Device
+    schema: '#/definitions/Device'
+    primary_operation: getDeviceList
+    key: id
+    relationships:
+      - type: belongs_to_many
+        target: DeviceGroup
+        via: hostGroupIds
+      - type: belongs_to
+        target: Collector
+        via: currentCollectorId
+      - type: belongs_to
+        target: CollectorGroup
+        via: autoBalancedCollectorGroupId
+      - type: has_many
+        target: DeviceDataSource
+        via: getDeviceDatasourceList
+      - type: has_many
+        target: DeviceProperty
+        via: getDevicePropertyList
+      - type: has_many
+        target: Alert
+        via: getAlertListByDeviceId
+      - type: has_many
+        target: SDT
+        via: getAllSDTListByDeviceId
+  - name: DeviceGroup
+    schema: '#/definitions/DeviceGroup'
+    primary_operation: getDeviceGroupList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: DeviceGroup
+        via: parentId
+        note: Self-referential tree; fullPath carries the materialized path.
+      - type: has_many
+        target: Device
+        via: getImmediateDeviceListByDeviceGroupId
+      - type: has_many
+        target: DeviceGroup
+        via: subGroups
+      - type: belongs_to
+        target: Collector
+        via: defaultCollectorId
+    discriminator:
+      field: appliesTo
+      note: >-
+        A non-empty appliesTo makes the group DYNAMIC — membership is rule-evaluated and devices cannot be
+        assigned to it manually. An empty appliesTo makes it static. This is the single most consequential
+        branch in the model for an agent creating devices.
+  - name: Collector
+    schema: '#/definitions/Collector'
+    primary_operation: getCollectorList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: CollectorGroup
+        via: collectorGroupId
+      - type: belongs_to
+        target: Collector
+        via: backupAgentId
+        note: Failover partner.
+      - type: belongs_to
+        target: EscalationChain
+        via: escalatingChainId
+      - type: has_many
+        target: Device
+        via: currentCollectorId (inverse)
+  - name: CollectorGroup
+    schema: '#/definitions/CollectorGroup'
+    primary_operation: getCollectorGroupList
+    key: id
+    relationships:
+      - type: has_many
+        target: Collector
+        via: getCollectorGroupById
+  - name: DeviceDataSource
+    schema: '#/definitions/DeviceDataSource'
+    primary_operation: getDeviceDatasourceList
+    key: id
+    note: The join between a Device and a DataSource definition; its id is the hdsId in instance paths.
+    relationships:
+      - type: belongs_to
+        target: Device
+        via: deviceId
+      - type: belongs_to
+        target: DataSource
+        via: dataSourceId
+      - type: has_many
+        target: DeviceDataSourceInstance
+        via: getDeviceDatasourceInstanceList
+  - name: DeviceDataSourceInstance
+    schema: '#/definitions/DeviceDataSourceInstance'
+    primary_operation: getDeviceDatasourceInstanceList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: DeviceDataSource
+        via: deviceDataSourceId
+      - type: has_many
+        target: Datapoint
+        via: dataPointId
+      - type: has_many
+        target: AlertSetting
+        via: getDeviceDatasourceInstanceAlertSettingListOfDSI
+      - type: has_many
+        target: TimeSeriesData
+        via: getDeviceDatasourceInstanceData
+  - name: DataSource
+    schema: '#/definitions/DataSource'
+    primary_operation: getDatasourceList
+    key: id
+    note: >-
+      A LogicModule definition (also ConfigSource, EventSource, PropertySource, TopologySource, LogSource,
+      JobMonitor, DiagnosticSource, RemediationSource — same shape, different module type).
+    relationships:
+      - type: has_many
+        target: Device
+        via: getAssociatedDeviceListByDataSourceId
+      - type: has_many
+        target: OverviewGraph
+        via: getDataSourceOverviewGraphList
+  - name: Alert
+    schema: '#/definitions/Alert'
+    primary_operation: getAlertList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: Device
+        via: monitorObjectId / resourceId
+      - type: belongs_to
+        target: DeviceDataSourceInstance
+        via: instanceId
+      - type: belongs_to
+        target: Datapoint
+        via: dataPointId
+      - type: belongs_to
+        target: AlertRule
+        via: ruleId
+      - type: belongs_to
+        target: EscalationChain
+        via: chain / subChainId
+      - type: has_one
+        target: SDT
+        via: SDT
+        note: sdted boolean marks an alert suppressed by a scheduled downtime.
+    lifecycle_fields: [severity, startEpoch, endEpoch, ackedBy, ackedEpoch, ackComment, cleared]
+    severity_scale:
+      2: warning
+      3: error
+      4: critical
+  - name: AlertRule
+    schema: '#/definitions/AlertRule'
+    primary_operation: getAlertRuleList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: EscalationChain
+        via: escalatingChainId
+  - name: EscalationChain
+    schema: '#/definitions/EscalatingChain'
+    primary_operation: getEscalationChainList
+    key: id
+    relationships:
+      - type: has_many
+        target: RecipientGroup
+        via: destinations
+  - name: SDT
+    schema: '#/definitions/SDT'
+    primary_operation: getSDTList
+    key: id
+    note: >-
+      Polymorphic on sdtType — ResourceSDT, ResourceGroupSDT, WebsiteSDT, WebsiteGroupSDT, CollectorSDT,
+      DeviceDataSourceSDT, DeviceDataSourceInstanceSDT — each variant carrying the id of the object it
+      suppresses.
+    relationships:
+      - type: belongs_to
+        target: Device
+        via: deviceId
+      - type: belongs_to
+        target: DeviceGroup
+        via: deviceGroupId
+      - type: belongs_to
+        target: Website
+        via: websiteId
+      - type: belongs_to
+        target: Collector
+        via: collectorId
+  - name: Website
+    schema: '#/definitions/Website'
+    primary_operation: getWebsiteList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: WebsiteGroup
+        via: groupId
+      - type: has_many
+        target: WebsiteCheckPoint
+        via: checkpoints
+      - type: has_many
+        target: Step
+        via: steps
+      - type: has_many
+        target: Alert
+        via: getWebsiteAlertListByWebsiteId
+  - name: WebsiteGroup
+    schema: '#/definitions/WebsiteGroup'
+    primary_operation: getWebsiteGroupList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: WebsiteGroup
+        via: parentId
+      - type: has_many
+        target: Website
+        via: getImmediateWebsiteListByWebsiteGroupId
+  - name: Dashboard
+    schema: '#/definitions/Dashboard'
+    primary_operation: getDashboardList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: DashboardGroup
+        via: groupId
+      - type: has_many
+        target: Widget
+        via: getWidgetListByDashboardId
+      - type: has_many
+        target: WidgetToken
+        via: widgetTokens
+  - name: Widget
+    schema: '#/definitions/Widget'
+    primary_operation: getWidgetList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: Dashboard
+        via: dashboardId
+      - type: has_many
+        target: TimeSeriesData
+        via: getWidgetDataById
+  - name: Admin
+    schema: '#/definitions/Admin'
+    primary_operation: getAdminList
+    key: id
+    note: The API entity behind what the UI and the MCP server both call a "user".
+    relationships:
+      - type: has_many
+        target: Role
+        via: roles
+      - type: has_many
+        target: ApiToken
+        via: apiTokens
+    flags: [apionly, twoFAEnabled, forcePasswordChange, acceptEULA]
+  - name: Role
+    schema: '#/definitions/Role'
+    primary_operation: getRoleList
+    key: id
+    note: Carries the privilege set that every LMv1 / Bearer token inherits.
+  - name: ApiToken
+    schema: '#/definitions/APIToken'
+    primary_operation: getApiTokenList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: Admin
+        via: adminId
+  - name: OpsNote
+    schema: '#/definitions/OpsNote'
+    primary_operation: getOpsNoteList
+    key: id
+    relationships:
+      - type: has_many
+        target: OpsNoteScope
+        via: scopes
+        note: Scopes bind a note to a device, group, website or the whole account.
+      - type: has_many
+        target: OpsNoteTag
+        via: tags
+  - name: Report
+    schema: '#/definitions/ReportBase'
+    primary_operation: getReportList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: ReportGroup
+        via: groupId
+  - name: Netscan
+    schema: '#/definitions/Netscan'
+    primary_operation: getNetscanList
+    key: id
+    relationships:
+      - type: belongs_to
+        target: Collector
+        via: collector
+      - type: belongs_to
+        target: DeviceGroup
+        via: duplicate / group assignment
+core_traversal:
+  - CollectorGroup -> Collector -> Device -> DeviceDataSource -> DeviceDataSourceInstance -> Datapoint -> Alert -> AlertRule -> EscalationChain -> RecipientGroup
+  - DeviceGroup (tree, parentId) -> Device
+  - WebsiteGroup (tree, parentId) -> Website -> WebsiteCheckPoint
+  - Dashboard -> Widget -> TimeSeriesData
+counts:
+  definitions: 743
+  operations: 403
+  paths: 220

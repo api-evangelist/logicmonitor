@@ -1,0 +1,65 @@
+specification: API Commons Webhooks
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://www.logicmonitor.com/support/custom-http-delivery ;
+  https://www.logicmonitor.com/integrations/webhooks ;
+  https://github.com/logicmonitor/alert-integrations
+description: >-
+  LogicMonitor publishes NO AsyncAPI document — https://www.logicmonitor.com/asyncapi.yaml returns 404.
+  Its outbound event surface is Custom HTTP Delivery: alert notifications pushed to an operator-defined URL
+  as HTTP GET or POST, with the payload body authored BY THE CUSTOMER from LogicMonitor alert tokens. That
+  inversion is the important fact about this surface — there is no fixed event schema to publish, because
+  the schema is whatever the subscriber writes into the integration template. LogicMonitor maintains a
+  GitHub repository of importable example templates for common destinations.
+asyncapi_document: null
+asyncapi_probed:
+  - url: https://www.logicmonitor.com/asyncapi.yaml
+    status: 404
+event_surface:
+  style: outbound-webhook
+  name: Custom HTTP Delivery
+  docs: https://www.logicmonitor.com/support/custom-http-delivery
+  direction: outbound (LogicMonitor -> subscriber)
+  methods: [POST, GET]
+  payload:
+    schema_published: false
+    templating: >-
+      Payload is defined by the operator using LogicMonitor alert tokens (variables), so it can be shaped to
+      whatever the receiving system parses. GET variants append form data to the URL.
+  delivery_scope: >-
+    Configured as an alert delivery method attached to escalation chains and alert rules; portable across
+    portals via import/export of Custom HTTP integrations (introduced in platform version 118).
+  triggers:
+    - state: New
+      default: true
+      description: Alert first generated.
+    - state: Acknowledged
+      default: false
+      description: A previously generated alert is acknowledged.
+    - state: Cleared
+      default: false
+      description: The alert condition is no longer met.
+    - state: Escalated / De-escalated
+      default: false
+      description: The alert increases or decreases in severity.
+  security:
+    signature: null
+    note: >-
+      No webhook signing secret or signature header is documented. Authentication to the receiving endpoint
+      is whatever the operator embeds in the template (header, bearer token, or URL token).
+  replay: null
+  retries: not documented
+templates:
+  repository: https://github.com/logicmonitor/alert-integrations
+  description: LogicMonitor Custom HTTP Alert Integrations for delivering alert payloads to ITSM and other tools.
+  official: true
+inbound_ingestion:
+  note: >-
+    Distinct from webhooks: LogicMonitor also accepts pushed telemetry inbound via the Push Metrics REST API,
+    the LM Logs ingestion API, OpenTelemetry/OTLP for traces, and OpenMetrics/Prometheus exposition for
+    metrics. Those are ingestion surfaces, not event subscriptions, and none is described by an AsyncAPI
+    document either.

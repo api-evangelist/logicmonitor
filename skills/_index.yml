@@ -1,0 +1,48 @@
+specification: API Commons Agent Skills
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: generated
+source: >-
+  Authored by API Evangelist from openapi/logicmonitor-rest-api-v3-swagger.json. LogicMonitor publishes no
+  AGENTS.md, no skills/ directory and no provider-authored agent skills — https://www.logicmonitor.com/llms.txt
+  returns 404. Every operationId, permission and rate limit referenced in these skills was verified against
+  the published v3 Swagger and the support documentation; nothing is invented.
+api: LogicMonitor REST API v3
+base_url: https://{account}.logicmonitor.com/santaba/rest
+skills:
+  - name: logicmonitor-onboard-a-device
+    file: skills/logicmonitor-onboard-a-device.md
+    summary: Resolve a live Collector and a static resource group, create the device, set properties, confirm DataSources.
+    operations: [getCollectorList, getDeviceGroupList, addDevice, addDeviceProperty, getDeviceDatasourceList, patchDevice]
+    write: true
+  - name: logicmonitor-triage-alerts
+    file: skills/logicmonitor-triage-alerts.md
+    summary: Pull the alert queue, drop SDT'd and acknowledged noise, acknowledge with a note, record an Ops Note.
+    operations: [getAlertList, getAlertById, getAlertListByDeviceId, ackAlertById, addAlertNoteById, addOpsNote]
+    write: true
+    irreversible: [ackAlertById]
+  - name: logicmonitor-schedule-maintenance
+    file: skills/logicmonitor-schedule-maintenance.md
+    summary: Create the narrowest correct SDT type for a change window and end it when the work finishes.
+    operations: [getDeviceList, getDeviceGroupList, addSDT, getSDTList, getSdtById, patchSdtById, deleteSdtById]
+    write: true
+    reversible: true
+  - name: logicmonitor-pull-performance-data
+    file: skills/logicmonitor-pull-performance-data.md
+    summary: Walk device -> DataSource -> instance -> data, respecting the 5/min bulk datafetch limit.
+    operations: [getDeviceList, getDeviceDatasourceList, getDeviceDatasourceInstanceList, getDeviceDatasourceInstanceData, fetchDeviceInstancesData]
+    write: false
+shared_rules:
+  - Send X-Version: 3 (or ?v=3) on every request; the default version is otherwise implicit.
+  - The host is the customer's own portal subdomain — https://{account}.logicmonitor.com/santaba/rest.
+  - LMv1 signatures exclude query parameters from the signed resource path and expire after 30 minutes.
+  - There is no idempotency key. Look before you create; a duplicate returns 1409.
+  - On 429/1429 sleep X-Rate-Limit-Window seconds. No Retry-After header is sent.
+  - DELETE on a resource or group is restorable for seven days through the UI only — not through this API.
+cross_links:
+  conventions: conventions/logicmonitor-conventions.yml
+  errors: errors/logicmonitor-problem-types.yml
+  rate_limits: rate-limits/logicmonitor-rate-limits.yml
+  permissions: scopes/logicmonitor-scopes.yml

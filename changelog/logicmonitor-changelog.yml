@@ -1,0 +1,92 @@
+specification: API Commons ChangeLog
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: https://www.logicmonitor.com/support/rest-api-change-log
+docs: https://www.logicmonitor.com/support/rest-api-change-log
+docs_last_updated: '2026-07-21'
+also: https://www.logicmonitor.com/release-notes
+description: >-
+  LogicMonitor publishes a REST API Change Log keyed to platform release numbers rather than to dates or
+  semantic versions. Entries record endpoints added and removed against the v3 Swagger, the v3 Python SDK
+  and the v3 Go SDK together. There is no per-entry date on the page — only the page's own last-updated
+  stamp — so the dates below are the page stamp, not per-release publication dates.
+scheme: platform-release
+scheme_note: >-
+  Release identifiers are of the form vNNN (v224, v228, v232, v237, v239, v242) and are NOT the API version.
+  The API version is 3 for all of them. A consumer cannot map a release number to a date from this page.
+current_version: v3
+current_release: v242
+entries:
+  - release: v242
+    date: null
+    page_last_updated: '2026-07-21'
+    breaking: true
+    additions:
+      - GET /setting/collector/collectors/{id}/downloadToken — one-time Collector download token
+      - POST /setting/collector/collectors/{collectorId}/services/restart — schedule a Collector restart
+      - POST /setting/collector/collectors/{collectorId}/services/triggerStatusCheck
+      - GET /setting/collector/collectors/upgradeHistory
+      - GET /setting/collector/collectors/{collectorId}/logs
+      - GET /setting/collector/collectors/{collectorId}/logs/{fileName}
+      - POST /setting/collector/sizing — Collector sizing recommendations
+      - GET /setting/collector/groups/{id}/collectors
+      - POST /log/logquerygroups/import
+    removals:
+      - PATCH /setting/action/rules/{id}/status
+      - PATCH /setting/collector/collectors/{id}/agentloglevels/{component}
+      - PUT /setting/collector/collectors/{id}/agentloglevels/{component}
+    highlights: >-
+      Per-component Collector log-level updates were replaced by a bulk
+      PUT /setting/collector/collectors/{id}/agentloglevels. This is a removal inside a stable major
+      version, announced only here.
+  - release: v239
+    date: null
+    breaking: false
+    additions:
+      - RemediationSource module CRUD (POST/GET/PUT/PATCH/DELETE /setting/remediationsources) plus /executemanually
+      - Action Chain CRUD (/setting/action/chains)
+      - Action Rule CRUD (/setting/action/rules) plus /status
+      - GET /setting/diagnosticRemediation/executionResults
+      - GET /setting/diagnosticRemediation/list
+    highlights: Automated Diagnostics and Remediation became API-addressable.
+  - release: v237
+    date: null
+    breaking: false
+    additions:
+      - LogAlertGroups CRUD (/logpipelines)
+      - LogAlerts CRUD (/logpipelines/processors) plus enable/disable
+      - GET /setting/collector/collectors/{collectorId}/services/getStatusCheck
+      - GET /setting/collector/collectors/{collectorId}/events
+      - Collector agent log level get/patch/put
+    highlights: Log pipeline configuration exposed to the API.
+  - release: v232
+    date: null
+    breaking: false
+    additions:
+      - DiagnosticSource module CRUD plus /executemanually and /importjson
+      - Log Query Groups CRUD plus /move and /logqueries
+      - POST /log/partitions/triggerUsageExceeded/{id}/{limit}/{value}
+  - release: v228
+    date: null
+    breaking: false
+    additions:
+      - JSON import endpoints across every LogicModule type — DataSource, TopologySource, LogSource, ConfigSource, JobMonitor, EventSource, PropertySource, OID, AppliesToFunctions
+    highlights: JSON module import added alongside the pre-existing XML import.
+  - release: v224
+    date: null
+    breaking: false
+    additions:
+      - Cost Optimization Recommendations endpoints (/cost-optimization/recommendations)
+    highlights: >-
+      x-minimum-permissions metadata was added to all endpoints per the changelog. NOTE — the publicly
+      served copy of the Swagger at /swagger-ui-master/dist/swagger.json contains no x-minimum-permissions
+      key on any of its 235 operations, so that metadata is not reaching the public artifact.
+gaps:
+  - No dates on individual entries.
+  - No RSS, Atom or JSON feed for API changes.
+  - >-
+    Removals appear in the changelog only; they are not flagged as deprecated:true in the spec beforehand
+    and no Sunset header is emitted. See lifecycle/logicmonitor-lifecycle.yml.

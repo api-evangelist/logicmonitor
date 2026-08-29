@@ -1,70 +1,197 @@
 aid: logicmonitor
 name: LogicMonitor
 description: >-
-  LogicMonitor is an AI-powered infrastructure monitoring and observability platform for hybrid IT environments.
+  LogicMonitor is an AI-powered hybrid observability and AIOps platform that monitors infrastructure,
+  cloud and multi-cloud estates, containers, networks, databases, storage, logs, traces, websites and
+  internet performance from a single SaaS portal, with an agentic AIOps layer (Edwin AI) for event
+  correlation and governed remediation. Everything the portal does is addressable through the LogicMonitor
+  REST API v3 — a published Swagger 2.0 contract of 220 paths and 403 operations covering devices, device
+  groups, collectors, alerts, scheduled downtime, dashboards, websites, reports, log pipelines, cost
+  optimization and user administration, with per-operation x-minimum-permissions metadata. First-party
+  Python, Go, PowerShell and Terraform tooling wraps it, and telemetry can be pushed in over OpenTelemetry
+  OTLP, OpenMetrics/Prometheus exposition, and the Push Metrics and LM Logs ingestion APIs.
 type: Index
 deliveryModel:
-  model: unknown
+  model: saas
   open_source: false
-  commercial: false
-  callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call your own tenant endpoint
+  confidence: high
   source:
-  - none
-  generated: '2026-08-28'
+  - openapi
+  - authentication
+  generated: '2026-08-29'
   method: derived
 accessModel:
-  pricing: freemium
-  onboarding: unknown
-  trial: false
+  pricing: quote
+  onboarding: trial
+  trial: true
   try_now: false
   public: false
-  label: Freemium
-  confidence: medium
+  label: 14-day trial, pricing by quote
+  confidence: high
   source:
   - plans
-  generated: '2026-07-22'
-  method: derived
+  generated: '2026-08-29'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/logicmonitor.png
 tags:
   - AIOps
   - Monitoring
+  - Observability
+  - Infrastructure
+  - Log Management
+  - Network Monitoring
+  - Cloud Monitoring
+  - Alerting
+  - Synthetic Monitoring
+  - OpenTelemetry
+  - ITOps
 url: >-
   https://raw.githubusercontent.com/api-evangelist/logicmonitor/refs/heads/main/apis.yml
 created: '2026-03-27'
-modified: '2026-03-27'
+modified: '2026-08-29'
 specificationVersion: '0.23'
 apis:
   - aid: logicmonitor:logicmonitor
-    name: LogicMonitor
+    name: LogicMonitor REST API v3
     description: >-
-      LogicMonitor is an AI-powered infrastructure monitoring and observability platform for hybrid IT environments.
-    humanURL: https://www.logicmonitor.com
+      The LogicMonitor platform API. Swagger 2.0, 220 paths, 403 operations and 743 definitions covering
+      devices and device groups, collectors and collector groups, alerts, alert rules and escalation
+      chains, scheduled downtime, dashboards and widgets, websites and website groups, datasources and
+      instances, time-series data, log pipelines, reports, netscans, cost-optimization recommendations,
+      users, roles, API tokens and audit logs. Served per tenant at
+      https://{account}.logicmonitor.com/santaba/rest, versioned by an X-Version header or ?v= query
+      parameter, and authenticated with a Bearer token or an LMv1 HMAC-SHA256 signature. Every operation
+      declares x-minimum-permissions, the minimum LogicMonitor role permission it requires.
+    humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
+    baseURL: https://{account}.logicmonitor.com/santaba/rest
     tags:
       - AIOps
+      - Monitoring
+      - Observability
+      - Infrastructure
+      - Alerting
     properties:
-      - type: Documentation
-        url: https://www.logicmonitor.com/support
+      - type: OpenAPI
+        url: openapi/logicmonitor-rest-api-v3-swagger.json
+      - type: OpenAPI
+        url: openapi/logicmonitor-rest-api-v2-swagger.json
+      - type: APIReference
+        url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+      - type: DeveloperPortal
+        url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+      - type: GettingStarted
+        url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+      - type: Authentication
+        url: authentication/logicmonitor-authentication.yml
+      - type: Conventions
+        url: conventions/logicmonitor-conventions.yml
+      - type: DataModel
+        url: data-model/logicmonitor-data-model.yml
+      - type: ErrorCatalog
+        url: errors/logicmonitor-problem-types.yml
+      - type: Overlay
+        url: overlays/logicmonitor-rest-api-v3-overlay.yaml
+      - type: RateLimits
+        url: rate-limits/logicmonitor-rate-limits.yml
+      - type: Webhooks
+        url: asyncapi/logicmonitor-webhooks.yml
+  - aid: logicmonitor:logicmonitor-mcp
+    name: LogicMonitor MCP Server
+    description: >-
+      A Model Context Protocol server over the LogicMonitor REST API v3, published to npm as
+      logicmonitor-api-mcp and hosted in the LogicMonitor GitHub organization, exposing 13
+      resource-shaped tools for devices, device groups, alerts, websites, collectors, users, dashboards,
+      device data, scheduled downtime, ops notes and session state. Local stdio only — there is no
+      vendor-hosted endpoint — and its README states it is a community project not officially supported
+      by LogicMonitor.
+    humanURL: https://github.com/logicmonitor/logicmonitor-api-mcp
+    tags:
+      - MCP
+      - AIOps
+      - Monitoring
+    properties:
+      - type: MCPServer
+        url: mcp/logicmonitor-mcp.yml
+      - type: ToolCrosswalk
+        url: mcp/logicmonitor-tool-crosswalk.yml
+      - type: SourceCode
+        url: https://github.com/logicmonitor/logicmonitor-api-mcp
 common:
-  - type: TrustCenter
-    url: security/logicmonitor-trust-center.yml
-  - type: DomainSecurity
-    url: security/logicmonitor-domain-security.yml
-  - type: GitHubOrganization
-    url: https://github.com/logicmonitor
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/logicmonitor
   - type: Website
     url: https://www.logicmonitor.com
   - type: Documentation
     url: https://www.logicmonitor.com/support
+  - type: DeveloperPortal
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+  - type: APIReference
+    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+  - type: GettingStarted
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+  - type: Support
+    url: https://www.logicmonitor.com/support
+  - type: Community
+    url: https://community.logicmonitor.com/
+  - type: Blog
+    url: https://www.logicmonitor.com/blog
+  - type: GitHubOrganization
+    url: https://github.com/logicmonitor
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/logicmonitor
   - type: Integrations
     url: https://www.logicmonitor.com/integrations
+  - type: Pricing
+    url: https://www.logicmonitor.com/pricing
+  - type: SignUp
+    url: https://www.logicmonitor.com/signup
+  - type: TermsOfService
+    url: https://www.logicmonitor.com/legal/terms-of-use
+  - type: PrivacyPolicy
+    url: https://www.logicmonitor.com/legal/privacy-policy
+  - type: StatusPage
+    url: https://status.logicmonitor.com/
+  - type: ChangeLog
+    url: changelog/logicmonitor-changelog.yml
+  - type: Lifecycle
+    url: lifecycle/logicmonitor-lifecycle.yml
+  - type: Plans
+    url: plans/logicmonitor-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/logicmonitor-rate-limits.yml
+  - type: Packages
+    url: packages/logicmonitor-packages.yml
+  - type: SDKs
+    url: packages/logicmonitor-packages.yml
+  - type: CLI
+    url: cli/logicmonitor-cli.yml
+  - type: Conformance
+    url: conformance/logicmonitor-conformance.yml
+  - type: Compliance
+    url: security/logicmonitor-trust-center.yml
+  - type: TrustCenter
+    url: security/logicmonitor-trust-center.yml
+  - type: DomainSecurity
+    url: security/logicmonitor-domain-security.yml
+  - type: Authentication
+    url: authentication/logicmonitor-authentication.yml
+  - type: LLMsTxt
+    url: llms/logicmonitor-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Webhooks
+    url: asyncapi/logicmonitor-webhooks.yml
 integrations:
   - name: See integrations
+    url: https://www.logicmonitor.com/integrations
   - url: https://www.logicmonitor.com/feed/
     type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-29'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v1

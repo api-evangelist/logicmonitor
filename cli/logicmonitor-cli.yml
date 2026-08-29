@@ -1,0 +1,53 @@
+specification: API Commons CLI
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://github.com/logicmonitor/lm-powershell-module ;
+  https://www.powershellgallery.com/packages/Logic.Monitor ;
+  https://github.com/logicmonitor/lmc
+description: >-
+  LogicMonitor ships no branded `lm` binary. Its command-line surface is the first-party PowerShell module
+  Logic.Monitor, which wraps REST API v3 as verb-noun cmdlets, plus a narrow Helm plugin for the LM
+  Container chart. Recorded here because the PowerShell module is genuinely the way LogicMonitor customers
+  drive the API from a shell; it is also listed in packages/ as a library.
+clis:
+  - name: Logic.Monitor
+    kind: powershell-module
+    official: true
+    version: 7.9.6
+    published: '2026-07-27'
+    repository: https://github.com/logicmonitor/lm-powershell-module
+    registry: https://www.powershellgallery.com/packages/Logic.Monitor
+    install:
+      - 'Install-Module -Name Logic.Monitor'
+    auth: LMv1 access id + access key, or Bearer token
+    command_style: PowerShell verb-noun (Get-LM*, New-LM*, Set-LM*, Remove-LM*)
+    surface:
+      - group: Session
+        note: Connect to a portal before any other cmdlet.
+      - group: Devices and device groups
+      - group: Alerts and SDTs
+      - group: Collectors and collector groups
+      - group: Dashboards and widgets
+      - group: Users, roles and API tokens
+      - group: Websites and website groups
+    surface_note: >-
+      Command groups mirror the REST resource families in
+      openapi/logicmonitor-rest-api-v3-swagger.json. The exhaustive cmdlet list was not enumerated in this
+      pass — it is published in the repository, not in a machine-readable manifest.
+  - name: lmc
+    kind: helm-plugin
+    official: true
+    repository: https://github.com/logicmonitor/lmc
+    language: go
+    last_pushed: '2024-08-23'
+    scope: Helm plugin for the LM Container Helm chart
+    note: Kubernetes deployment tooling, not a general API client.
+absent:
+  - name: generic LogicMonitor CLI
+    note: >-
+      No cross-platform binary CLI (brew/apt/scoop-installable) is published. Non-Windows shell users are
+      directed to the Python or Go SDK, or to curl against /santaba/rest.

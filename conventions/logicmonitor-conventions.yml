@@ -1,0 +1,168 @@
+specification: API Commons Conventions
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api ;
+  https://www.logicmonitor.com/support/rest-api-authentication ;
+  https://www.logicmonitor.com/support/rest-api-developers-guide/overview/rest-api-rate-limit ;
+  https://www.logicmonitor.com/support/rest-api-status-codes ;
+  https://www.logicmonitor.com/support/deleting-and-restoring-resource-groups ;
+  parameters derived from openapi/logicmonitor-rest-api-v3-swagger.json
+description: >-
+  Cross-cutting runtime semantics for the LogicMonitor REST API v3 — what an agent has to know before it
+  calls, beyond the endpoint list.
+base_url: https://{account}.logicmonitor.com/santaba/rest
+base_url_note: >-
+  The host is the customer's own LogicMonitor portal subdomain; the published Swagger declares basePath
+  /santaba/rest with no host, and the docs use https://COMPANY.logicmonitor.com/santaba/rest.
+media_types:
+  request: application/json
+  response: application/json
+auth:
+  style: apiKey / bearer
+  detail: See authentication/logicmonitor-authentication.yml
+  header: Authorization
+versioning:
+  style: header-or-query
+  header: 'X-Version: 3'
+  query: v=3
+  detail: See lifecycle/logicmonitor-lifecycle.yml
+methods:
+  supported: [GET, POST, PUT, PATCH, DELETE]
+  patch_semantics: >-
+    PATCH partially updates specific fields; PUT replaces the entire object. Both are declared for most
+    resources (the spec declares both for most resources).
+pagination:
+  style: offset-limit
+  params:
+    limit: size
+    offset: offset
+  defaults:
+    size: 50
+    offset: 0
+  max_size: 1000
+  max_size_source: >-
+    Stated in the MCP server's own tool descriptions ("size (default 50, max 1000)"); the Swagger declares
+    the defaults but not the ceiling.
+  response_fields:
+    total: total
+    items: items
+    searchId: searchId
+  response_note: >-
+    List responses use a *PaginationResponse envelope (e.g. DevicePaginationResponse) carrying total, items
+    and searchId. There is no cursor and no next-page link — the client increments offset itself.
+filtering:
+  param: filter
+  note: >-
+    v3 filter syntax is a v3-only capability called out in the v1-to-v3 migration guide. Filters combine
+    field, operator and value (e.g. "severity:4"). Filter/fields/sort/size are query parameters and MUST be
+    excluded from the LMv1 signature calculation.
+sparse_fields:
+  param: fields
+  note: >-
+    Comma-separated field selection, present on 93 operations. Field names are camelCase only, even where
+    the Python SDK accepts snake_case elsewhere.
+sorting:
+  param: sort
+  note: Documented as a query parameter; not declared as a named parameter on operations in the published Swagger.
+expansion:
+  supported: false
+metadata:
+  style: custom properties
+  note: >-
+    Resources and groups carry arbitrary name/value properties addressed by name
+    (/device/devices/{deviceId}/properties/{name}). Property names must start with a letter (error 14003).
+request_id_tracing:
+  header: null
+  supported: false
+  note: >-
+    No request-id or correlation header is documented or declared. Audit Logs (GET /setting/accesslogs) are
+    the only after-the-fact trace of an API call.
+idempotency:
+  supported: false
+  key_header: null
+  note: >-
+    LogicMonitor publishes no idempotency key, no request-replay window and no safe-retry contract for
+    POST. The only duplicate-suppression signal is the 1409 / HTTP 409 "record already exists" conflict.
+    An agent retrying a POST after a timeout has no way to tell a retry from a second create; the
+    documented recovery pattern for 429 is a blind sleep-and-retry, which makes this gap load-bearing.
+dry_run_mode:
+  supported: false
+  note: >-
+    No preview, validate-only or dry-run flag exists on any of the 403 operations. The nearest thing is
+    POST /setting/collector/sizing, which returns a sizing recommendation without changing state, and
+    GET /device/unmonitoreddevices, which previews discovery candidates. Neither generalises.
+error_envelope:
+  format: vendor-json
+  fields: [errorCode, errorMessage, errorDetail]
+  rfc9457: false
+  detail: See errors/logicmonitor-problem-types.yml
+rate_limit_signaling:
+  headers: [X-Rate-Limit-Limit, X-Rate-Limit-Remaining, X-Rate-Limit-Window]
+  retry_after: false
+  status: 429
+  detail: See rate-limits/logicmonitor-rate-limits.yml
+reversibility:
+  applicable: true
+  grade: verified
+  summary: >-
+    LogicMonitor's delete path is genuinely reversible in the product — deleted resources and resource
+    groups land in a "Recently Deleted" folder with a stated seven-day grace period — but that reversal is
+    a UI operation. There is no restore, undo, cancel or revert operation anywhere in the 403-operation v3
+    Swagger, so an agent that calls DELETE cannot undo its own action through the API it acted with.
+  surfaces:
+    - write_operation: deleteDeviceById
+      path: DELETE /device/devices/{id}
+      reversal: Restore from the Recently Deleted folder in the Resources tree
+      reversal_operation: null
+      api_reversible: false
+      window: 7 days
+      window_stated: true
+      window_source: https://www.logicmonitor.com/support/deleting-and-restoring-resource-groups
+      note: Requires Manage permission on the root directory.
+    - write_operation: deleteDeviceGroupById
+      path: DELETE /device/groups/{id}
+      reversal: >-
+        Restore from the Recently Deleted folder; restoring a group also restores its subgroups and the
+        member resources deleted with it.
+      reversal_operation: null
+      api_reversible: false
+      window: 7 days
+      window_stated: true
+      window_source: https://www.logicmonitor.com/support/deleting-and-restoring-resource-groups
+      note: >-
+        Cascade Delete removes member resources across the ENTIRE account, including resources that are
+        also members of other groups. This is the highest-blast-radius call on the API and the spec gives
+        no warning of it.
+    - write_operation: addSDT
+      path: POST /sdt/sdts
+      reversal: deleteSdtById
+      reversal_operation: deleteSdtById
+      api_reversible: true
+      window: any time before or during the maintenance window
+      window_stated: false
+      note: >-
+        Ending a scheduled downtime is a true API-level reversal — the only one on this surface. Alert
+        suppression already served during the SDT cannot be un-suppressed.
+    - write_operation: ackAlertById
+      path: POST /alert/alerts/{id}/ack
+      reversal: null
+      reversal_operation: null
+      api_reversible: false
+      window: null
+      note: There is no un-acknowledge operation. Acknowledgement is one-way.
+    - write_operation: addOpsNote / addDevice / addWebsite / addDashboard / addAdmin
+      reversal: the matching delete operation
+      api_reversible: true
+      window: immediate
+      window_stated: false
+      note: Create is reversible by delete for every CRUD resource; deletes then inherit the caveat above.
+cross_links:
+  authentication: authentication/logicmonitor-authentication.yml
+  errors: errors/logicmonitor-problem-types.yml
+  lifecycle: lifecycle/logicmonitor-lifecycle.yml
+  rate_limits: rate-limits/logicmonitor-rate-limits.yml
+  data_model: data-model/logicmonitor-data-model.yml

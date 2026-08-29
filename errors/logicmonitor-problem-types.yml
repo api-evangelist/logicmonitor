@@ -1,0 +1,137 @@
+specification: API Commons Error Catalog
+specificationVersion: '0.1'
+provider: LogicMonitor
+providerId: logicmonitor
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://www.logicmonitor.com/support/rest-api-status-codes (updated 2026-07-28) and
+  https://www.logicmonitor.com/support/api-error-codes (updated 2025-07-23), cross-checked against the
+  ErrorResponse schema in openapi/logicmonitor-rest-api-v3-swagger.json
+docs: https://www.logicmonitor.com/support/rest-api-status-codes
+format: vendor-json
+rfc9457: false
+description: >-
+  LogicMonitor returns a vendor error envelope, not RFC 9457 problem+json. Every operation in the v3 Swagger
+  declares exactly two responses — 200 and a `default` bound to #/definitions/ErrorResponse — so the contract
+  itself carries almost no per-status error detail; the status-to-errorCode mapping below comes entirely from the
+  documentation. v2 and v3 return an `errorCode` field; v1 returned a `status` field with a different and
+  larger code space, which the docs still publish.
+envelope:
+  content_type: application/json
+  fields:
+    - name: errorCode
+      description: Numeric LogicMonitor error code (v2/v3)
+    - name: errorMessage
+      description: Human-readable message; defaults below, but wording differs per API
+    - name: errorDetail
+      description: Optional additional detail object
+    - name: status
+      description: Legacy v1 result code, still documented
+  schema_ref: '#/definitions/ErrorResponse'
+  note: >-
+    Most of the 403 operations in the published v3 Swagger declare only `200` and `default`; a small number add `400`, `500` or `207`.
+    Almost no operation enumerates its real 4xx surface, so an agent cannot discover the failure modes from
+    the spec alone — it must read the two documentation pages this catalog is built from.
+problem_types:
+  - httpStatus: 202
+    errorCode: 1202
+    title: Accepted, processing not complete
+    detail: The request has been accepted for processing, but the processing has not been completed.
+    remediation: Poll the resource for completion rather than treating the response as final.
+  - httpStatus: 400
+    errorCode: 1400
+    title: Bad request
+    detail: >-
+      Malformed request, or a resource that cannot be deleted because something else depends on it.
+      Related codes: 14001/1104 Resource Dependency, 14003 properties must start with a letter,
+      14004 error in query string parameters, 1031 syntax error in the appliesTo field, 1077 invalid macros.
+    remediation: Validate the query string, body and appliesTo expression; resolve dependent objects before delete.
+  - httpStatus: 401
+    errorCode: 1401
+    title: Authentication failed
+    detail: The LMv1 signature, Bearer token or Basic credentials were rejected.
+    remediation: >-
+      For LMv1, confirm the timestamp is within 30 minutes of server time and that query parameters were
+      excluded from the signed resource path.
+  - httpStatus: 403
+    errorCode: 1403
+    title: Permission denied
+    detail: >-
+      Authentication succeeded but the token's role lacks permission. Related codes: 1041 RBAC issue,
+      2403 user must enable two-factor authentication, 3403 incorrect password, 403 session timeout.
+    remediation: Grant the API token's role the required permission.
+  - httpStatus: 404
+    errorCode: 1404
+    title: No such resource
+    detail: >-
+      No such record. Typed variants exist per object: 1013, 1004, 1015, 1022, 1027, 1033, 1037, 1060,
+      1058, 1048 for Device DataSource, Device Group, Instance Group, DataSource, Instance, Collector,
+      Datapoint, Widget and SDT respectively; 14042 / 1065 for no such company; 1069 no such record.
+    remediation: Re-resolve the object id; ids are not stable across imports.
+  - httpStatus: 409
+    errorCode: 1409
+    title: Resource already exists
+    detail: The record already exists (legacy v1 code 600).
+    remediation: >-
+      Look the object up by name or filter before creating. There is no idempotency key on this API, so
+      this conflict is the only duplicate-suppression mechanism available.
+  - httpStatus: 412
+    errorCode: 1412
+    title: Precondition failed
+    detail: A precondition was not met — in practice, two-factor authentication is required.
+    remediation: Complete 2FA, or use an API-only user whose token is not 2FA-gated.
+  - httpStatus: 413
+    errorCode: 1413
+    title: Request entity too large
+    detail: The request entity or the report being generated is too large (also 1074, 1075, 1076).
+    remediation: Narrow the time range, filter, or report scope.
+  - httpStatus: 429
+    errorCode: 1429
+    title: Too many requests
+    detail: Rate limit exceeded (legacy code 1091 "rate exceed", 1100 "too many requests").
+    remediation: >-
+      Sleep for X-Rate-Limit-Window seconds when X-Rate-Limit-Remaining reaches zero. No Retry-After header
+      is sent. See rate-limits/logicmonitor-rate-limits.yml.
+  - httpStatus: 500
+    errorCode: 1500
+    title: Internal error
+    detail: Server-side failure (also 1001 internal/unknown error, 1000 server is busy, 1301 save failed).
+    remediation: Retry with backoff; report persistent failures through the support portal.
+  - httpStatus: 503
+    errorCode: 503
+    title: Company is deactivated
+    detail: The LogicMonitor account is deactivated.
+    remediation: Contact LogicMonitor account management.
+operational_codes:
+  - code: 1073
+    meaning: The Collector isn't active / Collector is down
+  - code: 1101
+    meaning: Query timed out
+  - code: 1201
+    meaning: Partial success — the update was partially successful
+  - code: 14002
+    meaning: Partial success
+  - code: 1204
+    meaning: No content
+  - code: 1313
+    meaning: Report in progress
+  - code: 1303
+    meaning: All locations are disabled / no valid locations selected
+  - code: 1040
+    meaning: Cannot import LogicModule / import DataSource failed
+  - code: 1010
+    meaning: Device Group was not deleted
+  - code: 1014
+    meaning: Instance group cannot be created
+  - code: 1078
+    meaning: Please upload a .docx file
+  - code: 1079
+    meaning: The report template could not be uploaded
+  - code: 100
+    meaning: Continuing
+caveats:
+  - >-
+    The two documentation pages disagree in places — /support/api-error-codes maps 403 to "Authentication
+    failed" while /support/rest-api-status-codes maps 403 to "permission denied", and lists 1001 as both
+    "internal error" and "unknown error". Both are recorded as published rather than reconciled.
