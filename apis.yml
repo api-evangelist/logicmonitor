@@ -120,6 +120,9 @@ apis:
       - type: SourceCode
         url: https://github.com/logicmonitor/logicmonitor-api-mcp
 common:
+  - type: License
+    name: MPL-2.0
+    url: https://github.com/logicmonitor/logicmonitor-api-mcp/blob/main/LICENSE
   - type: Website
     url: https://www.logicmonitor.com
   - type: Documentation
