@@ -366,35 +366,6 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
-- aid: logicmonitor:logicmonitor-batchjobs-api
-  name: LogicMonitor Batch Jobs API
-  description: The BatchJobs API from LogicMonitor — 1 operation(s) for batchjobs.
-  humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  baseURL: https://{account}.logicmonitor.com/santaba/rest
-  tags:
-  - BatchJobs
-  properties:
-  - type: OpenAPI
-    url: openapi/logicmonitor-batchjobs-api-openapi.yml
-  - type: APIReference
-    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
-  - type: DeveloperPortal
-    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
-  - type: Authentication
-    url: authentication/logicmonitor-authentication.yml
-  - type: Conventions
-    url: conventions/logicmonitor-conventions.yml
-  - type: DataModel
-    url: data-model/logicmonitor-data-model.yml
-  - type: ErrorCatalog
-    url: errors/logicmonitor-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/logicmonitor-rate-limits.yml
-  - type: Webhooks
-    url: asyncapi/logicmonitor-webhooks.yml
 - aid: logicmonitor:logicmonitor-collector-groups-api
   name: LogicMonitor Collector Groups API
   description: The Collector Groups API from LogicMonitor — 3 operation(s) for collector groups.
@@ -659,35 +630,6 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
-- aid: logicmonitor:logicmonitor-datasources-api
-  name: LogicMonitor Datasources API
-  description: The Datasources API from LogicMonitor — 8 operation(s) for datasources.
-  humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  baseURL: https://{account}.logicmonitor.com/santaba/rest
-  tags:
-  - Datasources
-  properties:
-  - type: OpenAPI
-    url: openapi/logicmonitor-datasources-api-openapi.yml
-  - type: APIReference
-    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
-  - type: DeveloperPortal
-    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
-  - type: Authentication
-    url: authentication/logicmonitor-authentication.yml
-  - type: Conventions
-    url: conventions/logicmonitor-conventions.yml
-  - type: DataModel
-    url: data-model/logicmonitor-data-model.yml
-  - type: ErrorCatalog
-    url: errors/logicmonitor-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/logicmonitor-rate-limits.yml
-  - type: Webhooks
-    url: asyncapi/logicmonitor-webhooks.yml
 - aid: logicmonitor:logicmonitor-debug-api
   name: LogicMonitor Debug API
   description: The Debug API from LogicMonitor — 2 operation(s) for debug.
@@ -920,35 +862,6 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
-- aid: logicmonitor:logicmonitor-eventsources-api
-  name: LogicMonitor Event Sources API
-  description: The EventSources API from LogicMonitor — 4 operation(s) for eventsources.
-  humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  baseURL: https://{account}.logicmonitor.com/santaba/rest
-  tags:
-  - EventSources
-  properties:
-  - type: OpenAPI
-    url: openapi/logicmonitor-eventsources-api-openapi.yml
-  - type: APIReference
-    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
-  - type: DeveloperPortal
-    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
-  - type: Authentication
-    url: authentication/logicmonitor-authentication.yml
-  - type: Conventions
-    url: conventions/logicmonitor-conventions.yml
-  - type: DataModel
-    url: data-model/logicmonitor-data-model.yml
-  - type: ErrorCatalog
-    url: errors/logicmonitor-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/logicmonitor-rate-limits.yml
-  - type: Webhooks
-    url: asyncapi/logicmonitor-webhooks.yml
 - aid: logicmonitor:logicmonitor-integrationauditlogs-api
   name: LogicMonitor Integration Audit Logs API
   description: >-
@@ -1134,35 +1047,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/logicmonitor-logquerygroups-api-openapi.yml
-  - type: APIReference
-    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
-  - type: DeveloperPortal
-    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
-  - type: Authentication
-    url: authentication/logicmonitor-authentication.yml
-  - type: Conventions
-    url: conventions/logicmonitor-conventions.yml
-  - type: DataModel
-    url: data-model/logicmonitor-data-model.yml
-  - type: ErrorCatalog
-    url: errors/logicmonitor-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/logicmonitor-rate-limits.yml
-  - type: Webhooks
-    url: asyncapi/logicmonitor-webhooks.yml
-- aid: logicmonitor:logicmonitor-logsources-api
-  name: LogicMonitor Log Sources API
-  description: The LogSources API from LogicMonitor — 3 operation(s) for logsources.
-  humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  baseURL: https://{account}.logicmonitor.com/santaba/rest
-  tags:
-  - LogSources
-  properties:
-  - type: OpenAPI
-    url: openapi/logicmonitor-logsources-api-openapi.yml
   - type: APIReference
     url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
   - type: DeveloperPortal
@@ -1617,35 +1501,6 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
-- aid: logicmonitor:logicmonitor-userdata-api
-  name: LogicMonitor Userdata API
-  description: The userdata API from LogicMonitor — 1 operation(s) for userdata.
-  humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  baseURL: https://{account}.logicmonitor.com/santaba/rest
-  tags:
-  - userdata
-  properties:
-  - type: OpenAPI
-    url: openapi/logicmonitor-userdata-api-openapi.yml
-  - type: APIReference
-    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
-  - type: DeveloperPortal
-    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
-  - type: Authentication
-    url: authentication/logicmonitor-authentication.yml
-  - type: Conventions
-    url: conventions/logicmonitor-conventions.yml
-  - type: DataModel
-    url: data-model/logicmonitor-data-model.yml
-  - type: ErrorCatalog
-    url: errors/logicmonitor-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/logicmonitor-rate-limits.yml
-  - type: Webhooks
-    url: asyncapi/logicmonitor-webhooks.yml
 - aid: logicmonitor:logicmonitor-users-api
   name: LogicMonitor Users API
   description: The Users API from LogicMonitor — 2 operation(s) for users.
@@ -1743,6 +1598,151 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/logicmonitor-widgets-api-openapi.yml
+  - type: APIReference
+    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+  - type: DeveloperPortal
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+  - type: GettingStarted
+    url: >-
+      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+  - type: Authentication
+    url: authentication/logicmonitor-authentication.yml
+  - type: Conventions
+    url: conventions/logicmonitor-conventions.yml
+  - type: DataModel
+    url: data-model/logicmonitor-data-model.yml
+  - type: ErrorCatalog
+    url: errors/logicmonitor-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/logicmonitor-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/logicmonitor-webhooks.yml
+- aid: logicmonitor:logicmonitor-batch-jobs-api
+  name: LogicMonitor Batch Jobs API
+  description: The Batch Jobs API from LogicMonitor — 1 operation(s) for batch jobs.
+  humanURL: https://github.com/logicmonitor/logicmonitor-api-mcp
+  baseURL: https://{account}.logicmonitor.com/santaba/rest
+  tags:
+  - Batch Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/logicmonitor-batch-jobs-api-openapi.yml
+  - type: APIReference
+    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+  - type: DeveloperPortal
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+  - type: GettingStarted
+    url: >-
+      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+  - type: Authentication
+    url: authentication/logicmonitor-authentication.yml
+  - type: Conventions
+    url: conventions/logicmonitor-conventions.yml
+  - type: DataModel
+    url: data-model/logicmonitor-data-model.yml
+  - type: ErrorCatalog
+    url: errors/logicmonitor-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/logicmonitor-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/logicmonitor-webhooks.yml
+- aid: logicmonitor:logicmonitor-data-sources-api
+  name: LogicMonitor Data Sources API
+  description: The Data Sources API from LogicMonitor — 8 operation(s) for data sources.
+  humanURL: https://github.com/logicmonitor/logicmonitor-api-mcp
+  baseURL: https://{account}.logicmonitor.com/santaba/rest
+  tags:
+  - Data Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/logicmonitor-data-sources-api-openapi.yml
+  - type: APIReference
+    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+  - type: DeveloperPortal
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+  - type: GettingStarted
+    url: >-
+      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+  - type: Authentication
+    url: authentication/logicmonitor-authentication.yml
+  - type: Conventions
+    url: conventions/logicmonitor-conventions.yml
+  - type: DataModel
+    url: data-model/logicmonitor-data-model.yml
+  - type: ErrorCatalog
+    url: errors/logicmonitor-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/logicmonitor-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/logicmonitor-webhooks.yml
+- aid: logicmonitor:logicmonitor-event-sources-api
+  name: LogicMonitor Event Sources API
+  description: The Event Sources API from LogicMonitor — 4 operation(s) for event sources.
+  humanURL: https://github.com/logicmonitor/logicmonitor-api-mcp
+  baseURL: https://{account}.logicmonitor.com/santaba/rest
+  tags:
+  - Event Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/logicmonitor-event-sources-api-openapi.yml
+  - type: APIReference
+    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+  - type: DeveloperPortal
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+  - type: GettingStarted
+    url: >-
+      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+  - type: Authentication
+    url: authentication/logicmonitor-authentication.yml
+  - type: Conventions
+    url: conventions/logicmonitor-conventions.yml
+  - type: DataModel
+    url: data-model/logicmonitor-data-model.yml
+  - type: ErrorCatalog
+    url: errors/logicmonitor-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/logicmonitor-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/logicmonitor-webhooks.yml
+- aid: logicmonitor:logicmonitor-log-sources-api
+  name: LogicMonitor Log Sources API
+  description: The Log Sources API from LogicMonitor — 3 operation(s) for log sources.
+  humanURL: https://github.com/logicmonitor/logicmonitor-api-mcp
+  baseURL: https://{account}.logicmonitor.com/santaba/rest
+  tags:
+  - Log Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/logicmonitor-log-sources-api-openapi.yml
+  - type: APIReference
+    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+  - type: DeveloperPortal
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+  - type: GettingStarted
+    url: >-
+      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+  - type: Authentication
+    url: authentication/logicmonitor-authentication.yml
+  - type: Conventions
+    url: conventions/logicmonitor-conventions.yml
+  - type: DataModel
+    url: data-model/logicmonitor-data-model.yml
+  - type: ErrorCatalog
+    url: errors/logicmonitor-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/logicmonitor-rate-limits.yml
+  - type: Webhooks
+    url: asyncapi/logicmonitor-webhooks.yml
+- aid: logicmonitor:logicmonitor-user-data-api
+  name: LogicMonitor User Data API
+  description: The User Data API from LogicMonitor — 1 operation(s) for user data.
+  humanURL: https://github.com/logicmonitor/logicmonitor-api-mcp
+  baseURL: https://{account}.logicmonitor.com/santaba/rest
+  tags:
+  - User Data
+  properties:
+  - type: OpenAPI
+    url: openapi/logicmonitor-user-data-api-openapi.yml
   - type: APIReference
     url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
   - type: DeveloperPortal
