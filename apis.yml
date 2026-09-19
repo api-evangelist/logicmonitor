@@ -1507,6 +1507,8 @@ apis:
   humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
   baseURL: https://{account}.logicmonitor.com/santaba/rest
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
