@@ -1,0 +1,386 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Widgets API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Widgets across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Widgets
+paths:
+  /dashboard/widgets/{id}:
+    patch:
+      summary: update widget
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchWidgetById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Widget'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Widgets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Widget'
+        required: true
+    get:
+      summary: get widget by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getWidgetById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Widget'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Widgets
+    delete:
+      summary: delete widget
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteWidgetById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Widgets
+    put:
+      summary: update widget
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateWidgetById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Widget'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Widgets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Widget'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /dashboard/widgets:
+    post:
+      summary: add widget
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addWidget
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Widget'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Widgets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Widget'
+        required: true
+    get:
+      summary: get widget list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getWidgetList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Widgets
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    WidgetPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Widget'
+    Widget:
+      type: object
+      required:
+      - dashboardId
+      - name
+      - type
+      properties:
+        lastUpdatedBy:
+          description: The user that last updated the widget
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permission level of the user who last modified the widget
+          readOnly: true
+          type: string
+          example: write
+        dashboardId:
+          format: int32
+          description: The id of the dashboard the widget belongs to
+          type: integer
+          example: 1.0
+        name:
+          description: The name of the widget
+          type: string
+          example: Test
+        description:
+          description: The description of the widget
+          type: string
+          example: Devices By Type
+        lastUpdatedOn:
+          format: int64
+          description: The time that corresponds to when the widget was last updated, in epoch format
+          readOnly: true
+          type: integer
+        theme:
+          description: 'The color scheme of the widget. Options are: borderPurple | borderGray | borderBlue | solidPurple | solidGray | solidBlue | simplePurple | simpleBlue | simpleGray | newBorderGray | newBorderBlue | newBorderDarkBlue | newSolidGray | newSolidBlue | newSolidDarkBlue | newSimpleGray | newSimpleBlue |newSimpleDarkBlue'
+          type: string
+          example: newBorderBlue
+        interval:
+          format: int32
+          description: The refresh interval of the widget, in minutes
+          type: integer
+          example: 5.0
+        id:
+          format: int32
+          description: The Id of the widget
+          type: integer
+        type:
+          description: alert | batchjob | flash | gmap | ngraph | ograph | cgraph | sgraph | netflowgraph | groupNetflowGraph | netflow | groupNetflow | html | bigNumber | gauge | pieChart | table | dynamicTable | deviceSLA | text | statsd | deviceStatus | serviceAlert | noc | websiteOverview | websiteOverallStatus | websiteIndividualStatus | websiteSLA
+          type: string
+          example: bigNumber
+        timescale:
+          description: The default timescale of the widget
+          type: string
+      discriminator:
+        propertyName: type
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    Widget_2:
+      type: object
+      required:
+      - dashboardId
+      - name
+      - type
+      properties:
+        lastUpdatedBy:
+          description: The user that last updated the widget
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permission level of the user who last modified the widget
+          readOnly: true
+          type: string
+          example: write
+        supportCustomProperty:
+          type: boolean
+        description:
+          description: The description of the widget
+          type: string
+          example: Devices By Type
+        type:
+          description: alert | batchjob | flash | gmap | ngraph | ograph | cgraph | sgraph | netflowgraph | groupNetflowGraph | netflow | groupNetflow | html | bigNumber | gauge | pieChart | table | dynamicTable | deviceSLA | text | statsd | deviceStatus | serviceAlert | noc | websiteOverview | websiteOverallStatus | websiteIndividualStatus | websiteSLA | savedMap
+          type: string
+          example: bigNumber
+        dashboardId:
+          format: int32
+          description: The id of the dashboard the widget belongs to
+          type: integer
+          example: 1
+        isSupportCustomProperty:
+          description: Custom property support in table widget or not
+          type: boolean
+          example: false
+        name:
+          description: The name of the widget
+          type: string
+          example: Test
+        lastUpdatedOn:
+          format: int64
+          description: The time that corresponds to when the widget was last updated, in epoch format
+          readOnly: true
+          type: integer
+        theme:
+          description: 'The color scheme of the widget. Options are: borderPurple | borderGray | borderBlue | solidPurple | solidGray | solidBlue | simplePurple | simpleBlue | simpleGray | newBorderGray | newBorderBlue | newBorderDarkBlue | newSolidGray | newSolidBlue | newSolidDarkBlue | newSimpleGray | newSimpleBlue |newSimpleDarkBlue'
+          type: string
+          example: newBorderBlue
+        interval:
+          format: int32
+          description: The refresh interval of the widget, in minutes
+          type: integer
+          example: 5
+        id:
+          format: int32
+          description: The Id of the widget
+          type: integer
+        timescale:
+          description: The default timescale of the widget
+          type: string
+      discriminator:
+        propertyName: type
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

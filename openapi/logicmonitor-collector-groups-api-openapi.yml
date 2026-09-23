@@ -1,0 +1,999 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Collector Groups API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Collector Groups across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Collector Groups
+paths:
+  /setting/collector/groups:
+    post:
+      summary: add collector group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addCollectorGroup
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Collector Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectorGroup'
+        required: true
+    get:
+      summary: get collector group list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getCollectorGroupList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Collector Groups
+    servers:
+    - url: /santaba/rest
+  /setting/collector/groups/{id}:
+    patch:
+      summary: update collector group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchCollectorGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: forceUpdateFailedOverDevices
+        required: false
+        schema:
+          type: boolean
+          default: false
+      tags:
+      - Collector Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectorGroup'
+        required: true
+    get:
+      summary: get collector group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getCollectorGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Collector Groups
+    delete:
+      summary: delete collector group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteCollectorGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Collector Groups
+    put:
+      summary: update collector group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateCollectorGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: forceUpdateFailedOverDevices
+        required: false
+        schema:
+          type: boolean
+          default: false
+      tags:
+      - Collector Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectorGroup'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /setting/collector/groups/{id}/collectors:
+    get:
+      summary: get collectors by collector group id
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Collectors: View
+      operationId: getCollectorsByGroupId
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        description: The collector group ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Collector Groups
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    CollectorGroup:
+      type: object
+      required:
+      - name
+      properties:
+        autoBalance:
+          description: if the collector is autoBalance set as true or false
+          type: string
+        customProperties:
+          description: The custom properties defined for the Collector group
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        userPermission:
+          description: The permission level of the user that made the API request
+          readOnly: true
+          type: string
+        numOfCollectors:
+          format: int32
+          description: The number of Collectors that belong to the group
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the Collector Group
+          type: string
+          example: Collector (Network Devices)
+        autoBalanceInstanceCountThreshold:
+          format: int32
+          description: threshold for instance count strategy to check if a collector has high load
+          type: integer
+        autoBalanceStrategy:
+          description: 'the auto balance strategy '
+          type: string
+        description:
+          description: The description of the Collector Group
+          type: string
+          example: Group for collectors dedicated to Network Devices
+        createOn:
+          format: int64
+          description: The time at which the group was created, in epoch format
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the Collector Group
+          readOnly: true
+          type: integer
+    NameAndValue:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    CollectorGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorGroup'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    CollectorBase:
+      type: object
+      properties:
+        userChangeOn:
+          format: int64
+          description: The last time the Collector was updated, in epoch format
+          readOnly: true
+          type: integer
+        confVersion:
+          description: The version of the agent.conf configuration file
+          readOnly: true
+          type: string
+        downloadUrl:
+          description: Download Url
+          readOnly: true
+          type: string
+        updatedOnLocal:
+          description: The time that the Collector was last updated, in local time format
+          readOnly: true
+          type: string
+        collectorType:
+          description: Collector type
+          readOnly: true
+          type: string
+          example: external
+        encodedConfigData:
+          description: Base 64 encoded config data
+          readOnly: true
+          type: string
+        hostname:
+          description: The hostname of the device the Collector is installed on
+          readOnly: true
+          type: string
+        numberOfInstances:
+          format: int32
+          type: integer
+        archType:
+          description: The collector architecture type (x64 or arm64)
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The id of the Collector
+          readOnly: true
+          type: integer
+        ea:
+          description: Whether the collector is in EA version
+          readOnly: true
+          type: boolean
+        watchdogUpdatedOnLocal:
+          description: The time that the Collector Watchdog was last updated, in local time format
+          readOnly: true
+          type: string
+        hasFailOverDevice:
+          description: Whether the collector has failover devices
+          readOnly: true
+          type: boolean
+        collectorGroupName:
+          description: The name of the group the Collector is in
+          readOnly: true
+          type: string
+        netscanVersion:
+          description: The Netscan version associated with the Collector
+          readOnly: true
+          type: string
+        inSDT:
+          description: The SDT status of the collector
+          readOnly: true
+          type: boolean
+        isEncoded:
+          readOnly: true
+          type: boolean
+        format:
+          description: External collector installation format
+          readOnly: true
+          type: string
+        updatedOn:
+          format: int64
+          description: The time that the Collector was last updated, in epoch format
+          readOnly: true
+          type: integer
+        automaticUpgradeInfo:
+          description: The details of the Collector's automatic upgrade schedule, if one exists
+          readOnly: false
+          $ref: '#/components/schemas/AutomaticUpgradeInfo'
+        numberOfHosts:
+          format: int32
+          description: The number of devices monitored by the Collector
+          readOnly: true
+          type: integer
+        collectorList:
+          type: string
+        collectorConf:
+          description: The Collector's configuration file
+          readOnly: true
+          type: string
+        sbproxyConf:
+          description: The Proxy's configuration
+          readOnly: true
+          type: string
+        agentConfFields:
+          description: This is key value pairs of collector config properties
+          readOnly: true
+          additionalProperties:
+            description: This is key value pairs of collector config properties
+            readOnly: true
+            type: string
+          type: object
+        lastSentNotificationOnLocal:
+          description: The time that a notification was last sent for this Collector, in local time format
+          readOnly: true
+          type: string
+        customProperties:
+          description: The custom properties defined for the Collector
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        predefinedConfig:
+          description: Collector configurations
+          readOnly: true
+          type: object
+        calculatedThreshold:
+          format: double
+          description: calculated threshold value for ABCG collector to check if a collector has high load
+          type: number
+        onetimeUpgradeInfo:
+          description: The details of the Collector's one time upgrade, if one has been scheduled
+          readOnly: false
+          $ref: '#/components/schemas/OnetimeUpgradeInfo'
+        wrapperConf:
+          description: The java service wrapper's configuration
+          readOnly: true
+          type: string
+        clearSent:
+          description: Whether or not an alert clear notifcation has been sent for this Collector
+          readOnly: true
+          type: boolean
+        isLmlogsSyslogEnabled:
+          description: Whether collector has isLmlogsSyslogEnabled flag set as true
+          readOnly: true
+          type: boolean
+        status:
+          format: int32
+          description: 'The registration status of the Collector. Acceptable values are: 0= unregistered, 1= registered, 2= stopped, 3= suspended'
+          readOnly: true
+          type: integer
+        backupAgentId:
+          format: int32
+          description: The Id of the backup Collector assigned to the Collector
+          type: integer
+          example: 75
+        isAdminAccount:
+          description: Whether Collector is using an administrative account
+          readOnly: true
+          type: boolean
+        specifiedCollectorDeviceGroupId:
+          format: int32
+          description: The device group id when create a new collector device
+          type: integer
+          example: 0
+        escalatingChainId:
+          format: int32
+          description: The Id of the escalation chain associated with this Collector
+          type: integer
+          example: 80
+        collectorSize:
+          description: The size of the collector
+          readOnly: true
+          type: string
+        ackedOnLocal:
+          description: The time that the Collector was acknowledged (if it is in alert), in local time format
+          readOnly: true
+          type: string
+        watchdogConf:
+          description: The Watchdog's configuration
+          readOnly: true
+          type: string
+        description:
+          description: The Collector's description
+          type: string
+          example: Linux Collector
+        createdOn:
+          format: int64
+          description: The time that the Collector was created, in epoch format
+          readOnly: true
+          type: integer
+        platform:
+          description: The OS of the Collector device (e.g. Linux, Windows)
+          readOnly: true
+          type: string
+        isDown:
+          description: Whether or not the Collector is currently down
+          readOnly: true
+          type: boolean
+        userVisibleHostsNum:
+          format: int32
+          description: The number of devices monitored by the Collector and visible to the user that made the query
+          readOnly: true
+          type: integer
+        canDowngrade:
+          description: Whether the collector can be downgraded to a lower version
+          readOnly: true
+          type: boolean
+        ackComment:
+          description: The comment associated with the Collector acknowledgement (if it is in alert and acknowledged)
+          readOnly: true
+          type: string
+        nextUpgradeInfo:
+          description: The details of the Collector's next upgrade, if one has been scheduled
+          readOnly: true
+          $ref: '#/components/schemas/NextUpgradeInfo'
+        enableLMLogs:
+          description: Usage of the Otel Collector - logging or tracing
+          readOnly: true
+          type: boolean
+        suppressAlertClear:
+          description: Whether alert clear notifications are suppressed for the Collector
+          type: boolean
+          example: true
+        nextRecipient:
+          format: int32
+          description: The Id of the next recipient to which alert notifications will be sent
+          readOnly: true
+          type: integer
+        ackedOn:
+          format: int64
+          description: The epoch at which the Collector was acknowledged (if it is in alert)
+          readOnly: true
+          type: integer
+        userChangeOnLocal:
+          description: The last time the Collector was updated, in the account time zone
+          readOnly: true
+          type: string
+        collectorDeviceId:
+          format: int32
+          description: The device id of the collector device
+          readOnly: true
+          type: integer
+        ackedBy:
+          description: The user that acknowledged the Collector (if it is in alert)
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permission level of the user that made the API request to get Collector information
+          readOnly: true
+          type: string
+        needAutoCreateCollectorDevice:
+          description: Whether to create a collector device when instance collector, the default value is true
+          type: boolean
+          example: 'true'
+        watchdogUpdatedOn:
+          format: int64
+          description: The time that the Watchdog Services was last updated, in epoch format
+          readOnly: true
+          type: integer
+        canDowngradeReason:
+          description: The reason why the collector can be downgraded
+          readOnly: true
+          type: string
+        lastSentNotificationOn:
+          format: int64
+          description: The time, in epoch format, that a notification was last sent for the Collector
+          readOnly: true
+          type: integer
+        syntheticsEnabled:
+          description: Whether the collector can monitor Synthetic devices (Selenium grid property must be defined)
+          readOnly: true
+          type: boolean
+        acked:
+          description: Whether or not the Collector is currently acknowledged
+          readOnly: true
+          type: boolean
+        onetimeDowngradeInfo:
+          description: The details of the Collector's automatic downgrade schedule, if one exists
+          readOnly: false
+          $ref: '#/components/schemas/RestDowngradeInfoOnetime'
+        copyUrl:
+          description: Copy Command Url
+          readOnly: true
+          type: string
+        errorMsg:
+          type: string
+        upTime:
+          format: int64
+          description: The time the Collector has been up, in seconds
+          readOnly: true
+          type: integer
+        otelVersion:
+          description: Collector Version
+          readOnly: true
+          type: string
+        numberOfSDTs:
+          format: int32
+          description: 'The number of Collectors Sdts '
+          readOnly: true
+          type: integer
+        bearerToken:
+          description: Bearer Token
+          readOnly: true
+          type: string
+        build:
+          description: The Collector version
+          readOnly: true
+          type: string
+        previousVersion:
+          description: The previous version of the collector, used for downgrading
+          readOnly: true
+          type: string
+        collectorGroupId:
+          format: int32
+          description: The Id of the group the Collector is in
+          type: integer
+          example: 10
+        createdOnLocal:
+          description: The time that the Collector was created, in local time format
+          readOnly: true
+          type: string
+        enableFailBack:
+          description: Whether or not automatic failback is enabled for the Collector, the default value is true
+          type: boolean
+          example: 'true'
+        resendIval:
+          format: int32
+          description: The interval, in minutes, after which alert notifications for the Collector will be resent
+          type: integer
+          example: 15
+        arch:
+          description: The collector architecture (Windows | Linux platform followed by 32 | 64 bit)
+          readOnly: true
+          type: string
+        otelId:
+          description: Collector Id
+          readOnly: true
+          type: string
+        enableFailOverOnCollectorDevice:
+          description: Whether or not the device the Collector is installed on is enabled for fail over
+          type: boolean
+          example: true
+        config:
+          description: Collector Config
+          readOnly: true
+          type: string
+    CollectorGroup_2:
+      type: object
+      required:
+      - name
+      properties:
+        userPermission:
+          description: The permission level of the user that made the API request
+          readOnly: true
+          type: string
+        numOfCollectors:
+          format: int32
+          description: The number of collectors that belong to the group
+          readOnly: true
+          type: integer
+        propertyForBalancingLastUpdatedOn:
+          format: int64
+          description: The time at which property for balancing was last updated in epoch format
+          readOnly: true
+          type: integer
+        autoBalanceInstanceCountThreshold:
+          format: int32
+          description: Threshold for instance count strategy to check if a collector has high load
+          type: integer
+        description:
+          description: The description of the collector group
+          type: string
+          example: Group for collectors dedicated to Network Devices
+        highestPriorityCollectorStatus:
+          description: The status of the highest priority sub collector
+          readOnly: true
+          $ref: '#/components/schemas/RestHighestPriorityCollectorStatus'
+        platform:
+          description: The platform limitation
+          readOnly: true
+          type: string
+        autoBalance:
+          description: Whether the collector has autoBalance set as true or false
+          type: boolean
+        customProperties:
+          description: The custom properties defined for the collector group
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        propertyForBalancingUpdateLockedUptoMS:
+          format: int64
+          description: The time at which property for balancing is locked for updating in epoch format
+          readOnly: true
+          type: integer
+        numOfHosts:
+          format: int64
+          description: The number of hosts that belong to the group
+          readOnly: true
+          type: integer
+        numOfInstances:
+          format: int64
+          description: The number of instances that belong to the group
+          readOnly: true
+          type: integer
+        calThreshold:
+          format: int64
+          description: calculated threshold value for a ABCG collector to check if a collector has high load
+          type: integer
+        name:
+          description: The name of the Collector Group
+          type: string
+          example: Collector (Network Devices)
+        autoBalanceStrategy:
+          description: The auto balance strategy
+          type: string
+        createOn:
+          format: int64
+          description: The time at which the group was created in epoch format
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the Collector Group
+          readOnly: true
+          type: integer
+        mismatchVersion:
+          description: Specifies if the version of all collectors in group is same
+          readOnly: true
+          type: boolean
+        propertyForBalancing:
+          description: property for balancing
+          type: string
+          example: auto.collector.site.affinity.id
+    CollectorPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorBase'
+    NextUpgradeInfo:
+      description: The details of the Collector's next upgrade, if one has been scheduled
+      readOnly: true
+      type: object
+      properties:
+        upgradeTime:
+          readOnly: true
+          type: string
+        stable:
+          readOnly: true
+          type: boolean
+        majorVersion:
+          format: int32
+          readOnly: true
+          type: integer
+        minorVersion:
+          format: int32
+          readOnly: true
+          type: integer
+        mandatory:
+          readOnly: true
+          type: boolean
+        upgradeTimeEpoch:
+          format: int64
+          readOnly: true
+          type: integer
+    NameAndValue_2:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    OnetimeUpgradeInfo:
+      description: The details of the Collector's one time upgrade, if one has been scheduled
+      type: object
+      required:
+      - majorVersion
+      - minorVersion
+      - startEpoch
+      properties:
+        createdBy:
+          readOnly: true
+          type: string
+        level:
+          readOnly: true
+          type: string
+        timezone:
+          type: string
+        endEpoch:
+          format: int64
+          readOnly: true
+          type: integer
+        description:
+          type: string
+          example: regular MGD updates
+        type:
+          readOnly: true
+          type: string
+        majorVersion:
+          format: int32
+          type: integer
+          example: 27
+        minorVersion:
+          format: int32
+          type: integer
+          example: 1
+        startEpoch:
+          format: int64
+          type: integer
+          example: 1534888740
+    RestHighestPriorityCollectorStatus:
+      description: The status of the highest priority sub collector
+      readOnly: true
+      type: object
+      properties:
+        inSDT:
+          description: The SDT status of the highest priority sub collector
+          readOnly: true
+          type: boolean
+        acked:
+          description: The acked status of the highest priority sub collector
+          readOnly: true
+          type: boolean
+        isDown:
+          description: The down status of the highest priority sub collector
+          readOnly: true
+          type: boolean
+        status:
+          format: int32
+          description: The status of the highest priority sub collector
+          readOnly: true
+          type: integer
+    AutomaticUpgradeInfo:
+      description: The details of the Collector's automatic upgrade schedule, if one exists
+      type: object
+      required:
+      - dayOfWeek
+      - hour
+      - minute
+      - occurrence
+      - version
+      properties:
+        dayOfWeek:
+          type: string
+          example: MON
+        hour:
+          format: int32
+          type: integer
+          example: 15
+        createdBy:
+          readOnly: true
+          type: string
+        level:
+          readOnly: true
+          type: string
+        timezone:
+          type: string
+          example: Americas/Los Angeles
+        description:
+          type: string
+          example: regular MGD updates
+        occurrence:
+          type: string
+          example: Any
+        type:
+          readOnly: true
+          type: string
+        version:
+          type: string
+          example: MGD
+        minute:
+          format: int32
+          type: integer
+          example: 0
+    RestDowngradeInfoOnetime:
+      description: The details of the Collector's automatic downgrade schedule, if one exists
+      type: object
+      required:
+      - majorVersion
+      - minorVersion
+      - startEpoch
+      properties:
+        createdBy:
+          readOnly: true
+          type: string
+        level:
+          readOnly: true
+          type: string
+        timezone:
+          type: string
+        endEpoch:
+          format: int64
+          readOnly: true
+          type: integer
+        description:
+          type: string
+          example: regular MGD updates
+        type:
+          readOnly: true
+          type: string
+        majorVersion:
+          format: int32
+          type: integer
+          example: 27
+        minorVersion:
+          format: int32
+          type: integer
+          example: 1
+        startEpoch:
+          format: int64
+          type: integer
+          example: 1534888740
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

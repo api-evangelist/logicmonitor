@@ -1,0 +1,550 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Netscans API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Netscans across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Netscans
+paths:
+  /setting/netscans:
+    post:
+      summary: add a new netscan
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addNetscan
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Netscan'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Netscans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Netscan'
+    get:
+      summary: get netscan list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getNetscanList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetscanPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Netscans
+    servers:
+    - url: /santaba/rest
+  /setting/netscans/{id}:
+    patch:
+      summary: update a netscan
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchNetscan
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Netscan'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: reason
+        required: false
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Netscans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Netscan'
+    get:
+      summary: get netscan by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getNetscanById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Netscan'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Netscans
+    delete:
+      summary: delete a netscan
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteNetscanById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Netscans
+    put:
+      summary: update a netscan
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateNetscan
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Netscan'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: reason
+        required: false
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Netscans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Netscan'
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    ExcludeDuplicateIps:
+      type: object
+      properties:
+        collectors:
+          description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
+          type: array
+          items:
+            type: string
+          example: '["ip-172-31-45-179.us-west-2.compute.internal"]'
+        groups:
+          description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
+          type: array
+          items:
+            type: string
+          example: '["Network Devices"]'
+        type:
+          format: int32
+          description: What types of duplicate IPs should be excluded. Options are 1 (matching any monitored devices), 2 (matching devices already discovered by this scan), 3 (matching devices in these groups), and 4 (matching devices assigned to these collectors)
+          type: integer
+          example: 1.0
+    RestSchedule:
+      type: object
+      properties:
+        cron:
+          description: The cron schedule for when the scan should be run
+          type: string
+          example: 12 * * * *
+        recipients:
+          description: The recipients that should receive the notification of the scan finish
+          type: array
+          items:
+            type: string
+          example: '["sarah@logicmonitor.com" ]'
+        timezone:
+          description: The timezone for the schedule
+          type: string
+          example: America/Los_Angeles
+        type:
+          description: The type of schedule. Possible values are manual (no schedule), hourly, daily, weekly, monthly
+          type: string
+          example: manual
+        notify:
+          description: Whether or not an email should be sent when the scan finishes
+          type: boolean
+          example: false
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    Netscan:
+      type: object
+      required:
+      - collector
+      - duplicate
+      - method
+      - name
+      properties:
+        creator:
+          description: The user that created the policy
+          type: string
+          example: sarah@logicmonitor.com
+        collectorGroupName:
+          description: The name of the group of the Collector associated with this Netscan
+          type: string
+          example: Prod
+        method:
+          description: The method that should be used to discover devices. Options are nmap (ICMP Ping), nec2 (EC2), and script
+          type: string
+          example: nmap
+        collectorGroup:
+          format: int32
+          description: The ID of the group of the Collector associated with this Netscan
+          type: integer
+          example: 4.0
+        description:
+          description: The description of the Netscan Policy
+          type: string
+          example: Discovers devices within the office network for monitoring
+        nextStart:
+          description: The date and time of the next start time of the scan - displayed as manual if the scan does not run on a schedule
+          type: string
+          example: 2018-09-07 15:12:00 PDT
+        duplicate:
+          description: Information that determines how duplicate discovered devices should be handled
+          $ref: '#/components/schemas/ExcludeDuplicateIps'
+        version:
+          format: int32
+          description: The Id of the device
+          type: integer
+          example: 2.0
+        collector:
+          format: int32
+          description: The ID of the Collector associated with this Netscan
+          type: integer
+          example: 148.0
+        ignoreSystemIPsDuplicates:
+          description: Ignore system.ips when checking for duplicate resources
+          type: boolean
+        schedule:
+          description: Information related to the recurring execution schedule for the Netscan Policy
+          $ref: '#/components/schemas/RestSchedule'
+        collectorDescription:
+          description: The description of the Collector associated with this Netscan
+          type: string
+          example: Prod CollectorA
+        name:
+          description: The name of the Netscan Policy
+          type: string
+          example: Office Network
+        nextStartEpoch:
+          format: int64
+          description: The epoch of the next start time of the scan - displayed as 0 if the scan does not run on a schedule
+          type: integer
+          example: 1536358320.0
+        id:
+          format: int32
+          description: The ID of the Netscan Policy
+          type: integer
+          example: 208.0
+        nsgId:
+          format: int32
+          description: The ID of the group the policy belongs to
+          type: integer
+          example: 47.0
+        group:
+          description: The group the Netscan policy should belong to
+          type: string
+          example: RT_check
+      discriminator:
+        propertyName: method
+    NetscanPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Netscan'
+    ExcludeDuplicateIps_2:
+      description: Information that determines how duplicate discovered devices should be handled
+      type: object
+      properties:
+        collectors:
+          description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
+          type: array
+          items:
+            description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
+            type: string
+            example: '"[ip-172-31-45-179.us-west-2.compute.internal]"'
+          example: '[ip-172-31-45-179.us-west-2.compute.internal]'
+        groups:
+          description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
+          type: array
+          items:
+            description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
+            type: string
+            example: '"[Network Devices]"'
+          example: '[Network Devices]'
+        type:
+          format: int32
+          description: 'The types of duplicate IPs that should be excluded. The values can be 1|2|3|4 which denotes
+
+            1: matching any monitored devices
+
+            2: matching devices already discovered by this scan
+
+            3: matching devices in these groups
+
+            4: matching devices assigned to these collectors
+
+            '
+          type: integer
+          example: 1
+    RestSchedule_2:
+      description: Information related to the recurring execution schedule for the Netscan Policy
+      type: object
+      properties:
+        cron:
+          description: The cron schedule for when the scan should be run
+          type: string
+          example: 12 * * * *
+        recipients:
+          description: The recipients that should receive the notification of the scan finish
+          type: array
+          items:
+            description: The recipients that should receive the notification of the scan finish
+            type: string
+            example: '"[user@domain.com ]"'
+          example: '[user@domain.com ]'
+        timezone:
+          description: The timezone for the schedule
+          type: string
+          example: America/Los_Angeles
+        type:
+          description: The type of schedule. The values can be manual (no schedule)|hourly|daily|weekly|monthly
+          type: string
+          example: manual
+        notify:
+          description: Whether or not an email should be sent when the scan finishes
+          type: boolean
+          example: false
+    Netscan_2:
+      type: object
+      required:
+      - duplicate
+      - method
+      - name
+      - schedule
+      properties:
+        creator:
+          description: The user that created the policy
+          readOnly: true
+          type: string
+          example: user@domain.com
+        collectorGroupName:
+          description: The name of the group of the Collector associated with this Netscan
+          readOnly: true
+          type: string
+          example: Prod
+        method:
+          description: The method that should be used to discover devices. The values can be nmap (ICMP Ping)|nec2 (EC2)|enhancedScript|script
+          type: string
+          example: nmap
+        collectorGroup:
+          format: int32
+          description: The ID of the group of the Collector associated with this Netscan
+          readOnly: true
+          type: integer
+          example: 4
+        description:
+          description: The description of the Netscan Policy
+          type: string
+          example: Discovers devices within the office network for monitoring
+        nextStart:
+          description: The date and time of the next start time of the scan - displayed as manual if the scan does not run on a schedule
+          readOnly: true
+          type: string
+          example: 2018-09-07 15:12:00 PDT
+        duplicate:
+          description: Information that determines how duplicate discovered devices should be handled
+          readOnly: false
+          $ref: '#/components/schemas/ExcludeDuplicateIps_2'
+        version:
+          format: int32
+          description: The Id of the device
+          type: integer
+          example: 2
+        collector:
+          format: int32
+          description: The ID of the Collector associated with this Netscan
+          type: integer
+          example: 148
+        ignoreSystemIPsDuplicates:
+          description: Ignore system.ips when checking for duplicate resources
+          readOnly: true
+          type: boolean
+        schedule:
+          description: Information related to the recurring execution schedule for the Netscan Policy
+          readOnly: false
+          $ref: '#/components/schemas/RestSchedule_2'
+        collectorDescription:
+          description: The description of the Collector associated with this Netscan
+          readOnly: true
+          type: string
+          example: Prod CollectorA
+        name:
+          description: The name of the Netscan Policy
+          type: string
+          example: Office Network
+        nextStartEpoch:
+          format: int64
+          description: The epoch of the next start time of the scan - displayed as 0 if the scan does not run on a schedule
+          readOnly: true
+          type: integer
+          example: 1536358320
+        id:
+          format: int32
+          description: The ID of the Netscan Policy
+          readOnly: true
+          type: integer
+          example: 208
+        nsgId:
+          format: int32
+          description: The ID of the group the policy belongs to
+          type: integer
+          example: 47
+        group:
+          description: The group the Netscan policy should belong to
+          type: string
+          example: RT_check
+      discriminator:
+        propertyName: method
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

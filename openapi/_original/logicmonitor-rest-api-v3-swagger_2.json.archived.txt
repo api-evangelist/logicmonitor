@@ -1,0 +1,2 @@
+# x-archived-from: logicmonitor-rest-api-v3-swagger.json
+# x-archived-on: 2026-09-16

@@ -1,0 +1,1863 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Alerts API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Alerts across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Alerts
+paths:
+  /alert/alerts/{id}:
+    get:
+      summary: get alert
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAlertById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: needMessage
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: customColumns
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Alerts
+    servers:
+    - url: /santaba/rest
+  /alert/alerts:
+    get:
+      summary: get alert list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAlertList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Alerts
+    servers:
+    - url: /santaba/rest
+  /alert/alerts/{id}/ack:
+    post:
+      summary: ack alert by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: ackAlertById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - Alerts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertAck'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /alert/alerts/{id}/note:
+    post:
+      summary: add alert note
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addAlertNoteById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - Alerts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertAck'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /alert/alerts/{id}/escalate:
+    post:
+      summary: Escalate alert by ID
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: Acknowledge
+      description: Escalate the alert with the given ID
+      operationId: escalatedAlertById
+      responses:
+        '200':
+          description: Successfully escalated the alert
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - Alerts
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    Alert:
+      type: object
+      properties:
+        resourceId:
+          format: int32
+          description: The device specific LogicModule Id
+          readOnly: true
+          type: integer
+        instanceName:
+          description: The name of the instance in alert
+          readOnly: true
+          type: string
+        monitorObjectId:
+          format: int32
+          description: The id of the object that the alert is associated with
+          readOnly: true
+          type: integer
+        endEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert ended
+          readOnly: true
+          type: integer
+        rule:
+          description: The rule the alert matches
+          readOnly: true
+          type: string
+        threshold:
+          description: The threshold associated with the object in alert
+          readOnly: true
+          type: string
+        type:
+          description: The type of alert
+          readOnly: true
+          type: string
+        startEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert started
+          readOnly: true
+          type: integer
+        enableAnomalyAlertGeneration:
+          type: string
+        internalId:
+          description: The internal id for the alert
+          readOnly: true
+          type: string
+        ackComment:
+          description: The comment submitted with the acknowledgement
+          readOnly: true
+          type: string
+        monitorObjectName:
+          description: The name of the object that the alert is associated with
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint in alert
+          readOnly: true
+          type: string
+        instanceId:
+          format: int32
+          description: The id of the instance in alert
+          readOnly: true
+          type: integer
+        dataPointId:
+          format: int32
+          description: The id of the datapoint in alert
+          readOnly: true
+          type: integer
+        nextRecipient:
+          format: int32
+          description: The next recipient in the escalation chain for this alert
+          readOnly: true
+          type: integer
+        id:
+          description: The alert id
+          readOnly: true
+          type: string
+        detailMessage:
+          description: The alert message, if needMessage=true is included in the query parameters
+          readOnly: true
+          type: object
+        ruleId:
+          format: int32
+          description: The id of the rule the alert matches
+          readOnly: true
+          type: integer
+        alertValue:
+          description: The value that triggered the alert
+          readOnly: true
+          type: string
+        ackedBy:
+          description: The user that acknowledged the alert
+          readOnly: true
+          type: string
+        severity:
+          format: int32
+          description: The alert severity, where 2=warning, 3=error and 4=critical
+          readOnly: true
+          type: integer
+        sdted:
+          description: Whether or not the alert was triggered during an SDT
+          readOnly: true
+          type: boolean
+        ackedEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert was acknowledged
+          readOnly: true
+          type: integer
+        chain:
+          description: The escalation chain the alert was routed to
+          readOnly: true
+          type: string
+        SDT:
+          description: The active SDT, if one exists
+          readOnly: true
+          type: object
+        subChainId:
+          format: int32
+          description: The id of the sub time based chain
+          readOnly: true
+          type: integer
+        enableAnomalyAlertSuppression:
+          type: string
+        receivedList:
+          description: The recipients that have received the alert
+          readOnly: true
+          type: string
+        serviceMembers:
+          description: Service member name and value
+          readOnly: true
+          type: object
+        monitorObjectType:
+          readOnly: true
+          type: string
+        customColumns:
+          description: 'The property or token values that should display with the alert details. Note that if referencing tokens, you''ll need to URL encode the # symbol.'
+          readOnly: true
+          type: object
+        acked:
+          description: Whether or not the alert has been acknowledged
+          readOnly: true
+          type: boolean
+        resourceTemplateType:
+          description: The type of the logicmodule in alert
+          readOnly: true
+          type: string
+        clearValue:
+          description: The value that cleared the alert
+          readOnly: true
+          type: string
+        instanceDescription:
+          description: The description of the instance in alert
+          readOnly: true
+          type: string
+        monitorObjectGroups:
+          description: Information about the groups the object is a member of
+          readOnly: true
+          type: object
+        chainId:
+          format: int32
+          description: The id of the escalation chain the alert was routed to
+          readOnly: true
+          type: integer
+        resourceTemplateId:
+          format: int32
+          description: The id of the datasource in alert
+          readOnly: true
+          type: integer
+        cleared:
+          description: Whether or not the alert has cleared
+          readOnly: true
+          type: boolean
+        resourceTemplateName:
+          description: The name of the datasource in alert
+          readOnly: true
+          type: string
+    AlertPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AlertAck:
+      type: object
+      required:
+      - ackComment
+      properties:
+        ackComment:
+          description: your comment on the alert
+          type: string
+          example: looking into this alert
+    RestResponseMetaBlock:
+      type: object
+      properties:
+        filteredCount:
+          format: int64
+          type: integer
+        isTotalCountExhaustive:
+          type: boolean
+        fromPagingResponseInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        fromSortInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        perPageCount:
+          format: int32
+          type: integer
+        sort:
+          type: string
+        totalCount:
+          format: int64
+          type: integer
+        pageOffsetCount:
+          format: int32
+          type: integer
+    AlertResponse:
+      type: object
+      properties:
+        sdtIds:
+          description: The SDT Ids associated with the alert
+          readOnly: true
+          type: string
+        resourceId:
+          format: int32
+          description: The device specific LogicModule Id
+          readOnly: true
+          type: integer
+        endEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert ended
+          readOnly: true
+          type: integer
+        threshold:
+          description: The threshold associated with the object in alert
+          readOnly: true
+          type: string
+        type:
+          description: The type of alert
+          readOnly: true
+          type: string
+        startEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert started
+          readOnly: true
+          type: integer
+        enableAnomalyAlertGeneration:
+          description: 'Indicates dynamic threshold alert generation setting. Expression is comma separated
+
+            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
+
+            1,0,1 =   warn : ON     error: OFF   critical: ON
+
+            Empty value on this parameter means : 0,0,0'
+          readOnly: true
+          type: string
+        internalId:
+          description: The internal id for the alert
+          readOnly: true
+          type: string
+        monitorObjectName:
+          description: The name of the object that the alert is associated with
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint in alert
+          readOnly: true
+          type: string
+        dataPointId:
+          format: int32
+          description: The id of the datapoint in alert
+          readOnly: true
+          type: integer
+        suppressor:
+          description: 'The component (For example: SDT, CollectorDown, HostClusterAlert, Dependency, HostDown, ADS) which suppressed the alert'
+          readOnly: true
+          type: string
+        context:
+          $ref: '#/components/schemas/RestAlertQueryContext'
+        id:
+          description: The alert id
+          readOnly: true
+          type: string
+        ruleId:
+          format: int32
+          description: The id of the rule the alert matches
+          readOnly: true
+          type: integer
+        alertExternalTicketUrl:
+          description: The alert external ticket urls
+          readOnly: true
+          $ref: '#/components/schemas/JSONObject'
+        tenant:
+          description: 'Tenant to which this alert belongs to. '
+          readOnly: true
+          type: string
+        alertValue:
+          description: The value that triggered the alert
+          readOnly: true
+          type: string
+        sdted:
+          description: It specifies if the SDT is set for an active alert or not. However, the sdted is set to false for cleared alert as you cannot apply SDT to a cleared alert.
+          readOnly: true
+          type: object
+        SDT:
+          description: The active SDT, if one exists
+          readOnly: true
+          $ref: '#/components/schemas/JSONObject'
+        enableAnomalyAlertSuppression:
+          description: 'Indicates anomaly detection alert suppression setting, expression is comma separated
+
+            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
+
+            1,0,1 =   warn : ON     error: OFF   critical: ON
+
+            Empty value on this parameter means : 0,0,0'
+          readOnly: true
+          type: string
+        receivedList:
+          description: The recipients that have received the alert
+          readOnly: true
+          type: string
+        monitorObjectGroups:
+          description: Information about the groups the object is a member of
+          readOnly: true
+          type: object
+        chainId:
+          format: int32
+          description: The id of the escalation chain the alert was routed to
+          readOnly: true
+          type: integer
+        resourceTemplateId:
+          format: int32
+          description: The id of the datasource in alert
+          readOnly: true
+          type: integer
+        lastUpdatedOnEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert was last updated. This field is used to track the most recent update to the alert, such as changes in its state, acknowledgment, or other properties
+          readOnly: true
+          type: integer
+        cleared:
+          description: Whether or not the alert has cleared
+          readOnly: true
+          type: boolean
+        adAlertDesc:
+          description: The description for dynamic threshold based alert
+          readOnly: true
+          type: string
+        resourceTemplateName:
+          description: The name of the datasource in alert
+          readOnly: true
+          type: string
+        anomaly:
+          description: Indicates the anomaly alert, value can be true/false/null. If alert value lies within confidence band then false, otherwise true. If confidence band is not available then value will be null.
+          readOnly: true
+          type: boolean
+        instanceName:
+          description: The name of the instance in alert
+          readOnly: true
+          type: string
+        monitorObjectId:
+          format: int32
+          description: The id of the object that the alert is associated with
+          readOnly: true
+          type: integer
+        rule:
+          description: The rule the alert matches
+          readOnly: true
+          type: string
+        ackComment:
+          description: The comment submitted with the acknowledgement
+          readOnly: true
+          type: string
+        alertTriggerValue:
+          description: The trigger value associated with the alert
+          readOnly: true
+          type: string
+        alertGroupEntityValue:
+          description: Alert group entity value for stateful log alerts
+          readOnly: true
+          type: string
+        instanceId:
+          format: int32
+          description: The id of the instance in alert
+          readOnly: true
+          type: integer
+        suppressDesc:
+          description: The description for suppressed alert
+          readOnly: true
+          type: string
+        logPartition:
+          description: Specified log alert partition information
+          readOnly: true
+          type: string
+        nextRecipient:
+          format: int32
+          description: The next recipient in the escalation chain for this alert
+          readOnly: true
+          type: integer
+        clearExpr:
+          description: Specified log alert clear expression information
+          readOnly: true
+          type: string
+        adAlert:
+          description: Specifies whether alert is dynamic threshold based or not
+          readOnly: true
+          type: boolean
+        ackedBy:
+          description: The user that acknowledged the alert
+          readOnly: true
+          type: string
+        severity:
+          format: int32
+          description: The alert severity, where 2=warning, 3=error and 4=critical
+          readOnly: true
+          type: integer
+        ackedEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert was acknowledged
+          readOnly: true
+          type: integer
+        chain:
+          description: The escalation chain the alert was routed to
+          readOnly: true
+          type: string
+        alertQuery:
+          description: Specified alert query information
+          readOnly: true
+          type: string
+        subChainId:
+          format: int32
+          description: The id of the sub time based chain
+          readOnly: true
+          type: integer
+        logMetaData:
+          description: Specified log alert metadata fields value
+          readOnly: true
+          type: string
+        monitorObjectType:
+          readOnly: true
+          type: string
+        sessionId:
+          format: int32
+          description: The session id of alert
+          readOnly: true
+          type: integer
+        acked:
+          description: Whether or not the alert has been acknowledged
+          readOnly: true
+          type: boolean
+        resourceTemplateType:
+          description: The type of the logicmodule in alert
+          readOnly: true
+          type: string
+        clearValue:
+          description: The value that cleared the alert
+          readOnly: true
+          type: string
+        instanceDescription:
+          description: The description of the instance in alert
+          readOnly: true
+          type: string
+        dependencyRoutingState:
+          description: The dependency routing state
+          readOnly: true
+          type: string
+        dependencyRole:
+          description: The dependency role
+          readOnly: true
+          type: string
+    AlertListPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertResponse'
+    FieldFilter:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        supportGlob:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: string
+        operator:
+          type: string
+    JSONObject:
+      description: The alert external ticket urls
+      readOnly: true
+      type: object
+      properties:
+        empty:
+          type: boolean
+    RestSDTV4:
+      type: object
+      required:
+      - recurrence
+      - type
+      - websiteGroupId
+      properties:
+        notes:
+          description: Notes regarding the SDT
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        defaultValue:
+          format: date-time
+          type: string
+        monthDay:
+          description: The values can be -3 | 1 | 2....| 31. Specifies the day(s) of the month that the SDT will be active for a monthly SDT. Use -3 for the last day of the month. Supports comma-separated values (e.g., '1,15,28') when multi-day is enabled.
+          type: string
+          example: '7'
+        type:
+          description: The type of resource that this SDT is for. The values can be CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | ResourceGroupSDT | ResourceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT | DeviceLogPipeLineResourceSDT
+          type: string
+          example: ResourceGroupSDT
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138
+        dataSourceId:
+          format: int32
+          description: The id of the datasource instance that the SDT will be associated with
+          type: integer
+        hour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3
+        weekDay:
+          description: The week day of sdt. For weekly & monthlyByWeek SDT, supports comma-separated values like 'Monday,Friday'. Values can be SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY
+          type: string
+          example: Sunday
+        endedAtMS:
+          format: int64
+          description: The time milliseconds that the SDT will end or has ended.
+          readOnly: true
+          type: integer
+        resourceGroupId:
+          format: int32
+          readOnly: true
+          type: integer
+        model:
+          type: string
+          enum:
+          - accessLogs
+          - accessGroups
+          - adminNotifications
+          - aggregateSavings
+          - alerts
+          - visualizationAggregateEntry
+          - visualizationAggregateValue
+          - alertDependencyRules
+          - alertRoutings
+          - alertRules
+          - actionRules
+          - alertTuningConfigAncestry
+          - alertTuningConfigs
+          - alertTuningConfigsHistory
+          - alertTuningConfigSlots
+          - alertTuningGraphs
+          - alertsTuningSeries
+          - asnMappings
+          - billingConfigurations
+          - cloudAccounts
+          - cloudResourceProperty
+          - clusterAlertRoutings
+          - clusterAlertTuningConfigs
+          - collectors
+          - collectorEvents
+          - collectorGroups
+          - collectorStatus
+          - collectorUpgradeHistory
+          - collectorUpgradeInfo
+          - configSources
+          - configSourceInstance
+          - configSourceInstanceAlert
+          - collectorLogs
+          - config
+          - configAlert
+          - correlationGraphs
+          - dashboards
+          - datapoints
+          - dataQueries
+          - dataSources
+          - dataSourceInstances
+          - dataSourceInstanceAlertSettings
+          - dataSourceInstanceGroups
+          - datasets
+          - dnsMappings
+          - escalationChains
+          - actionChains
+          - eventSources
+          - integrations
+          - integrationAuditLogs
+          - logSources
+          - exchangeAccessGroups
+          - exchangeActiveDiscoveryFilters
+          - exchangeAppliesToFunctions
+          - exchangeChangelogs
+          - exchangeConfigSources
+          - exchangeConfigSourceConfigChecks
+          - exchangeDataSources
+          - exchangeDataSourceDataPoints
+          - exchangeDataSourceDataPointDisplayStatusNames
+          - exchangeDataSourceGraphs
+          - exchangeDataSourceGraphSeries
+          - exchangeDataSourceGraphVirtualSeries
+          - exchangeDataSourceOverviewGraphs
+          - exchangeDataSourceOverviewGraphSeries
+          - exchangeDataSourceOverviewGraphVirtualSeries
+          - exchangeDiagnosticSources
+          - exchangeEventSources
+          - exchangeEventSourceFilters
+          - exchangeEventSourceLogFiles
+          - exchangeJobMonitors
+          - exchangeLogSources
+          - exchangeLogSourceFilters
+          - exchangeSnmpTrapLogSourceFilters
+          - exchangeLogSourceLogFields
+          - exchangeLogSourceResourceMappings
+          - exchangeLogSourceSensitiveDataMaskingRules
+          - exchangeLogSourceCollectorMappings
+          - exchangeLogicModules
+          - exchangeLogicModulePackages
+          - exchangeLogicModulePermissions
+          - exchangePackagedLogicModules
+          - exchangePropertySources
+          - exchangeRemediationSources
+          - exchangeSNMPSysOIDMaps
+          - exchangeTopologySources
+          - externalResourceIdentifiers
+          - failedDataSourceInfo
+          - filterFieldList
+          - graphs
+          - graphMeta
+          - healthMetrics
+          - hierarchy
+          - hostclusterAlertDefs
+          - auditLogSummaryContext
+          - hostDiagnosticSourceDetails
+          - diagnosticExecutionContext
+          - remediationExecutionContext
+          - latestDiagnosticExecutionResultContext
+          - diagnosticExecutionSearchContext
+          - remediationSourceExecutionSearchContext
+          - diagnosticSourceAssociatedDevices
+          - hostRemediationSourceDetails
+          - hostActionToolDetails
+          - actionToolExecutionContext
+          - actionToolExecutionSearchContext
+          - remediationSourceAssociatedDevices
+          - latestRemediationExecutionResultContext
+          - hostGroups
+          - internalAlertSettings
+          - jobMonitors
+          - jobMonitorExecutions
+          - lmSupportAccessHasConnection
+          - lmSupportAccessState
+          - lmotelCollectors
+          - lmotelCollectorVersions
+          - lmCollectorVersions
+          - logalerts
+          - logicModuleGroups
+          - logpipelinesources
+          - logpipelineprocessors
+          - matchedEvents
+          - metaGroupings
+          - metricsCorrelation
+          - monitoredResources
+          - netscanGroups
+          - netscans
+          - netflow
+          - netflowAlertRule
+          - allLevels
+          - nocWidgets
+          - normalizedProperties
+          - netscanPolicies
+          - netscanExecutions
+          - opsNotes
+          - opsNoteResourceScopes
+          - opsNoteServiceScopes
+          - opsNoteResourceGroupScopes
+          - opsNoteServiceGroupScopes
+          - opsNoteGroupAllScopes
+          - opsNoteTags
+          - orgTreeNodes
+          - portMappings
+          - productIds
+          - properties
+          - propertySources
+          - rawData
+          - recentlyDeletedItems
+          - recipientGroups
+          - cloudConfigIssues
+          - cloudConfigIntegrations
+          - cloudConfigAccounts
+          - cloudHealthEvents
+          - cloudHealthEventDetails
+          - cloudHealthEventAdditionalInfo
+          - cloudRecommendations
+          - cloudRecommendationAdditionalData
+          - recommendationTypes
+          - relationships
+          - reports
+          - reportHistories
+          - reportGroups
+          - resources
+          - resourceDashboards
+          - resourceDataSources
+          - resourceDatapoints
+          - resourceEventSources
+          - resourceConfigSources
+          - ConfigSourcesGoldStandard
+          - ConfigSourceConfiguration
+          - resourceDashboardTemplates
+          - resourceGroups
+          - resourceGroupDataSourceConfigs
+          - resourceGroupEventSourceConfigs
+          - resourceGroupInfoSourceConfigs
+          - resourceJobMonitors
+          - resourceLogPipelineResources
+          - resourceLogSources
+          - sdts
+          - services
+          - serviceCheckpoints
+          - serviceGroups
+          - sharedQueries
+          - siteMonitors
+          - slaWidgets
+          - spanCount
+          - securityRecommendations
+          - subscriptions
+          - topology
+          - topologyMaps
+          - topologyMaps-1
+          - topologyMaps-2
+          - topologyMapsHistogram
+          - topologyMapsGraphs
+          - subEntities
+          - subEntitiesDetails
+          - topologySavedMapsGroupType
+          - topologySavedMapsGroup
+          - topologyManualMapping
+          - topologyManualInterfaceList
+          - traffic
+          - treeNodes
+          - unmonitoredResources
+          - userdata
+          - users
+          - userSettings
+          - websiteCheckpoints
+          - websiteGroups
+          - websites
+          - ServicePreview
+          - BizServiceDatapoint
+          - ServiceTemplateView
+          - ServiceMemberPreview
+          - RestServiceTemplate
+          - ServiceTemplateServiceStats
+          - synthetics
+          - usage
+          - tracesDevicesNamesIds
+          - tracesGraphIds
+          - tracesServices
+          - tracesDeviceDatasources
+          - tracesDeviceDatasourceInstances
+          - tracesNamespaceGraphDetails
+          - tracesResourceNamesIds
+          - tracesTopologyEdgeData
+          - members
+          - apiTokens
+          - roleGroups
+          - roles
+          - userGroups
+          - sharingTokens
+          - scimTokens
+          - syntheticsDSInstanceRawData
+          - syntheticsDSInstanceStepData
+          - syntheticsDSInstanceAlerts
+          - usageDimensions
+          - vizResourceInfo
+          - lmqlResult
+          - lmqlParsed
+          - partitions
+          - cloudRecommendationStatus
+          - recommendationStatusUpdateRequest
+          - websiteDevice
+          - mibUpload
+          - logQueryGroups
+          - logQueryGroupChangelog
+          - logQuery
+          - trackingLogQueries
+          - billingBudgets
+          - trackedQuery
+          - trackedQueryGroups
+          - trackedQueryGroupChangelog
+          - adminName
+          - droppedInstances
+          - dashboardFilterGroups
+          - dashboardFilters
+          - dashboardFilterMappings
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          readOnly: true
+          type: string
+        endMinute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18
+        identifier:
+          $ref: '#/components/schemas/ObjectIdentifier'
+        targetId:
+          $ref: '#/components/schemas/ModelAndId'
+        deviceDataSourceId:
+          format: int32
+          description: The id of the device datasource instance group that the SDT will be associated with
+          type: integer
+        weekOfMonth:
+          description: The week of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        intoRestResponse:
+          $ref: '#/components/schemas/RestResponse'
+        websiteGroupId:
+          format: int32
+          description: The Id of the service group that the SDT applies to
+          type: integer
+        isEffective:
+          description: 'The values can be true|false, where true: the SDT is currently active
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6
+        recurrence:
+          description: Describes how and when the SDT recures
+          type: string
+        endHour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5
+        relatedIntoRestResponse:
+          $ref: '#/components/schemas/RestResponse'
+        createdBy:
+          description: SDT creator's username
+          readOnly: true
+          type: string
+        startedAtMS:
+          format: int64
+          description: The time in milliseconds that the SDT will start or has started
+          readOnly: true
+          type: integer
+      discriminator:
+        propertyName: type
+    Alert_2:
+      type: object
+      properties:
+        sdtIds:
+          description: The SDT Ids associated with the alert
+          readOnly: true
+          type: string
+        resourceId:
+          format: int32
+          description: The device specific LogicModule Id
+          readOnly: true
+          type: integer
+        endEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert ended
+          readOnly: true
+          type: integer
+        threshold:
+          description: The threshold associated with the object in alert
+          readOnly: true
+          type: string
+        type:
+          description: The type of alert
+          readOnly: true
+          type: string
+        startEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert started
+          readOnly: true
+          type: integer
+        enableAnomalyAlertGeneration:
+          description: 'Indicates dynamic threshold alert generation setting. Expression is comma separated
+
+            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
+
+            1,0,1 =   warn : ON     error: OFF   critical: ON
+
+            Empty value on this parameter means : 0,0,0'
+          readOnly: true
+          type: string
+        internalId:
+          description: The internal id for the alert
+          readOnly: true
+          type: string
+        monitorObjectName:
+          description: The name of the object that the alert is associated with
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint in alert
+          readOnly: true
+          type: string
+        dataPointId:
+          format: int32
+          description: The id of the datapoint in alert
+          readOnly: true
+          type: integer
+        suppressor:
+          description: 'The component (For example: SDT, CollectorDown, HostClusterAlert, Dependency, HostDown, ADS) which suppressed the alert'
+          readOnly: true
+          type: string
+        context:
+          $ref: '#/components/schemas/RestAlertQueryContext'
+        id:
+          description: The alert id
+          readOnly: true
+          type: string
+        detailMessage:
+          description: The alert message, if needMessage=true is included in the query parameters
+          readOnly: true
+          $ref: '#/components/schemas/JSONObject'
+        ruleId:
+          format: int32
+          description: The id of the rule the alert matches
+          readOnly: true
+          type: integer
+        alertExternalTicketUrl:
+          description: The alert external ticket urls
+          readOnly: true
+          $ref: '#/components/schemas/JSONObject'
+        tenant:
+          description: 'Tenant to which this alert belongs to. '
+          readOnly: true
+          type: string
+        alertValue:
+          description: The value that triggered the alert
+          readOnly: true
+          type: string
+        sdted:
+          description: It specifies if the SDT is set for an active alert or not. However, the sdted is set to false for cleared alert as you cannot apply SDT to a cleared alert.
+          readOnly: true
+          type: object
+        SDT:
+          description: The active SDT, if one exists
+          readOnly: true
+          $ref: '#/components/schemas/JSONObject'
+        enableAnomalyAlertSuppression:
+          description: 'Indicates anomaly detection alert suppression setting, expression is comma separated
+
+            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
+
+            1,0,1 =   warn : ON     error: OFF   critical: ON
+
+            Empty value on this parameter means : 0,0,0'
+          readOnly: true
+          type: string
+        receivedList:
+          description: The recipients that have received the alert
+          readOnly: true
+          type: string
+        monitorObjectGroups:
+          description: Information about the groups the object is a member of
+          readOnly: true
+          type: object
+        chainId:
+          format: int32
+          description: The id of the escalation chain the alert was routed to
+          readOnly: true
+          type: integer
+        resourceTemplateId:
+          format: int32
+          description: The id of the datasource in alert
+          readOnly: true
+          type: integer
+        lastUpdatedOnEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert was last updated. This field is used to track the most recent update to the alert, such as changes in its state, acknowledgment, or other properties
+          readOnly: true
+          type: integer
+        cleared:
+          description: Whether or not the alert has cleared
+          readOnly: true
+          type: boolean
+        adAlertDesc:
+          description: The description for dynamic threshold based alert
+          readOnly: true
+          type: string
+        resourceTemplateName:
+          description: The name of the datasource in alert
+          readOnly: true
+          type: string
+        anomaly:
+          description: Indicates the anomaly alert, value can be true/false/null. If alert value lies within confidence band then false, otherwise true. If confidence band is not available then value will be null.
+          readOnly: true
+          type: boolean
+        instanceName:
+          description: The name of the instance in alert
+          readOnly: true
+          type: string
+        monitorObjectId:
+          format: int32
+          description: The id of the object that the alert is associated with
+          readOnly: true
+          type: integer
+        rule:
+          description: The rule the alert matches
+          readOnly: true
+          type: string
+        ackComment:
+          description: The comment submitted with the acknowledgement
+          readOnly: true
+          type: string
+        alertTriggerValue:
+          description: The trigger value associated with the alert
+          readOnly: true
+          type: string
+        alertGroupEntityValue:
+          description: Alert group entity value for stateful log alerts
+          readOnly: true
+          type: string
+        instanceId:
+          format: int32
+          description: The id of the instance in alert
+          readOnly: true
+          type: integer
+        suppressDesc:
+          description: The description for suppressed alert
+          readOnly: true
+          type: string
+        logPartition:
+          description: Specified log alert partition information
+          readOnly: true
+          type: string
+        nextRecipient:
+          format: int32
+          description: The next recipient in the escalation chain for this alert
+          readOnly: true
+          type: integer
+        clearExpr:
+          description: Specified log alert clear expression information
+          readOnly: true
+          type: string
+        adAlert:
+          description: Specifies whether alert is dynamic threshold based or not
+          readOnly: true
+          type: boolean
+        ackedBy:
+          description: The user that acknowledged the alert
+          readOnly: true
+          type: string
+        severity:
+          format: int32
+          description: The alert severity, where 2=warning, 3=error and 4=critical
+          readOnly: true
+          type: integer
+        ackedEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert was acknowledged
+          readOnly: true
+          type: integer
+        chain:
+          description: The escalation chain the alert was routed to
+          readOnly: true
+          type: string
+        alertQuery:
+          description: Specified alert query information
+          readOnly: true
+          type: string
+        subChainId:
+          format: int32
+          description: The id of the sub time based chain
+          readOnly: true
+          type: integer
+        logMetaData:
+          description: Specified log alert metadata fields value
+          readOnly: true
+          type: string
+        monitorObjectType:
+          readOnly: true
+          type: string
+        sessionId:
+          format: int32
+          description: The session id of alert
+          readOnly: true
+          type: integer
+        acked:
+          description: Whether or not the alert has been acknowledged
+          readOnly: true
+          type: boolean
+        resourceTemplateType:
+          description: The type of the logicmodule in alert
+          readOnly: true
+          type: string
+        clearValue:
+          description: The value that cleared the alert
+          readOnly: true
+          type: string
+        instanceDescription:
+          description: The description of the instance in alert
+          readOnly: true
+          type: string
+        dependencyRoutingState:
+          description: The dependency routing state
+          readOnly: true
+          type: string
+        dependencyRole:
+          description: The dependency role
+          readOnly: true
+          type: string
+    ObjectNode:
+      type: object
+    ArrayNode:
+      type: object
+    AlertsById:
+      type: object
+      properties:
+        resourceGroups:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        eventSources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        clusterAlertSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        datapoints:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        escalationChains:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        sdts:
+          additionalProperties:
+            $ref: '#/components/schemas/RestSDTV4'
+          type: object
+        alertRules:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        serviceGroups:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        resources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        logpipelinesources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        services:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSourceInstances:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingAlerts:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        alerts:
+          additionalProperties:
+            $ref: '#/components/schemas/Alert_2'
+          type: object
+        logalerts:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        batchJobs:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingBudgets:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSourceInstanceAlertSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingAlertsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        serviceCheckpoints:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        logAlertsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+    ObjectIdentifier:
+      type: object
+      properties:
+        model:
+          type: string
+          enum:
+          - accessLogs
+          - accessGroups
+          - adminNotifications
+          - aggregateSavings
+          - alerts
+          - visualizationAggregateEntry
+          - visualizationAggregateValue
+          - alertDependencyRules
+          - alertRoutings
+          - alertRules
+          - actionRules
+          - alertTuningConfigAncestry
+          - alertTuningConfigs
+          - alertTuningConfigsHistory
+          - alertTuningConfigSlots
+          - alertTuningGraphs
+          - alertsTuningSeries
+          - asnMappings
+          - billingConfigurations
+          - cloudAccounts
+          - cloudResourceProperty
+          - clusterAlertRoutings
+          - clusterAlertTuningConfigs
+          - collectors
+          - collectorEvents
+          - collectorGroups
+          - collectorStatus
+          - collectorUpgradeHistory
+          - collectorUpgradeInfo
+          - configSources
+          - configSourceInstance
+          - configSourceInstanceAlert
+          - collectorLogs
+          - config
+          - configAlert
+          - correlationGraphs
+          - dashboards
+          - datapoints
+          - dataQueries
+          - dataSources
+          - dataSourceInstances
+          - dataSourceInstanceAlertSettings
+          - dataSourceInstanceGroups
+          - datasets
+          - dnsMappings
+          - escalationChains
+          - actionChains
+          - eventSources
+          - integrations
+          - integrationAuditLogs
+          - logSources
+          - exchangeAccessGroups
+          - exchangeActiveDiscoveryFilters
+          - exchangeAppliesToFunctions
+          - exchangeChangelogs
+          - exchangeConfigSources
+          - exchangeConfigSourceConfigChecks
+          - exchangeDataSources
+          - exchangeDataSourceDataPoints
+          - exchangeDataSourceDataPointDisplayStatusNames
+          - exchangeDataSourceGraphs
+          - exchangeDataSourceGraphSeries
+          - exchangeDataSourceGraphVirtualSeries
+          - exchangeDataSourceOverviewGraphs
+          - exchangeDataSourceOverviewGraphSeries
+          - exchangeDataSourceOverviewGraphVirtualSeries
+          - exchangeDiagnosticSources
+          - exchangeEventSources
+          - exchangeEventSourceFilters
+          - exchangeEventSourceLogFiles
+          - exchangeJobMonitors
+          - exchangeLogSources
+          - exchangeLogSourceFilters
+          - exchangeSnmpTrapLogSourceFilters
+          - exchangeLogSourceLogFields
+          - exchangeLogSourceResourceMappings
+          - exchangeLogSourceSensitiveDataMaskingRules
+          - exchangeLogSourceCollectorMappings
+          - exchangeLogicModules
+          - exchangeLogicModulePackages
+          - exchangeLogicModulePermissions
+          - exchangePackagedLogicModules
+          - exchangePropertySources
+          - exchangeRemediationSources
+          - exchangeSNMPSysOIDMaps
+          - exchangeTopologySources
+          - externalResourceIdentifiers
+          - failedDataSourceInfo
+          - filterFieldList
+          - graphs
+          - graphMeta
+          - healthMetrics
+          - hierarchy
+          - hostclusterAlertDefs
+          - auditLogSummaryContext
+          - hostDiagnosticSourceDetails
+          - diagnosticExecutionContext
+          - remediationExecutionContext
+          - latestDiagnosticExecutionResultContext
+          - diagnosticExecutionSearchContext
+          - remediationSourceExecutionSearchContext
+          - diagnosticSourceAssociatedDevices
+          - hostRemediationSourceDetails
+          - hostActionToolDetails
+          - actionToolExecutionContext
+          - actionToolExecutionSearchContext
+          - remediationSourceAssociatedDevices
+          - latestRemediationExecutionResultContext
+          - hostGroups
+          - internalAlertSettings
+          - jobMonitors
+          - jobMonitorExecutions
+          - lmSupportAccessHasConnection
+          - lmSupportAccessState
+          - lmotelCollectors
+          - lmotelCollectorVersions
+          - lmCollectorVersions
+          - logalerts
+          - logicModuleGroups
+          - logpipelinesources
+          - logpipelineprocessors
+          - matchedEvents
+          - metaGroupings
+          - metricsCorrelation
+          - monitoredResources
+          - netscanGroups
+          - netscans
+          - netflow
+          - netflowAlertRule
+          - allLevels
+          - nocWidgets
+          - normalizedProperties
+          - netscanPolicies
+          - netscanExecutions
+          - opsNotes
+          - opsNoteResourceScopes
+          - opsNoteServiceScopes
+          - opsNoteResourceGroupScopes
+          - opsNoteServiceGroupScopes
+          - opsNoteGroupAllScopes
+          - opsNoteTags
+          - orgTreeNodes
+          - portMappings
+          - productIds
+          - properties
+          - propertySources
+          - rawData
+          - recentlyDeletedItems
+          - recipientGroups
+          - cloudConfigIssues
+          - cloudConfigIntegrations
+          - cloudConfigAccounts
+          - cloudHealthEvents
+          - cloudHealthEventDetails
+          - cloudHealthEventAdditionalInfo
+          - cloudRecommendations
+          - cloudRecommendationAdditionalData
+          - recommendationTypes
+          - relationships
+          - reports
+          - reportHistories
+          - reportGroups
+          - resources
+          - resourceDashboards
+          - resourceDataSources
+          - resourceDatapoints
+          - resourceEventSources
+          - resourceConfigSources
+          - ConfigSourcesGoldStandard
+          - ConfigSourceConfiguration
+          - resourceDashboardTemplates
+          - resourceGroups
+          - resourceGroupDataSourceConfigs
+          - resourceGroupEventSourceConfigs
+          - resourceGroupInfoSourceConfigs
+          - resourceJobMonitors
+          - resourceLogPipelineResources
+          - resourceLogSources
+          - sdts
+          - services
+          - serviceCheckpoints
+          - serviceGroups
+          - sharedQueries
+          - siteMonitors
+          - slaWidgets
+          - spanCount
+          - securityRecommendations
+          - subscriptions
+          - topology
+          - topologyMaps
+          - topologyMaps-1
+          - topologyMaps-2
+          - topologyMapsHistogram
+          - topologyMapsGraphs
+          - subEntities
+          - subEntitiesDetails
+          - topologySavedMapsGroupType
+          - topologySavedMapsGroup
+          - topologyManualMapping
+          - topologyManualInterfaceList
+          - traffic
+          - treeNodes
+          - unmonitoredResources
+          - userdata
+          - users
+          - userSettings
+          - websiteCheckpoints
+          - websiteGroups
+          - websites
+          - ServicePreview
+          - BizServiceDatapoint
+          - ServiceTemplateView
+          - ServiceMemberPreview
+          - RestServiceTemplate
+          - ServiceTemplateServiceStats
+          - synthetics
+          - usage
+          - tracesDevicesNamesIds
+          - tracesGraphIds
+          - tracesServices
+          - tracesDeviceDatasources
+          - tracesDeviceDatasourceInstances
+          - tracesNamespaceGraphDetails
+          - tracesResourceNamesIds
+          - tracesTopologyEdgeData
+          - members
+          - apiTokens
+          - roleGroups
+          - roles
+          - userGroups
+          - sharingTokens
+          - scimTokens
+          - syntheticsDSInstanceRawData
+          - syntheticsDSInstanceStepData
+          - syntheticsDSInstanceAlerts
+          - usageDimensions
+          - vizResourceInfo
+          - lmqlResult
+          - lmqlParsed
+          - partitions
+          - cloudRecommendationStatus
+          - recommendationStatusUpdateRequest
+          - websiteDevice
+          - mibUpload
+          - logQueryGroups
+          - logQueryGroupChangelog
+          - logQuery
+          - trackingLogQueries
+          - billingBudgets
+          - trackedQuery
+          - trackedQueryGroups
+          - trackedQueryGroupChangelog
+          - adminName
+          - droppedInstances
+          - dashboardFilterGroups
+          - dashboardFilters
+          - dashboardFilterMappings
+        id:
+          type: string
+    RestResponse:
+      type: object
+      properties:
+        diagnostics:
+          $ref: '#/components/schemas/ArrayNode'
+        suppressedWarnings:
+          $ref: '#/components/schemas/ArrayNode'
+        preserveInsertionOrder:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ObjectNode'
+        suppressedErrors:
+          $ref: '#/components/schemas/ArrayNode'
+        successes:
+          $ref: '#/components/schemas/ArrayNode'
+        meta:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        warnings:
+          $ref: '#/components/schemas/ArrayNode'
+        errors:
+          $ref: '#/components/schemas/ArrayNode'
+    AdvancedFieldFilter:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        supportGlob:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: string
+        operator:
+          type: string
+    ModelAndId:
+      description: SDT target
+      readOnly: true
+      type: object
+      properties:
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    AlertsModelAndId:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        isDeleted:
+          type: boolean
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    RestAlertQueryContext:
+      type: object
+      properties:
+        activeOnly:
+          type: boolean
+        pivotType:
+          type: string
+        anomaly:
+          type: string
+        suppressorFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        forServices:
+          type: boolean
+        pivotDimensions:
+          type: array
+          items:
+            type: string
+        refreshActiveAlertCache:
+          type: boolean
+        dependencyRoutingStateFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        excludePhatomFlag:
+          type: boolean
+        pivotDimensionESField:
+          type: array
+          items:
+            type: string
+        dependencyRoleFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        lmconfigEnabled:
+          type: boolean
+        dependencyRoutingStateFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        dependencyRoleFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        clearedOnly:
+          type: boolean
+        suppressorFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        alertsById:
+          $ref: '#/components/schemas/AlertsById'
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

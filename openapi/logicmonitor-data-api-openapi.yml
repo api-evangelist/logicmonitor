@@ -1,0 +1,1512 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Data API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Data across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Data
+paths:
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{instanceId}/config/{id}:
+    get:
+      summary: get a config for a device
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceConfigSourceConfigById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          pattern: '[-_a-zA-Z0-9]+'
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+          default: json
+      - in: query
+        name: startEpoch
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0.0
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{id}/graphs/{graphId}/data:
+    get:
+      summary: get device instance graph data
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceGraphData
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphPlot'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: path
+        name: graphId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: -?\d+
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{deviceDsId}/groups/{dsigId}/graphs/{ographId}/data:
+    get:
+      summary: get device instance group overview graph data
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceGroupOverviewGraphData
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphPlot'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: dsigId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: path
+        name: ographId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /website/websites/{websiteId}/checkpoints/{checkpointId}/graphs/{graphName}/data:
+    get:
+      summary: get website graph data
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getWebsiteGraphData
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphPlot'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: websiteId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: checkpointId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: path
+        name: graphName
+        required: true
+        schema:
+          type: string
+          pattern: .+
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /device/devicedatasourceinstances/{instanceId}/graphs/{graphId}/data:
+    get:
+      summary: get device instance data
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceInstanceGraphDataOnlyByInstanceId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphPlot'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: graphId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: -?\d+
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{id}/data:
+    get:
+      summary: get device instance data
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceData
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceData'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: number
+          format: double
+          default: 1.0
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0.0
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0.0
+      - in: query
+        name: datapoints
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+          default: json
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /dashboard/widgets/{id}/data:
+    get:
+      summary: get widget data
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getWidgetDataById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetData'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /website/websites/{srvId}/checkpoints/{checkId}/data:
+    get:
+      summary: get data for a website checkpoint
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getWebsiteCheckpointDataById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteCheckpointRawData'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: srvId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: checkId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: number
+          format: double
+          default: 1.0
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0.0
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0.0
+      - in: query
+        name: datapoints
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+          default: json
+      - in: query
+        name: aggregate
+        description: the aggregate option
+        required: false
+        schema:
+          type: string
+          enum:
+          - first
+          - last
+          - min
+          - max
+          - sum
+          - average
+          - none
+          default: none
+      tags:
+      - Data
+    servers:
+    - url: /santaba/rest
+  /device/instances/datafetch:
+    post:
+      summary: fetch device instances data
+      security:
+      - LMv1: []
+      description: ''
+      operationId: fetchDeviceInstancesData
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceInstanceDataPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: period
+        required: false
+        schema:
+          type: number
+          format: double
+          default: 1.0
+      - in: query
+        name: start
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0.0
+      - in: query
+        name: end
+        required: false
+        schema:
+          type: integer
+          format: int64
+          default: 0.0
+      - in: query
+        name: aggregate
+        description: the aggregate option
+        required: false
+        schema:
+          type: string
+          enum:
+          - first
+          - last
+          - min
+          - max
+          - sum
+          - average
+          - none
+          default: none
+      tags:
+      - Data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceInstances'
+        required: true
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    GraphPlotLine:
+      type: object
+      properties:
+        colorName:
+          readOnly: true
+          type: string
+        std:
+          readOnly: true
+          type: object
+        visible:
+          readOnly: true
+          type: boolean
+        color:
+          readOnly: true
+          type: string
+        data:
+          readOnly: true
+          type: array
+          items:
+            type: object
+        max:
+          readOnly: true
+          type: object
+        legend:
+          readOnly: true
+          type: string
+        description:
+          readOnly: true
+          type: string
+        label:
+          readOnly: true
+          type: string
+        type:
+          readOnly: true
+          type: string
+        min:
+          readOnly: true
+          type: object
+        avg:
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          readOnly: true
+          type: integer
+        useYMax:
+          readOnly: true
+          type: boolean
+    WebsiteCheckpointRawData:
+      type: object
+      properties:
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigAlert:
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          type: integer
+        id:
+          type: string
+        alertId:
+          type: string
+        alertSummary:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+    DeviceInstanceDataPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceInstanceData'
+    DeviceDataSourceInstanceConfig:
+      type: object
+      properties:
+        instanceName:
+          type: string
+        deviceDataSourceId:
+          format: int32
+          type: integer
+        configStatus:
+          format: int32
+          type: integer
+        version:
+          format: int64
+          type: integer
+        deviceId:
+          format: int32
+          type: integer
+        deltaConfig:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff'
+        deviceDisplayName:
+          type: string
+        dataSourceName:
+          type: string
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert'
+        dataSourceId:
+          format: int32
+          type: integer
+        instanceId:
+          format: int32
+          type: integer
+        configErrMsg:
+          type: string
+        changeStatus:
+          type: string
+        id:
+          type: string
+        pollTimestamp:
+          format: int64
+          type: integer
+        config:
+          type: string
+    DeviceInstances:
+      type: object
+      required:
+      - instanceIds
+      properties:
+        instanceIds:
+          description: the ids of the instances, separated by commas
+          type: string
+          example: 1,2,3,4,5
+    DeviceDataSourceInstanceConfigDiff:
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          type: integer
+        type:
+          type: string
+        content:
+          type: string
+    DeviceInstanceData:
+      type: object
+      properties:
+        instanceId:
+          readOnly: true
+          type: string
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        errMsg:
+          readOnly: true
+          type: string
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    GraphPlot:
+      allOf:
+      - $ref: '#/components/schemas/WidgetData'
+      - type: object
+        properties:
+          missinglines:
+            readOnly: true
+            type: array
+            items:
+              type: string
+          timeScale:
+            readOnly: true
+            type: string
+          instances:
+            uniqueItems: true
+            readOnly: true
+            type: array
+            items:
+              format: int32
+              type: integer
+          timestamps:
+            readOnly: true
+            type: array
+            items:
+              format: int64
+              type: integer
+          minValue:
+            readOnly: true
+            type: object
+          startTime:
+            format: int64
+            readOnly: true
+            type: integer
+          id:
+            format: int32
+            readOnly: true
+            type: integer
+          rigid:
+            readOnly: true
+            type: boolean
+          lines:
+            readOnly: true
+            type: array
+            items:
+              $ref: '#/components/schemas/GraphPlotLine'
+          height:
+            format: int32
+            readOnly: true
+            type: integer
+          endTZOffset:
+            format: int32
+            readOnly: true
+            type: integer
+          base1024:
+            readOnly: true
+            type: boolean
+          dsName:
+            readOnly: true
+            type: string
+          maxValue:
+            readOnly: true
+            type: object
+          displayPrio:
+            format: int32
+            readOnly: true
+            type: integer
+          timeZoneId:
+            readOnly: true
+            type: string
+          timeZone:
+            readOnly: true
+            type: string
+          startTZOffset:
+            format: int32
+            readOnly: true
+            type: integer
+          xAxisName:
+            readOnly: true
+            type: string
+          width:
+            format: int32
+            readOnly: true
+            type: integer
+          name:
+            readOnly: true
+            type: string
+          verticalLabel:
+            readOnly: true
+            type: string
+          step:
+            format: int64
+            readOnly: true
+            type: integer
+          endTime:
+            format: int64
+            readOnly: true
+            type: integer
+          scopes:
+            readOnly: true
+            type: array
+            items:
+              $ref: '#/components/schemas/GraphOpsNoteScope'
+          base:
+            format: int64
+            readOnly: true
+            type: integer
+          exportFileName:
+            readOnly: true
+            type: string
+      x-discriminator-value: graph
+    WidgetData:
+      type: object
+      properties:
+        type:
+          readOnly: true
+          type: string
+        title:
+          type: string
+      discriminator:
+        propertyName: type
+    DeviceDataSourceInstanceData:
+      type: object
+      properties:
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    GraphOpsNoteScope:
+      type: object
+      properties:
+        serviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        serviceId:
+          format: int32
+          type: integer
+        type:
+          type: string
+        deviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        deviceId:
+          format: int32
+          type: integer
+    GraphPlotLine_2:
+      description: The properties of the graph and graph lines
+      readOnly: true
+      type: object
+      properties:
+        colorName:
+          description: The color name
+          readOnly: true
+          type: string
+        std:
+          description: The standard deviation value
+          readOnly: true
+          type: object
+        visible:
+          description: 'true | false
+
+            Specifies whether the graph will be visible or not'
+          readOnly: true
+          type: boolean
+        color:
+          description: The color of the graph
+          readOnly: true
+          type: string
+        data:
+          description: The polled data used to plot the graph
+          readOnly: true
+          type: array
+          items:
+            format: double
+            description: The polled data used to plot the graph
+            readOnly: true
+            type: number
+        max:
+          description: The max value of datapoint or instance
+          readOnly: true
+          type: object
+        legend:
+          description: The legend of the datapoint or instance
+          readOnly: true
+          type: string
+        description:
+          description: The description for the datapoint or instance
+          readOnly: true
+          type: string
+        label:
+          description: The label for the datapoint or instance
+          readOnly: true
+          type: string
+        type:
+          description: 'Specifies how the data of the datapoint or instance will be plotted
+
+            The values can be line | area | stack | column | statusBar'
+          readOnly: true
+          type: string
+        min:
+          description: The min value of the datapoint or instance
+          readOnly: true
+          type: object
+        avg:
+          description: The average value of the datapoint or instance
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          description: 'The decimal value
+
+            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
+          readOnly: true
+          type: integer
+        useYMax:
+          description: 'true | false
+
+            Specifies whether to use YMax or not'
+          readOnly: true
+          type: boolean
+    WebsiteCheckpointRawData_2:
+      type: object
+      properties:
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigAlert_2:
+      description: Alerts associated to this configuration file
+      readOnly: true
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
+          readOnly: true
+          type: integer
+        id:
+          description: Alert id
+          readOnly: true
+          type: string
+        alertId:
+          description: Alert internal id
+          readOnly: true
+          type: string
+        alertSummary:
+          description: Summary of this config source alert
+          readOnly: true
+          type: string
+        timestamp:
+          format: int64
+          description: Timestamp of alert start or clear
+          readOnly: true
+          type: integer
+    DeviceDataSourceInstanceConfig_2:
+      type: object
+      properties:
+        instanceName:
+          description: Device datasource instance name
+          readOnly: true
+          type: string
+        deviceDataSourceId:
+          format: int32
+          description: Device datasource id
+          readOnly: true
+          type: integer
+        excludeLines:
+          description: advanceDiffChecker
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: advanceDiffChecker
+            readOnly: true
+            type: integer
+        configStatus:
+          format: int32
+          description: Configuration file collect status
+          readOnly: true
+          type: integer
+        comparedWith:
+          description: Version compared with and found difference
+          readOnly: true
+          type: string
+        version:
+          format: int64
+          description: Config version
+          readOnly: true
+          type: integer
+        deviceId:
+          format: int32
+          description: Device id
+          readOnly: true
+          type: integer
+        deltaConfig:
+          description: Configuration file diff
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff_2'
+        deviceDisplayName:
+          description: Device display name
+          readOnly: true
+          type: string
+        dataSourceName:
+          description: Datasource name
+          readOnly: true
+          type: string
+        alerts:
+          description: Alerts associated to this configuration file
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert_2'
+        dataSourceId:
+          format: int32
+          description: Configsource id
+          readOnly: true
+          type: integer
+        instanceId:
+          format: int32
+          description: Device datasource instance id
+          readOnly: true
+          type: integer
+        configErrMsg:
+          description: Configuration file collect error message
+          readOnly: true
+          type: string
+        changeStatus:
+          description: 'Configuration file change status, if the first configuration then it is Added, else Changed, values can be : Add|Change '
+          readOnly: true
+          type: string
+        id:
+          description: The id of the datasource
+          readOnly: true
+          type: string
+        pollTimestamp:
+          format: int64
+          description: Datasource poll timestamp in milliseconds
+          readOnly: true
+          type: integer
+        config:
+          description: Configuration file content
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigDiff_2:
+      description: Configuration file diff
+      readOnly: true
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          description: Diff row number
+          readOnly: true
+          type: integer
+        type:
+          description: 'Diff type. The values can be : add|remove'
+          readOnly: true
+          type: string
+        content:
+          description: Configuration content
+          readOnly: true
+          type: string
+    DeviceInstanceData_2:
+      type: object
+      properties:
+        instanceId:
+          readOnly: true
+          type: string
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        errMsg:
+          readOnly: true
+          type: string
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    GraphPlot_2:
+      allOf:
+      - $ref: '#/components/schemas/WidgetData_2'
+      - type: object
+        properties:
+          missinglines:
+            description: The Missing lines of the graph
+            readOnly: true
+            type: array
+            items:
+              description: The Missing lines of the graph
+              readOnly: true
+              type: string
+          timeScale:
+            description: The specified timescale for the graph
+            readOnly: true
+            type: string
+          instances:
+            uniqueItems: true
+            description: The matched instances of graph
+            readOnly: true
+            type: array
+            items:
+              format: int32
+              description: The matched instances of graph
+              readOnly: true
+              type: integer
+          timestamps:
+            description: The timestamps of the graph
+            readOnly: true
+            type: array
+            items:
+              format: int64
+              description: The timestamps of the graph
+              readOnly: true
+              type: integer
+          minValue:
+            description: Specifies the minimum value of the graph
+            readOnly: true
+            type: object
+          startTime:
+            format: int64
+            description: Specifies the start-time of the graph
+            readOnly: true
+            type: integer
+          id:
+            format: int32
+            description: The Id of the graph
+            readOnly: true
+            type: integer
+          rigid:
+            description: 'true | false
+
+              Specifies if the graph is rigid or not'
+            readOnly: true
+            type: boolean
+          lines:
+            description: The properties of the graph and graph lines
+            readOnly: true
+            type: array
+            items:
+              $ref: '#/components/schemas/GraphPlotLine_2'
+          height:
+            format: int32
+            description: Specifies the height of graph
+            readOnly: true
+            type: integer
+          endTZOffset:
+            format: int32
+            description: Specifies the end TimeZone Offset of the graph
+            readOnly: true
+            type: integer
+          base1024:
+            description: 'true | false
+
+              Changes base scale from 1000 to 1024 if value is set to true'
+            readOnly: true
+            type: boolean
+          dsName:
+            description: The name of the DataSource to be used to plot the graph
+            readOnly: true
+            type: string
+          maxValue:
+            description: Specifies the maximum value of the graph
+            readOnly: true
+            type: object
+          displayPrio:
+            format: int32
+            description: The display priority of the graph in your LogicMonitor portal
+            readOnly: true
+            type: integer
+          timeZoneId:
+            description: The Id of selected Time Zone
+            readOnly: true
+            type: string
+          timeZone:
+            description: The selected timezone for the graph
+            readOnly: true
+            type: string
+          startTZOffset:
+            format: int32
+            description: Specifies the start TimeZone Offset of the graph
+            readOnly: true
+            type: integer
+          xAxisName:
+            description: The label that will be displayed along the X axis
+            readOnly: true
+            type: string
+          width:
+            format: int32
+            description: Specifies the width of graph
+            readOnly: true
+            type: integer
+          name:
+            description: The Name of the Graph
+            readOnly: true
+            type: string
+          verticalLabel:
+            description: The label that will be displayed along the y axis (Vertical Label)
+            readOnly: true
+            type: string
+          step:
+            format: int64
+            description: The Step of the graph
+            readOnly: true
+            type: integer
+          endTime:
+            format: int64
+            description: Specifies the end-time of the graph
+            readOnly: true
+            type: integer
+          scopes:
+            description: 'Scopes: use this field to find match opsnote'
+            readOnly: true
+            type: array
+            items:
+              $ref: '#/components/schemas/GraphOpsNoteScope_2'
+          base:
+            format: int64
+            description: The Base of the graph
+            readOnly: true
+            type: integer
+          exportFileName:
+            description: The export file name
+            readOnly: true
+            type: string
+      x-discriminator-value: graph
+    WidgetData_2:
+      type: object
+      properties:
+        type:
+          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
+          readOnly: true
+          type: string
+        title:
+          description: The widget title
+          type: string
+      discriminator:
+        propertyName: type
+    DeviceDataSourceInstanceData_2:
+      type: object
+      properties:
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+        dataSourceName:
+          description: Datasource name
+          readOnly: true
+          type: string
+    GraphOpsNoteScope_2:
+      description: 'Scopes: use this field to find match opsnote'
+      readOnly: true
+      type: object
+      properties:
+        serviceGroupIds:
+          description: The service group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The service group Id
+            readOnly: true
+            type: integer
+        serviceId:
+          format: int32
+          description: The service Id
+          readOnly: true
+          type: integer
+        type:
+          description: The values can be device | service | website
+          readOnly: true
+          type: string
+        deviceGroupIds:
+          description: The device group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The device group Id
+            readOnly: true
+            type: integer
+        deviceId:
+          format: int32
+          description: The device Id
+          readOnly: true
+          type: integer
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

@@ -1,0 +1,576 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Property Source API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: PropertySource
+paths:
+  /setting/propertyrules/{id}:
+    patch:
+      summary: update a property rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      description: Update a property rule by id
+      operationId: patchPropertyRule
+      responses:
+        '200':
+          description: Successfully updated property rule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      tags:
+      - PropertySource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyRule'
+    get:
+      summary: Get property rules by id
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: View
+      description: Fetches a property rule by its ID
+      operationId: getPropertyRulesById
+      responses:
+        '200':
+          description: Successfully retrieved the property rule by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: format
+        schema:
+          type: string
+      tags:
+      - PropertySource
+    delete:
+      summary: delete a property rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      description: Delete a property rule by id
+      operationId: deletePropertyRule
+      responses:
+        '200':
+          description: Successfully deleted property rule
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - PropertySource
+    put:
+      summary: update a property rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      description: Update a property rule by id
+      operationId: updatePropertyRule
+      responses:
+        '200':
+          description: Successfully updated property rule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      tags:
+      - PropertySource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyRule'
+  /setting/propertyrules:
+    post:
+      summary: Add a new property rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      description: Creates a new property rule in the system
+      operationId: addPropertyRule
+      responses:
+        '200':
+          description: Successfully created the new property rule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - PropertySource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyRule'
+    get:
+      summary: Get property rules list
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: View
+      description: Fetches a list of property rules
+      operationId: getPropertyRulesList
+      responses:
+        '200':
+          description: Successfully retrieved property rules list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyRulePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - PropertySource
+  /setting/propertyrules/importjson:
+    post:
+      summary: Import PropertySource via json
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules ->  All Installed modules: Manage
+        Modules -> Access Groups: Manage
+      description: Import a PropertySource using json data
+      operationId: importPropertySourceJson
+      responses:
+        '200':
+          description: Successfully imported the PropertySource via Json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: handleConflict
+        schema:
+          type: string
+      - in: query
+        name: fieldsToPreserve
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      tags:
+      - PropertySource
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+components:
+  schemas:
+    PropertyRuleParam:
+      type: object
+      properties:
+        propertyRuleId:
+          format: int32
+          type: integer
+        name:
+          type: string
+        comment:
+          type: string
+        id:
+          format: int32
+          type: integer
+        value:
+          type: string
+    PropertyRule:
+      type: object
+      properties:
+        scheduleOption:
+          description: The property rule schedule option. The values can be onAP|onAPpropertyChanges
+          readOnly: true
+          type: string
+        groovyScript:
+          description: groovy script
+          type: string
+        accessGroups:
+          description: Access group Details in response
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGroup'
+        description:
+          description: The property rule description
+          readOnly: true
+          type: string
+        appliesTo:
+          description: The property rule applies to
+          readOnly: true
+          type: string
+        linuxCmdline:
+          description: external linux script args
+          type: string
+        lineageId:
+          description: LM module lineageId
+          readOnly: true
+          type: string
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
+          readOnly: true
+          type: string
+        checksum:
+          description: LM module checksum
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        accessGroupIds:
+          uniqueItems: true
+          description: The Access Groups Id's
+          type: array
+          items:
+            format: int32
+            description: The Access Groups Id's
+            type: integer
+          example: 1, 2, 3
+        group:
+          description: The property rule group name
+          readOnly: true
+          type: string
+        windowsScript:
+          description: external windows script name
+          type: string
+        dataType:
+          format: int32
+          description: "The data type of property source, default is 0. The values can be\n\n0: property source\n\n1: raw ERI\n\n "
+          readOnly: true
+          type: integer
+        technology:
+          description: The technology notes
+          readOnly: true
+          type: string
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyRuleParam'
+        version:
+          format: int64
+          description: The property rule version
+          readOnly: true
+          type: integer
+        windowsCmdline:
+          description: external windows script args
+          type: string
+        tags:
+          description: The property rule tags
+          readOnly: true
+          type: string
+        auditVersion:
+          format: int64
+          description: The property rule auditVersion
+          readOnly: true
+          type: integer
+        installationMetadata:
+          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+          readOnly: true
+          $ref: '#/components/schemas/IntegrationMetadata'
+        scriptType:
+          description: 'script type: embed | powershell | external'
+          type: string
+        name:
+          description: The property rule name
+          readOnly: true
+          type: string
+        interval:
+          format: int32
+          description: The collect interval of raw ERI
+          readOnly: true
+          type: integer
+        isInUse:
+          description: Whether the PropertySource is currently in use
+          readOnly: true
+          type: boolean
+        linuxScript:
+          description: external linux script name
+          type: string
+    PropertyRulePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyRule'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
+    IntegrationMetadata:
+      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+      readOnly: true
+      type: object
+      properties:
+        targetLastPublishedId:
+          description: Specifies the target last published Id
+          readOnly: true
+          type: string
+        targetLastPublishedChecksum:
+          description: The metadata checksum for the target last published LMModule content
+          readOnly: true
+          type: string
+        targetLastPublishedVersion:
+          description: Specifies the target last published version
+          readOnly: true
+          type: string
+        originChecksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        originAuthorNamespace:
+          description: Specifies the origin Author companies namespace
+          readOnly: true
+          type: string
+        originLocator:
+          description: Specifies the origin version locator
+          readOnly: true
+          type: string
+        isChangedFromOrigin:
+          description: Specifies if the Applies To function is changed from origin or not
+          readOnly: true
+          type: boolean
+        auditedRegistryId:
+          description: Specifies the audited registry Id
+          readOnly: true
+          type: string
+        targetLineageId:
+          description: Specifies the target lineage Id
+          readOnly: true
+          type: string
+        logicModuleType:
+          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
+
+            The type of LogicModule'
+          readOnly: true
+          type: string
+          enum:
+          - DATASOURCE
+          - EVENTSOURCE
+          - CONFIGSOURCE
+          - PROPERTYSOURCE
+          - DIAGNOSTICSOURCE
+          - REMEDIATIONSOURCE
+          - TOPOLOGYSOURCE
+          - JOBMONITOR
+          - APPLIESTO_FUNCTION
+          - SNMP_SYSOID_MAP
+          - LOGSOURCE
+        isChangedFromTargetLastPublished:
+          description: Specifies if the Applies To function is changed from target last published or not
+          readOnly: true
+          type: boolean
+        originLineageId:
+          description: The origin lineage Id of the LMmodule
+          readOnly: true
+          type: string
+        originAuthorCompanyUUID:
+          description: Specifies the origin Author companies unique Id
+          readOnly: true
+          type: string
+        localModuleId:
+          format: int32
+          description: The LocalModule Id
+          readOnly: true
+          type: integer
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from
+          readOnly: true
+          type: string
+        originVersion:
+          description: Specifies the origin version
+          readOnly: true
+          type: string
+        auditedVersion:
+          description: Specifies the audited registry version
+          readOnly: true
+          type: string
+        originName:
+          description: Specifies the origin module name
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

@@ -1,0 +1,643 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Report API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Report across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Report
+paths:
+  /report/reports:
+    post:
+      summary: add report
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addReport
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportBase'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Report
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportBase'
+        required: true
+    get:
+      summary: get report list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getReportList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Report
+    servers:
+    - url: /santaba/rest
+  /report/reports/{id}:
+    patch:
+      summary: update report
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchReportById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportBase'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportBase'
+        required: true
+    get:
+      summary: get report by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getReportById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportBase'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Report
+    delete:
+      summary: delete report
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteReportById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report
+    put:
+      summary: update report
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateReportById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportBase'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportBase'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /report/reports/{id}/executions:
+    post:
+      summary: run a report
+      security:
+      - LMv1: []
+      description: ''
+      operationId: generateReportById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateReportResult'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateReportRequest'
+    servers:
+    - url: /santaba/rest
+  /report/reports/{id}/tasks/{taskId}:
+    get:
+      summary: Get report for task ID
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Reports: View
+      description: Fetch the report associated with a specific task ID
+      operationId: fetchReportUsingTaskId
+      responses:
+        '200':
+          description: Successfully retrieved the report for the task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateReportResult'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: taskId
+        required: true
+        schema:
+          type: string
+      tags:
+      - Report
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    GenerateReportRequest:
+      type: object
+      properties:
+        withAdminId:
+          format: int32
+          description: Generate the report with the admin. 0 mean current user
+          readOnly: true
+          type: integer
+        reportId:
+          format: int32
+          description: The id of the report to run
+          readOnly: true
+          type: integer
+          example: 998.0
+        receiveEmails:
+          description: The email addresses that LogicMonitor should send the report to, separated by commas
+          type: string
+          example: bob@logicmonitor.com
+    ReportPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportBase'
+    ReportRecipient:
+      type: object
+      required:
+      - addr
+      - type
+      properties:
+        additionInfo:
+          description: If the type is admin and the method is email, the field should indicate the actual email address of the admin
+          readOnly: true
+          type: string
+        method:
+          description: This should always be email
+          type: string
+          example: email
+        type:
+          description: 'Where admin refers to a user in the account and arbitrary refers to an email address not associated with a user account.Acceptable values are: admin, arbitrary'
+          type: string
+          example: admin
+        addr:
+          description: This should be a username if type=admin, or an email address if type=arbitrary
+          type: string
+          example: sarah
+    ReportBase:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        lastmodifyUserId:
+          format: int32
+          description: The Id of the user that last modified the report
+          readOnly: true
+          type: integer
+        delivery:
+          description: 'Whether or not the report is configured to be delivered via email. Acceptable values are: none, email'
+          type: string
+          example: email
+        userPermission:
+          description: The permissions associated with the user who made the API call
+          readOnly: true
+          type: string
+        lastGenerateOn:
+          format: int64
+          description: The time, in epoch format, that the report was last generated
+          readOnly: true
+          type: integer
+        reportLinkNum:
+          format: int32
+          description: The number of links associated with the report, where each link corresponds to a generated report
+          readOnly: true
+          type: integer
+        groupId:
+          format: int32
+          description: The Id of the group the report is in, where Id=0 is the root report group
+          type: integer
+          example: 5.0
+        format:
+          description: 'The format of the report. Allowable values are: HTML, PDF, CSV, WORD'
+          type: string
+          example: HTML
+        description:
+          description: The description of the report
+          type: string
+          example: This is a daily alerts report
+        lastGenerateSize:
+          format: int64
+          description: The size of the report, in Bytes, the last time it was generated
+          readOnly: true
+          type: integer
+        customReportTypeId:
+          format: int32
+          description: The id of the custom report template, if the report is a custom report. An id of 0 indicates that the report is not a custom report
+          readOnly: true
+          type: integer
+        type:
+          description: 'The report type. Acceptable values are: Alert,Alert SLA,Alert threshold,Alert trends,Host CPU,Host group inventory,Host inventory,Host metric trends,Interfaces Bandwidth,Netflow device metric,Service Level Agreement,Website Service Overview,Word template,Audit Log,Alert Forecasting,Dashboard,Website SLA,User,Role'
+          type: string
+          example: Alert
+        lastGeneratePages:
+          format: int32
+          description: The number of pages in the report, the last time it was generated
+          readOnly: true
+          type: integer
+        reportLinkExpire:
+          description: The report link Expire. Allowable values are:High Flexibility,High Security
+          type: string
+          example: HTML
+        schedule:
+          description: A cron schedule that indicates when the report will be delivered via email
+          type: string
+          example: 0 7 * * 1
+        recipients:
+          description: If the report is configured to be delivered via email, this object provides the recipients that the report will be delivered to
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportRecipient'
+        customReportTypeName:
+          description: The name of the custom report template
+          readOnly: true
+          type: string
+        name:
+          description: The name of the report
+          type: string
+          example: Daily Alerts Report
+        enableViewAsOtherUser:
+          description: Whether or not other users are allowed to view the report as the user who last modified the report
+          readOnly: true
+          type: boolean
+        lastmodifyUserName:
+          description: The username of the user that last modified the report
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The id of the report
+          readOnly: true
+          type: integer
+        scheduleTimezone:
+          description: The sepecific timezone for the scheduled report
+          type: string
+          example: America/Los_Angeles
+      discriminator:
+        propertyName: type
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    GenerateReportResult:
+      type: object
+      required:
+      - reportId
+      - taskId
+      properties:
+        reportId:
+          format: int32
+          description: The id of the report
+          type: integer
+        taskId:
+          format: int64
+          description: The task id of the generating process
+          type: integer
+        resulturl:
+          description: The url of the generated report
+          readOnly: true
+          type: string
+    GenerateReportRequest_2:
+      type: object
+      properties:
+        withAdminId:
+          format: int32
+          description: Generate the report with the admin. 0 mean current user
+          type: integer
+        reportId:
+          format: int32
+          description: The id of the report to run
+          readOnly: true
+          type: integer
+          example: 998
+        receiveEmails:
+          description: The email addresses that LogicMonitor should send the report to, separated by commas. If set to null, the report will be generated immediately and the response will contain the report file URLOtherwise, the report will be generated in the background and delivered to the specified email addresses
+          type: string
+          example: user@domain.com
+    ReportRecipient_2:
+      description: If the report is configured to be delivered via email, this object provides the recipients that the report will be delivered to
+      type: object
+      required:
+      - addr
+      - type
+      properties:
+        additionInfo:
+          description: If the type is admin and the method is email, the field should indicate the actual email address of the admin
+          readOnly: true
+          type: string
+        method:
+          description: Specifies the method to get the report. This should always be email
+          type: string
+          example: email
+        type:
+          description: Specifies the recipient type. The values can be admin|arbitrary|group, where admin refers to a user in the account and arbitrary refers to an email address not associated with a user account.
+          type: string
+          example: admin
+        addr:
+          description: This should be a username if type=admin, or an email address if type=arbitrary
+          type: string
+          example: sarah
+    ReportBase_2:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        lastmodifyUserId:
+          format: int32
+          description: The Id of the user that last modified the report
+          readOnly: true
+          type: integer
+        delivery:
+          description: 'Whether or not the report is configured to be delivered via email. Acceptable values are: none, email'
+          type: string
+          example: email
+        userPermission:
+          description: The permissions associated with the user who made the API call
+          readOnly: true
+          type: string
+        lastGenerateOn:
+          format: int64
+          description: The time, in epoch format, that the report was last generated
+          readOnly: true
+          type: integer
+        reportLinkNum:
+          format: int32
+          description: The number of links associated with the report, where each link corresponds to a generated report
+          readOnly: true
+          type: integer
+        groupId:
+          format: int32
+          description: The Id of the group the report is in, where Id=0 is the root report group
+          type: integer
+          example: 5
+        format:
+          description: 'The format of the report. Allowable values are: HTML, PDF, CSV, WORD'
+          type: string
+          example: HTML
+        description:
+          description: The description of the report
+          type: string
+          example: This is a daily alerts report
+        lastGenerateSize:
+          format: int64
+          description: The size of the report, in Bytes, the last time it was generated
+          readOnly: true
+          type: integer
+        customReportTypeId:
+          format: int32
+          description: The id of the custom report template, if the report is a custom report. An id of 0 indicates that the report is not a custom report
+          readOnly: true
+          type: integer
+        type:
+          description: 'The report type. Acceptable values are: Alert,Alert SLA,Alert threshold,Alert trends,Host CPU,Host group inventory,Host inventory,Host metric trends,Interfaces Bandwidth,Netflow device metric,Service Level Agreement,Website Service Overview,Word template,Audit Log,Alert Forecasting,Dashboard,Website SLA,User,Role'
+          type: string
+          example: Alert
+        lastGeneratePages:
+          format: int32
+          description: The number of pages in the report, the last time it was generated
+          readOnly: true
+          type: integer
+        reportLinkExpire:
+          description: The report link Expire. Allowable values are:High Flexibility,High Security
+          type: string
+          example: High Flexibility
+        schedule:
+          description: A cron schedule that indicates when the report will be delivered via email
+          type: string
+          example: 0 7 * * 1
+        recipients:
+          description: If the report is configured to be delivered via email, this object provides the recipients that the report will be delivered to
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportRecipient_2'
+        customReportTypeName:
+          description: The name of the custom report template
+          readOnly: true
+          type: string
+        name:
+          description: The name of the report
+          type: string
+          example: Daily Alerts Report
+        enableViewAsOtherUser:
+          description: Whether or not other users are allowed to view the report as the user who last modified the report
+          readOnly: true
+          type: boolean
+        lastmodifyUserName:
+          description: The username of the user that last modified the report
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The id of the report
+          readOnly: true
+          type: integer
+        scheduleTimezone:
+          description: The sepecific timezone for the scheduled report
+          type: string
+          example: America/Los_Angeles
+      discriminator:
+        propertyName: type
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

@@ -1,0 +1,549 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Topology Source API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: TopologySource
+paths:
+  /setting/topologysources/{id}:
+    patch:
+      summary: Update TopologySource
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      operationId: patchTopologySource
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopologySource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      tags:
+      - TopologySource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopologySource'
+    get:
+      summary: Get TopologySource by id
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: View
+      operationId: getTopologySourceById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopologySource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: format
+        schema:
+          type: string
+      tags:
+      - TopologySource
+    delete:
+      summary: Delete TopologySource
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      operationId: deleteTopologySource
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - TopologySource
+    put:
+      summary: Update TopologySource
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      operationId: updateTopologySource
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopologySource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      tags:
+      - TopologySource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopologySource'
+  /setting/topologysources/importjson:
+    post:
+      summary: Import TopologySource via json
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules ->  All Installed modules: Manage
+        Modules -> Access Groups: Manage
+      description: Import a TopologySource using json data
+      operationId: importTopologySourceJson
+      responses:
+        '200':
+          description: Successfully imported the TopologySource via Json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopologySource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: handleConflict
+        schema:
+          type: string
+      - in: query
+        name: fieldsToPreserve
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      tags:
+      - TopologySource
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+  /setting/topologysources:
+    post:
+      summary: Add TopologySource
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+        Modules -> Access Groups: Manage
+      operationId: addTopologySource
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopologySource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - TopologySource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopologySource'
+    get:
+      summary: Get TopologySource List
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: View
+        Modules -> Access Groups: View
+      operationId: getTopologySourceList
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopologySourcePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - TopologySource
+components:
+  schemas:
+    ScriptCollectorAttribute:
+      allOf:
+      - $ref: '#/components/schemas/CollectorAttribute'
+      - type: object
+        properties:
+          groovyScript:
+            description: groovy script
+            type: string
+          manualConnections:
+            description: manual
+            type: string
+          scriptType:
+            description: 'script type: embed | file | powershell'
+            type: string
+          windowsScript:
+            description: windows script
+            type: string
+          linuxCmdline:
+            description: linux script command line
+            type: string
+          linuxScript:
+            description: linux script
+            type: string
+          windowsCmdline:
+            description: windows script command line
+            type: string
+          properties:
+            description: property based
+            type: string
+      x-discriminator-value: script
+      description: collector's attributes to collect topologies
+      type: object
+    CollectorAttribute:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: The data collector's name
+          type: string
+      discriminator:
+        propertyName: name
+    TopologySourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopologySource'
+    TopologySource:
+      type: object
+      required:
+      - collectionMethod
+      - collectorAttribute
+      - name
+      properties:
+        collectorAttribute:
+          description: collector's attributes to collect topologies
+          readOnly: false
+          $ref: '#/components/schemas/ScriptCollectorAttribute'
+        collectionMethod:
+          description: The topology will be build on properties or traditional way, default 'script'
+          type: string
+        accessGroups:
+          description: Module's access groups
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGroup'
+        description:
+          description: The description for the LMModule
+          type: string
+        appliesTo:
+          description: The Applies To for the LMModule
+          type: string
+        technology:
+          description: The Technical Notes for the LMModule
+          type: string
+        version:
+          format: int64
+          description: The TopologySource version
+          readOnly: true
+          type: integer
+        lineageId:
+          description: The lineageId the LMModule belongs to
+          readOnly: true
+          type: string
+        tags:
+          description: The Tags for the LMModule
+          type: string
+        auditVersion:
+          format: int64
+          description: The TopologySource audit Version
+          readOnly: true
+          type: integer
+        installationMetadata:
+          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+          readOnly: true
+          $ref: '#/components/schemas/IntegrationMetadata'
+        collectInterval:
+          format: int32
+          description: The TopologySource data collect interval in seconds, default 3600
+          type: integer
+          enum:
+          - 1800
+          - 3600
+          - 14400
+          - 43200
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
+          type: string
+        checksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        name:
+          description: The TopologySource name
+          type: string
+        id:
+          format: int32
+          description: The ID of the LMModule
+          readOnly: true
+          type: integer
+        accessGroupIds:
+          uniqueItems: true
+          description: The Access Groups Id's
+          type: array
+          items:
+            format: int32
+            description: The Access Groups Id's
+            type: integer
+          example: 1, 2, 3
+        isInUse:
+          description: Whether the LM module is currently in use
+          readOnly: true
+          type: boolean
+        group:
+          description: The group the LMModule is in
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
+    IntegrationMetadata:
+      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+      readOnly: true
+      type: object
+      properties:
+        targetLastPublishedId:
+          description: Specifies the target last published Id
+          readOnly: true
+          type: string
+        targetLastPublishedChecksum:
+          description: The metadata checksum for the target last published LMModule content
+          readOnly: true
+          type: string
+        targetLastPublishedVersion:
+          description: Specifies the target last published version
+          readOnly: true
+          type: string
+        originChecksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        originAuthorNamespace:
+          description: Specifies the origin Author companies namespace
+          readOnly: true
+          type: string
+        originLocator:
+          description: Specifies the origin version locator
+          readOnly: true
+          type: string
+        isChangedFromOrigin:
+          description: Specifies if the Applies To function is changed from origin or not
+          readOnly: true
+          type: boolean
+        auditedRegistryId:
+          description: Specifies the audited registry Id
+          readOnly: true
+          type: string
+        targetLineageId:
+          description: Specifies the target lineage Id
+          readOnly: true
+          type: string
+        logicModuleType:
+          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
+
+            The type of LogicModule'
+          readOnly: true
+          type: string
+          enum:
+          - DATASOURCE
+          - EVENTSOURCE
+          - CONFIGSOURCE
+          - PROPERTYSOURCE
+          - DIAGNOSTICSOURCE
+          - REMEDIATIONSOURCE
+          - TOPOLOGYSOURCE
+          - JOBMONITOR
+          - APPLIESTO_FUNCTION
+          - SNMP_SYSOID_MAP
+          - LOGSOURCE
+        isChangedFromTargetLastPublished:
+          description: Specifies if the Applies To function is changed from target last published or not
+          readOnly: true
+          type: boolean
+        originLineageId:
+          description: The origin lineage Id of the LMmodule
+          readOnly: true
+          type: string
+        originAuthorCompanyUUID:
+          description: Specifies the origin Author companies unique Id
+          readOnly: true
+          type: string
+        localModuleId:
+          format: int32
+          description: The LocalModule Id
+          readOnly: true
+          type: integer
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from
+          readOnly: true
+          type: string
+        originVersion:
+          description: Specifies the origin version
+          readOnly: true
+          type: string
+        auditedVersion:
+          description: Specifies the audited registry version
+          readOnly: true
+          type: string
+        originName:
+          description: Specifies the origin module name
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

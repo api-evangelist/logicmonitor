@@ -1,0 +1,329 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Recipient Groups API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Recipient Groups across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Recipient Groups
+paths:
+  /setting/recipientgroups/{id}:
+    patch:
+      summary: update recipient group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchRecipientGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipientGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Recipient Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipientGroup'
+        required: true
+    get:
+      summary: get recipient group by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getRecipientGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipientGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Recipient Groups
+    delete:
+      summary: delete recipient group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteRecipientGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Recipient Groups
+    put:
+      summary: update recipient group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateRecipientGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipientGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Recipient Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipientGroup'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /setting/recipientgroups:
+    post:
+      summary: add recipient group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addRecipientGroup
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipientGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Recipient Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipientGroup'
+        required: true
+    get:
+      summary: get recipient group List
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getRecipientGroupList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipientGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Recipient Groups
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    Recipient:
+      type: object
+      required:
+      - method
+      - type
+      properties:
+        method:
+          description: Admin | Arbitrary, where Admin = a user, and Arbitrary = an arbitrary email
+          type: string
+          example: EMAIL
+        contact:
+          type: string
+        type:
+          description: email | sms | voice, where type must be email if method = arbitrary
+          type: string
+          example: Admin
+        addr:
+          description: the user name if method = admin, or the email address if method = arbitrary
+          type: string
+          example: john.doe@logicmonitor.com
+    RecipientGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipientGroup'
+    RecipientGroup:
+      type: object
+      required:
+      - groupName
+      properties:
+        groupName:
+          description: The name of the recipient group
+          type: string
+          example: Tier 1 Helpdesk
+        recipients:
+          description: The recipients in the group
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
+        description:
+          description: The description of the recipient group
+          type: string
+          example: Tier 1 Helpdesk
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    Recipient_2:
+      description: The chain's cc destinations
+      type: object
+      required:
+      - addr
+      - contact
+      - method
+      - type
+      properties:
+        method:
+          description: "Recipient method for each type. \nThe values can be EMAIL|SMEMAIL|VOICE|SMS \n            group: \"method\" not used\n            arbitrary: The method should be email.\n            admin: The method should be email, smsEmail, voice, sms, or defaultMethod;\n"
+          type: string
+          example: EMAIL
+        contact:
+          description: Contact details, email address or phone number
+          type: string
+        type:
+          description: "The recipient type. \nThe values can be GROUP|ARBITRARY|ADMIN, where Admin = a user, and Arbitrary = an arbitrary email"
+          type: string
+          example: Admin
+        addr:
+          description: "The recipient address. \nThe value will be user name if method = admin, or the email address if method = arbitrary"
+          type: string
+          example: user@domain.com
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

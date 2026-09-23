@@ -1,0 +1,556 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Dashboard Groups API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Dashboard Groups across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Dashboard Groups
+paths:
+  /dashboard/groups/{id}:
+    patch:
+      summary: update dashboard group
+      security:
+      - LMv1: []
+      description: The template field works only for the POST API
+      operationId: patchDashboardGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Dashboard Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardGroup'
+        required: true
+    get:
+      summary: get dashboard group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDashboardGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: template
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+          default: json
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Dashboard Groups
+    delete:
+      summary: delete dashboard group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteDashboardGroupById
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: allowNonEmptyGroup
+        required: false
+        schema:
+          type: boolean
+          default: false
+      tags:
+      - Dashboard Groups
+    put:
+      summary: update dashboard group
+      security:
+      - LMv1: []
+      description: The template field works only for the POST API
+      operationId: updateDashboardGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Dashboard Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardGroup'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /dashboard/groups:
+    post:
+      summary: add dashboard group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addDashboardGroup
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Dashboard Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardGroup'
+        required: true
+    get:
+      summary: get dashboard group list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDashboardGroupList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Dashboard Groups
+    servers:
+    - url: /santaba/rest
+  /dashboard/groups/{id}/asyncclone:
+    post:
+      summary: add dashboard group asynchronously
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Dashboards: Manage
+      operationId: addDashboardGroupAsynchronously
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestDashboardGroupAsyncCloneResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: recursive
+        schema:
+          type: boolean
+      tags:
+      - Dashboard Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardGroup_2'
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    DashboardGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardGroup'
+    DashboardGroup:
+      type: object
+      required:
+      - name
+      properties:
+        template:
+          description: The template which is used for import dashboard group
+          type: object
+        fullPath:
+          description: The full path of the dashboard group
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permission of the user that made the API call
+          readOnly: true
+          type: string
+        widgetTokens:
+          description: The tokens assigned at the group level
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetToken'
+        name:
+          description: The name of the dashboard group
+          type: string
+          example: LogicMonitor Dashboards
+        numOfDirectSubGroups:
+          format: int64
+          description: The number of groups directly under the Dashboard Group
+          readOnly: true
+          type: integer
+        numOfDashboards:
+          format: int64
+          description: The number of dashboards that belong to the Dashboard Group and any sub-groups
+          readOnly: true
+          type: integer
+        description:
+          description: This is a description of the dashboard group
+          type: string
+          example: Servers in LA DataCenter
+        id:
+          format: int32
+          description: 'The Id of the dashboard group '
+          readOnly: true
+          type: integer
+        dashboards:
+          description: The dashboards that belong to the group
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardData'
+        parentId:
+          format: int32
+          description: The Id of the parent dashboard group
+          type: integer
+          example: 1.0
+        numOfDirectDashboards:
+          format: int64
+          description: The number of dashboards that belong directly to the Dashboard Group
+          readOnly: true
+          type: integer
+    DashboardData:
+      type: object
+      properties:
+        userPermission:
+          readOnly: true
+          type: string
+        name:
+          readOnly: true
+          type: string
+        sharable:
+          readOnly: true
+          type: boolean
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+    WidgetToken:
+      type: object
+      properties:
+        inheritList:
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetTokenInheritance'
+        name:
+          description: This is the name of the parent group of devices, if there is one established
+          type: string
+          example: Default Device Group
+        type:
+          readOnly: true
+          type: string
+        value:
+          description: this is the name of the child group of devices, if there is one
+          type: string
+          example: Devices by Type/Network
+    WidgetTokenInheritance:
+      type: object
+      properties:
+        fullpath:
+          readOnly: true
+          type: string
+        value:
+          readOnly: true
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    DashboardGroup_2:
+      type: object
+      required:
+      - name
+      properties:
+        template:
+          description: The template which is used for importing dashboard group
+          type: object
+        fullPath:
+          description: The full path of the dashboard group
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permission of the user that made the API call
+          readOnly: true
+          type: string
+        widgetTokens:
+          description: The tokens assigned at the group level
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetToken_2'
+        name:
+          description: The name of the dashboard group
+          type: string
+          example: LogicMonitor Dashboards
+        numOfDirectSubGroups:
+          format: int64
+          description: The number of groups directly under the Dashboard Group
+          readOnly: true
+          type: integer
+        numOfDashboards:
+          format: int64
+          description: The number of dashboards that belong to the Dashboard Group and any sub-groups
+          readOnly: true
+          type: integer
+        description:
+          description: This is a description of the dashboard group
+          type: string
+          example: Servers in LA DataCenter
+        id:
+          format: int32
+          description: 'The Id of the dashboard group '
+          readOnly: true
+          type: integer
+        dashboards:
+          description: The dashboards that belong to the group
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardData_2'
+        parentId:
+          format: int32
+          description: The Id of the parent dashboard group
+          type: integer
+          example: 1
+        numOfDirectDashboards:
+          format: int64
+          description: The number of dashboards that belong directly to the Dashboard Group
+          readOnly: true
+          type: integer
+    DashboardData_2:
+      description: The dashboards that belong to the group
+      readOnly: true
+      type: object
+      properties:
+        userPermission:
+          description: The permission of the user that made the API call
+          readOnly: true
+          type: string
+        name:
+          description: The name of the dashboard
+          readOnly: true
+          type: string
+        sharable:
+          description: Whether or not the dashboard is sharable. This value will always be true unless the dashboard is a private dashboard
+          readOnly: true
+          type: boolean
+        id:
+          format: int32
+          description: The Id of the dashboard
+          readOnly: true
+          type: integer
+    WidgetToken_2:
+      description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
+      type: object
+      properties:
+        inheritList:
+          description: The widget token inherit list
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetTokenInheritance_2'
+        name:
+          description: This is the name of the parent group of devices, if there is one established
+          type: string
+          example: Default Device Group
+        type:
+          description: 'The values can be owned | inherit
+
+            Specifies the type of the widget'
+          readOnly: true
+          type: string
+        value:
+          description: This is the name of the child group of devices, if there is one
+          type: string
+          example: Devices by Type/Network
+      example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
+    WidgetTokenInheritance_2:
+      description: The widget token inherit list
+      type: object
+      properties:
+        fullpath:
+          description: The fullpath for the widget token
+          readOnly: true
+          type: string
+        value:
+          description: The property value for the group
+          readOnly: true
+          type: string
+    RestDashboardGroupAsyncCloneResponse:
+      type: object
+      properties:
+        jobId:
+          format: int32
+          description: The jobId of the Clone Dashboard Group
+          readOnly: true
+          type: integer
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

@@ -1,0 +1,1661 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Datasources API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Datasources across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Data Sources
+paths:
+  /setting/datasources/{dsId}/ographs/{id}:
+    get:
+      summary: get datasource overview graph by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDataSourceOverviewGraphById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSourceOverviewGraph'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: dsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Data Sources
+    servers:
+    - url: /santaba/rest
+  /setting/datasources/{dsId}/ographs:
+    get:
+      summary: get datasource overview graph list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDataSourceOverviewGraphList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceOverviewGraphPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: dsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data Sources
+    servers:
+    - url: /santaba/rest
+  /setting/datasources/{id}/devices:
+    get:
+      summary: get devices associated with a datasource
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAssociatedDeviceListByDataSourceId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceAssociatedPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data Sources
+    servers:
+    - url: /santaba/rest
+  /setting/datasources:
+    get:
+      summary: get datasource list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDatasourceList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourcePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+          default: json
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data Sources
+    post:
+      summary: Add datasource
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> Access Groups: Manage
+      description: Adds a new datasource
+      operationId: addDatasourceById
+      responses:
+        '200':
+          description: Successfully added new datasource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: createGraph
+        schema:
+          type: boolean
+      tags:
+      - Data Sources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSource_2'
+    servers:
+    - url: /santaba/rest
+  /setting/datasources/{id}:
+    get:
+      summary: get datasource by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDatasourceById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+          default: json
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data Sources
+    delete:
+      summary: delete datasource
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteDatasourceById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Data Sources
+    patch:
+      summary: Update datasource
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> Access Groups: Manage
+      description: Updates a datasource by its ID
+      operationId: patchDatasourceById
+      responses:
+        '200':
+          description: Successfully updated datasource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      - in: query
+        name: forceUniqueIdentifier
+        schema:
+          type: boolean
+      - in: query
+        name: forceRestrictedChangeKey
+        schema:
+          type: string
+      tags:
+      - Data Sources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSource_2'
+    put:
+      summary: Update datasource
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> Access Groups: Manage
+      description: Updates a datasource by its ID
+      operationId: updateDatasourceById
+      responses:
+        '200':
+          description: Successfully updated datasource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      - in: query
+        name: forceUniqueIdentifier
+        schema:
+          type: boolean
+      - in: query
+        name: forceRestrictedChangeKey
+        schema:
+          type: string
+      tags:
+      - Data Sources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataSource_2'
+    servers:
+    - url: /santaba/rest
+  /setting/datasources/importxml:
+    post:
+      summary: import datasource via xml
+      security:
+      - LMv1: []
+      description: ''
+      operationId: importDataSource
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Data Sources
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+    servers:
+    - url: /santaba/rest
+  /setting/datasources/{id}/updatereasons:
+    get:
+      summary: get update history for a datasource
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getUpdateReasonListByDataSourceId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSourceUpdateReasonsPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Data Sources
+    servers:
+    - url: /santaba/rest
+  /setting/datasources/importjson:
+    post:
+      summary: Import DataSource via json
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules ->  All Installed modules: Manage
+        Modules -> Access Groups: Manage
+      description: Import a DataSource using json data
+      operationId: importDataSourceJson
+      responses:
+        '200':
+          description: Successfully imported the DataSource via Json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: handleConflict
+        schema:
+          type: string
+      - in: query
+        name: fieldsToPreserve
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      tags:
+      - Data Sources
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: LogicModule JSON file
+                  format: binary
+              required:
+              - file
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    GraphVirtualDataPoint:
+      type: object
+      properties:
+        rpn:
+          type: string
+        name:
+          type: string
+    DeviceDataSourceAssociated:
+      type: object
+      properties:
+        instance:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceAssociatedInstance'
+        displayName:
+          type: string
+        name:
+          type: string
+        hasMore:
+          format: int32
+          type: integer
+        description:
+          type: string
+        id:
+          format: int32
+          type: integer
+        hasActiveInstance:
+          type: boolean
+    DeviceDataSourceAssociatedInstance:
+      type: object
+      properties:
+        name:
+          type: string
+        alias:
+          type: string
+        id:
+          format: int32
+          type: integer
+    DeviceDataSourceAssociatedPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceAssociated'
+    DataSourceUpdateReasonsPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateReason'
+    AutoDiscoveryConfiguration:
+      type: object
+      required:
+      - method
+      properties:
+        persistentInstance:
+          type: boolean
+        scheduleInterval:
+          format: int32
+          type: integer
+        deleteInactiveInstance:
+          type: boolean
+        method:
+          $ref: '#/components/schemas/AutoDiscoveryMethod'
+        instanceAutoGroupMethod:
+          type: string
+        instanceAutoGroupMethodParams:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoDiscoveryFilter'
+        disableInstance:
+          type: boolean
+        dataSourceName:
+          readOnly: true
+          type: string
+    OverviewGraphDataPoint:
+      type: object
+      properties:
+        aggregateMethod:
+          type: string
+        dataPointName:
+          type: string
+        dataPointId:
+          format: int32
+          type: integer
+        consolidateFunc:
+          format: int32
+          type: integer
+    DatasourceOverviewGraphPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSourceOverviewGraph'
+    GraphLine:
+      type: object
+      properties:
+        colorName:
+          type: string
+        dataPointName:
+          type: string
+        dataPointId:
+          format: int32
+          type: integer
+        legend:
+          type: string
+        isVirtualDataPoint:
+          type: boolean
+        type:
+          format: int32
+          type: integer
+    UpdateReason:
+      type: object
+      properties:
+        timeEpoch:
+          format: int64
+          type: integer
+        clientIp:
+          type: string
+        updateReason:
+          type: string
+        timeStr:
+          type: string
+        id:
+          format: int32
+          type: integer
+        userName:
+          type: string
+    AutoDiscoveryMethod:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+      discriminator:
+        propertyName: name
+    ScriptERIDiscoveryAttributeV2:
+      type: object
+      required:
+      - name
+      properties:
+        winScript:
+          type: string
+        groovyScript:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        linuxCmdline:
+          type: string
+        linuxScript:
+          type: string
+        winCmdline:
+          type: string
+    DataSource:
+      type: object
+      required:
+      - collectInterval
+      - collectMethod
+      - collectorAttribute
+      - id
+      - name
+      properties:
+        collectorAttribute:
+          $ref: '#/components/schemas/CollectorAttribute'
+        autoDiscoveryConfig:
+          $ref: '#/components/schemas/AutoDiscoveryConfiguration'
+        eriDiscoveryConfig:
+          $ref: '#/components/schemas/ScriptERIDiscoveryAttributeV2'
+        displayName:
+          type: string
+        description:
+          description: The description for the LMModule
+          type: string
+        appliesTo:
+          description: The Applies To for the LMModule
+          type: string
+        enableAutoDiscovery:
+          type: boolean
+        technology:
+          description: The Technical Notes for the LMModule
+          type: string
+        version:
+          format: int64
+          readOnly: true
+          type: integer
+        tags:
+          description: The Tags for the LMModule
+          type: string
+        auditVersion:
+          format: int64
+          readOnly: true
+          type: integer
+        hasMultiInstances:
+          readOnly: true
+          type: boolean
+        collectMethod:
+          type: string
+        eriDiscoveryInterval:
+          format: int32
+          type: integer
+        enableEriDiscovery:
+          type: boolean
+        collectInterval:
+          format: int32
+          type: integer
+        name:
+          type: string
+        dataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPoint'
+        id:
+          format: int32
+          description: The ID of the LMModule
+          readOnly: true
+          type: integer
+        group:
+          description: The group the LMModule is in
+          type: string
+    DataPoint:
+      type: object
+      required:
+      - name
+      properties:
+        alertForNoData:
+          format: int32
+          type: integer
+        maxValue:
+          type: string
+        dataType:
+          format: int32
+          type: integer
+        postProcessorMethod:
+          type: string
+        postProcessorParam:
+          type: string
+        maxDigits:
+          format: int32
+          type: integer
+        rawDataFieldName:
+          type: string
+        description:
+          type: string
+        alertClearTransitionInterval:
+          format: int32
+          type: integer
+        userParam3:
+          type: string
+        userParam2:
+          type: string
+        type:
+          format: int32
+          type: integer
+        alertExprNote:
+          type: string
+        dataSourceId:
+          format: int32
+          readOnly: true
+          type: integer
+        minValue:
+          type: string
+        alertBody:
+          type: string
+        userParam1:
+          type: string
+        name:
+          type: string
+        alertSubject:
+          type: string
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+        alertTransitionInterval:
+          format: int32
+          type: integer
+        alertExpr:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    CollectorAttribute:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+      discriminator:
+        propertyName: name
+    AutoDiscoveryFilter:
+      type: object
+      required:
+      - attribute
+      - operation
+      properties:
+        comment:
+          type: string
+        attribute:
+          type: string
+        operation:
+          type: string
+        value:
+          type: string
+    DataSourceOverviewGraph:
+      type: object
+      properties:
+        base1024:
+          type: boolean
+        timeScale:
+          type: string
+        maxValue:
+          type: object
+        displayPrio:
+          format: int32
+          type: integer
+        aggregated:
+          type: boolean
+        title:
+          type: string
+        virtualDataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphVirtualDataPoint'
+        minValue:
+          type: object
+        name:
+          type: string
+        width:
+          format: int32
+          type: integer
+        dataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/OverviewGraphDataPoint'
+        verticalLabel:
+          type: string
+        id:
+          format: int32
+          type: integer
+        rigid:
+          type: boolean
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphLine'
+        height:
+          format: int32
+          type: integer
+    DatasourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSource'
+    GraphVirtualDataPoint_2:
+      description: The virtual data point list
+      type: object
+      properties:
+        rpn:
+          description: The graph virtual data point rpn expression
+          type: string
+        name:
+          description: The graph virtual data point name
+          type: string
+    DeviceDataSourceAssociated_2:
+      type: object
+      properties:
+        instance:
+          description: The instance list associated to the datasource
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceAssociatedInstance_2'
+        displayName:
+          type: string
+        name:
+          type: string
+        hasMore:
+          format: int32
+          description: Whether has more instance. 0 no more, 1 has more
+          readOnly: true
+          type: integer
+        description:
+          type: string
+        id:
+          format: int32
+          type: integer
+        hasActiveInstance:
+          description: Whether has active instance.
+          readOnly: true
+          type: boolean
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
+    DeviceDataSourceAssociatedInstance_2:
+      description: The instance list associated to the datasource
+      type: object
+      properties:
+        name:
+          description: Instance name
+          readOnly: true
+          type: string
+        alias:
+          description: Instance alias
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: Instance id
+          readOnly: true
+          type: integer
+    ScriptERIDiscoveryAttributeV3:
+      description: Enable ERI Discovery or not
+      type: object
+      required:
+      - name
+      properties:
+        winScript:
+          description: The Windows script
+          type: string
+        groovyScript:
+          description: The Groovy script
+          type: string
+        name:
+          description: ERI detection name
+          type: string
+        type:
+          description: The script type
+          type: string
+        linuxCmdline:
+          description: The Linux script command line
+          type: string
+        linuxScript:
+          description: The Linux script file
+          type: string
+        winCmdline:
+          description: The Windows script command line
+          type: string
+    AutoDiscoveryConfiguration_2:
+      description: Auto discovery configuration
+      type: object
+      required:
+      - method
+      properties:
+        persistentInstance:
+          description: Persist discovered instance
+          type: boolean
+        scheduleInterval:
+          format: int32
+          description: Auto discovery schedule interval in minutes. 0 means host or data source changed. The values can be 0|15|60|1440
+          type: integer
+        deleteInactiveInstance:
+          description: Delete inactive instance
+          type: boolean
+        method:
+          $ref: '#/components/schemas/AutoDiscoveryMethod_2'
+        instanceAutoGroupMethod:
+          description: Auto group method. The values can be none|netscaler|netscalerservicegroup|regex|esx|ilp
+          type: string
+        instanceAutoGroupMethodParams:
+          description: Auto group method's parameters
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoDiscoveryFilter_2'
+        disableInstance:
+          description: Disable discovered instance
+          type: boolean
+        showDeletedInstanceDays:
+          format: int32
+          description: show deleted instance days
+          type: integer
+    OverviewGraphDataPoint_2:
+      description: The graph data point list
+      type: object
+      properties:
+        aggregateMethod:
+          description: 'The graph line data point aggregate method.
+
+            The values can be average|min|max|sum'
+          type: string
+        dataPointName:
+          description: The graph line data point name
+          type: string
+        dataPointId:
+          format: int32
+          description: The graph line data point Id
+          type: integer
+        consolidateFunc:
+          format: int32
+          description: "The graph line data point consolidate function.\nThe values can be 1|2|3\nwhere,\n      1=avg, 2=max, 3=min"
+          type: integer
+        dataSourceDataPointId:
+          format: int32
+          type: integer
+    StatusDisplayName:
+      description: The status display name list
+      type: object
+      required:
+      - metricValue
+      - operator
+      - statusDisplayName
+      properties:
+        statusDisplayName:
+          description: The status display name for the metric value
+          type: string
+        metricValue:
+          description: The metric value that the alert must be greater than, less than, or equal to for this status display to be considered
+          type: string
+        id:
+          format: int32
+          description: The datapoint id
+          readOnly: true
+          type: integer
+        datapointId:
+          format: int32
+          description: The datappoint id
+          readOnly: true
+          type: integer
+        operator:
+          description: The operator to use for the status display
+          type: string
+    GraphLine_2:
+      description: The graph lines
+      type: object
+      properties:
+        colorName:
+          description: The graph line color name
+          type: string
+        dataPointName:
+          description: The graph line data point name
+          type: string
+        dataPointId:
+          format: int32
+          description: The graph line data point id
+          readOnly: true
+          type: integer
+        legend:
+          description: The graph line legend
+          type: string
+        isVirtualDataPoint:
+          description: Whether the graph line's data point is a virtual data point
+          type: boolean
+        type:
+          format: int32
+          description: "The graph line type. \nThe values can be 1|2|3|4 \nwhere,\n      1=line, 2=area, 3=stack, 4=column"
+          type: integer
+    UpdateReason_2:
+      type: object
+      properties:
+        timeEpoch:
+          format: int64
+          description: Update date epoch
+          readOnly: true
+          type: integer
+        clientIp:
+          description: Client IP from which this update has been made
+          readOnly: true
+          type: string
+        updateReason:
+          description: Update reason
+          type: string
+        timeStr:
+          description: Update date in form 'YYYY-MM-DD HH:MM:SS'
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: ID of update reason
+          readOnly: true
+          type: integer
+        userName:
+          description: User who made this update
+          type: string
+    AutoDiscoveryMethod_2:
+      description: Method used to do auto discovery instance
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: "The auto discovery method name. \nThe values can be ad_cim|ad_cloudwatch|ad_collector|ad_dummy|ad_ec2|ad_esx|ad_http|ad_ipmi|ad_jdbc|ad_jmx|ad_netapp|ad_pdh|ad_port|ad_script|ad_snmp|ad_wmi|ad_xen|ad_azurerediscache|ad_awsserviceregion|ad_awsec2reservedinstance|ad_awsecsservice|ad_awsec2scheduledevents|ad_azureserviceregion|ad_azuresubscription|ad_azurebackupjob|ad_azuresdk|ad_azurewebjob|ad_awsbillingreport|ad_awselasticache|ad_awsredshift|ad_azurebilling|ad_awslbtargetgroups|ad_gcpappengine|ad_gcpbilling|ad_awsvpntunnel|ad_gcpvpntunnel|ad_awsglobalwebacl|ad_gcplbbackendservice|ad_gcppubsubsubscription|ad_gcppubsubsnapshot|ad_gcpcloudrouternatgateway|ad_azurereplicationjob|ad_azureexpressroutecircuitpeering|ad_awsapigatewaystage|ad_azureautomationaccountcertificate|ad_azurevngconnection|ad_azurewebappinstance|ad_azureappserviceenvironmentmultirolepool|ad_openmetrics|ad_awsmediaconnectoutput|ad_awsmediaconnectsource|ad_awswebaclwafv2|ad_saaso365sharepointsite|ad_awscognitoidentityproviders|ad_saaszoomplanusage|ad_saasstatus|ad_azuresynapse|ad_saasairbrake|ad_syntheticsselenium|ad_azurevirtualdesktopsessionhosts|ad_saaso365subscribedsku|ad_azuredimension|ad_azurecostmanagementdimensions|ad_saaso365servicehealth|ad_saaso365mailbox|ad_azurenetappvolumes|ad_azureloganalyticsworkspaces|ad_saaszoomstatus|ad_saassalesforcelicense|ad_saaszoomroom|ad_saaswebexlicenseusage|ad_azureloganalyticsreplicationjob|ad_paasjsonpath|ad_awsrabbitmqqueue|ad_awssagemakerendpointvariant|ad_awsroute53resolveripaddress|ad_saasopenaiusagecost|ad_saasopenaiusagecompletion|ad_saasopenaiusageimage|ad_awsamprulegroups|ad_awsampanomalydetectors"
+          type: string
+      discriminator:
+        propertyName: name
+    DataSource_2:
+      type: object
+      required:
+      - collectInterval
+      - collectMethod
+      - collectorAttribute
+      - name
+      properties:
+        eriDiscoveryConfig:
+          description: Enable ERI Discovery or not
+          readOnly: false
+          $ref: '#/components/schemas/ScriptERIDiscoveryAttributeV3'
+        accessGroups:
+          description: Module's access groups
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGroup'
+        displayName:
+          description: The data source display name
+          type: string
+        description:
+          description: The description for the LMModule
+          type: string
+        appliesTo:
+          description: The Applies To for the LMModule
+          type: string
+        lineageId:
+          description: The lineageId the LMModule belongs to
+          readOnly: true
+          type: string
+        collectMethod:
+          description: The  method to collect data. The values can be snmp|ping|exs|webpage|wmi|cim|datadump|dns|ipmi|jdbb|script|udp|tcp|xen
+          type: string
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
+          type: string
+        checksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        dataPoints:
+          description: The data point list
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPoint_2'
+        id:
+          format: int32
+          description: The ID of the LMModule
+          readOnly: true
+          type: integer
+        accessGroupIds:
+          uniqueItems: true
+          description: The Access Groups Id's
+          type: array
+          items:
+            format: int32
+            description: The Access Groups Id's
+            type: integer
+          example: 1, 2, 3
+        group:
+          description: The group the LMModule is in
+          type: string
+        collectorAttribute:
+          description: "Data collector's attributes to collector data. e.g. a ping data source has a ping collector attribute. \n PingCollectorAttributeV1 has two fields. the ip to ping, the data size send to ping"
+          readOnly: false
+          $ref: '#/components/schemas/CollectorAttribute_2'
+        autoDiscoveryConfig:
+          description: Auto discovery configuration
+          readOnly: false
+          $ref: '#/components/schemas/AutoDiscoveryConfiguration_2'
+        adParameters:
+          $ref: '#/components/schemas/DataSource_2'
+        payloadVersion:
+          format: int32
+          description: The DataSource payload version for custom metrics
+          readOnly: true
+          type: integer
+        useWildValueAsUUID:
+          description: 'Use wild-value as unique identifier in case of multi instance datasource: true|false'
+          readOnly: true
+          type: boolean
+        enableAutoDiscovery:
+          description: 'Enable Auto Discovery or not when this data source has multi instance: false|true'
+          type: boolean
+        technology:
+          description: The Technical Notes for the LMModule
+          type: string
+        version:
+          format: int64
+          description: The data source version
+          readOnly: true
+          type: integer
+        tags:
+          description: The Tags for the LMModule
+          type: string
+        auditVersion:
+          format: int64
+          description: The data source audit version
+          readOnly: true
+          type: integer
+        hasMultiInstances:
+          description: 'If the DataSource has multi instance: true|false'
+          readOnly: true
+          type: boolean
+        installationMetadata:
+          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+          readOnly: true
+          $ref: '#/components/schemas/IntegrationMetadata'
+        eriDiscoveryInterval:
+          format: int32
+          description: The DataSource data collect interval
+          type: integer
+        enableEriDiscovery:
+          description: 'Enable ERI Discovery or not: false|true'
+          type: boolean
+        collectInterval:
+          format: int32
+          description: The DataSource data collect interval
+          type: integer
+        name:
+          description: The data source name
+          type: string
+        isInUse:
+          description: Whether the LM module is currently in use
+          readOnly: true
+          type: boolean
+    DataPoint_2:
+      description: The data point list
+      type: object
+      required:
+      - name
+      properties:
+        alertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 0-4 (0:unused alert, 1:alert ok, 2:warn alert, 2:error alert, 4:critical alert)
+          type: integer
+        postProcessorMethod:
+          description: The post processor method for the data value. Currently support complex expression and groovy.
+          type: string
+        postProcessorParam:
+          description: The post processor parameter, e.g. dataPoint1*2
+          type: string
+        maxDigits:
+          format: int32
+          description: The max digits of the data value
+          type: integer
+        rawDataFieldName:
+          description: The name of the raw data field name used to fetch value, e.g. avgrtt, output
+          type: string
+        description:
+          description: The datapoint description
+          type: string
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          type: integer
+        userParam3:
+          description: 'The third user parameter will be used to fetch the datapoint value. '
+          type: string
+        userParam2:
+          description: The second user parameter will be used to fetch the datapoint value. e.g. jmx attribute name
+          type: string
+        type:
+          format: int32
+          description: The data metric type. The values can be 0-7 (0:unknown, 1:counter, 2:gauge, 3:derive, 5:status, 6:compute, 7:counter32, 8:counter64)
+          type: integer
+        dataSourceId:
+          format: int32
+          description: The datasource id
+          readOnly: true
+          type: integer
+        minValue:
+          description: The minimum value of the datapoint value range
+          type: string
+        alertBody:
+          description: The customized alert message body define.  Empty string mean we will use the define in default template
+          type: string
+        originId:
+          description: Portable id for origin tracking
+          type: string
+        userParam1:
+          description: The first user parameter will be used to fetch the datapoint value. e.g. snmp oid
+          type: string
+        alertSubject:
+          description: The customized alert message subject define. Empty string mean we will use the define in default template
+          type: string
+        id:
+          format: int32
+          description: The datapoint id
+          readOnly: true
+          type: integer
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          type: integer
+        enableAnomalyAlertSuppression:
+          description: 'Expression of anomaly detection setting, split by comma
+
+            0 means off,  1 means on, -1 means invalid
+
+            1,0,1 =   warn : ON     error: OFF   critical: ON
+
+            Empty value on this parameter means : 0,0,0'
+          type: string
+        maxValue:
+          description: The max value of the datapoint value range
+          type: string
+        dataType:
+          format: int32
+          description: The data value type. The values can be 1-8 (1:boolean, 2:byte, 3:short, 4:int, 5:long, 6:float, 7:double, 8:ulong)
+          type: integer
+        criticalAdAdvSetting:
+          description: Enable anomaly detection advance setting for CRITICAL severity
+          type: string
+        alertExprNote:
+          description: alert expression note
+          type: string
+        adAdvSettingEnabled:
+          description: The AD advance setting enable flag
+          type: boolean
+        errorAdAdvSetting:
+          description: Enable anomaly detection advance setting for ERROR severity
+          type: string
+        warnAdAdvSetting:
+          description: Enable anomaly detection advance setting for WARN severity
+          type: string
+        name:
+          description: The datapoint name
+          type: string
+        statusDisplayNames:
+          description: The status display name list
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusDisplayName'
+        alertExpr:
+          description: "The alert threshold define for the datapoint. e.g. '> 60 80 90' mean it will: \ntrigger warn alert if value > 60\ntrigger error alert if value > 80\ntrigger critical alert if value > 90"
+          type: string
+    CollectorAttribute_2:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: The data collector's name
+          type: string
+      discriminator:
+        propertyName: name
+    AutoDiscoveryFilter_2:
+      type: object
+      required:
+      - attribute
+      - operation
+      properties:
+        comment:
+          description: The filter comment
+          type: string
+        attribute:
+          description: Attribute to filter
+          type: string
+        operation:
+          description: 'The filter''s operation. The values can be : Equal|NotEqual|GreaterThan|GreaterEqual|LessThan|LessEqual|Contain|NotContain|NotExist|RegexMatch|RegexNotMatch'
+          type: string
+        value:
+          description: The operation value
+          type: string
+    DataSourceOverviewGraph_2:
+      type: object
+      properties:
+        base1024:
+          description: base1024 graph or not
+          type: boolean
+        timeScale:
+          description: "The graph time scale. \nThe values can be 1hour|2hour|5hour|day|yesterday|week|lastweek|month|3month|year"
+          type: string
+        maxValue:
+          description: The graph max value
+          type: object
+        displayPrio:
+          format: int32
+          description: The graph display priority
+          type: integer
+        aggregated:
+          description: Whether the overview graph is aggregated
+          readOnly: true
+          type: boolean
+        title:
+          description: The graph title
+          type: string
+        virtualDataPoints:
+          description: The virtual data point list
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphVirtualDataPoint_2'
+        minValue:
+          description: The graph min value
+          type: object
+        name:
+          description: The graph name
+          type: string
+        width:
+          format: int32
+          description: The graph width
+          type: integer
+        dataPoints:
+          description: The graph data point list
+          type: array
+          items:
+            $ref: '#/components/schemas/OverviewGraphDataPoint_2'
+        verticalLabel:
+          description: The graph vertical label
+          type: string
+        id:
+          format: int32
+          description: The graph Id
+          type: integer
+        rigid:
+          description: The rigid. The values can be true|false
+          type: boolean
+        lines:
+          description: The graph lines
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphLine_2'
+        height:
+          format: int32
+          description: The graph height
+          type: integer
+    IntegrationMetadata:
+      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+      readOnly: true
+      type: object
+      properties:
+        targetLastPublishedId:
+          description: Specifies the target last published Id
+          readOnly: true
+          type: string
+        targetLastPublishedChecksum:
+          description: The metadata checksum for the target last published LMModule content
+          readOnly: true
+          type: string
+        targetLastPublishedVersion:
+          description: Specifies the target last published version
+          readOnly: true
+          type: string
+        originChecksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        originAuthorNamespace:
+          description: Specifies the origin Author companies namespace
+          readOnly: true
+          type: string
+        originLocator:
+          description: Specifies the origin version locator
+          readOnly: true
+          type: string
+        isChangedFromOrigin:
+          description: Specifies if the Applies To function is changed from origin or not
+          readOnly: true
+          type: boolean
+        auditedRegistryId:
+          description: Specifies the audited registry Id
+          readOnly: true
+          type: string
+        targetLineageId:
+          description: Specifies the target lineage Id
+          readOnly: true
+          type: string
+        logicModuleType:
+          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
+
+            The type of LogicModule'
+          readOnly: true
+          type: string
+          enum:
+          - DATASOURCE
+          - EVENTSOURCE
+          - CONFIGSOURCE
+          - PROPERTYSOURCE
+          - DIAGNOSTICSOURCE
+          - REMEDIATIONSOURCE
+          - TOPOLOGYSOURCE
+          - JOBMONITOR
+          - APPLIESTO_FUNCTION
+          - SNMP_SYSOID_MAP
+          - LOGSOURCE
+        isChangedFromTargetLastPublished:
+          description: Specifies if the Applies To function is changed from target last published or not
+          readOnly: true
+          type: boolean
+        originLineageId:
+          description: The origin lineage Id of the LMmodule
+          readOnly: true
+          type: string
+        originAuthorCompanyUUID:
+          description: Specifies the origin Author companies unique Id
+          readOnly: true
+          type: string
+        localModuleId:
+          format: int32
+          description: The LocalModule Id
+          readOnly: true
+          type: integer
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from
+          readOnly: true
+          type: string
+        originVersion:
+          description: Specifies the origin version
+          readOnly: true
+          type: string
+        auditedVersion:
+          description: Specifies the audited registry version
+          readOnly: true
+          type: string
+        originName:
+          description: Specifies the origin module name
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

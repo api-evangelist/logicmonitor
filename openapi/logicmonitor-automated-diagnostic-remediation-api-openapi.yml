@@ -1,0 +1,263 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Automated Diagnostic & Remediation API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: Automated Diagnostic & Remediation
+paths:
+  /setting/diagnosticRemediation/executionResults:
+    get:
+      summary: Get diagnostic and remediation execution results (canonical)
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: View
+      description: 'Requires exactly one of query alertId or hostId (resource / device id). Optional moduleType: diagnostic, remediation, or both (default when omitted). Alert: set both startTimeMs and endTimeMs (epoch milliseconds) for history in that window; otherwise latest in the alert window. Device: without both times, at most one latest row; with both times, history with paging (module id or name required per side). Cursors are not supported when moduleType is both.'
+      operationId: getDiagnosticRemediationExecutionResults
+      responses:
+        '200':
+          description: ADR execution result list (AdrOutputList)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdrOutputList'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Missing or conflicting alertId / hostId, or invalid filters
+      parameters:
+      - in: query
+        name: alertId
+        schema:
+          type: string
+      - in: query
+        name: hostId
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: moduleType
+        schema:
+          type: string
+      - in: query
+        name: diagnosticSourceId
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: diagnosticSourceName
+        schema:
+          type: string
+      - in: query
+        name: remediationSourceId
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: remediationSourceName
+        schema:
+          type: string
+      - in: query
+        name: startTimeMs
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: endTimeMs
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: perPageCount
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: pageOffsetCount
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: cursor
+        schema:
+          type: string
+      - in: query
+        name: remediationCursor
+        schema:
+          type: string
+      tags:
+      - Automated Diagnostic & Remediation
+  /setting/diagnosticRemediation/list:
+    get:
+      summary: List assigned diagnostic and remediation exchange modules
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: View
+      description: 'Returns id, type, name, description, appliesTo, and group. Supply resourceId or alertId (optional moduleType). Use standard v3 list params: filter (e.g. filter=name~Playbook), sort, fields, size, offset, query.'
+      operationId: getDiagnosticRemediationAssignedSources
+      responses:
+        '200':
+          description: Paginated diagnostic and remediation module summaries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticRemediationAssignedSource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Missing resourceId and alertId, or resourceId does not match alert device
+      parameters:
+      - in: query
+        name: resourceId
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: alertId
+        schema:
+          type: string
+      - in: query
+        name: moduleType
+        schema:
+          type: string
+      tags:
+      - Automated Diagnostic & Remediation
+components:
+  schemas:
+    AdrOutputList:
+      description: List of diagnostic and remediation execution results (ADR).
+      type: object
+      properties:
+        cursor:
+          description: 'Next page cursor for diagnostic results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is diagnostic. Not set when moduleType is both.'
+          type: string
+        total:
+          format: int32
+          description: Number of items returned
+          type: integer
+        sort:
+          description: Sort applied to history results (echo of request, e.g. -startTime).
+          type: string
+        items:
+          description: Matched ADR execution result rows
+          type: array
+          items:
+            $ref: '#/components/schemas/AdrOutput'
+        remediationCursor:
+          description: 'Next page cursor for remediation results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is remediation.'
+          type: string
+    DiagnosticRemediationAssignedSource:
+      description: Diagnostic or remediation exchange module metadata assigned to a host or scoped to alert executions.
+      type: object
+      properties:
+        name:
+          description: Module name.
+          type: string
+        description:
+          description: Module description.
+          type: string
+        appliesTo:
+          description: Applies-to script for the module.
+          type: string
+        id:
+          format: int32
+          description: Exchange module definition id.
+          type: integer
+          example: 12
+        type:
+          description: 'Module kind: diagnostic or remediation.'
+          type: string
+          enum:
+          - diagnosticsource
+          - remediationsource
+        group:
+          description: Module group.
+          type: string
+    AdrOutput:
+      description: Diagnostic Source or Remediation Source execution result (output and metadata).
+      type: object
+      properties:
+        executedBy:
+          description: User or principal that triggered the execution (when available)
+          type: string
+        remediationSourceId:
+          format: int32
+          description: Remediation Source module id when sourceType is remediationSource
+          type: integer
+        executionStatus:
+          description: Execution status name (enum string from collector pipeline)
+          type: string
+        moduleName:
+          description: Logic module display name
+          type: string
+        hostId:
+          format: int32
+          description: Device (resource) id
+          type: integer
+        triggeredType:
+          description: How the execution was triggered (e.g. manual, automatic)
+          type: string
+        output:
+          description: Script output / message captured for this execution
+          type: string
+        executionId:
+          format: int64
+          description: LogicModule execution id
+          type: integer
+        sourceType:
+          description: 'Row kind: diagnosticSource or remediationSource (exact values as in the JSON response).'
+          type: string
+        diagnosticSourceId:
+          format: int32
+          description: Diagnostic Source module id when sourceType is diagnosticSource
+          type: integer
+        startTime:
+          format: int64
+          description: Execution start time in epoch seconds (UTC), when available
+          type: integer
+        alertId:
+          description: Alert id when the execution was tied to an alert (may be empty).
+          type: string
+        endTime:
+          format: int64
+          description: Execution end or log timestamp in epoch seconds (UTC), when available
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

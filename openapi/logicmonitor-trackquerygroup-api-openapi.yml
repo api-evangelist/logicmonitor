@@ -1,0 +1,323 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Track Query Group API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: TrackQueryGroup
+paths:
+  /trackedquerygroups:
+    post:
+      summary: Create tracked query group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs: View
+      description: Create a new tracked query group
+      operationId: createTrackedQueryGroup
+      responses:
+        '200':
+          description: Tracked query group created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackedQueryGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - TrackQueryGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackedQueryGroup'
+    get:
+      summary: Get tracked query group list
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs: View
+      description: Get all tracked query groups
+      operationId: getTrackedQueryGroupList
+      responses:
+        '200':
+          description: Tracked query groups retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackQueryGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - TrackQueryGroup
+  /trackedquerygroups/{id}:
+    patch:
+      summary: Update tracked query group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs: View
+      description: Update an existing tracked query group
+      operationId: patchTrackedQueryGroup
+      responses:
+        '200':
+          description: Tracked query group updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackedQueryGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - TrackQueryGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackedQueryGroup'
+    get:
+      summary: Get tracked query group by ID
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs: View
+      description: Fetch a tracked query group by ID
+      operationId: getTrackedQueryGroupById
+      responses:
+        '200':
+          description: Tracked query group retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackedQueryGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - TrackQueryGroup
+    delete:
+      summary: Delete tracked query group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs: View
+      description: Delete a tracked query group by ID
+      operationId: deleteTrackedQueryGroup
+      responses:
+        '200':
+          description: Tracked query group deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - TrackQueryGroup
+    put:
+      summary: Update tracked query group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs: View
+      description: Update an existing tracked query group
+      operationId: updateTrackedQueryGroup
+      responses:
+        '200':
+          description: Tracked query group updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackedQueryGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - TrackQueryGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackedQueryGroup'
+components:
+  schemas:
+    TrackedQueryGroup:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: Name of the tracked query group
+          type: string
+        description:
+          description: Description of the tracked query group
+          type: string
+        id:
+          format: int32
+          description: The ID of the tracked query group
+          readOnly: true
+          type: integer
+        trackedQuery:
+          description: List of tracked queries under this group
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Tracking_Log_Query'
+        ownerId:
+          format: int32
+          description: Owner of the tracked query group
+          type: integer
+        parentId:
+          format: int32
+          description: Parent ID of the tracked query group
+          type: integer
+    Tracking_Log_Query:
+      description: List of tracked queries under this group
+      readOnly: true
+      type: object
+      required:
+      - label
+      - query
+      - trackedQueryUuid
+      - version
+      properties:
+        partitions:
+          description: partitions associated with the query
+          type: array
+          items:
+            description: partitions associated with the query
+            type: string
+        isPaused:
+          description: flag stating paused status of tracked query
+          readOnly: true
+          type: boolean
+        query:
+          description: query for log filter
+          type: string
+        groupId:
+          format: int32
+          description: Group ID associated with the tracked query. Defaults to 'ungrouped' if not provided.
+          type: integer
+        createEpoch:
+          format: int64
+          description: epoch of creation date
+          type: integer
+        lastUpdateEpoch:
+          format: int64
+          description: epoch of last update date
+          type: integer
+        label:
+          description: label for log filter
+          type: string
+        version:
+          description: query grammar version
+          type: string
+        aggregate:
+          type: boolean
+        groupName:
+          description: Group name associated with the tracked query
+          readOnly: true
+          type: string
+        trackedQueryUuid:
+          description: tracked query uuid for log filter
+          type: string
+        adminId:
+          format: int32
+          description: admin id
+          type: integer
+        id:
+          format: int64
+          description: id of record
+          type: integer
+    TrackQueryGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackedQueryGroup'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

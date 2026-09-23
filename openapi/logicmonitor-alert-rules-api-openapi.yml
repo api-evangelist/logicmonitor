@@ -1,0 +1,441 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Alert Rules API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Alert Rules across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Alert Rules
+paths:
+  /setting/alert/rules/{id}:
+    patch:
+      summary: update alert rule
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchAlertRuleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Alert Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRule'
+        required: true
+    get:
+      summary: get alert rule by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAlertRuleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Alert Rules
+    delete:
+      summary: delete alert rule
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteAlertRuleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Alert Rules
+    put:
+      summary: update alert rule
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateAlertRuleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Alert Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRule'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /setting/alert/rules:
+    post:
+      summary: add alert rule
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addAlertRule
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Alert Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRule'
+        required: true
+    get:
+      summary: get alert rule list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAlertRuleList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertRulePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Alert Rules
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    AlertRulePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertRule'
+    AlertRule:
+      type: object
+      required:
+      - escalatingChainId
+      - name
+      - priority
+      properties:
+        datapoint:
+          description: The datapoint the alert rule is configured to match
+          type: string
+          example: '*'
+        instance:
+          description: The instance the alert rule is configured to match
+          type: string
+          example: '*'
+        devices:
+          uniqueItems: true
+          description: The device names and service names the alert rule is configured to match
+          type: array
+          items:
+            type: string
+          example: '["Cisco Router"]'
+        escalatingChainId:
+          format: int32
+          description: The id of the escalation chain associated with the alert rule
+          type: integer
+          example: 12.0
+        priority:
+          format: int32
+          description: The priority associated with the alert rule
+          type: integer
+          example: 100.0
+        suppressAlertAckSdt:
+          description: Whether or not status notifications for acknowledgements and SDTs should be sent to the alert rule
+          type: boolean
+          example: true
+        datasource:
+          description: The datasource the alert rule is configured to match
+          type: string
+          example: Port-
+        suppressAlertClear:
+          description: Whether or not alert clear notifications should be sent to the alert rule
+          type: boolean
+          example: true
+        name:
+          description: The name of the alert rule
+          type: string
+          example: Warning
+        id:
+          format: int32
+          description: The Id of the alert rule
+          readOnly: true
+          type: integer
+        levelStr:
+          description: 'The alert severity levels the alert rule is configured to match. Acceptable values are: All, Warn, Error, Critical'
+          type: string
+          example: Warn
+        deviceGroups:
+          uniqueItems: true
+          description: The device groups and service groups the alert rule is configured to match
+          type: array
+          items:
+            type: string
+          example: '[ "Devices by Type"]'
+        escalatingChain:
+          description: The escalation chain associated with the alert rule
+          readOnly: true
+          type: object
+        escalationInterval:
+          format: int32
+          description: The escalation interval associated with the alert rule, in minutes
+          type: integer
+          example: 15.0
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    DeviceProperty:
+      description: The resource property filters list
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The resource property name
+          type: string
+        value:
+          description: The resource property value
+          type: string
+    AlertRule_2:
+      type: object
+      required:
+      - escalatingChainId
+      - name
+      - priority
+      - sendAnomalySuppressedAlert
+      properties:
+        datapoint:
+          description: The datapoint for which the alert rule is configured to match
+          type: string
+          example: '*'
+        instance:
+          description: The instance for which the alert rule is configured to match
+          type: string
+          example: '*'
+        devices:
+          uniqueItems: true
+          description: The device names and service names for which the alert rule is configured to match
+          type: array
+          items:
+            description: The device names and service names for which the alert rule is configured to match
+            type: string
+            example: '"[Cisco Router]"'
+          example: '[Cisco Router]'
+        escalatingChainId:
+          format: int32
+          description: The id of the escalation chain associated with the alert rule
+          type: integer
+          example: 12
+        resourceProperties:
+          description: The resource property filters list
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceProperty'
+        sendAnomalySuppressedAlert:
+          description: Whether or not send anomaly suppressed alert
+          type: boolean
+          example: true
+        priority:
+          format: int32
+          description: The priority associated with the alert rule
+          type: integer
+          example: 100
+        suppressAlertAckSdt:
+          description: Whether or not status notifications for acknowledgements and SDTs should be sent to the alert rule
+          type: boolean
+          example: true
+        datasource:
+          description: The datasource for which the alert rule is configured to match
+          type: string
+          example: Port-
+        suppressAlertClear:
+          description: Whether or not alert clear notifications should be sent to the alert rule
+          type: boolean
+          example: true
+        name:
+          description: The name of the alert rule
+          type: string
+          example: Warning
+        id:
+          format: int32
+          description: The Id of the alert rule
+          readOnly: true
+          type: integer
+        levelStr:
+          description: "The alert severity levels for which the alert rule is configured to match. \nThe values can be All|Warn|Error|Critical"
+          type: string
+          example: Warn
+        deviceGroups:
+          uniqueItems: true
+          description: The device groups and service groups for which the alert rule is configured to match
+          type: array
+          items:
+            description: The device groups and service groups for which the alert rule is configured to match
+            type: string
+            example: '"[Devices by Type]"'
+          example: '[Devices by Type]'
+        escalatingChain:
+          description: The escalation chain associated with the alert rule
+          readOnly: true
+          type: object
+        escalationInterval:
+          format: int32
+          description: The escalation interval associated with the alert rule, in minutes
+          type: integer
+          example: 15
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

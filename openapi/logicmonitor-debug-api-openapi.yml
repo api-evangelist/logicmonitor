@@ -1,0 +1,152 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Debug API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Debug across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Debug
+paths:
+  /debug:
+    post:
+      summary: Execute a Collector debug command
+      security:
+      - LMv1: []
+      description: ''
+      operationId: executeDebugCommand
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debug'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: collectorId
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: -1.0
+      tags:
+      - Debug
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Debug'
+    servers:
+    - url: /santaba/rest
+  /debug/{id}:
+    get:
+      summary: Get the result of a Collector debug command
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDebugCommandResult
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Debug'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          pattern: .*
+      - in: query
+        name: collectorId
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: -1.0
+      tags:
+      - Debug
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    Debug:
+      type: object
+      properties:
+        output:
+          description: The value of the debug command
+          readOnly: true
+          type: string
+        cmdline:
+          description: The debug command to execute
+          type: string
+        cmdContext:
+          description: The session prefix name
+          type: string
+        sessionId:
+          description: The session id
+          readOnly: true
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    Debug_2:
+      type: object
+      properties:
+        output:
+          description: The value of the debug command
+          readOnly: true
+          type: string
+        cmdline:
+          description: The debug command to execute
+          type: string
+        cmdContext:
+          description: The session prefix name
+          readOnly: true
+          type: string
+        sessionId:
+          description: The session id
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

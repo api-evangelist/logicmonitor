@@ -1,0 +1,447 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor API Tokens API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged API Tokens across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: API Tokens
+paths:
+  /setting/admins/{adminId}/apitokens:
+    post:
+      summary: add api tokens for a user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addApiTokenByAdminId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIToken'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: adminId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+          default: API Token
+      tags:
+      - API Tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIToken'
+        required: true
+    get:
+      summary: get api tokens for a user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getApiTokenListByAdminId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTokenPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: adminId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - API Tokens
+    servers:
+    - url: /santaba/rest
+  /setting/admins/{adminId}/apitokens/{apitokenId}:
+    patch:
+      summary: update api tokens for a user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchApiTokenByAdminId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIToken'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: adminId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: apitokenId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - API Tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIToken'
+        required: true
+    delete:
+      summary: delete apiToken
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteApiTokenById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: adminId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: apitokenId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - API Tokens
+    put:
+      summary: update api tokens for a user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateApiTokenByAdminId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIToken'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: adminId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: apitokenId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - API Tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIToken'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /setting/admins/apitokens:
+    get:
+      summary: get a list of api tokens across users
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getApiTokenList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiTokenPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - API Tokens
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    APIToken:
+      type: object
+      properties:
+        accessId:
+          description: The access Id associated with the API Tokens
+          readOnly: true
+          type: string
+        adminName:
+          description: The name of the user associated with the API Tokens
+          readOnly: true
+          type: string
+        note:
+          description: The note associated with the API Tokens
+          type: string
+          example: John Doe's API Token
+        lastUsedOn:
+          format: int64
+          description: The epoch at which the API Tokens were last used
+          readOnly: true
+          type: integer
+        accessKey:
+          description: The secret key associated with the API Tokens
+          readOnly: true
+          type: string
+        createdBy:
+          description: The user who is the API Tokens created by
+          readOnly: true
+          type: string
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user that is associated with the API Tokens
+          readOnly: true
+          type: array
+          items:
+            type: string
+        adminId:
+          format: int32
+          description: The id of the user associated with the API Tokens
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the API Token
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: The epoch at which the API Tokens were created
+          readOnly: true
+          type: integer
+        status:
+          format: int32
+          description: 1 | 2 - Whether or not the API Tokens are enabled, where 2 = enabled
+          type: integer
+          example: 2.0
+    ApiTokenPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/APIToken'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    APIToken_2:
+      description: Any API Tokens associated with the user
+      type: object
+      properties:
+        note:
+          description: The note associated with the API Tokens
+          type: string
+          example: John Doe's API Token
+        lastUsedOn:
+          format: int64
+          description: The epoch at which the API Tokens were last used
+          readOnly: true
+          type: integer
+        userPermission:
+          description: The permission of current apiToken with the admin. The values can be write|read|none
+          readOnly: true
+          type: string
+          example: read
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user that is associated with the API Tokens
+          readOnly: true
+          type: array
+          items:
+            description: The roles assigned to the user that is associated with the API Tokens
+            readOnly: true
+            type: string
+        createdOn:
+          format: int64
+          description: The epoch at which the API Tokens were created
+          readOnly: true
+          type: integer
+        accessId:
+          description: The access Id associated with the API Tokens
+          readOnly: true
+          type: string
+        adminName:
+          description: The name of the user associated with the API Tokens
+          readOnly: true
+          type: string
+        lastAuthIp:
+          description: The IP from which the API Tokens were last used
+          readOnly: true
+          type: string
+        accessKey:
+          description: The secret key associated with the API Tokens
+          readOnly: true
+          type: string
+        createdBy:
+          description: The user who is the API Tokens created by
+          readOnly: true
+          type: string
+        adminId:
+          format: int32
+          description: The id of the user associated with the API Tokens
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the API Token
+          readOnly: true
+          type: integer
+        status:
+          format: int32
+          description: The values can be 1 | 2. Specifies whether or not the API Tokens are enabled, where 2 = enabled
+          type: integer
+          example: 2
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

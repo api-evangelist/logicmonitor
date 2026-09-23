@@ -1,0 +1,394 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Delta API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: Delta
+paths:
+  /device/devices/delta:
+    get:
+      summary: Get filter matched devices with new deltaId
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: View
+      operationId: getDeltaIdWithDevices
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDeltaPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: deltaId
+        schema:
+          type: string
+      tags:
+      - Delta
+  /device/devices/delta/{deltaId}:
+    get:
+      summary: Get delta devices using deltaId
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: View
+      operationId: getDeltaDevices
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDeltaPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deltaId
+        required: true
+        schema:
+          type: string
+      tags:
+      - Delta
+components:
+  schemas:
+    RestDeviceDeltaV3:
+      type: object
+      required:
+      - displayName
+      - name
+      - preferredCollectorId
+      properties:
+        logCollectorGroupId:
+          format: int32
+          description: The id of the Collector Group associated with the device's log collection
+          readOnly: true
+          type: integer
+        disableAlerting:
+          description: Indicates whether alerting is disabled (true) or enabled (false) for this device
+          type: boolean
+          example: true
+        type:
+          description: "Specifies the v3 Uptime Device request type. Supported values:\n uptimewebcheck - for Uptime Web Check devices\n uptimepingcheck - for Uptime Ping Check devices blank/empty value- for regular devices"
+          type: string
+          example: uptimewebcheck
+        netflowCollectorGroupId:
+          format: int32
+          description: The id of the Collector Group associated with the device's netflow collector
+          readOnly: true
+          type: integer
+        rolePrivileges:
+          description: The role privilege operation(s) for this device that are granted to the user who made the API request
+          readOnly: true
+          type: array
+          items:
+            description: The role privilege operation(s) for this device that are granted to the user who made the API request
+            readOnly: true
+            type: string
+        systemProperties:
+          description: Any system properties (aside from system.categories) defined for this device
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        isPreferredLogCollectorConfigured:
+          description: Indicates whether Preferred Log Collector is configured  (true) or not (false) for the device
+          type: boolean
+          example: true
+        hostStatus:
+          description: The status of this device, where possible statuses are normal, dead and dead-collector
+          readOnly: true
+          type: string
+        autoBalancedCollectorGroupId:
+          format: int32
+          description: The Auto Balanced Collector Group id. 0 means not monitored by ABCG
+          type: integer
+        inheritedProperties:
+          description: Any properties inherit from parents
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        id:
+          format: int32
+          description: The Id of the device
+          readOnly: true
+          type: integer
+        syntheticsCollectorIds:
+          uniqueItems: true
+          description: The list of ids of the collectors currently monitoring the resource and discovering instances
+          type: array
+          items:
+            format: int32
+            description: The list of ids of the collectors currently monitoring the resource and discovering instances
+            type: integer
+          example: 1,4
+        upTimeInSeconds:
+          format: int64
+          description: 'The uptime of the device in seconds. This value will always be the largest value reported by the following datasources:
+
+            Host Uptime-
+
+            SNMPUptime-
+
+            SNMP_Engine_Uptime-
+
+            WinSystemUptime-
+
+            NimbleUptime-'
+          readOnly: true
+          type: integer
+        deviceType:
+          format: int32
+          description: 'The type of device: 0 indicates a regular device, 1 indicates an APPGROUP device, 2 indicates an AWS device, 3 indicates a service device, 4 indicates an Azure device, 6 indicates a biz_service device, 7 indicates a GCP device, 8 indicates K8S device'
+          type: integer
+          example: 0
+        currentCollectorId:
+          format: int32
+          description: The id of the collector currently monitoring the device and discovering instances
+          type: integer
+          example: 1
+        netflowCollectorId:
+          format: int32
+          description: The Id of the netflow collector associated with the device
+          type: integer
+          example: 1
+        autoPropsAssignedOn:
+          format: int64
+          description: The time, in epoch seconds format, that properties were first discovered for this device
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: The time, in epoch seconds format, that the device was last updated
+          readOnly: true
+          type: integer
+        preferredCollectorGroupId:
+          format: int32
+          description: The id of the Collector Group associated with the device's preferred collector
+          readOnly: true
+          type: integer
+        customProperties:
+          description: Any non-system properties (aside from system.categories) defined for this device
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        collectorDescription:
+          description: The description/name of the collector for this device
+          readOnly: true
+          type: string
+        preferredCollectorId:
+          format: int32
+          description: The Id of the preferred collector assigned to monitor the device
+          type: integer
+          example: 2
+        lastRawdataTime:
+          format: int64
+          description: The last time, in epoch seconds, that raw Netflow data was reported
+          readOnly: true
+          type: integer
+        name:
+          description: The host name or IP address of the device
+          type: string
+          example: Main Collector
+        deletedTimeInMs:
+          format: int64
+          description: The time in milliseconds that the device has been dead for, or since the AWS device was filtered out
+          readOnly: true
+          type: integer
+        status:
+          description: Delta status it can be added|updated|deleted or empty for no delta
+          readOnly: true
+          type: string
+          example: updated
+        netflowCollectorGroupName:
+          description: The name of the Collector Group associated with the device's netflow collector
+          readOnly: true
+          type: string
+        azureState:
+          format: int32
+          description: 'The Azure instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated.'
+          readOnly: true
+          type: integer
+        relatedDeviceId:
+          format: int32
+          description: The Id of the AWS EC2 instance related to this device, if one exists in the LogicMonitor account. This value defaults to -1, which indicates that there are no related devices
+          type: integer
+          example: -1
+        logCollectorGroupName:
+          description: The name of the Collector Group associated with the device's.
+          readOnly: true
+          type: string
+        displayName:
+          description: The display name of the device
+          type: string
+          example: Cisco Router
+        logCollectorDescription:
+          description: The description/name of the log collector for this device
+          readOnly: true
+          type: string
+        link:
+          description: The URL link associated with the device
+          type: string
+          example: www.ciscorouter.com
+        awsState:
+          format: int32
+          description: 'The AWS instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated'
+          readOnly: true
+          type: integer
+        description:
+          description: The device description
+          type: string
+          example: This is a Cisco Router
+        createdOn:
+          format: int64
+          description: The time, in epoch seconds format, that the device was added to your LogicMonitor account
+          readOnly: true
+          type: integer
+        gcpState:
+          format: int32
+          description: 'The GCP instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated.'
+          readOnly: true
+          type: integer
+        autoPropsUpdatedOn:
+          format: int64
+          description: The time, in epoch seconds, that auto properties last ran and updated the properties table for this device
+          readOnly: true
+          type: integer
+        scanConfigId:
+          format: int32
+          description: The Id of the netscan configuration which was used to discover this device. 0 indicates that the device was not discovered by a scan
+          readOnly: true
+          type: integer
+          example: 0
+        enableNetflow:
+          description: Indicates whether Netflow is enabled (true) or disabled (false) for the device
+          type: boolean
+          example: true
+        lastDataTime:
+          format: int64
+          description: The last time, in epoch seconds, that the device received Netflow data
+          readOnly: true
+          type: integer
+        hostGroupIds:
+          description: The Id(s) of the groups the device is in, where multiple group ids are comma separated
+          type: string
+          example: 16,4,3
+        resourceIds:
+          description: Any non-system properties (aside from system.categories) defined for this device
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        op:
+          description: whether to use AND or OR for device matching
+          type: string
+        currentLogCollectorId:
+          format: int32
+          description: The id of the Log collector currently collecting logs.
+          type: integer
+          example: 1
+        logCollectorId:
+          format: int32
+          description: The Id of the netflow collector associated with the device
+          type: integer
+          example: 1
+        netflowCollectorDescription:
+          description: The description/name of the netflow collector for this device
+          readOnly: true
+          type: string
+        userPermission:
+          description: The read and/or write permissions for this device that are granted to the user who made the API request
+          readOnly: true
+          type: string
+        preferredCollectorGroupName:
+          description: The name of the Collector Group associated with the device's preferred collector
+          readOnly: true
+          type: string
+        autoProperties:
+          description: Any auto properties assigned to the device
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        toDeleteTimeInMs:
+          format: int64
+          description: The number of milliseconds until the device will be automatically deleted from your LogicMonitor account (a value of zero indicates that a future delete time/date has not been scheduled)
+          readOnly: true
+          type: integer
+        containsMultiValue:
+          description: request contains multi value field
+          type: boolean
+    NameAndValue:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceDeltaPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        deltaId:
+          type: string
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestDeviceDeltaV3'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

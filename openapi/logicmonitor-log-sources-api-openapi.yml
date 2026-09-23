@@ -1,0 +1,669 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Log Sources API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: Log Sources
+paths:
+  /setting/logsources/{id}:
+    patch:
+      summary: Update log source
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      description: Updates an existing log source
+      operationId: patchLogSource
+      responses:
+        '200':
+          description: Successfully updated log source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogSource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      tags:
+      - Log Sources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogSource'
+    get:
+      summary: Get log source
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: View
+      description: Retrieves a specific log source by its ID
+      operationId: getLogSourceById
+      responses:
+        '200':
+          description: Successfully retrieved the log source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogSource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: format
+        schema:
+          type: string
+      tags:
+      - Log Sources
+    delete:
+      summary: Delete log source
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules ->  All Installed modules: Manage
+      description: Deletes an existing log source
+      operationId: deleteLogSource
+      responses:
+        '200':
+          description: Successfully deleted log source
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Log Sources
+    put:
+      summary: Update log source
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: Manage
+      description: Updates an existing log source
+      operationId: updateLogSource
+      responses:
+        '200':
+          description: Successfully updated log source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogSource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: reason
+        schema:
+          type: string
+      tags:
+      - Log Sources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogSource'
+  /setting/logsources:
+    post:
+      summary: Add log source
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules ->  All Installed modules: Manage
+      description: Adds a new log source
+      operationId: addLogSource
+      responses:
+        '200':
+          description: Successfully added new log source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogSource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Log Sources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogSource'
+    get:
+      summary: Get log source list
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> All Installed modules: View
+      description: Retrieves a list of log sources
+      operationId: getLogSourceList
+      responses:
+        '200':
+          description: Successfully retrieved log source list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogSourcePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+      tags:
+      - Log Sources
+  /setting/logsources/importjson:
+    post:
+      summary: Import LogSource via json
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules ->  All Installed modules: Manage
+        Modules -> Access Groups: Manage
+      description: Import a LogSource using json data
+      operationId: importLogSourceJson
+      responses:
+        '200':
+          description: Successfully imported the LogSource via Json
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogSource'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: handleConflict
+        schema:
+          type: string
+      - in: query
+        name: fieldsToPreserve
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      tags:
+      - Log Sources
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+components:
+  schemas:
+    LogSourceSensitiveDataMaskingRule:
+      type: object
+      properties:
+        maskedValue:
+          description: Replacement value when the rule matches
+          type: string
+        validMaskingRuleForType:
+          type: boolean
+        maskingRule:
+          description: Pattern or literal to match (for REGEX, a valid regular expression)
+          type: string
+        description:
+          description: Optional description
+          type: string
+        id:
+          description: Stable id for the rule
+          type: string
+        type:
+          description: 'Match semantics: REGEX or JSON (stored as JSON type in DB)'
+          type: string
+          enum:
+          - ''
+          - REGEX
+          - JSON_KEY
+        key:
+          description: Log field or attribute key this rule applies to
+          type: string
+    RestLogSourceResourceMappingV3:
+      description: resource mapping
+      type: object
+      properties:
+        method:
+          description: The LogSourceResourceMapping method
+          type: string
+          enum:
+          - Invalid
+          - Static
+          - Token
+          - Regex
+          - Attribute
+          - RegexGroup
+          - Ip
+          - FQDN
+          - HostName
+          - HostWithoutDNS
+        index:
+          description: The LogSourceResourceMapping index
+          type: string
+        comment:
+          description: The LogSourceResourceMapping comment
+          type: string
+        id:
+          description: The LogSourceResourceMapping id
+          type: string
+        value:
+          description: The LogSourceResourceMapping value
+          type: string
+        key:
+          description: The LogSourceResourceMapping key
+          type: string
+    Duration:
+      type: object
+      properties:
+        offset:
+          format: int64
+          type: integer
+        units:
+          type: string
+          enum:
+          - INVALID
+          - MILLISECONDS
+          - SECONDS
+          - MINUTES
+          - HOURS
+          - DAYS
+          - WEEKS
+          - MONTHS
+          - YEARS
+    RestLogSourceFilterV3:
+      type: object
+      properties:
+        include:
+          type: string
+        index:
+          type: string
+        comment:
+          type: string
+        id:
+          type: string
+        attribute:
+          type: string
+        value:
+          type: string
+        operator:
+          type: string
+    LogSourceLogField:
+      type: object
+      properties:
+        method:
+          description: The LogSource method
+          type: string
+          enum:
+          - Invalid
+          - Static
+          - Token
+          - Regex
+          - Attribute
+          - RegexGroup
+          - Ip
+        comment:
+          description: The LogSource comment
+          type: string
+        id:
+          description: The LogSource id
+          type: string
+        value:
+          description: The LogSource value
+          type: string
+        key:
+          description: The LogSource key
+          type: string
+    LogSourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogSource'
+    UpdateReasons:
+      type: object
+      properties:
+        reasons:
+          type: string
+        ip:
+          type: string
+        happenedOn:
+          format: int64
+          type: integer
+        id:
+          format: int32
+          type: integer
+        type:
+          type: string
+        objectId:
+          format: int32
+          type: integer
+        username:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
+    LogSource:
+      type: object
+      properties:
+        collectionMethod:
+          type: string
+          enum:
+          - INVALID
+          - WIN_EVENT
+          - SYSLOG
+          - DUMMY
+          - SCRAPE_LOGS
+          - KUBERNETES_EVENT
+          - KUBERNETES_POD
+          - SCRIPT
+          - SAAS_O365_AUDIT_LOGS
+          - SNMP_TRAP
+          - WEBHOOK
+        appliesToScript:
+          description: The appliesToScript
+          type: string
+        resourceMapping:
+          description: resource mapping
+          type: array
+          items:
+            $ref: '#/components/schemas/RestLogSourceResourceMappingV3'
+        sensitiveDataMaskingRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogSourceSensitiveDataMaskingRule'
+        accessGroups:
+          description: Module's access groups
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGroup'
+        collectionAttribute:
+          description: collectionAttribute
+          type: object
+        changelogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateReasons'
+        description:
+          description: description
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestLogSourceFilterV3'
+        technicalNotes:
+          description: The technicalNotes
+          type: string
+        lineageId:
+          description: The lineageId the LMModule belongs to
+          readOnly: true
+          type: string
+        tags:
+          description: tags
+          type: array
+          items:
+            description: tags
+            type: string
+        logFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogSourceLogField'
+        installationMetadata:
+          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+          readOnly: true
+          $ref: '#/components/schemas/IntegrationMetadata'
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
+          type: string
+        checksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        name:
+          description: The log source name
+          type: string
+        id:
+          format: int32
+          description: The ID of the LMModule
+          readOnly: true
+          type: integer
+        accessGroupIds:
+          uniqueItems: true
+          description: The Access Groups Id's
+          type: array
+          items:
+            format: int32
+            description: The Access Groups Id's
+            type: integer
+          example: 1, 2, 3
+        isInUse:
+          description: Whether the LM module is currently in use
+          readOnly: true
+          type: boolean
+        collectionInterval:
+          $ref: '#/components/schemas/Duration'
+        group:
+          description: group
+          type: string
+    IntegrationMetadata:
+      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+      readOnly: true
+      type: object
+      properties:
+        targetLastPublishedId:
+          description: Specifies the target last published Id
+          readOnly: true
+          type: string
+        targetLastPublishedChecksum:
+          description: The metadata checksum for the target last published LMModule content
+          readOnly: true
+          type: string
+        targetLastPublishedVersion:
+          description: Specifies the target last published version
+          readOnly: true
+          type: string
+        originChecksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        originAuthorNamespace:
+          description: Specifies the origin Author companies namespace
+          readOnly: true
+          type: string
+        originLocator:
+          description: Specifies the origin version locator
+          readOnly: true
+          type: string
+        isChangedFromOrigin:
+          description: Specifies if the Applies To function is changed from origin or not
+          readOnly: true
+          type: boolean
+        auditedRegistryId:
+          description: Specifies the audited registry Id
+          readOnly: true
+          type: string
+        targetLineageId:
+          description: Specifies the target lineage Id
+          readOnly: true
+          type: string
+        logicModuleType:
+          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
+
+            The type of LogicModule'
+          readOnly: true
+          type: string
+          enum:
+          - DATASOURCE
+          - EVENTSOURCE
+          - CONFIGSOURCE
+          - PROPERTYSOURCE
+          - DIAGNOSTICSOURCE
+          - REMEDIATIONSOURCE
+          - TOPOLOGYSOURCE
+          - JOBMONITOR
+          - APPLIESTO_FUNCTION
+          - SNMP_SYSOID_MAP
+          - LOGSOURCE
+        isChangedFromTargetLastPublished:
+          description: Specifies if the Applies To function is changed from target last published or not
+          readOnly: true
+          type: boolean
+        originLineageId:
+          description: The origin lineage Id of the LMmodule
+          readOnly: true
+          type: string
+        originAuthorCompanyUUID:
+          description: Specifies the origin Author companies unique Id
+          readOnly: true
+          type: string
+        localModuleId:
+          format: int32
+          description: The LocalModule Id
+          readOnly: true
+          type: integer
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from
+          readOnly: true
+          type: string
+        originVersion:
+          description: Specifies the origin version
+          readOnly: true
+          type: string
+        auditedVersion:
+          description: Specifies the audited registry version
+          readOnly: true
+          type: string
+        originName:
+          description: Specifies the origin module name
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

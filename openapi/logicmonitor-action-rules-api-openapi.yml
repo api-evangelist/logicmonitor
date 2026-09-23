@@ -1,0 +1,444 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Action Rules API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: Action Rules
+paths:
+  /setting/action/rules/{id}:
+    patch:
+      summary: update action rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: Manage
+      description: update action rule by id
+      operationId: patchActionRuleById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Action Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRule'
+        required: true
+    get:
+      summary: get action rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: View
+      description: get action rule by id
+      operationId: getActionRuleById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Action Rules
+    delete:
+      summary: delete action rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: Manage
+      description: delete action rule by id
+      operationId: deleteActionRuleById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Action Rules
+    put:
+      summary: update action rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: Manage
+      description: update action rule by id
+      operationId: updateActionRuleById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Action Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRule'
+        required: true
+  /setting/action/rules/{id}/status:
+    patch:
+      summary: enable/disable action rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: Manage
+      description: enable/disable action rule by id
+      operationId: patchActionRuleStatusById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRuleStatus'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Action Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRuleStatus'
+        required: true
+    get:
+      summary: get action rule status
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: View
+      description: get action rule status by id
+      operationId: getActionRuleStatusById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRuleStatus'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Action Rules
+    put:
+      summary: enable/disable action rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: Manage
+      description: enable/disable action rule by id
+      operationId: updateActionRuleStatusById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRuleStatus'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Action Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRuleStatus'
+        required: true
+  /setting/action/rules:
+    post:
+      summary: Add Action Rule
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: Manage
+      description: Add a new action rule
+      operationId: addActionRule
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRule'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Action Rules
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRule'
+        required: true
+    get:
+      summary: Get action rules list
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Action Settings: View
+      description: Retrieves a list of action rules
+      operationId: getActionRulesList
+      responses:
+        '200':
+          description: Successfully retrieved action rules list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionRulePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Action Rules
+components:
+  schemas:
+    ActionRulePaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionRule'
+    ActionRule:
+      type: object
+      required:
+      - actionChainId
+      - deviceGroups
+      - levelStr
+      - name
+      properties:
+        datapoint:
+          description: The datapoint for which the action rule is configured to match
+          type: string
+          example: '*'
+        instance:
+          description: The instance for which the action rule is configured to match
+          type: string
+          example: '*'
+        devices:
+          uniqueItems: true
+          description: The devices for which the action rule is configured to match
+          type: array
+          items:
+            description: The devices for which the action rule is configured to match
+            type: string
+            example: '["dd1.temp.test","*"]'
+          example:
+          - dd1.temp.test
+          - '*'
+        datasource:
+          description: The datasource for which the action rule is configured to match
+          type: string
+          example: Azure Authentication*
+        resourceProperties:
+          description: The resource property filters list
+          type: array
+          items:
+            $ref: '#/components/schemas/RestDeviceProperty'
+        name:
+          description: The name of the action rule
+          type: string
+          example: action Rule1
+        id:
+          format: int32
+          description: The Id of the action rule
+          readOnly: true
+          type: integer
+        levelStr:
+          description: The severity levels for which the action rule is configured to match.
+          type: string
+          example: Warn
+        deviceGroups:
+          uniqueItems: true
+          description: The device groups for which the action rule is configured to match
+          type: array
+          items:
+            description: The device groups for which the action rule is configured to match
+            type: string
+            example: '["Devices by Type","*"]'
+          example:
+          - Devices by Type
+          - '*'
+        actionChainId:
+          format: int32
+          description: The action chain id for the action rule
+          type: integer
+          example: 1
+        actionChain:
+          description: The action chain summary for the action rule
+          readOnly: false
+          $ref: '#/components/schemas/ActionChainSummary'
+        enabled:
+          description: Whether action Rule is enabled or not
+          type: boolean
+          example: true
+    RestDeviceProperty:
+      description: The resource property filters list
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The resource property name
+          type: string
+        value:
+          description: The resource property value
+          type: string
+    ActionChainSummary:
+      description: The action chain summary for the action rule
+      readOnly: true
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          format: int32
+          type: integer
+      example:
+        name: Action Chain 1
+        id: 1
+    ActionRuleStatus:
+      description: Action Rule Status
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          description: Indicates whether the action rule is enabled
+          type: boolean
+          example: false
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

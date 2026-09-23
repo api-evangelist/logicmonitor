@@ -1,0 +1,224 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Usage API V3 API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: Usage API V3
+paths:
+  /usage/contractInfo:
+    get:
+      summary: get contract info by company
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Usage: View
+      operationId: getContractInfoByCompany
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestContractInfoBaseV3'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Usage API V3
+  /usage/focusCostUsage:
+    get:
+      summary: FOCUS Cost and Usage shaped usage export
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Usage: View
+      description: Returns usage rows aligned with FOCUS v1.3 Cost and Usage column identifiers, sourced from Usage Reporting Service (same contract as usage top contributors).
+      operationId: getFocusCostUsage
+      responses:
+        '200':
+          description: Successful operation
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: feature
+        schema:
+          type: string
+      - in: query
+        name: dimensionKey
+        schema:
+          type: string
+      - in: query
+        name: startTime
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: endTime
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: at
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: metricQualifier
+        schema:
+          type: string
+      - in: query
+        name: usageBreakdownType
+        schema:
+          type: string
+      - in: query
+        name: usageBreakdownUnits
+        schema:
+          type: string
+      - in: query
+        name: sku
+        schema:
+          type: string
+      - in: query
+        name: tenantIds
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: size
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Usage API V3
+components:
+  schemas:
+    RestContractInfoBaseV3:
+      type: object
+      properties:
+        childProducts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RestUsageContractInfoV4'
+        product:
+          type: string
+        unit:
+          type: array
+          items:
+            type: string
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriptions'
+        aggregationType:
+          type: string
+        quantity:
+          type: array
+          items:
+            type: number
+        feature:
+          type: string
+        roundingRequired:
+          type: boolean
+        unpaid:
+          type: boolean
+        nestedProducts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RestUsageContractInfoV4'
+        category:
+          type: string
+    Subscriptions:
+      type: object
+      properties:
+        quantity:
+          format: double
+          type: number
+        feature:
+          type: string
+        retentionDays:
+          format: int32
+          type: integer
+        sku:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    RestUsageContractInfoV4:
+      type: object
+      properties:
+        childProducts:
+          x-omitempty:
+            x-omitempty: 'true'
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RestUsageContractInfoV4'
+        product:
+          type: string
+        unit:
+          type: array
+          items:
+            type: string
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriptions'
+        aggregationType:
+          type: string
+        quantity:
+          type: array
+          items:
+            type: number
+        feature:
+          type: string
+        roundingRequired:
+          type: boolean
+        unpaid:
+          type: boolean
+        category:
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

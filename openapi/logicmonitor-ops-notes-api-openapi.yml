@@ -1,0 +1,357 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Ops Notes API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Ops Notes across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Ops Notes
+paths:
+  /setting/opsnotes:
+    post:
+      summary: add opsnote
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addOpsNote
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpsNote'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Ops Notes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpsNote'
+        required: true
+    get:
+      summary: get opsnote list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getOpsNoteList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpsNotePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        description: Filter the response based on tags, createdBy, happenedOn, monitorObjectGroups, monitorObjectNames, or _all field values
+        required: false
+        schema:
+          type: string
+      tags:
+      - Ops Notes
+    servers:
+    - url: /santaba/rest
+  /setting/opsnotes/{id}:
+    patch:
+      summary: update opsnote
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchOpsNoteById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpsNote'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          pattern: '[^/]+'
+      tags:
+      - Ops Notes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpsNote'
+        required: true
+    get:
+      summary: get opsnote by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getOpsNoteById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpsNote'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          pattern: '[^/]+'
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Ops Notes
+    delete:
+      summary: delete opsnote
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteOpsNoteById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          pattern: '[^/]+'
+      tags:
+      - Ops Notes
+    put:
+      summary: update opsnote
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateOpsNoteById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpsNote'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          pattern: '[^/]+'
+      tags:
+      - Ops Notes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpsNote'
+        required: true
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    OpsNoteScope:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          example: device
+      discriminator:
+        propertyName: type
+    OpsNote:
+      type: object
+      required:
+      - note
+      properties:
+        note:
+          description: The note message
+          type: string
+          example: software update from 1.0.0 to 1.2.4
+        createdBy:
+          description: The user that created the Ops Note
+          readOnly: true
+          type: string
+        scopes:
+          description: The scopes associated with the note. Each scope has a type of device, service, deviceGroup or serviceGroup. A note with no scope will show up for everything in the account
+          type: array
+          items:
+            $ref: '#/components/schemas/OpsNoteScope'
+        id:
+          description: The id associated with the Ops Note
+          readOnly: true
+          type: string
+        happenOnInSec:
+          format: int64
+          description: The date and time associated with the note, in epoch seconds format
+          type: integer
+          example: 1488826440.0
+        tags:
+          description: The tags that should be associated with the note. Each tag has a unique id and a name - you can either include the name of a new or existing tag, or the id of an existing tag
+          type: array
+          items:
+            $ref: '#/components/schemas/OpsNoteTagBase'
+    OpsNotePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpsNote'
+    OpsNoteTagBase:
+      type: object
+      required:
+      - name
+      properties:
+        updateOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        createdOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        name:
+          description: release
+          type: string
+        id:
+          readOnly: true
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    OpsNoteScope_2:
+      description: The scopes associated with the note. Each scope has a type of device, service, deviceGroup or serviceGroup. A note with no scope will show up for everything in the account
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          example: device
+      discriminator:
+        propertyName: type
+    OpsNoteTagBase_2:
+      description: The tags that should be associated with the note. Each tag has a unique id and a name - you can either include the name of a new or existing tag, or the id of an existing tag
+      type: object
+      required:
+      - name
+      properties:
+        updateOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        createdOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        name:
+          description: release
+          type: string
+        id:
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

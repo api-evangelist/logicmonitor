@@ -1,0 +1,268 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Log Alert Groups API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: LogAlertGroups
+paths:
+  /logpipelines/{pipelineId}:
+    patch:
+      summary: Update a specific LogAlertGroup by its ID
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs & Traces -> Logs: Manage
+        Resources: Manage
+      description: Handles the update of a specific LogAlertGroup by its ID.
+      operationId: patchLogAlertGroup
+      responses:
+        '200':
+          description: LogAlertGroup updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestLogPipelineV3'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - LogAlertGroups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestLogPipelineV3'
+        required: true
+    get:
+      summary: Retrieve a LogAlertGroup by ID
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs & Traces -> Logs: View
+        Resources: View
+      description: Handles the retrieval of a specific LogAlertGroup by its ID.
+      operationId: getLogAlertGroupById
+      responses:
+        '200':
+          description: LogAlertGroup retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestLogPipelineV3'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - LogAlertGroups
+    delete:
+      summary: Delete a specific LogAlertGroup by ID
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs & Traces -> Logs: Manage
+        Resources: Manage
+      description: Handles the deletion of a specific LogAlertGroup by it's ID.
+      operationId: deleteLogAlertGroup
+      responses:
+        '200':
+          description: LogAlertGroup deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - LogAlertGroups
+    put:
+      summary: Update a specific LogAlertGroup by its ID
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs & Traces -> Logs: Manage
+        Resources: Manage
+      description: Handles the update of a specific LogAlertGroup by its ID.
+      operationId: updateLogAlertGroup
+      responses:
+        '200':
+          description: LogAlertGroup updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestLogPipelineV3'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: pipelineId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - LogAlertGroups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestLogPipelineV3'
+        required: true
+  /logpipelines:
+    post:
+      summary: Add a new LogAlertGroup
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs & Traces -> Logs: Manage
+        Resources: Manage
+      description: Handles the addition of a new LogAlertGroup.
+      operationId: addLogAlertGroup
+      responses:
+        '200':
+          description: LogAlertGroup added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestLogPipelineV3'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - LogAlertGroups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestLogPipelineV3'
+        required: true
+    get:
+      summary: Retrieve all LogAlertGroups
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Logs & Traces -> Logs: View
+        Resources: View
+      description: Handles the retrieval of all LogAlertGroups.
+      operationId: getLogAlertGroupsList
+      responses:
+        '200':
+          description: LogAlertGroups retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelinePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - LogAlertGroups
+components:
+  schemas:
+    PipelinePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestLogPipelineV3'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    RestLogPipelineV3:
+      type: object
+      required:
+      - name
+      properties:
+        partitions:
+          description: Partitions of the log pipeline
+          type: array
+          items:
+            description: Partitions of the log pipeline
+            type: string
+        query:
+          description: Query associated with the log pipeline
+          type: string
+        name:
+          description: Name of the log pipeline
+          type: string
+        description:
+          description: Description of the log pipeline
+          type: string
+        id:
+          description: Unique identifier of the log pipeline
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

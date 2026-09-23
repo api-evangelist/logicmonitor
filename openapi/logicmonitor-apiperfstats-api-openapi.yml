@@ -1,0 +1,181 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor API Perf Stats API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged ApiPerfStats across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: ApiPerfStats
+paths:
+  /apiStats/externalApis:
+    get:
+      summary: get external api stats info
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getExternalApiStats
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiPerfMetrics'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - ApiPerfStats
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    ApiPerfMetrics:
+      type: object
+      properties:
+        summary:
+          description: api's summary defined in swagger.json
+          readOnly: true
+          type: string
+          example: get alert list
+        totalWaitingRequests:
+          format: int64
+          description: total waiting requests
+          readOnly: true
+          type: integer
+          example: 10.0
+        totNanoTime:
+          format: int64
+          description: total time taken to process requests
+          readOnly: true
+          type: integer
+          example: 10.0
+        totalProcessedRequests:
+          format: int64
+          description: total processed requests
+          readOnly: true
+          type: integer
+          example: 10.0
+        totalRequests:
+          format: int64
+          description: total requests
+          readOnly: true
+          type: integer
+          example: 10.0
+        api:
+          description: api name
+          readOnly: true
+          type: string
+          example: '10'
+        maxNanoTime:
+          format: int64
+          description: Max time taken to process a request
+          readOnly: true
+          type: integer
+          example: 10.0
+        tags:
+          description: api tags
+          readOnly: true
+          type: array
+          items:
+            type: string
+          example: Devices, Device Groups
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    ApiPerfMetrics_2:
+      type: object
+      properties:
+        summary:
+          description: api's summary defined in swagger.json
+          readOnly: true
+          type: string
+          example: get alert list
+        totalWaitingRequests:
+          format: int64
+          description: total waiting requests
+          readOnly: true
+          type: integer
+          example: 10
+        totalRejectedGetAPICount:
+          format: int64
+          description: Total rejected get API count
+          readOnly: true
+          type: integer
+          example: 5
+        totalRejectedModAPICount:
+          format: int64
+          description: Total rejected mod API count
+          readOnly: true
+          type: integer
+          example: 5
+        totNanoTime:
+          format: int64
+          description: total time taken to process requests
+          readOnly: true
+          type: integer
+          example: 10
+        totalProcessedRequests:
+          format: int64
+          description: total processed requests
+          readOnly: true
+          type: integer
+          example: 10
+        totalRequests:
+          format: int64
+          description: total requests
+          readOnly: true
+          type: integer
+          example: 10
+        api:
+          description: api name
+          readOnly: true
+          type: string
+          example: '10'
+        maxNanoTime:
+          format: int64
+          description: Max time taken to process a request
+          readOnly: true
+          type: integer
+          example: 10
+        tags:
+          description: api tags
+          readOnly: true
+          type: array
+          items:
+            description: api tags
+            readOnly: true
+            type: string
+            example: Devices, Device Groups
+          example: Devices, Device Groups
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

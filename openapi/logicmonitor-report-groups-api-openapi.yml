@@ -1,0 +1,316 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Report Groups API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Report Groups across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Report Groups
+paths:
+  /report/groups:
+    post:
+      summary: add report group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addReportGroup
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Report Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportGroup'
+        required: true
+    get:
+      summary: get report group list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getReportGroupList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Report Groups
+    servers:
+    - url: /santaba/rest
+  /report/groups/{id}:
+    patch:
+      summary: update report group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchReportGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportGroup'
+        required: true
+    get:
+      summary: get report group by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getReportGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report Groups
+    delete:
+      summary: delete report group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteReportGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report Groups
+    put:
+      summary: update report group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateReportGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Report Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportGroup'
+        required: true
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    ReportGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportGroup'
+    ReportGroup:
+      type: object
+      properties:
+        matchedReportCount:
+          format: int32
+          type: integer
+        userPermission:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        id:
+          format: int32
+          type: integer
+        reportsCount:
+          format: int32
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    ReportGroup_2:
+      type: object
+      required:
+      - name
+      properties:
+        matchedReportCount:
+          format: int32
+          description: The matched reports count of this group
+          readOnly: true
+          type: integer
+          example: 2
+        userPermission:
+          description: The user permission on the report group
+          readOnly: true
+          type: string
+          example: read
+        name:
+          description: The report group name
+          type: string
+          example: Firewall Reports
+        description:
+          description: The report group description
+          type: string
+          example: This is daily firewall report
+        id:
+          format: int32
+          description: The report group id
+          readOnly: true
+          type: integer
+        reportsCount:
+          format: int32
+          description: The reports count of this group
+          readOnly: true
+          type: integer
+          example: 5
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

@@ -1,0 +1,446 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor SD Ts API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged SDTs across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: SDTs
+paths:
+  /sdt/sdts:
+    post:
+      summary: add SDT
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addSDT
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SDT'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - SDTs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SDT'
+        required: true
+    get:
+      summary: get SDT list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getSDTList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SDTPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - SDTs
+    servers:
+    - url: /santaba/rest
+  /sdt/sdts/{id}:
+    patch:
+      summary: update SDT
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchSDTById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SDT'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - SDTs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SDT'
+        required: true
+    get:
+      summary: get SDT by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getSDTById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SDT'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - SDTs
+    delete:
+      summary: delete SDT
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteSDTById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - SDTs
+    put:
+      summary: update SDT
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateSDTById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SDT'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - SDTs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SDT'
+        required: true
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    SDT:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          type: string
+          example: oneTime
+        monthDay:
+          format: int32
+          description: 1 | 2....| 31 The day of the month that the SDT will be active for a monthly SDT
+          type: integer
+          example: 7.0
+        weekOfMonth:
+          description: The weel of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000.0
+        type:
+          description: 'The type resource that this SDT is for: ServiceSDT | CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | DeviceGroupSDT | DeviceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT'
+          type: string
+          example: DeviceGroupSDT
+        isEffective:
+          description: 'true: the SDT is currently actice
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6.0
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138.0
+        endHour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5.0
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000.0
+        hour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3.0
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        weekDay:
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          readOnly: true
+          type: string
+        endMinute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18.0
+      discriminator:
+        propertyName: type
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    SDTPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDT'
+    SDT_2:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          description: The type of sdt. The values can be oneTime|weekly|monthly|daily|monthlyByWeek
+          type: string
+          example: oneTime
+        defaultValue:
+          format: date-time
+          type: string
+        monthDay:
+          description: The values can be -3 | 1 | 2....| 31. Specifies the day(s) of the month that the SDT will be active for a monthly SDT. Use -3 for the last day of the month. Supports comma-separated values (e.g., '1,15,28') when multi-day is enabled.
+          type: string
+          example: '7'
+        weekOfMonth:
+          description: The week of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000
+        type:
+          description: The type of resource that this SDT is for. The values can be CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | ResourceGroupSDT | ResourceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT | DeviceLogPipeLineResourceSDT
+          type: string
+          example: ResourceGroupSDT
+        isEffective:
+          description: 'The values can be true|false, where true: the SDT is currently active
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138
+        endHour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000
+        hour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        weekDay:
+          description: The week day of sdt. For weekly & monthlyByWeek SDT, supports comma-separated values like 'Monday,Friday'. Values can be SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          readOnly: true
+          type: string
+        endMinute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18
+      discriminator:
+        propertyName: type
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

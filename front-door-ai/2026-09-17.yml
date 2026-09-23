@@ -1,0 +1,33 @@
+# Front Door AI Index — logicmonitor — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: logicmonitor
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.logicmonitor.com
+  final_host: www.logicmonitor.com
+  ownership: own
+  owner: logicmonitor
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 42
+  host_score: 42
+  density: 20.42
+  words: 2057
+  tiers:
+    agentic: 7
+    core: 35
+    model: 0
+  ambiguous: 18
+  top_terms:
+    AI: 34
+    intelligence: 7
+    automation: 6
+    AI agent: 3
+    agent: 3
+    agentic: 3
+    predictive: 2
+    LLMs: 1
+    MCP: 1

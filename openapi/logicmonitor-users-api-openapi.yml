@@ -1,0 +1,884 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Users API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Users across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Users
+paths:
+  /setting/admins/{id}:
+    patch:
+      summary: update user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchAdminById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: changePassword
+        required: false
+        schema:
+          type: boolean
+          default: false
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+    get:
+      summary: get user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAdminById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Users
+    delete:
+      summary: delete user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteAdminById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Users
+    put:
+      summary: update user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateAdminById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: changePassword
+        required: false
+        schema:
+          type: boolean
+          default: false
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /setting/admins:
+    post:
+      summary: add user
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addAdmin
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+    get:
+      summary: get user list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAdminList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Users
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    Privilege:
+      type: object
+      required:
+      - objectId
+      - objectType
+      - operation
+      properties:
+        objectName:
+          readOnly: true
+          type: string
+        subOperation:
+          readOnly: true
+          type: string
+        operation:
+          type: string
+          example: write
+        objectId:
+          type: string
+          example: '123'
+        objectType:
+          type: string
+          example: dashboard group
+    Admin:
+      type: object
+      required:
+      - email
+      - password
+      - roles
+      - username
+      properties:
+        lastName:
+          description: The last name associated with the user
+          type: string
+          example: Doe
+        note:
+          description: Any notes assocaited with the user
+          type: string
+          example: John Doe is an Admin on this Portal
+        viewPermission:
+          description: The account tabs that will be visible to the user
+          type: object
+          example: '{
+
+
+            "Hosts" : true,
+
+            "Services" : true,
+
+            "Reports" : true,
+
+            "Dashboards" : true,
+
+            "Alerts" : true,
+
+            "Settings" : true
+
+            }'
+        timezone:
+          description: The timezone of the user
+          type: string
+          example: America/Los Angeles
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        lastLoginOn:
+          format: int64
+          description: The time that the user last logged in, in epoch format
+          readOnly: true
+          type: integer
+        lastActionOnLocal:
+          description: The time, in local format, of the user's last action
+          readOnly: true
+          type: string
+        smsEmailFormat:
+          description: sms | fullText, where sms = 160 characters and fullText= all characters
+          type: string
+          example: sms
+        apionly:
+          description: Whether it is a API only user
+          type: boolean
+          example: false
+        apiTokens:
+          description: Any API Tokens associated with the user
+          type: array
+          items:
+            $ref: '#/components/schemas/APIToken'
+        password:
+          description: The password associated with the user
+          type: string
+          example: JohnDoe1
+        lastAction:
+          description: The last action taken by the user
+          readOnly: true
+          type: string
+        trainingEmail:
+          description: The email address for user's Training account
+          readOnly: true
+          type: string
+        lastActionOn:
+          format: int64
+          description: The time, in epoch format, of the user's last action
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The Id of the user
+          readOnly: true
+          type: integer
+        email:
+          description: The email address associated with the user
+          type: string
+          example: john.doe@logicmonitor.com
+        contactMethod:
+          description: email | smsemail
+          type: string
+          example: email
+        acceptEULAOn:
+          format: int64
+          description: The time, in epoch format, that the user accepted the EULA (if required to)
+          readOnly: true
+          type: integer
+        smsEmail:
+          description: The sms email address associated with the user
+          type: string
+          example: 8054445555@logicmonitor.com
+        twoFAEnabled:
+          description: Whether or not two factor authentication is enabled for the user
+          type: boolean
+          example: false
+        firstName:
+          description: The first name associated with the user
+          type: string
+          example: John
+        phone:
+          description: The phone number associated with the user
+          type: string
+          example: '8054445555'
+        createdBy:
+          description: Who created the user. This may be another user, SAML or LogicMonitor
+          type: string
+          example: Chief Admin
+        forcePasswordChange:
+          description: Whether or not the user should be forced to change their password on the next login
+          type: boolean
+          example: true
+        acceptEULA:
+          description: Whether or not the user is required to accept the EULA (end user license agreement)
+          type: boolean
+          example: true
+        username:
+          description: The username associated with the user
+          type: string
+          example: John
+        status:
+          description: The user's status. Should be one of active and suspended
+          type: string
+          example: active
+    APIToken:
+      type: object
+      properties:
+        accessId:
+          description: The access Id associated with the API Tokens
+          readOnly: true
+          type: string
+        adminName:
+          description: The name of the user associated with the API Tokens
+          readOnly: true
+          type: string
+        note:
+          description: The note associated with the API Tokens
+          type: string
+          example: John Doe's API Token
+        lastUsedOn:
+          format: int64
+          description: The epoch at which the API Tokens were last used
+          readOnly: true
+          type: integer
+        accessKey:
+          description: The secret key associated with the API Tokens
+          readOnly: true
+          type: string
+        createdBy:
+          description: The user who is the API Tokens created by
+          readOnly: true
+          type: string
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user that is associated with the API Tokens
+          readOnly: true
+          type: array
+          items:
+            type: string
+        adminId:
+          format: int32
+          description: The id of the user associated with the API Tokens
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the API Token
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: The epoch at which the API Tokens were created
+          readOnly: true
+          type: integer
+        status:
+          format: int32
+          description: 1 | 2 - Whether or not the API Tokens are enabled, where 2 = enabled
+          type: integer
+          example: 2.0
+    Role:
+      type: object
+      required:
+      - name
+      - privileges
+      properties:
+        enableRemoteSessionInCompanyLevel:
+          description: Whether Remote Session should be enabled at the account level
+          readOnly: true
+          type: boolean
+        customHelpLabel:
+          description: The label for the custom help URL as it will appear in the Help & Support dropdown menu
+          type: string
+          example: Internal Support Resources
+        customHelpURL:
+          description: The URL that should be added to the Help & Support dropdown menu
+          type: string
+          example: https://logicmonitor.com/support
+        privileges:
+          description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+          type: array
+          items:
+            $ref: '#/components/schemas/Privilege'
+        associatedUserCount:
+          format: int32
+          description: The count of the users which are belongs to the role
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the role
+          type: string
+          example: administrator
+        description:
+          description: The description of the role
+          type: string
+          example: Administrator can do everything, including security-sensitive actions
+        id:
+          format: int32
+          description: The Id of the role
+          readOnly: true
+          type: integer
+        twoFARequired:
+          description: Whether Two-Factor Authentication should be required for this role
+          type: boolean
+          example: true
+        requireEULA:
+          description: Whether or not users assigned this role should be required to acknowledge the EULA (end user license agreement)
+          type: boolean
+          example: true
+        acctRequireTwoFA:
+          description: Whether Two-Factor Authentication should be required for the entire account
+          readOnly: true
+          type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AdminPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Admin'
+    Privilege_2:
+      description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+      type: object
+      required:
+      - objectId
+      - objectType
+      - operation
+      properties:
+        objectName:
+          description: The privilege object name
+          readOnly: true
+          type: string
+        subOperation:
+          description: The highest privilege operation on its children operations
+          readOnly: true
+          type: string
+        operation:
+          description: The privilege operation
+          type: string
+          example: write
+        objectId:
+          description: The privilege object identifier
+          type: string
+          example: '123'
+        objectType:
+          description: The privilege object type. The values can be dashboard_group|dashboard|host_group|service_group|website_group|report_group|remoteSession|chat|setting|device_dashboard|help|logs|configNeedDeviceManagePermission|map|resourceMapTab|tracesManageTab|otlpMetrics|costOptimization|dexda|lmSupportAccess
+          type: string
+          example: dashboard group
+    Admin_2:
+      type: object
+      required:
+      - email
+      - roles
+      - username
+      properties:
+        lastName:
+          description: The last name associated with the user
+          type: string
+          example: Doe
+        note:
+          description: Any notes assocaited with the user
+          type: string
+          example: John Doe is an Admin on this Portal
+        viewPermission:
+          description: The account tabs that will be visible to the user
+          type: object
+          example:
+            Maps: true
+            Websites: true
+            Traces: true
+            Modules: true
+            Reports: true
+            Resources: true
+            Dashboards: true
+            Alerts: true
+            Logs: true
+            Settings: true
+            MetricsExplorer: true
+        timezone:
+          description: The timezone of the user
+          type: string
+          example: America/Los Angeles
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user
+          type: array
+          items:
+            $ref: '#/components/schemas/Role_2'
+        lastLoginOn:
+          format: int64
+          description: The time that the user last logged in, in epoch format
+          readOnly: true
+          type: integer
+        lastActionOnLocal:
+          description: The time, in local format, of the user's last action
+          readOnly: true
+          type: string
+        smsEmailFormat:
+          description: The values can be sms | fullText, where sms = 160 characters and fullText = all characters
+          type: string
+          example: sms
+        apionly:
+          description: Specifies whether the user is an API only user. The values can be true|false
+          type: boolean
+          example: false
+        lastAuthIp:
+          description: The Last User IP
+          readOnly: true
+          type: string
+        apiTokens:
+          description: Any API Tokens associated with the user
+          type: array
+          items:
+            $ref: '#/components/schemas/APIToken_2'
+        adminGroupIds:
+          description: The Id(s) of the groups the admin is in, where multiple group ids are comma separated
+          type: array
+          items:
+            format: int32
+            description: The Id(s) of the groups the admin is in, where multiple group ids are comma separated
+            type: integer
+          example: '[1,2,3]'
+        password:
+          description: The password associated with the user
+          type: string
+          example: JohnDoe1
+        lastAction:
+          description: The last action taken by the user
+          readOnly: true
+          type: string
+        trainingEmail:
+          description: The email address for user's Training account
+          readOnly: true
+          type: string
+        lastActionOn:
+          format: int64
+          description: The time, in epoch format, of the user's last action
+          readOnly: true
+          type: integer
+        lastAccessOn:
+          format: int64
+          description: The time that the user last accessed the portal
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The Id of the user
+          readOnly: true
+          type: integer
+        persistentSessionEnabled:
+          description: persistent session enabled or disabled for user
+          type: boolean
+          example: false
+        email:
+          description: The email address associated with the user
+          type: string
+          example: user@domain.com
+        contactMethod:
+          description: The values can be email | smsemail. Specifies the contact method for this admin
+          type: string
+          example: email
+        acceptEULAOn:
+          format: int64
+          description: The time, in epoch format, that the user accepted the EULA (if required to)
+          readOnly: true
+          type: integer
+        immediateForceLogout:
+          description: Specifies whether the user need to be logged off, if Force Password Change is enabled. The values can be true|false
+          readOnly: true
+          type: boolean
+          example: false
+        userPermission:
+          description: The permission of current user with the admin. values can be write|read|none
+          readOnly: true
+          type: string
+          example: read
+        inactiveSessionTimeoutInSeconds:
+          format: int32
+          description: The time in seconds that the user session terminated if inactive
+          type: integer
+        smsEmail:
+          description: The sms email address associated with the user
+          type: string
+          example: user@domain.com
+        twoFAEnabled:
+          description: Whether or not two factor authentication is enabled for the user
+          type: boolean
+          example: false
+        firstName:
+          description: The first name associated with the user
+          type: string
+          example: John
+        phone:
+          description: The phone number associated with the user
+          type: string
+          example: '8054445555'
+        createdBy:
+          description: Species who created the user. This may be another user, SAML or LogicMonitor
+          type: string
+          example: Chief Admin
+        forcePasswordChange:
+          description: Whether or not the user should be forced to change their password on the next login
+          type: boolean
+          example: true
+        tenantId:
+          format: int32
+          description: The tenant id of the user
+          readOnly: true
+          type: integer
+          example: 2
+        acceptEULA:
+          description: Whether or not the user is required to accept the EULA (end user license agreement)
+          type: boolean
+          example: true
+        userType:
+          description: The type of user
+          readOnly: true
+          type: string
+        username:
+          description: The username associated with the user
+          type: string
+          example: John
+        status:
+          description: The user's status. The values can be active|suspended
+          type: string
+          example: active
+    APIToken_2:
+      description: Any API Tokens associated with the user
+      type: object
+      properties:
+        note:
+          description: The note associated with the API Tokens
+          type: string
+          example: John Doe's API Token
+        lastUsedOn:
+          format: int64
+          description: The epoch at which the API Tokens were last used
+          readOnly: true
+          type: integer
+        userPermission:
+          description: The permission of current apiToken with the admin. The values can be write|read|none
+          readOnly: true
+          type: string
+          example: read
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user that is associated with the API Tokens
+          readOnly: true
+          type: array
+          items:
+            description: The roles assigned to the user that is associated with the API Tokens
+            readOnly: true
+            type: string
+        createdOn:
+          format: int64
+          description: The epoch at which the API Tokens were created
+          readOnly: true
+          type: integer
+        accessId:
+          description: The access Id associated with the API Tokens
+          readOnly: true
+          type: string
+        adminName:
+          description: The name of the user associated with the API Tokens
+          readOnly: true
+          type: string
+        lastAuthIp:
+          description: The IP from which the API Tokens were last used
+          readOnly: true
+          type: string
+        accessKey:
+          description: The secret key associated with the API Tokens
+          readOnly: true
+          type: string
+        createdBy:
+          description: The user who is the API Tokens created by
+          readOnly: true
+          type: string
+        adminId:
+          format: int32
+          description: The id of the user associated with the API Tokens
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the API Token
+          readOnly: true
+          type: integer
+        status:
+          format: int32
+          description: The values can be 1 | 2. Specifies whether or not the API Tokens are enabled, where 2 = enabled
+          type: integer
+          example: 2
+    Role_2:
+      type: object
+      required:
+      - name
+      - privileges
+      properties:
+        enableRemoteSessionInCompanyLevel:
+          description: Whether Remote Session should be enabled at the account level
+          readOnly: true
+          type: boolean
+        privileges:
+          description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+          type: array
+          items:
+            $ref: '#/components/schemas/Privilege_2'
+        userPermission:
+          description: The permission of current role with the admin. The values can be write|read|none
+          readOnly: true
+          type: string
+          example: read
+        description:
+          description: The description of the role
+          type: string
+          example: Administrator can do everything, including security-sensitive actions
+        customHelpLabel:
+          description: The label for the custom help URL as it will appear in the 'Help & Support' dropdown menu
+          type: string
+          example: Internal Support Resources
+        customHelpURL:
+          description: The URL that should be added to the 'Help & Support' dropdown menu
+          type: string
+          example: https://logicmonitor.com/support
+        associatedUserCount:
+          format: int32
+          description: The count of the users which are belongs to the role
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the role
+          type: string
+          example: administrator
+        id:
+          format: int32
+          description: The Id of the role
+          readOnly: true
+          type: integer
+        twoFARequired:
+          description: Whether Two-Factor Authentication should be required for this role
+          type: boolean
+          example: true
+        requireEULA:
+          description: Whether or not users assigned this role should be required to acknowledge the EULA (end user license agreement)
+          type: boolean
+          example: true
+        acctRequireTwoFA:
+          description: Whether Two-Factor Authentication should be required for the entire account
+          readOnly: true
+          type: boolean
+        roleGroupId:
+          format: int32
+          description: The group Id of the role
+          type: integer
+          example: 3
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

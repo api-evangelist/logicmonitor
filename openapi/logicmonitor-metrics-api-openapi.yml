@@ -1,0 +1,352 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Metrics API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Metrics across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Metrics
+paths:
+  /metrics/usage:
+    get:
+      summary: get metrics usage
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getMetricsUsage
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usage'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Metrics
+    servers:
+    - url: /santaba/rest
+  /metrics/summary:
+    get:
+      summary: get metrics usage with company settings summary
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Account Information: View
+      operationId: getMetricsSummary
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyMetricsSummary'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Metrics
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    Usage:
+      type: object
+      properties:
+        numOfStoppedAzureDevices:
+          format: int32
+          description: Number of stopped Azure resources
+          readOnly: true
+          type: integer
+        numOfServices:
+          format: int32
+          description: Number of services (created via LM Service Insight)
+          readOnly: true
+          type: integer
+        numOfTerminatedAzureDevices:
+          format: int32
+          description: Number of terminated Azure resources
+          readOnly: true
+          type: integer
+        numberOfStandardDevices:
+          format: int32
+          description: Number of standard devices
+          readOnly: true
+          type: integer
+        numOfStoppedGcpDevices:
+          format: int32
+          description: Number of stopped GCP resources not monitored with a local Collector
+          readOnly: true
+          type: integer
+        numOfCombinedGcpDevices:
+          format: int32
+          description: Number of GCP resources monitored with a local Collector
+          readOnly: true
+          type: integer
+        numOfAWSDevices:
+          format: int32
+          description: Number of AWS resources not monitored with a local Collector
+          readOnly: true
+          type: integer
+        numberOfKubernetesDevices:
+          format: int32
+          description: Number of monitored Kubernetes Nodes, Pods, and Services
+          readOnly: true
+          type: integer
+        numOfGcpDevices:
+          format: int32
+          description: Number of GCP resources
+          readOnly: true
+          type: integer
+        numOfAzureDevices:
+          format: int32
+          description: Number of Azure resources not monitored with a local Collector
+          readOnly: true
+          type: integer
+        numOfCombinedAzureDevices:
+          format: int32
+          description: Number of Azure resources monitored with a local Collector
+          readOnly: true
+          type: integer
+        numOfTerminatedAWSDevices:
+          format: int32
+          description: Number of terminated AWS resources
+          readOnly: true
+          type: integer
+        numOfTerminatedGcpCloudDevices:
+          format: int32
+          description: Number of terminated GCP resources
+          readOnly: true
+          type: integer
+        numOfStoppedAWSDevices:
+          format: int32
+          description: Number of stopped AWS resources
+          readOnly: true
+          type: integer
+        numberOfDevices:
+          format: int32
+          description: Sum of numOfStandardDevices, numOfCombinedAWSDevices, numOfCombinedAzureDevices, and numOfCombinedGCPDevices
+          readOnly: true
+          type: integer
+        numOfConfigSourceDevices:
+          format: int32
+          description: Number of devices with active ConfigSources
+          readOnly: true
+          type: integer
+        numOfWebsites:
+          format: int32
+          description: Number of websites
+          readOnly: true
+          type: integer
+        numOfCombinedAWSDevices:
+          format: int32
+          description: Number of AWS resources monitored with a local Collector
+          readOnly: true
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    CompanyMetricsSummary:
+      type: object
+      properties:
+        numberOfOpenAlerts:
+          format: int32
+          type: integer
+        numOfTerminatedAzureDevices:
+          format: int32
+          description: Number of terminated Azure resources
+          readOnly: true
+          type: integer
+        numOfStoppedGcpDevices:
+          format: int32
+          description: Number of stopped GCP resources not monitored with a local Collector
+          readOnly: true
+          type: integer
+        numberOfUserRoles:
+          format: int32
+          type: integer
+        numOfAWSDevices:
+          format: int32
+          description: Number of AWS resources not monitored with a local Collector
+          readOnly: true
+          type: integer
+        destroyOnLocal:
+          type: string
+        numOfSavedMaps:
+          format: int32
+          type: integer
+        zuoraInvoiceDetails:
+          $ref: '#/components/schemas/JSONObject'
+        hostGroupsInfo:
+          $ref: '#/components/schemas/JSONObject'
+        numberOfKubernetesDevices:
+          format: int32
+          description: Number of monitored Kubernetes Nodes, Pods, and Services
+          readOnly: true
+          type: integer
+        numberOfAllowedDTConfigs:
+          format: int64
+          type: integer
+        destroyAccount:
+          type: boolean
+        numOfAzureDevices:
+          format: int32
+          description: Number of Azure resources not monitored with a local Collector
+          readOnly: true
+          type: integer
+        numOfTerminatedGcpCloudDevices:
+          format: int32
+          description: Number of terminated GCP resources
+          readOnly: true
+          type: integer
+        numberOfLightDevices:
+          format: int32
+          type: integer
+        numberOfRootCauseAnalysisRules:
+          format: int32
+          type: integer
+        numberOfDevices:
+          format: int32
+          description: Sum of numOfStandardDevices, numOfCombinedAWSDevices, numOfCombinedAzureDevices, and numOfCombinedGCPDevices
+          readOnly: true
+          type: integer
+        numberOfPreviousDayAlerts:
+          format: int32
+          type: integer
+        numberOfWidgets:
+          format: int32
+          type: integer
+        numberOfAlertRules:
+          format: int32
+          type: integer
+        numOfStoppedAzureDevices:
+          format: int32
+          description: Number of stopped Azure resources
+          readOnly: true
+          type: integer
+        numOfServices:
+          format: int32
+          description: Number of services (created via LM Service Insight)
+          readOnly: true
+          type: integer
+        parentBilling:
+          type: string
+        numberOfStandardDevices:
+          format: int32
+          description: Number of standard devices
+          readOnly: true
+          type: integer
+        numberOfDashboards:
+          format: int32
+          type: integer
+        numOfCombinedGcpDevices:
+          format: int32
+          description: Number of GCP resources monitored with a local Collector
+          readOnly: true
+          type: integer
+        numOfGcpDevices:
+          format: int32
+          description: Number of GCP resources
+          readOnly: true
+          type: integer
+        numberOfDynamicThresholds:
+          format: int64
+          type: integer
+        timestampWindowOfApiUsersInSec:
+          format: int32
+          type: integer
+        zuora:
+          $ref: '#/components/schemas/JSONObject'
+        numberOfDatasourceInstances:
+          format: int64
+          type: integer
+        numOfCombinedAzureDevices:
+          format: int32
+          description: Number of Azure resources monitored with a local Collector
+          readOnly: true
+          type: integer
+        numberOfApiUsers:
+          format: int32
+          type: integer
+        numberOfDataPoints:
+          format: int64
+          type: integer
+        numOfTerminatedAWSDevices:
+          format: int32
+          description: Number of terminated AWS resources
+          readOnly: true
+          type: integer
+        numberOfComplexDataPoints:
+          format: int64
+          type: integer
+        numberOfInstancesPerDS:
+          $ref: '#/components/schemas/JSONObject'
+        numberOfSessionUsers:
+          format: int32
+          type: integer
+        numOfStoppedAWSDevices:
+          format: int32
+          description: Number of stopped AWS resources
+          readOnly: true
+          type: integer
+        numOfConfigSourceDevices:
+          format: int32
+          description: Number of devices with active ConfigSources
+          readOnly: true
+          type: integer
+        numOfWebsites:
+          format: int32
+          description: Number of websites
+          readOnly: true
+          type: integer
+        numberOfReportsInLast24Hrs:
+          format: int32
+          type: integer
+        numOfCombinedAWSDevices:
+          format: int32
+          description: Number of AWS resources monitored with a local Collector
+          readOnly: true
+          type: integer
+    JSONObject:
+      description: The alert external ticket urls
+      readOnly: true
+      type: object
+      properties:
+        empty:
+          type: boolean
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

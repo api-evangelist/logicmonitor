@@ -1,0 +1,375 @@
+openapi: 3.2.0
+info:
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: LogicMonitor is a SaaS-based performance monitoring platform that provides full visibility into complex, hybrid infrastructures, offering granular performance monitoring and actionable data and insights.
+  title: LogicMonitor REST Access Group API
+  version: 3.0.0
+servers:
+- url: /santaba/rest
+tags:
+- name: Access Group
+paths:
+  /setting/accessgroup/{id}:
+    patch:
+      summary: Update access group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Access Groups: Manage
+        Modules -> Access Groups: Manage
+      operationId: patchAccessGroup
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Access Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessGroup'
+        required: true
+    get:
+      summary: Get access group by id
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Access Groups: Manage
+        Modules -> Access Groups: Manage
+      operationId: getAccessGroupById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Access Group
+    delete:
+      summary: Delete access group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Access Groups: Manage
+        Modules -> Access Groups: Manage
+      operationId: deleteAccessGroup
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Access Group
+    put:
+      summary: Update access group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Access Groups: Manage
+        Modules -> Access Groups: Manage
+      operationId: updateAccessGroup
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Access Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessGroup'
+        required: true
+  /setting/accessgroup/mapunmap/modules:
+    post:
+      summary: Create a mapping of access group & module
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Modules -> Access Groups -> Map and unmap Modules to Access Groups: Checked
+      description: Map a module to an access group
+      operationId: mapUnMapModuleToAccessGroup
+      responses:
+        '200':
+          description: Successfully created the mapping
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestMapModuleV3'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Access Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestMapModuleV3'
+  /setting/accessgroup/add:
+    post:
+      summary: Create a access group
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Access Groups: Manage
+        Modules -> Access Groups: Manage
+      operationId: addAccessGroup
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Access Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessGroup'
+  /setting/accessgroup:
+    get:
+      summary: Get access group list
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Settings -> Access Groups: Manage
+        Modules -> Access Groups: Manage
+      operationId: getAccessGroupList
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Access Group
+components:
+  schemas:
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
+    MapModuleToAccessGroup:
+      description: Can provide module id, module type and access group for mapping
+      type: object
+      required:
+      - accessgroups
+      - moduleid
+      - moduletype
+      properties:
+        accessgroups:
+          uniqueItems: true
+          description: Id's of the access group
+          type: array
+          items:
+            format: int32
+            description: Id's of the access group
+            type: integer
+        moduletype:
+          description: Type of module
+          type: string
+          example: DATASOURCE, EVENTSOURCE, BATCHJOB, JOBMONITOR, LOGSOURCE, TOPOLOGYSOURCE, PROPERTYSOURCE, APPLIESTO_FUNCTION, SNMP_SYSOID_MAP
+        moduleid:
+          format: int32
+          description: Id of the logic module
+          type: integer
+    RestMapModuleV3:
+      type: object
+      required:
+      - mappingDetails
+      properties:
+        success:
+          uniqueItems: true
+          description: The Module Id's mapped successfully
+          type: array
+          items:
+            format: int32
+            description: The Module Id's mapped successfully
+            type: integer
+        failure:
+          uniqueItems: true
+          description: The Module Id's not mapped successfully
+          type: array
+          items:
+            description: The Module Id's not mapped successfully
+            type: string
+        mappingDetails:
+          description: Can provide module id, module type and access group for mapping
+          type: array
+          items:
+            $ref: '#/components/schemas/MapModuleToAccessGroup'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AccessGroupPaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGroup'
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/

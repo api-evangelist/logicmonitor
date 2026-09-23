@@ -1,0 +1,434 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Roles API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Roles across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Roles
+paths:
+  /setting/roles/{id}:
+    patch:
+      summary: update role
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchRoleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+        required: true
+    get:
+      summary: get role by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getRoleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Roles
+    delete:
+      summary: delete role
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteRoleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Roles
+    put:
+      summary: update role
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateRoleById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /setting/roles:
+    post:
+      summary: add role
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addRole
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Roles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+        required: true
+    get:
+      summary: get role list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getRoleList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Roles
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    RolePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    Privilege:
+      type: object
+      required:
+      - objectId
+      - objectType
+      - operation
+      properties:
+        objectName:
+          readOnly: true
+          type: string
+        subOperation:
+          readOnly: true
+          type: string
+        operation:
+          type: string
+          example: write
+        objectId:
+          type: string
+          example: '123'
+        objectType:
+          type: string
+          example: dashboard group
+    Role:
+      type: object
+      required:
+      - name
+      - privileges
+      properties:
+        enableRemoteSessionInCompanyLevel:
+          description: Whether Remote Session should be enabled at the account level
+          readOnly: true
+          type: boolean
+        customHelpLabel:
+          description: The label for the custom help URL as it will appear in the Help & Support dropdown menu
+          type: string
+          example: Internal Support Resources
+        customHelpURL:
+          description: The URL that should be added to the Help & Support dropdown menu
+          type: string
+          example: https://logicmonitor.com/support
+        privileges:
+          description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+          type: array
+          items:
+            $ref: '#/components/schemas/Privilege'
+        associatedUserCount:
+          format: int32
+          description: The count of the users which are belongs to the role
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the role
+          type: string
+          example: administrator
+        description:
+          description: The description of the role
+          type: string
+          example: Administrator can do everything, including security-sensitive actions
+        id:
+          format: int32
+          description: The Id of the role
+          readOnly: true
+          type: integer
+        twoFARequired:
+          description: Whether Two-Factor Authentication should be required for this role
+          type: boolean
+          example: true
+        requireEULA:
+          description: Whether or not users assigned this role should be required to acknowledge the EULA (end user license agreement)
+          type: boolean
+          example: true
+        acctRequireTwoFA:
+          description: Whether Two-Factor Authentication should be required for the entire account
+          readOnly: true
+          type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    Privilege_2:
+      description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+      type: object
+      required:
+      - objectId
+      - objectType
+      - operation
+      properties:
+        objectName:
+          description: The privilege object name
+          readOnly: true
+          type: string
+        subOperation:
+          description: The highest privilege operation on its children operations
+          readOnly: true
+          type: string
+        operation:
+          description: The privilege operation
+          type: string
+          example: write
+        objectId:
+          description: The privilege object identifier
+          type: string
+          example: '123'
+        objectType:
+          description: The privilege object type. The values can be dashboard_group|dashboard|host_group|service_group|website_group|report_group|remoteSession|chat|setting|device_dashboard|help|logs|configNeedDeviceManagePermission|map|resourceMapTab|tracesManageTab|otlpMetrics|costOptimization|dexda|lmSupportAccess
+          type: string
+          example: dashboard group
+    Role_2:
+      type: object
+      required:
+      - name
+      - privileges
+      properties:
+        enableRemoteSessionInCompanyLevel:
+          description: Whether Remote Session should be enabled at the account level
+          readOnly: true
+          type: boolean
+        privileges:
+          description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+          type: array
+          items:
+            $ref: '#/components/schemas/Privilege_2'
+        userPermission:
+          description: The permission of current role with the admin. The values can be write|read|none
+          readOnly: true
+          type: string
+          example: read
+        description:
+          description: The description of the role
+          type: string
+          example: Administrator can do everything, including security-sensitive actions
+        customHelpLabel:
+          description: The label for the custom help URL as it will appear in the 'Help & Support' dropdown menu
+          type: string
+          example: Internal Support Resources
+        customHelpURL:
+          description: The URL that should be added to the 'Help & Support' dropdown menu
+          type: string
+          example: https://logicmonitor.com/support
+        associatedUserCount:
+          format: int32
+          description: The count of the users which are belongs to the role
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the role
+          type: string
+          example: administrator
+        id:
+          format: int32
+          description: The Id of the role
+          readOnly: true
+          type: integer
+        twoFARequired:
+          description: Whether Two-Factor Authentication should be required for this role
+          type: boolean
+          example: true
+        requireEULA:
+          description: Whether or not users assigned this role should be required to acknowledge the EULA (end user license agreement)
+          type: boolean
+          example: true
+        acctRequireTwoFA:
+          description: Whether Two-Factor Authentication should be required for the entire account
+          readOnly: true
+          type: boolean
+        roleGroupId:
+          format: int32
+          description: The group Id of the role
+          type: integer
+          example: 3
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

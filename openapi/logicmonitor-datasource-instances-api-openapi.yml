@@ -1,0 +1,2177 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Datasource Instances API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Datasource Instances across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Datasource Instances
+paths:
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{instanceId}/config:
+    get:
+      summary: get detailed config information for the instance
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceConfigSourceConfigList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDatasourceInstanceConfigPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{deviceDsId}/groups:
+    post:
+      summary: add device datasource instance group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addDeviceDatasourceInstanceGroup
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Datasource Instances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+        required: true
+    get:
+      summary: get device datasource instance group list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceGroupList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDatasourceInstanceGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{instanceId}/config/collectNow:
+    get:
+      summary: collect a config for a device
+      security:
+      - LMv1: []
+      description: ''
+      operationId: collectDeviceConfigSourceConfig
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances:
+    post:
+      summary: add device instance
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addDeviceDatasourceInstance
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstance'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Datasource Instances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstance'
+        required: true
+    get:
+      summary: get device instance list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDatasourceInstancePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{id}/historysdts:
+    get:
+      summary: get device instance SDT history
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceSDTHistory
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceGroupSDTHistoryPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{deviceDsId}/groups/{id}:
+    patch:
+      summary: update device datasource instance group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchDeviceDatasourceInstanceGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Datasource Instances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+        required: true
+    get:
+      summary: get device datasource instance group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    put:
+      summary: update device datasource instance group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateDeviceDatasourceInstanceGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Datasource Instances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{id}:
+    patch:
+      summary: update device instance
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchDeviceDatasourceInstanceById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstance'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: opType
+        required: false
+        schema:
+          type: string
+          default: refresh
+      tags:
+      - Datasource Instances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstance'
+        required: true
+    get:
+      summary: get device instance
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstance'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    delete:
+      summary: delete a device instance
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteDeviceDatasourceInstanceById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Datasource Instances
+    put:
+      summary: update device instance
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateDeviceDatasourceInstanceById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstance'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: opType
+        required: false
+        schema:
+          type: string
+          default: refresh
+      tags:
+      - Datasource Instances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstance'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{instanceId}/config/{id}:
+    get:
+      summary: get a config for a device
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources -> Configs tab only visible with Manage permissions: Unchecked
+        Resources: View
+        Users -> Permissions: View permissions on Services and Resources page
+      operationId: getDeviceConfigSourceConfigById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceConfig_2'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: hdsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: format
+        schema:
+          type: string
+      - in: query
+        name: startEpoch
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{id}/graphs/{graphId}/data:
+    get:
+      summary: get device instance graph data
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: View
+      operationId: getDeviceDatasourceInstanceGraphData
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphPlot'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: start
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        schema:
+          type: integer
+          format: int64
+      - in: path
+        name: graphId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: format
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{deviceDsId}/groups/{dsigId}/graphs/{ographId}/data:
+    get:
+      summary: Get device instance group overview graph data
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: View
+      description: Retrieve graph data for the overview of a device instance group
+      operationId: getDeviceDatasourceInstanceGroupOverviewGraphData
+      responses:
+        '200':
+          description: Successfully retrieved the graph data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphPlot'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: dsigId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: start
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        schema:
+          type: integer
+          format: int64
+      - in: path
+        name: ographId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: format
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{instanceId}/config/configCollection:
+    post:
+      summary: collect a config for a device
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources -> Configs tab only visible with Manage permissions: Unchecked
+        Resources: View
+        Users -> Permissions: View permissions on Services and Resources page
+      operationId: collectDeviceConfigSourceConfig
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: hdsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{deviceDsId}/groups/{dsigId}/datapoints/{dpId}/alertconfig:
+    put:
+      summary: Update instance group alert threshold
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        'Modules -> Access Groups ': Manage
+        Resources: Manage
+      description: Update the alert threshold for an instance group. Setting the threshold at the default group is not allowed.
+      operationId: updateInstanceGroupAlertThreshold
+      responses:
+        '200':
+          description: Successfully updated the instance group alert threshold
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceDsId
+        description: The device-datasource ID you'd like to add an instance group for
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: dsigId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: dpId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Datasource Instances
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestDeviceInstanceGroupAlertConfigV3'
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{id}/data:
+    get:
+      summary: get device instance data
+      security:
+      - LMv1: []
+      x-minimum-permissions:
+        Resources: View
+        Users -> Permissions: View permissions on Services and Resources page
+      operationId: getDeviceDatasourceInstanceData
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceData'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: hdsId
+        description: The device-datasource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: period
+        schema:
+          type: number
+          format: double
+      - in: query
+        name: start
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: end
+        schema:
+          type: integer
+          format: int64
+      - in: query
+        name: datapoints
+        schema:
+          type: string
+      - in: query
+        name: format
+        schema:
+          type: string
+      tags:
+      - Datasource Instances
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    DeviceGroupSDTHistoryPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDTHistory'
+    DeviceDatasourceInstanceConfigPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfig'
+    DeviceDataSourceInstanceGroup:
+      type: object
+      required:
+      - name
+      properties:
+        deviceDataSourceId:
+          format: int32
+          readOnly: true
+          type: integer
+        name:
+          description: Name of the datasource instance group
+          type: string
+          example: Ping Checks at HQ
+        description:
+          description: The description of the datasource instance group
+          type: string
+          example: Test the availability of HQ
+        createOn:
+          format: int64
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+        deviceId:
+          format: int32
+          readOnly: true
+          type: integer
+        deviceDisplayName:
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigAlert:
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          type: integer
+        id:
+          type: string
+        alertId:
+          type: string
+        alertSummary:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+    DeviceDataSourceInstanceConfig:
+      type: object
+      properties:
+        instanceName:
+          type: string
+        deviceDataSourceId:
+          format: int32
+          type: integer
+        configStatus:
+          format: int32
+          type: integer
+        version:
+          format: int64
+          type: integer
+        deviceId:
+          format: int32
+          type: integer
+        deltaConfig:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff'
+        deviceDisplayName:
+          type: string
+        dataSourceName:
+          type: string
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert'
+        dataSourceId:
+          format: int32
+          type: integer
+        instanceId:
+          format: int32
+          type: integer
+        configErrMsg:
+          type: string
+        changeStatus:
+          type: string
+        id:
+          type: string
+        pollTimestamp:
+          format: int64
+          type: integer
+        config:
+          type: string
+    NameAndValue:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceDataSourceInstanceConfigDiff:
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          type: integer
+        type:
+          type: string
+        content:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    SDTHistory:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456.0
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1.0
+        endEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000.0
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: sarah@logicmonitor.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        startEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000.0
+    DeviceDatasourceInstanceGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
+    DeviceDatasourceInstancePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstance'
+    DeviceDataSourceInstance:
+      type: object
+      required:
+      - displayName
+      - wildValue
+      properties:
+        isUNCInstance:
+          description: Whether or not UNC Monitoring enabled for device
+          type: boolean
+          example: true
+        stopMonitoring:
+          description: Whether or not monitoring is disabled for the instance
+          type: boolean
+          example: true
+        deviceDataSourceId:
+          format: int32
+          description: The id of the unique device-datasource the instance is associated with
+          readOnly: true
+          type: integer
+        displayName:
+          description: The instance alias. This is the descriptive name of the instance, and should be unique for the device/datasource combination
+          type: string
+          example: Ping
+        wildValue2:
+          description: 'Only used for two dimensional active discovery. When used, during Active Discovery runs, the token ##WILDVALUE## is replaces with the value of ALIAS and the token ##WILDVALUE2## is replaced with the value of the second part alias. This value must be unique for the device/datasource/WILDVALUE combination'
+          type: string
+          example: '1'
+        groupId:
+          format: int32
+          description: The id of the instance group associated with the datasource instance
+          type: integer
+          example: 211.0
+        description:
+          description: The description of the datasource instance
+          type: string
+          example: Ping Test
+        disableAlerting:
+          description: Whether or not alerting is disabled for the instance
+          type: boolean
+          example: true
+        deviceId:
+          format: int32
+          description: The id of the device the datasource instance is associated with
+          readOnly: true
+          type: integer
+        deviceDisplayName:
+          description: The display name of the device the datasource instance is associated with
+          readOnly: true
+          type: string
+        systemProperties:
+          description: Any instance level system properties assigned to the instance
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        autoProperties:
+          description: Any instance level auto properties assigned to the instance
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        dataSourceId:
+          format: int32
+          description: The id of the datasource definition that the instance represents
+          readOnly: true
+          type: integer
+        groupName:
+          description: The name of the instance group associated with the datasource instance
+          readOnly: true
+          type: string
+        customProperties:
+          description: Any instance level properties assigned to the instance
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        lockDescription:
+          description: Whether or not Active Discovery is enabled, and thus whether or not the instance description is editable
+          type: boolean
+          example: true
+        name:
+          description: 'The name of the datasource instance, in the format of: datasourceName-instanceAlias'
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The Id of the datasource instance
+          readOnly: true
+          type: integer
+        wildValue:
+          description: The variable part of the instance, used to query data from a device. For example, variable part of the SNMP OID tree. This value must be unique for the device/datasource combination, unless two-dimensional active discovery is used
+          type: string
+          example: '1'
+        dataSourceType:
+          description: The type of LogicModule, e.g. DS (datasource)
+          readOnly: true
+          type: string
+    GraphPlotLine:
+      description: The properties of the graph and graph lines
+      readOnly: true
+      type: object
+      properties:
+        colorName:
+          description: The color name
+          readOnly: true
+          type: string
+        std:
+          description: The standard deviation value
+          readOnly: true
+          type: object
+        visible:
+          description: 'true | false
+
+            Specifies whether the graph will be visible or not'
+          readOnly: true
+          type: boolean
+        color:
+          description: The color of the graph
+          readOnly: true
+          type: string
+        data:
+          description: The polled data used to plot the graph
+          readOnly: true
+          type: array
+          items:
+            format: double
+            description: The polled data used to plot the graph
+            readOnly: true
+            type: number
+        max:
+          description: The max value of datapoint or instance
+          readOnly: true
+          type: object
+        legend:
+          description: The legend of the datapoint or instance
+          readOnly: true
+          type: string
+        description:
+          description: The description for the datapoint or instance
+          readOnly: true
+          type: string
+        label:
+          description: The label for the datapoint or instance
+          readOnly: true
+          type: string
+        type:
+          description: 'Specifies how the data of the datapoint or instance will be plotted
+
+            The values can be line | area | stack | column | statusBar'
+          readOnly: true
+          type: string
+        min:
+          description: The min value of the datapoint or instance
+          readOnly: true
+          type: object
+        avg:
+          description: The average value of the datapoint or instance
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          description: 'The decimal value
+
+            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
+          readOnly: true
+          type: integer
+        useYMax:
+          description: 'true | false
+
+            Specifies whether to use YMax or not'
+          readOnly: true
+          type: boolean
+    WidgetData:
+      type: object
+      properties:
+        type:
+          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
+          readOnly: true
+          type: string
+        title:
+          description: The widget title
+          type: string
+      discriminator:
+        propertyName: type
+    DeviceDataSourceInstanceGroup_2:
+      type: object
+      required:
+      - name
+      properties:
+        deviceDataSourceId:
+          format: int32
+          description: The device datasource id
+          readOnly: true
+          type: integer
+        name:
+          description: Name of the datasource instance group
+          type: string
+          example: Ping Checks at HQ
+        description:
+          description: The description of the datasource instance group
+          type: string
+          example: Test the availability of HQ
+        createOn:
+          format: int64
+          description: Time when the group was created.
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The instance group id
+          readOnly: true
+          type: integer
+        deviceId:
+          format: int32
+          description: The id of associated device
+          readOnly: true
+          type: integer
+        deviceDisplayName:
+          description: The display name of the device
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigAlert_2:
+      description: Alerts associated to this configuration file
+      readOnly: true
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
+          readOnly: true
+          type: integer
+        id:
+          description: Alert id
+          readOnly: true
+          type: string
+        alertId:
+          description: Alert internal id
+          readOnly: true
+          type: string
+        alertSummary:
+          description: Summary of this config source alert
+          readOnly: true
+          type: string
+        timestamp:
+          format: int64
+          description: Timestamp of alert start or clear
+          readOnly: true
+          type: integer
+    GraphOpsNoteScope:
+      description: 'Scopes: use this field to find match opsnote'
+      readOnly: true
+      type: object
+      properties:
+        serviceGroupIds:
+          description: The service group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The service group Id
+            readOnly: true
+            type: integer
+        serviceId:
+          format: int32
+          description: The service Id
+          readOnly: true
+          type: integer
+        type:
+          description: The values can be device | service | website
+          readOnly: true
+          type: string
+        deviceGroupIds:
+          description: The device group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The device group Id
+            readOnly: true
+            type: integer
+        deviceId:
+          format: int32
+          description: The device Id
+          readOnly: true
+          type: integer
+    RestDeviceInstanceGroupAlertConfigV3:
+      type: object
+      properties:
+        alertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          type: integer
+          example: 1
+        enableAnomalyAlertSuppression:
+          type: string
+        globalAlertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          readOnly: true
+          type: integer
+          example: 1
+        alertEnable:
+          type: boolean
+        criticalAdAdvSetting:
+          type: string
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared (0-60)
+          type: integer
+          example: 0
+        globalAlertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          readOnly: true
+          type: integer
+          example: 0
+        alertExprNote:
+          type: string
+        adAdvSettingEnabled:
+          type: boolean
+        errorAdAdvSetting:
+          type: string
+        warnAdAdvSetting:
+          type: string
+        globalAlertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        alertExpr:
+          type: string
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered (0-60)
+          type: integer
+          example: 0
+    SDTHistory_2:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1
+        approximateEndEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: user@domain.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        approximateStartEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000
+    DeviceDataSourceInstanceConfig_2:
+      type: object
+      properties:
+        instanceName:
+          description: Device datasource instance name
+          readOnly: true
+          type: string
+        deviceDataSourceId:
+          format: int32
+          description: Device datasource id
+          readOnly: true
+          type: integer
+        excludeLines:
+          description: advanceDiffChecker
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: advanceDiffChecker
+            readOnly: true
+            type: integer
+        configStatus:
+          format: int32
+          description: Configuration file collect status
+          readOnly: true
+          type: integer
+        comparedWith:
+          description: Version compared with and found difference
+          readOnly: true
+          type: string
+        version:
+          format: int64
+          description: Config version
+          readOnly: true
+          type: integer
+        deviceId:
+          format: int32
+          description: Device id
+          readOnly: true
+          type: integer
+        deltaConfig:
+          description: Configuration file diff
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff_2'
+        deviceDisplayName:
+          description: Device display name
+          readOnly: true
+          type: string
+        dataSourceName:
+          description: Datasource name
+          readOnly: true
+          type: string
+        alerts:
+          description: Alerts associated to this configuration file
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert_2'
+        dataSourceId:
+          format: int32
+          description: Configsource id
+          readOnly: true
+          type: integer
+        instanceId:
+          format: int32
+          description: Device datasource instance id
+          readOnly: true
+          type: integer
+        configErrMsg:
+          description: Configuration file collect error message
+          readOnly: true
+          type: string
+        changeStatus:
+          description: 'Configuration file change status, if the first configuration then it is Added, else Changed, values can be : Add|Change '
+          readOnly: true
+          type: string
+        id:
+          description: The id of the datasource
+          readOnly: true
+          type: string
+        pollTimestamp:
+          format: int64
+          description: Datasource poll timestamp in milliseconds
+          readOnly: true
+          type: integer
+        config:
+          description: Configuration file content
+          readOnly: true
+          type: string
+    NameAndValue_2:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceDataSourceInstanceConfigDiff_2:
+      description: Configuration file diff
+      readOnly: true
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          description: Diff row number
+          readOnly: true
+          type: integer
+        type:
+          description: 'Diff type. The values can be : add|remove'
+          readOnly: true
+          type: string
+        content:
+          description: Configuration content
+          readOnly: true
+          type: string
+    GraphPlot:
+      allOf:
+      - $ref: '#/components/schemas/WidgetData'
+      - type: object
+        properties:
+          missinglines:
+            description: The Missing lines of the graph
+            readOnly: true
+            type: array
+            items:
+              description: The Missing lines of the graph
+              readOnly: true
+              type: string
+          timeScale:
+            description: The specified timescale for the graph
+            readOnly: true
+            type: string
+          instances:
+            uniqueItems: true
+            description: The matched instances of graph
+            readOnly: true
+            type: array
+            items:
+              format: int32
+              description: The matched instances of graph
+              readOnly: true
+              type: integer
+          timestamps:
+            description: The timestamps of the graph
+            readOnly: true
+            type: array
+            items:
+              format: int64
+              description: The timestamps of the graph
+              readOnly: true
+              type: integer
+          minValue:
+            description: Specifies the minimum value of the graph
+            readOnly: true
+            type: object
+          startTime:
+            format: int64
+            description: Specifies the start-time of the graph
+            readOnly: true
+            type: integer
+          id:
+            format: int32
+            description: The Id of the graph
+            readOnly: true
+            type: integer
+          rigid:
+            description: 'true | false
+
+              Specifies if the graph is rigid or not'
+            readOnly: true
+            type: boolean
+          lines:
+            description: The properties of the graph and graph lines
+            readOnly: true
+            type: array
+            items:
+              $ref: '#/components/schemas/GraphPlotLine'
+          height:
+            format: int32
+            description: Specifies the height of graph
+            readOnly: true
+            type: integer
+          endTZOffset:
+            format: int32
+            description: Specifies the end TimeZone Offset of the graph
+            readOnly: true
+            type: integer
+          base1024:
+            description: 'true | false
+
+              Changes base scale from 1000 to 1024 if value is set to true'
+            readOnly: true
+            type: boolean
+          dsName:
+            description: The name of the DataSource to be used to plot the graph
+            readOnly: true
+            type: string
+          maxValue:
+            description: Specifies the maximum value of the graph
+            readOnly: true
+            type: object
+          displayPrio:
+            format: int32
+            description: The display priority of the graph in your LogicMonitor portal
+            readOnly: true
+            type: integer
+          timeZoneId:
+            description: The Id of selected Time Zone
+            readOnly: true
+            type: string
+          timeZone:
+            description: The selected timezone for the graph
+            readOnly: true
+            type: string
+          startTZOffset:
+            format: int32
+            description: Specifies the start TimeZone Offset of the graph
+            readOnly: true
+            type: integer
+          xAxisName:
+            description: The label that will be displayed along the X axis
+            readOnly: true
+            type: string
+          width:
+            format: int32
+            description: Specifies the width of graph
+            readOnly: true
+            type: integer
+          name:
+            description: The Name of the Graph
+            readOnly: true
+            type: string
+          verticalLabel:
+            description: The label that will be displayed along the y axis (Vertical Label)
+            readOnly: true
+            type: string
+          step:
+            format: int64
+            description: The Step of the graph
+            readOnly: true
+            type: integer
+          endTime:
+            format: int64
+            description: Specifies the end-time of the graph
+            readOnly: true
+            type: integer
+          scopes:
+            description: 'Scopes: use this field to find match opsnote'
+            readOnly: true
+            type: array
+            items:
+              $ref: '#/components/schemas/GraphOpsNoteScope'
+          base:
+            format: int64
+            description: The Base of the graph
+            readOnly: true
+            type: integer
+          exportFileName:
+            description: The export file name
+            readOnly: true
+            type: string
+      x-discriminator-value: graph
+    DeviceDataSourceInstanceData:
+      type: object
+      properties:
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+        dataSourceName:
+          description: Datasource name
+          readOnly: true
+          type: string
+    DeviceDataSourceInstance_2:
+      type: object
+      required:
+      - displayName
+      - wildValue
+      properties:
+        isUNCInstance:
+          description: Whether or not UNC Monitoring enabled for device
+          type: boolean
+          example: true
+        stopMonitoring:
+          description: Whether or not monitoring is disabled for the instance
+          type: boolean
+          example: true
+        deviceDataSourceId:
+          format: int32
+          description: The id of the unique device-datasource the instance is associated with
+          readOnly: true
+          type: integer
+        displayName:
+          description: The instance alias. This is the descriptive name of the instance, and should be unique for the device/datasource combination
+          type: string
+          example: Ping
+        wildValue2:
+          description: 'Only used for two dimensional active discovery. When used, during Active Discovery runs, the token ##WILDVALUE## is replaces with the value of ALIAS and the token ##WILDVALUE2## is replaced with the value of the second part alias. This value must be unique for the device/datasource/WILDVALUE combination'
+          type: string
+          example: '1'
+        groupId:
+          format: int32
+          description: The id of the instance group associated with the datasource instance
+          type: integer
+          example: 211
+        description:
+          description: The description of the datasource instance
+          type: string
+          example: Ping Test
+        collectorId:
+          format: int32
+          description: The id of the collector the datasource instance is associated with
+          readOnly: true
+          type: integer
+        disableAlerting:
+          description: Whether or not alerting is disabled for the instance
+          type: boolean
+          example: true
+        deviceId:
+          format: int32
+          description: The id of the device the datasource instance is associated with
+          readOnly: true
+          type: integer
+        deviceDisplayName:
+          description: The display name of the device the datasource instance is associated with
+          readOnly: true
+          type: string
+        systemProperties:
+          description: Any instance level system properties assigned to the instance
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        autoProperties:
+          description: Any instance level auto properties assigned to the instance
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        dataSourceId:
+          format: int32
+          description: The id of the datasource definition that the instance represents
+          readOnly: true
+          type: integer
+        groupName:
+          description: The name of the instance group associated with the datasource instance
+          readOnly: true
+          type: string
+        customProperties:
+          description: Any instance level properties assigned to the instance
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        lockDescription:
+          description: Whether or not Active Discovery is enabled, and thus whether or not the instance description is editable
+          type: boolean
+          example: true
+        name:
+          description: 'The name of the datasource instance, in the format of: datasourceName-instanceAlias'
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The Id of the datasource instance
+          readOnly: true
+          type: integer
+        wildValue:
+          description: The variable part of the instance, used to query data from a device. For example, variable part of the SNMP OID tree. This value must be unique for the device/datasource combination, unless two-dimensional active discovery is used
+          type: string
+          example: '1'
+        dataSourceType:
+          description: The type of LogicModule, e.g. DS (datasource)
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

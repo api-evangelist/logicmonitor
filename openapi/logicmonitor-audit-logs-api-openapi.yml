@@ -1,0 +1,196 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Audit Logs API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Audit Logs across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Audit Logs
+paths:
+  /setting/accesslogs/{id}:
+    get:
+      summary: Get audit log by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAuditLogById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLog'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      tags:
+      - Audit Logs
+    servers:
+    - url: /santaba/rest
+  /setting/accesslogs:
+    get:
+      summary: Get audit logs
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAuditLogList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessLogPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: format
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Audit Logs
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    AuditLog:
+      type: object
+      properties:
+        happenedOnLocal:
+          description: The date and time that the action recorded in the access log entry occured
+          readOnly: true
+          type: string
+        ip:
+          description: The IP address that the action was performed from
+          readOnly: true
+          type: string
+        happenedOn:
+          format: int64
+          description: The time, in epoch seconds, that the action recorded in the access log entry occurred
+          readOnly: true
+          type: integer
+        description:
+          description: The description of the action recorded in the access log entry
+          readOnly: true
+          type: string
+        id:
+          description: The Id of the access log entry
+          readOnly: true
+          type: string
+        username:
+          description: "The username associated with the user that performed the action recorded in the access log entry\t"
+          readOnly: true
+          type: string
+    AccessLogPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AuditLog_2:
+      type: object
+      properties:
+        happenedOnLocal:
+          description: The date and time that the action recorded in the access log entry occurred
+          readOnly: true
+          type: string
+        ip:
+          description: The IP address that the action was performed from
+          readOnly: true
+          type: string
+        happenedOn:
+          format: int64
+          description: The time, in epoch seconds, that the action recorded in the access log entry occurred
+          readOnly: true
+          type: integer
+        description:
+          description: The description of the action recorded in the access log entry
+          readOnly: true
+          type: string
+        id:
+          description: The Id of the access log entry
+          readOnly: true
+          type: string
+        username:
+          description: "The username associated with the user that performed the action recorded in the access log entry\t"
+          readOnly: true
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

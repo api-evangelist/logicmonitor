@@ -1,0 +1,181 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Collector Versions API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged CollectorVersions across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: CollectorVersions
+paths:
+  /setting/collector/collectors/versions:
+    get:
+      summary: get collector version list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getCollectorVersionList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorVersionPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - CollectorVersions
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    CollectorVersionPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorVersion'
+    CollectorVersion:
+      type: object
+      properties:
+        stable:
+          description: False for early release. True for general release
+          readOnly: true
+          type: boolean
+        releaseEpoch:
+          format: int64
+          description: Release Epoch for official releases
+          readOnly: true
+          type: integer
+        has32bitWindows:
+          description: True if Windows collector available
+          readOnly: true
+          type: boolean
+        has32bitLinux:
+          description: True if Linux collector available
+          readOnly: true
+          type: boolean
+        majorVersion:
+          format: int32
+          description: The collector major version
+          readOnly: true
+          type: integer
+        minorVersion:
+          format: int32
+          description: The collector minor version
+          readOnly: true
+          type: integer
+        mandatory:
+          description: True if collector is a required release
+          readOnly: true
+          type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    CollectorVersion_2:
+      type: object
+      properties:
+        patch:
+          description: Specifies if this is a ea patch version
+          readOnly: true
+          type: boolean
+        feature:
+          description: Specifies if this is a feature version
+          readOnly: true
+          type: boolean
+        stable:
+          description: False for early release. True for general release
+          readOnly: true
+          type: boolean
+        releaseEpoch:
+          format: int64
+          description: Release Epoch for official releases
+          readOnly: true
+          type: integer
+        has32bitWindows:
+          description: True if Windows collector available
+          readOnly: true
+          type: boolean
+        has32bitLinux:
+          description: True if Linux collector available
+          readOnly: true
+          type: boolean
+        majorVersion:
+          format: int32
+          description: The collector major version
+          readOnly: true
+          type: integer
+        minorVersion:
+          format: int32
+          description: The collector minor version
+          readOnly: true
+          type: integer
+        mandatory:
+          description: True if collector is a required release
+          readOnly: true
+          type: boolean
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

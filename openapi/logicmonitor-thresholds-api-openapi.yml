@@ -1,0 +1,1297 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Thresholds API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Thresholds across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Thresholds
+paths:
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{instanceId}/alertsettings:
+    get:
+      summary: get a list of alert settings for a device datasource instance
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceAlertSettingListOfDSI
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSettingPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: Device-DataSource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      tags:
+      - Thresholds
+    servers:
+    - url: /santaba/rest
+  /device/groups/{deviceGroupId}/clusterAlertConf:
+    post:
+      summary: Add cluster alert configuration
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addDeviceGroupClusterAlertConf
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceClusterAlertConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceClusterAlertConfig'
+        required: true
+    get:
+      summary: get a list of cluster alert configurations for a device group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceGroupClusterAlertConfList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceClusterAlertConfigPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Thresholds
+    servers:
+    - url: /santaba/rest
+  /device/groups/{deviceGroupId}/datasources/{dsId}/alertsettings:
+    patch:
+      summary: update device group datasource alert setting
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchDeviceGroupDatasourceAlertSetting
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceGroupDataSourceAlertConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: dsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceGroupDataSourceAlertConfig'
+        required: true
+    get:
+      summary: get device group datasource alert setting
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceGroupDatasourceAlertSetting
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceGroupDataSourceAlertConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: dsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Thresholds
+    put:
+      summary: update device group datasource alert setting
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateDeviceGroupDatasourceAlertSetting
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceGroupDataSourceAlertConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: dsId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceGroupDataSourceAlertConfig'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /device/devices/{deviceId}/devicedatasources/{hdsId}/instances/{instanceId}/alertsettings/{id}:
+    patch:
+      summary: update device instance alert setting
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchDeviceDatasourceInstanceAlertSettingById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: Device-DataSource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
+        required: true
+    get:
+      summary: get device instance alert setting
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceDatasourceInstanceAlertSettingById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: Device-DataSource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      tags:
+      - Thresholds
+    put:
+      summary: update device instance alert setting
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateDeviceDatasourceInstanceAlertSettingById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: hdsId
+        description: Device-DataSource ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: instanceId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /device/groups/{deviceGroupId}/clusterAlertConf/{id}:
+    patch:
+      summary: Update cluster alert configuration
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchDeviceGroupClusterAlertConfById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceClusterAlertConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceClusterAlertConfig'
+        required: true
+    get:
+      summary: Get cluster alert configuration by id
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getDeviceGroupClusterAlertConfById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceClusterAlertConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+    delete:
+      summary: Delete cluster alert configuration
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteDeviceGroupClusterAlertConfById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+    put:
+      summary: Update cluster alert configuration
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateDeviceGroupClusterAlertConfById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceClusterAlertConfig'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: deviceGroupId
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Thresholds
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceClusterAlertConfig'
+        required: true
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    DeviceDataSourceInstanceAlertSettingPaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
+    DeviceGroupAlertThresholdInfo:
+      type: object
+      properties:
+        userPermission:
+          readOnly: true
+          type: string
+        groupId:
+          format: int32
+          readOnly: true
+          type: integer
+        alertEnabled:
+          readOnly: true
+          type: boolean
+        groupFullPath:
+          readOnly: true
+          type: string
+        alertExpr:
+          readOnly: true
+          type: string
+    DeviceClusterAlertConfig:
+      type: object
+      properties:
+        countBy:
+          description: host | instance - Whether the cluster alert is based on an alert count across devices or instances
+          type: string
+          example: host
+        dataPointName:
+          description: The name of the dataPoint you want to base the cluster alert on
+          readOnly: true
+          type: string
+          example: InMbps
+        dataSourceId:
+          format: int32
+          description: The id of the dataSource you want to base the cluster alert on
+          type: integer
+          example: 396.0
+        dataPointId:
+          format: int32
+          description: The id of the dataPoint you want to base the cluster alert on
+          readOnly: true
+          type: integer
+          example: 2016.0
+        minAlertLevel:
+          format: int32
+          description: 'The alert level that must be present for the devices or instances to trigger the cluster alert. Acceptable values are: 2, 3, 4'
+          type: integer
+          example: 4.0
+        dataSourceDisplayName:
+          description: The display name of the dataSource you want to base the cluster alert on
+          type: string
+          example: Interfaces (64 bit)-
+        disableAlerting:
+          description: Whether or not alerting will be disabled
+          type: boolean
+          example: false
+        id:
+          format: int32
+          description: The id of the cluster alert configuration
+          readOnly: true
+          type: integer
+        suppressIndAlert:
+          description: Whether or not alerting will be suppressed for individual alerts, the default value is true
+          type: boolean
+          example: 'true'
+        thresholdType:
+          description: 'whether the alert expression should be evaluated as a total number of devices or instances (absolute) or as a percentage of devices or instances (percentage). Acceptable values are: absolute, percentage'
+          type: string
+          example: absolute
+        dataPointDescription:
+          description: The description of the dataPoint you want to base the cluster alert on
+          readOnly: true
+          type: string
+          example: 'Inbound throughput, in megabits per second.
+
+
+            Best choice for reports, etc.'
+        alertExpr:
+          description: The expression that indicates the number of objects (devices or instances) that need to be in alert to trigger the cluster alert. E.g. > 5
+          type: string
+          example: '>=2'
+    DeviceGroupDataSourceDataPointConfig:
+      type: object
+      required:
+      - alertExpr
+      - dataPointId
+      - dataPointName
+      properties:
+        globalAlertExpr:
+          readOnly: true
+          type: string
+        dataPointName:
+          type: string
+        dataPointId:
+          format: int32
+          type: integer
+        disableAlerting:
+          type: boolean
+        alertExprNote:
+          type: string
+        alertExpr:
+          type: string
+        dataPointDescription:
+          readOnly: true
+          type: string
+    DeviceClusterAlertConfigPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceClusterAlertConfig'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    DeviceDataSourceInstanceAlertSetting:
+      type: object
+      properties:
+        globalAlertExpr:
+          description: The global alert expression for this datapoint
+          readOnly: true
+          type: string
+        alertClearInterval:
+          format: int32
+          description: The interval of alert clear transition
+          readOnly: true
+          type: integer
+        disableAlerting:
+          description: Whether or not alerting will be disabled for the datapoint
+          type: boolean
+          example: true
+        alertExprNote:
+          description: The note associated with the current alert threshold settings
+          type: string
+          example: Router 1 Ping Check
+        dataPointDescription:
+          description: The description of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        dataSourceInstanceId:
+          format: int32
+          description: The id of the DataSource instance alert settings apply to
+          readOnly: true
+          type: integer
+        disableDpAlertHostGroups:
+          description: The group full path lists who disable alert for this datapoint on devicegroup level
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        dataPointId:
+          format: int32
+          description: The id of the Datapoint alert settings apply to
+          readOnly: true
+          type: integer
+        deviceGroupId:
+          format: int32
+          description: The ID of the device group
+          readOnly: true
+          type: integer
+        parentDeviceGroupAlertExprList:
+          description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo'
+        alertingDisabledOn:
+          description: The datapoint is effected alert disabled by which group
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The id of this alert setting
+          readOnly: true
+          type: integer
+        dataSourceInstanceAlias:
+          description: The alias (name) of the DataSource instance the alert settings apply to
+          readOnly: true
+          type: string
+        deviceGroupFullPath:
+          description: The full path of the device group
+          readOnly: true
+          type: string
+        alertExpr:
+          description: The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)
+          type: string
+          example: '>= 70 90 95'
+        alertTransitionInterval:
+          format: int32
+          description: The interval of alert transition
+          readOnly: true
+          type: integer
+    DeviceGroupDataSourceAlertConfig:
+      type: object
+      properties:
+        datasourceType:
+          readOnly: true
+          type: string
+        dpConfig:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupDataSourceDataPointConfig'
+    InstanceGroupAlertThresholdInfo:
+      description: Instance group alert expression list base on the priority. The first is the highest priority and effected on this instance
+      readOnly: true
+      type: object
+      properties:
+        enableAnomalyAlertGeneration:
+          description: enable anomaly alert generation
+          readOnly: true
+          type: string
+        alertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 ( 1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          readOnly: true
+          type: integer
+          example: 1
+        enableAnomalyAlertSuppression:
+          description: enable anomaly alert suppression
+          readOnly: true
+          type: string
+        groupId:
+          format: int32
+          readOnly: true
+          type: integer
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        alertEnabled:
+          readOnly: true
+          type: boolean
+        alertExpr:
+          readOnly: true
+          type: string
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          readOnly: true
+          type: integer
+          example: 0
+    DeviceGroupAlertThresholdInfo_2:
+      description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
+      readOnly: true
+      type: object
+      properties:
+        enableAnomalyAlertGeneration:
+          description: enable anomaly alert generation
+          readOnly: true
+          type: string
+        alertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          type: integer
+          example: 1
+        userPermission:
+          readOnly: true
+          type: string
+        enableAnomalyAlertSuppression:
+          description: enable anomaly alert suppression
+          readOnly: true
+          type: string
+        groupId:
+          format: int32
+          readOnly: true
+          type: integer
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          type: integer
+          example: 0
+        alertEnabled:
+          readOnly: true
+          type: boolean
+        groupFullPath:
+          readOnly: true
+          type: string
+        alertExpr:
+          readOnly: true
+          type: string
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          type: integer
+          example: 0
+    DeviceClusterAlertConfig_2:
+      type: object
+      properties:
+        minAlertLevel:
+          format: int32
+          description: 'The alert level that must be present for the devices or instances to trigger the cluster alert. Acceptable values are: 2, 3, 4'
+          type: integer
+          example: 4
+        dataSourceDisplayName:
+          description: The display name of the dataSource you want to base the cluster alert on
+          type: string
+          example: Interfaces (64 bit)-
+        disableAlerting:
+          description: Whether or not alerting will be disabled
+          type: boolean
+          example: false
+        dataPointDescription:
+          description: The description of the dataPoint you want to base the cluster alert on
+          readOnly: true
+          type: string
+          example: 'Inbound throughput, in megabits per second.
+
+
+            Best choice for reports, etc.'
+        countBy:
+          description: host | instance - Whether the cluster alert is based on an alert count across devices or instances
+          type: string
+          example: host
+        dataPointName:
+          description: The name of the dataPoint you want to base the cluster alert on
+          readOnly: true
+          type: string
+          example: InMbps
+        dataSourceId:
+          format: int32
+          description: The id of the dataSource you want to base the cluster alert on
+          type: integer
+          example: 396
+        dataPointId:
+          format: int32
+          description: The id of the dataPoint you want to base the cluster alert on
+          readOnly: true
+          type: integer
+          example: 2016
+        deviceGroupId:
+          format: int32
+          description: The id of the device group this cluster alert configuration belongs to
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the cluster alert configuration
+          readOnly: true
+          type: integer
+        suppressIndAlert:
+          description: Whether or not alerting will be suppressed for individual alerts, the default value is true
+          type: boolean
+          example: 'true'
+        thresholdType:
+          description: 'whether the alert expression should be evaluated as a total number of devices or instances (absolute) or as a percentage of devices or instances (percentage). Acceptable values are: absolute, percentage'
+          type: string
+          example: absolute
+        alertExpr:
+          description: The expression that indicates the number of objects (devices or instances) that need to be in alert to trigger the cluster alert. E.g. > 5
+          type: string
+          example: '>=2'
+    DeviceGroupDataSourceDataPointConfig_2:
+      type: object
+      required:
+      - alertExpr
+      - dataPointId
+      - dataPointName
+      properties:
+        globalAlertExpr:
+          readOnly: true
+          type: string
+        alertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          type: integer
+          example: 1
+        disableAlerting:
+          type: boolean
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared (0-60)
+          type: integer
+          example: 0
+        globalCriticalAdAdvSetting:
+          type: string
+        globalAlertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          readOnly: true
+          type: integer
+          example: 0
+        dataPointDescription:
+          readOnly: true
+          type: string
+        globalEnableAnomalyAlertGeneration:
+          type: string
+        globalErrorAdAdvSetting:
+          type: string
+        enableAnomalyAlertGeneration:
+          type: string
+        dataPointName:
+          type: string
+        dataPointId:
+          format: int32
+          type: integer
+        globalEnableAnomalyAlertSuppression:
+          type: string
+        globalAlertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered (0-60)
+          type: integer
+          example: 0
+        enableAnomalyAlertSuppression:
+          type: string
+        globalAlertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          readOnly: true
+          type: integer
+          example: 1
+        criticalAdAdvSetting:
+          type: string
+        alertExprNote:
+          type: string
+        globalWarnAdAdvSetting:
+          type: string
+        adAdvSettingEnabled:
+          type: boolean
+        errorAdAdvSetting:
+          type: string
+        warnAdAdvSetting:
+          type: string
+        parentDeviceGroupAlertExprList:
+          $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo_2'
+        globalAdAdvSettingEnabled:
+          type: boolean
+        collectionInterval:
+          format: int64
+          description: Collection Interval
+          readOnly: true
+          type: integer
+        alertExpr:
+          type: string
+    DeviceDataSourceInstanceAlertSetting_2:
+      type: object
+      properties:
+        globalAlertExpr:
+          description: The global alert expression for this datapoint
+          readOnly: true
+          type: string
+        parentInstanceGroupAlertExpr:
+          description: Instance group alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          $ref: '#/components/schemas/InstanceGroupAlertThresholdInfo'
+        alertForNoData:
+          format: int32
+          description: alert for no data (no alert-1, warning-2, error-3, critical-4)
+          type: integer
+          example: 1
+        postProcessorParam:
+          description: The post processor parameter for complex DataPoint and instance level configCheck threshold.
+          type: string
+        disableAlerting:
+          description: Whether or not alerting will be disabled for the datapoint
+          type: boolean
+          example: true
+        globalAlertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          readOnly: true
+          type: integer
+          example: 0
+        dataPointDescription:
+          description: The description of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        globalEnableAnomalyAlertGeneration:
+          description: The global enable anomaly alert generation
+          readOnly: true
+          type: string
+        enableAnomalyAlertGeneration:
+          description: enable anomaly alert generation
+          readOnly: true
+          type: string
+        disableDpAlertHostGroups:
+          description: The group full path lists who disable alert for this datapoint on devicegroup level
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        dataPointId:
+          format: int32
+          description: The id of the Datapoint alert settings apply to
+          readOnly: true
+          type: integer
+        globalEnableAnomalyAlertSuppression:
+          description: The global enable anomaly alert suppression
+          readOnly: true
+          type: string
+        deviceGroupId:
+          format: int32
+          description: The ID of the device group
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of this alert setting
+          readOnly: true
+          type: integer
+        globalAlertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        parentResourceDataSourceAlertExpr:
+          description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          $ref: '#/components/schemas/ResourceDataSourceAlertThresholdInfo'
+        deviceGroupFullPath:
+          description: The full path of the device group
+          readOnly: true
+          type: string
+        alertTransitionInterval:
+          format: int32
+          description: The polling interval of alert transition (0-60)
+          type: integer
+          example: 0
+        globalAlertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint
+          readOnly: true
+          type: integer
+          example: 1
+        enableAnomalyAlertSuppression:
+          description: enable anomaly alert suppression
+          readOnly: true
+          type: string
+        alertClearInterval:
+          format: int32
+          description: The polling interval of alert clear transition (0-60)
+          type: integer
+          example: 0
+        criticalAdAdvSetting:
+          type: string
+        alertExprNote:
+          description: The note associated with the current alert threshold settings
+          type: string
+          example: Router 1 Ping Check
+        adAdvSettingEnabled:
+          type: boolean
+        errorAdAdvSetting:
+          type: string
+        dataSourceInstanceId:
+          format: int32
+          description: The id of the DataSource instance alert settings apply to
+          readOnly: true
+          type: integer
+        warnAdAdvSetting:
+          type: string
+        globalPostProcessorParam:
+          description: The post processor parameters for complex DataPoints and global level configCheck threshold.
+          type: string
+        parentDeviceGroupAlertExprList:
+          description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo_2'
+        alertingDisabledOn:
+          description: The datapoint is effected alert disabled by which group
+          readOnly: true
+          type: string
+        dataSourceInstanceAlias:
+          description: The alias (name) of the DataSource instance the alert settings apply to
+          readOnly: true
+          type: string
+        collectionInterval:
+          format: int64
+          description: Collection Interval
+          readOnly: true
+          type: integer
+        alertExpr:
+          description: The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)
+          type: string
+          example: '>= 70 90 95'
+    DeviceGroupDataSourceAlertConfig_2:
+      type: object
+      properties:
+        datasourceType:
+          type: string
+        dpConfig:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupDataSourceDataPointConfig_2'
+    ResourceDataSourceAlertThresholdInfo:
+      description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
+      readOnly: true
+      type: object
+      properties:
+        enableAnomalyAlertGeneration:
+          description: enable anomaly alert generation
+          readOnly: true
+          type: string
+        alertForNoData:
+          format: byte
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 0-4 (0:unused alert, 1:alert ok, 2:warn alert, 2:error alert, 4:critical alert)
+          type: string
+        enableAnomalyAlertSuppression:
+          description: enable anomaly alert suppression
+          readOnly: true
+          type: string
+        alertClearTransitionInterval:
+          format: byte
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          type: string
+        alertEnabled:
+          readOnly: true
+          type: boolean
+        resourceDatasourceId:
+          format: int32
+          readOnly: true
+          type: integer
+        alertExpr:
+          readOnly: true
+          type: string
+        alertTransitionInterval:
+          format: byte
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          type: string
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json

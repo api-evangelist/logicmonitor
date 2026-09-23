@@ -1,0 +1,1708 @@
+openapi: 3.2.0
+info:
+  title: Logicmonitor Website Groups API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0'
+  description: 'Operations tagged Website Groups across 2 of this provider''s published API definitions: logicmonitor-rest-api-v2-swagger.json, logicmonitor-rest-api-v3-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /santaba/rest
+tags:
+- name: Website Groups
+paths:
+  /website/groups/{id}:
+    patch:
+      summary: update website group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: patchWebsiteGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: opType
+        required: false
+        schema:
+          type: string
+          default: refresh
+      tags:
+      - Website Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebsiteGroup'
+        required: true
+    get:
+      summary: get website group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getWebsiteGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      tags:
+      - Website Groups
+    delete:
+      summary: delete website group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: deleteWebsiteGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: deleteChildren
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      tags:
+      - Website Groups
+    put:
+      summary: update website group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: updateWebsiteGroupById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: opType
+        required: false
+        schema:
+          type: string
+          default: refresh
+      tags:
+      - Website Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebsiteGroup'
+        required: true
+    servers:
+    - url: /santaba/rest
+  /website/groups/{id}/sdts:
+    get:
+      summary: get a list of SDTs for a website group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getAllSDTListByWebsiteGroupId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SDTPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Website Groups
+    servers:
+    - url: /santaba/rest
+  /website/groups/{id}/websites:
+    get:
+      summary: get a list of websites for a group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getImmediateWebsiteListByWebsiteGroupId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsitePaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Website Groups
+    servers:
+    - url: /santaba/rest
+  /website/groups/{id}/historysdts:
+    get:
+      summary: get SDT history for the website group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getSDTHistoryByWebsiteGroupId
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteGroupSDTHistoryPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+          format: int32
+          pattern: \d+
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Website Groups
+    servers:
+    - url: /santaba/rest
+  /website/groups:
+    post:
+      summary: add website group
+      security:
+      - LMv1: []
+      description: ''
+      operationId: addWebsiteGroup
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteGroup'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Website Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebsiteGroup'
+        required: true
+    get:
+      summary: get website group list
+      security:
+      - LMv1: []
+      description: ''
+      operationId: getWebsiteGroupList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteGroupPaginationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      parameters:
+      - in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50.0
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0.0
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      tags:
+      - Website Groups
+    servers:
+    - url: /santaba/rest
+components:
+  schemas:
+    WebsitePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+    SDTPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDT'
+    WebsiteGroup:
+      type: object
+      required:
+      - name
+      properties:
+        fullPath:
+          description: The full path of the group
+          readOnly: true
+          type: string
+        stopMonitoring:
+          description: 'true: monitoring is disabled for the websites in the group
+
+            false: monitoring is enabled for the websites in the group
+
+            If stopMonitoring=true, then alerting will also by default be disabled for the websites in the group'
+          type: boolean
+        userPermission:
+          description: 'The permission level of the user that made the API request. Acceptable values are: write, read, ack'
+          readOnly: true
+          type: string
+        testLocation:
+          $ref: '#/components/schemas/WebsiteLocation'
+        hasWebsitesDisabled:
+          readOnly: true
+          type: boolean
+        description:
+          description: The description of the group
+          type: string
+          example: Amazon web and ping checks
+        disableAlerting:
+          description: 'true: alerting is disabled for the websites in the group
+
+            false: alerting is enabled for the websites in the group
+
+            If stopMonitoring=true, then alerting will also by default be disabled for the websites in the group'
+          type: boolean
+          example: false
+        parentId:
+          format: int32
+          description: The Id of the parent group. If parentId=1 then the group exists under the root  group
+          type: integer
+          example: 1.0
+        numOfDirectWebsites:
+          format: int32
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the group
+          type: string
+          example: Amazon Website Checks
+        numOfDirectSubGroups:
+          format: int32
+          description: The number of direct website groups in this group (exlcuding those in subgroups)
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The Id of the group
+          readOnly: true
+          type: integer
+        numOfWebsites:
+          format: int32
+          readOnly: true
+          type: integer
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+    Authentication:
+      type: object
+      required:
+      - password
+      - type
+      - userName
+      properties:
+        password:
+          type: string
+        type:
+          type: string
+          example: basic
+        userName:
+          type: string
+      discriminator:
+        propertyName: type
+    WebCheckStep:
+      type: object
+      properties:
+        schema:
+          type: string
+        respType:
+          type: string
+        HTTPHeaders:
+          type: string
+        auth:
+          $ref: '#/components/schemas/Authentication'
+        matchType:
+          type: string
+          example: plain
+        description:
+          type: string
+        type:
+          readOnly: true
+          type: string
+          example: config
+        timeout:
+          format: int32
+          type: integer
+        useDefaultRoot:
+          type: boolean
+          example: 'true'
+        path:
+          type: string
+        HTTPMethod:
+          type: string
+          example: GET
+        enable:
+          type: boolean
+        HTTPVersion:
+          type: string
+          example: '1.1'
+        keyword:
+          type: string
+        respScript:
+          type: string
+        label:
+          type: string
+        url:
+          type: string
+          example: /
+        invertMatch:
+          type: boolean
+          example: false
+        reqScript:
+          type: string
+        HTTPBody:
+          type: string
+        followRedirection:
+          type: boolean
+          example: 'true'
+        postDataEditType:
+          type: string
+          example: raw
+        name:
+          type: string
+        requireAuth:
+          type: boolean
+          example: false
+        reqType:
+          type: string
+        fullpageLoad:
+          type: boolean
+          example: false
+        statusCode:
+          type: string
+    WebsiteCheckPoint:
+      type: object
+      properties:
+        geoInfo:
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+        smgId:
+          format: int32
+          readOnly: true
+          type: integer
+    NameAndValue:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    WebsiteGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebsiteGroup'
+    SDT:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          type: string
+          example: oneTime
+        monthDay:
+          format: int32
+          description: 1 | 2....| 31 The day of the month that the SDT will be active for a monthly SDT
+          type: integer
+          example: 7.0
+        weekOfMonth:
+          description: The weel of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000.0
+        type:
+          description: 'The type resource that this SDT is for: ServiceSDT | CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | DeviceGroupSDT | DeviceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT'
+          type: string
+          example: DeviceGroupSDT
+        isEffective:
+          description: 'true: the SDT is currently actice
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6.0
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138.0
+        endHour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5.0
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000.0
+        hour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3.0
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        weekDay:
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          readOnly: true
+          type: string
+        endMinute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18.0
+      discriminator:
+        propertyName: type
+    Website:
+      type: object
+      required:
+      - name
+      - testLocation
+      - type
+      properties:
+        template:
+          description: The website template
+          type: object
+        testLocation:
+          description: 'The locations from which the website is monitored. If the website is internal, this field should include Collectors. If Non-Internal, possible test locations are:
+
+            1 : US - LA
+
+            2 : US - DC
+
+            3 : US - SF
+
+            4 : Europe - Dublin
+
+            5 : Asia - Singapore
+
+            6 : Australia - Sydney
+
+            testLocation:"{all:true}" indicates that the service will be monitored from all checkpoint locations
+
+            testLocation:"{smgIds:[1,2,3]}" indicates that the service will be monitored from checkpoint locations 1, 2 and 3
+
+            testLocation:"{collectorIds:[85,90]}" indicates that the service will be monitored by Collectors 85 and 90'
+          $ref: '#/components/schemas/WebsiteLocation'
+        groupId:
+          format: int32
+          description: The id of the group the website is in
+          readOnly: true
+          type: integer
+          example: 1.0
+        overallAlertLevel:
+          description: 'warn | error | critical
+
+            The level of alert to trigger if the website fails the number of checks specified by transition from the test locations specified by globalSmAlertCond'
+          type: string
+          example: warn
+        pollingInterval:
+          format: int32
+          description: '1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+
+            The polling interval for the website, in units of minutes. This value indicates how often the website is checked. The minimum is 1 minute, and the maximum is 10 minutes'
+          type: integer
+          example: 5.0
+        description:
+          description: The description of the website
+          type: string
+          example: Monitor Ebay site response times
+        disableAlerting:
+          description: 'true: alerting is disabled for the website
+
+            false: alerting is enabled for the website
+
+            If stopMonitoring=true, then alerting will also by default be disabled for the website'
+          type: boolean
+        type:
+          description: 'The type of the website. Acceptable values are: pingcheck, webcheck'
+          type: string
+          example: webcheck
+        lastUpdated:
+          format: int64
+          description: The time (in epoch format) that the website was updated
+          readOnly: true
+          type: integer
+        stopMonitoringByFolder:
+          description: 'true: monitoring is disabled for all services in the website''s folder
+
+            false: monitoring is not disabled for all services in website''s folder'
+          readOnly: true
+          type: boolean
+        id:
+          format: int32
+          description: The id of the website
+          readOnly: true
+          type: integer
+        stopMonitoring:
+          description: 'true: monitoring is disabled for the website
+
+            false: monitoring is enabled for the website
+
+            If stopMonitoring=true, then alerting will also by default be disabled for the website'
+          type: boolean
+        userPermission:
+          description: write | read | ack. The permission level of the user that made the API request
+          type: string
+        individualSmAlertEnable:
+          description: 'true: an alert will be triggered if a check fails from an individual test location
+
+            false: an alert will not be triggered if a check fails from an individual test location'
+          type: boolean
+          example: false
+        checkpoints:
+          description: The checkpoints from the which the website is monitored. This object should reference each location specified in testLocation in addition to an 'Overall' checkpoint
+          type: array
+          items:
+            $ref: '#/components/schemas/WebsiteCheckPoint'
+        steps:
+          description: Required for type=webcheck , An object comprising one or more steps, see the table below for the properties included in each step
+          type: array
+          items:
+            $ref: '#/components/schemas/WebCheckStep'
+        transition:
+          format: int32
+          description: '1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 30 | 60
+
+            The number of checks that must fail before an alert is triggered'
+          type: integer
+          example: 1.0
+        globalSmAlertCond:
+          format: int32
+          description: 'The number of test locations that checks must fail at to trigger an alert, where the alert triggered will be consistent with the value of overallAlertLevel. Possible values and corresponding number of Site Monitor locations are
+
+            0 : all
+
+            1 : half
+
+            2 : more than one
+
+            3 : any'
+          type: integer
+          example: 0.0
+        isInternal:
+          description: Whether or not the website is internal
+          type: boolean
+          example: false
+        collectors:
+          description: The collectors that are monitoring the website, if the website is internal
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/WebsiteCollectorInfo'
+        domain:
+          description: Required for type=webcheck , The domain of the service. This is the base URL of the service
+          type: string
+          example: www.ebay.com
+        name:
+          description: The name of the website
+          type: string
+          example: Ebay
+        useDefaultLocationSetting:
+          description: 'true: The checkpoint locations configured in the website Default Settings will be used
+
+            false: The checkpoint locations specified in the testLocation will be used'
+          type: boolean
+          example: false
+        useDefaultAlertSetting:
+          description: 'true: The alert settings configured in the website Default Settings will be used
+
+            false: Service Default Settings will not be used, and you will need to specify individualSMAlertEnable, individualAlertLevel, globalSmAlertConf, overallAlertLevel and pollingInterval'
+          type: boolean
+          example: true
+        individualAlertLevel:
+          description: 'warn | error | critical
+
+            The level of alert to trigger if the website fails a check from an individual test location'
+          type: string
+          example: warn
+        properties:
+          description: The properties associated with the website
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        status:
+          description: Whether is the website dead (the collector is down) or not
+          readOnly: true
+          type: string
+      discriminator:
+        propertyName: type
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    WebsiteGroupSDTHistoryPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDTHistory'
+    SDTHistory:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456.0
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1.0
+        endEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000.0
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: sarah@logicmonitor.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        startEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000.0
+    WebsiteCollectorInfo:
+      type: object
+      properties:
+        hostname:
+          readOnly: true
+          type: string
+        collectorGroupName:
+          readOnly: true
+          type: string
+        collectorGroupId:
+          format: int32
+          readOnly: true
+          type: integer
+        description:
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+        status:
+          readOnly: true
+          type: string
+    WebsiteLocation:
+      type: object
+      properties:
+        all:
+          type: boolean
+          example: 'true'
+        collectorIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        collectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebsiteCollectorInfo'
+        smgIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+          example: '[1, 2, 4, 3, 5, 6]'
+    WebsiteGroup_2:
+      type: object
+      required:
+      - name
+      properties:
+        fullPath:
+          description: The full path of the group
+          readOnly: true
+          type: string
+        stopMonitoring:
+          description: 'The values can be true|false where
+
+            true: monitoring is disabled for the websites in the group
+
+            false: monitoring is enabled for the websites in the group
+
+            If stopMonitoring=true, then alerting will also be disabled by default for the websites in the group'
+          type: boolean
+        userPermission:
+          description: The permission level of the user that made the API request. The values can be write|read|ack
+          readOnly: true
+          type: string
+        testLocation:
+          description: 'An object that indicates the websites locations.
+
+            eg. {''all'': false, smgId:[1,2,3], collectorIds:[14,16]}'
+          readOnly: false
+          $ref: '#/components/schemas/WebsiteLocation_2'
+        hasWebsitesDisabled:
+          description: Indicates if there are websites disabled in this group
+          readOnly: true
+          type: boolean
+        description:
+          description: The description of the group
+          type: string
+          example: Amazon web and ping checks
+        disableAlerting:
+          description: 'The values can be true|false where
+
+            true: alerting is disabled for the websites in the group
+
+            false: alerting is enabled for the websites in the group
+
+            If stopMonitoring=true, then alerting will also be disabled by default for the websites in the group'
+          type: boolean
+          example: false
+        rolePrivileges:
+          description: The privilege operations of the user's role that made the API request.  The array can contain the values ack, sdt and/or threshold
+          readOnly: true
+          type: array
+          items:
+            description: The privilege operations of the user's role that made the API request.  The array can contain the values ack, sdt and/or threshold
+            readOnly: true
+            type: string
+        parentId:
+          format: int32
+          description: The Id of the parent group. If parentId=1 then the group exists under the root group
+          type: integer
+          example: 1
+        numOfDirectWebsites:
+          format: int32
+          description: The number of direct websites in this group
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the group
+          type: string
+          example: Amazon Website Checks
+        numOfDirectSubGroups:
+          format: int32
+          description: The number of direct website groups in this group (excluding those in subgroups)
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The Id of the group
+          readOnly: true
+          type: integer
+        numOfWebsites:
+          format: int32
+          description: The number of websites in the service group, including the websites in sub groups
+          readOnly: true
+          type: integer
+        properties:
+          description: The website folder properties
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+    Authentication_2:
+      description: Authorization Information
+      type: object
+      required:
+      - password
+      - type
+      - userName
+      properties:
+        password:
+          description: NTLM authentication password
+          type: string
+        type:
+          description: Authentication type
+          type: string
+          example: basic
+        userName:
+          description: NTLM  authentication userName
+          type: string
+      discriminator:
+        propertyName: type
+    WebCheckStep_2:
+      description: Required for type=webcheck , An object comprising one or more steps, see the table below for the properties included in each step
+      type: object
+      properties:
+        schema:
+          description: HTTP schema
+          type: string
+        respType:
+          description: 'The values can be Plain Text/String|Glob expression|JSON|XML|Multi line key value pair
+
+            Step Response Type'
+          type: string
+        HTTPHeaders:
+          description: HTTP header
+          type: string
+        auth:
+          description: Authorization Information
+          readOnly: false
+          $ref: '#/components/schemas/Authentication_2'
+        matchType:
+          description: Body match type
+          type: string
+          example: plain
+        description:
+          description: The description of the Step
+          type: string
+        type:
+          description: 'The values can be script|config
+
+            The type of service step'
+          readOnly: true
+          type: string
+          example: config
+        timeout:
+          format: int32
+          description: Request timeout measured in seconds
+          type: integer
+        useDefaultRoot:
+          description: 'The values can be true|false
+
+            Check if using the default root'
+          type: boolean
+          example: 'true'
+        path:
+          description: Path for JSON, XPATH
+          type: string
+        HTTPMethod:
+          description: 'The values can be GET|HEAD|POST
+
+            Specifies the type of HTTP method'
+          type: string
+          example: GET
+        enable:
+          description: 'The values can be true|false
+
+            Specifies whether to enable step or not'
+          type: boolean
+        HTTPVersion:
+          description: 'The values can be 1.1|1
+
+            Specifies HTTP version'
+          type: string
+          example: '1.1'
+        keyword:
+          description: Keyword that matches the body
+          type: string
+        respScript:
+          description: The Step Response Script
+          type: string
+        label:
+          description: The Label of the Step
+          type: string
+        url:
+          description: The URL of service step
+          type: string
+          example: /
+        invertMatch:
+          description: 'The values can be true|false
+
+            Checks if invert matches or not'
+          type: boolean
+          example: false
+        reqScript:
+          description: The Request Script
+          type: string
+        HTTPBody:
+          description: HTTP Body
+          type: string
+        followRedirection:
+          description: 'The values can be true|false
+
+            Specifies whether to follow redirection or not'
+          type: boolean
+          example: 'true'
+        postDataEditType:
+          description: 'The values can be Raw|Formatted Data
+
+            Specifies POST data type'
+          type: string
+          example: raw
+        name:
+          description: The name of the Step
+          type: string
+        requireAuth:
+          description: 'The values can be true|false
+
+            Checks if authorization required or not'
+          type: boolean
+          example: false
+        reqType:
+          description: 'The values can be script|config
+
+            Step Request Type'
+          type: string
+        fullpageLoad:
+          description: 'The values can be true|false
+
+            Checks if full page should be loaded or not'
+          type: boolean
+          example: false
+        statusCode:
+          description: The expected status code
+          type: string
+    WebsiteCheckPoint_2:
+      description: The checkpoints from the which the website is monitored. This object should reference each location specified in testLocation in addition to an 'Overall' checkpoint
+      type: object
+      properties:
+        geoInfo:
+          description: The geographical information (location) of the SiteMonitor Checkpoint
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The Id of the SiteMonitor Checkpoint
+          readOnly: true
+          type: integer
+        smgId:
+          format: int32
+          description: The sitemonitor group id
+          readOnly: true
+          type: integer
+    NameAndValue_2:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    SDT_2:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          description: The type of sdt. The values can be oneTime|weekly|monthly|daily|monthlyByWeek
+          type: string
+          example: oneTime
+        defaultValue:
+          format: date-time
+          type: string
+        monthDay:
+          description: The values can be -3 | 1 | 2....| 31. Specifies the day(s) of the month that the SDT will be active for a monthly SDT. Use -3 for the last day of the month. Supports comma-separated values (e.g., '1,15,28') when multi-day is enabled.
+          type: string
+          example: '7'
+        weekOfMonth:
+          description: The week of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000
+        type:
+          description: The type of resource that this SDT is for. The values can be CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | ResourceGroupSDT | ResourceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT | DeviceLogPipeLineResourceSDT
+          type: string
+          example: ResourceGroupSDT
+        isEffective:
+          description: 'The values can be true|false, where true: the SDT is currently active
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138
+        endHour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000
+        hour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        weekDay:
+          description: The week day of sdt. For weekly & monthlyByWeek SDT, supports comma-separated values like 'Monday,Friday'. Values can be SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          readOnly: true
+          type: string
+        endMinute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18
+      discriminator:
+        propertyName: type
+    Website_2:
+      type: object
+      required:
+      - name
+      - testLocation
+      - type
+      properties:
+        template:
+          description: The website template
+          type: object
+        testLocation:
+          description: 'The locations from which the website is monitored. If the website is internal, this field should include Collectors. If Non-Internal, possible test locations are:
+
+            2 : US - Washington DC
+
+            3 : US - Oregon
+
+            4 : Europe - Dublin
+
+            5 : Asia - Singapore
+
+            6 : Australia - Sydney
+
+            testLocation:"{all:true}" indicates that the service will be monitored from all checkpoint locations
+
+            testLocation:"{smgIds:[1,2,3]}" indicates that the service will be monitored from checkpoint locations 1, 2 and 3
+
+            testLocation:"{collectorIds:[85,90]}" indicates that the service will be monitored by Collectors 85 and 90'
+          readOnly: false
+          $ref: '#/components/schemas/WebsiteLocation_2'
+        groupId:
+          format: int32
+          description: The id of the group the website is in
+          readOnly: true
+          type: integer
+          example: 1
+        overallAlertLevel:
+          description: 'The values can be warn|error|critical
+
+            The level of alert to trigger if the website fails the number of checks specified by transition from the test locations specified by globalSmAlertCond'
+          type: string
+          example: warn
+        pollingInterval:
+          format: int32
+          description: 'The values can be 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+
+            The polling interval for the website, in units of minutes. This value indicates how often the website is checked. The minimum is 1 minute, and the maximum is 10 minutes'
+          type: integer
+          example: 5
+        description:
+          description: The description of the website
+          type: string
+          example: Monitor Ebay site response times
+        disableAlerting:
+          description: 'The values can be true|false where
+
+            true: alerting is disabled for the website
+
+            false: alerting is enabled for the website
+
+            If stopMonitoring=true, then alerting will also be disabled by default for the website'
+          type: boolean
+        type:
+          description: 'The values can be pingcheck|webcheck
+
+            Specifies the type of service'
+          type: string
+          example: webcheck
+        rolePrivileges:
+          description: The role privilege operation(s) for this website that are granted to the user who made the API request
+          readOnly: true
+          type: array
+          items:
+            description: The role privilege operation(s) for this website that are granted to the user who made the API request
+            readOnly: true
+            type: string
+        lastUpdated:
+          format: int64
+          description: The time (in epoch format) that the website was updated
+          readOnly: true
+          type: integer
+        stopMonitoringByFolder:
+          description: 'The values can be true|false where
+
+            true: monitoring is disabled for all services in the website''s folder
+
+            false: monitoring is not disabled for all services in website''s folder'
+          readOnly: true
+          type: boolean
+        id:
+          format: int32
+          description: The id of the website
+          readOnly: true
+          type: integer
+        stopMonitoring:
+          description: 'The values can be true|false where
+
+            true: monitoring is disabled for the website
+
+            false: monitoring is enabled for the website
+
+            If stopMonitoring=true, then alerting will also be disabled by default for the website'
+          type: boolean
+        userPermission:
+          description: The values can be write|read|ack. The permission level of the user that made the API request
+          type: string
+        individualSmAlertEnable:
+          description: 'The values can be true|false where
+
+            true: an alert will be triggered if a check fails from an individual test location
+
+            false: an alert will not be triggered if a check fails from an individual test location'
+          type: boolean
+          example: false
+        checkpoints:
+          description: The checkpoints from the which the website is monitored. This object should reference each location specified in testLocation in addition to an 'Overall' checkpoint
+          type: array
+          items:
+            $ref: '#/components/schemas/WebsiteCheckPoint_2'
+        steps:
+          description: Required for type=webcheck , An object comprising one or more steps, see the table below for the properties included in each step
+          type: array
+          items:
+            $ref: '#/components/schemas/WebCheckStep_2'
+        transition:
+          format: int32
+          description: 'The values can be 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 30 | 60
+
+            The number of checks that must fail before an alert is triggered'
+          type: integer
+          example: 1
+        globalSmAlertCond:
+          format: int32
+          description: 'The number of test locations that checks must fail at to trigger an alert, where the alert triggered will be consistent with the value of overallAlertLevel. Possible values and corresponding number of Site Monitor locations are
+
+            0 : all
+
+            1 : half
+
+            2 : more than one
+
+            3 : any'
+          type: integer
+          example: 0
+        isInternal:
+          description: Whether or not the website is internal
+          type: boolean
+          example: false
+        collectors:
+          description: The collectors that are monitoring the website, if the website is internal
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/WebsiteCollectorInfo_2'
+        domain:
+          description: Required for type=webcheck , The domain of the service. This is the base URL of the service
+          type: string
+          example: www.ebay.com
+        name:
+          description: The name of the website
+          type: string
+          example: Ebay
+        useDefaultLocationSetting:
+          description: 'The values can be true|false where
+
+            true: The checkpoint locations configured in the website Default Settings will be used
+
+            false: The checkpoint locations specified in the testLocation will be used'
+          type: boolean
+          example: false
+        useDefaultAlertSetting:
+          description: 'The values can be true|false where
+
+            true: The alert settings configured in the website Default Settings will be used
+
+            false: Service Default Settings will not be used, and you will need to specify individualSMAlertEnable, individualAlertLevel, globalSmAlertConf, overallAlertLevel and pollingInterval'
+          type: boolean
+          example: true
+        individualAlertLevel:
+          description: 'The values can be warn|error|critical
+
+            The level of alert to trigger if the website fails a check from an individual test location'
+          type: string
+          example: warn
+        properties:
+          description: The properties associated with the website
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        status:
+          description: Whether the website is dead (the collector is down) or not
+          readOnly: true
+          type: string
+      discriminator:
+        propertyName: type
+    SDTHistory_2:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1
+        approximateEndEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: user@domain.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        approximateStartEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000
+    WebsiteCollectorInfo_2:
+      description: The collector info of the services
+      type: object
+      properties:
+        hostname:
+          description: The hostname of the collector
+          readOnly: true
+          type: string
+        collectorGroupName:
+          description: The group name of the group the collector is present in
+          readOnly: true
+          type: string
+        collectorGroupId:
+          format: int32
+          description: The group Id of the group the collector is present in
+          readOnly: true
+          type: integer
+        description:
+          description: The description of the collector
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The collector id
+          readOnly: true
+          type: integer
+        status:
+          description: The status of the collector
+          readOnly: true
+          type: string
+    WebsiteLocation_2:
+      description: 'The locations from which the website is monitored. If the website is internal, this field should include Collectors. If Non-Internal, possible test locations are:
+
+        2 : US - Washington DC
+
+        3 : US - Oregon
+
+        4 : Europe - Dublin
+
+        5 : Asia - Singapore
+
+        6 : Australia - Sydney
+
+        testLocation:"{all:true}" indicates that the service will be monitored from all checkpoint locations
+
+        testLocation:"{smgIds:[1,2,3]}" indicates that the service will be monitored from checkpoint locations 1, 2 and 3
+
+        testLocation:"{collectorIds:[85,90]}" indicates that the service will be monitored by Collectors 85 and 90'
+      type: object
+      properties:
+        all:
+          description: This field only for the SiteMonitor Groups, does not include Internal Service Groups
+          type: boolean
+          example: 'true'
+        collectorIds:
+          description: The Internal Service Groups Ids
+          type: array
+          items:
+            format: int32
+            description: The Internal Service Groups Ids
+            type: integer
+        collectors:
+          description: The collector info of the services
+          type: array
+          items:
+            $ref: '#/components/schemas/WebsiteCollectorInfo_2'
+        smgIds:
+          description: The SiteMonitor Groups Ids
+          type: array
+          items:
+            format: int32
+            description: The SiteMonitor Groups Ids
+            type: integer
+          example: '[1, 2, 4, 3, 5, 6]'
+  securitySchemes:
+    LMv1:
+      in: header
+      name: Authorization
+      type: apiKey
+externalDocs:
+  description: LogicMonitor Support Docs
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+x-refined-from:
+- logicmonitor-rest-api-v2-swagger.json
+- logicmonitor-rest-api-v3-swagger.json
