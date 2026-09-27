@@ -37,18 +37,6 @@ paths:
       - LogicModules
 components:
   schemas:
-    Response:
-      type: object
-      properties:
-        data:
-          type: object
-        errmsg:
-          type: string
-        ok:
-          $ref: '#/components/schemas/Response'
-        status:
-          format: int32
-          type: integer
     ErrorResponse:
       type: object
       properties:
@@ -65,6 +53,18 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    Response:
+      type: object
+      properties:
+        data:
+          type: object
+        errmsg:
+          type: string
+        ok:
+          $ref: '#/components/schemas/Response'
+        status:
+          format: int32
+          type: integer
   securitySchemes:
     LMv1:
       in: header

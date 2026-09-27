@@ -42,13 +42,6 @@ paths:
       - IntegrationAuditLogs
 components:
   schemas:
-    IntegrationAuditLogPaginationResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationAuditLog'
     IntegrationAuditLog:
       type: object
       properties:
@@ -140,6 +133,13 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    IntegrationAuditLogPaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationAuditLog'
   securitySchemes:
     LMv1:
       in: header

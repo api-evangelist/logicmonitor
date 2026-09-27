@@ -225,78 +225,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    Chain:
-      type: object
-      required:
-      - stages
-      - type
-      properties:
-        period:
-          $ref: '#/components/schemas/Period'
-        stages:
-          type: array
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Recipient'
-        type:
-          description: single
-          type: string
-    Period:
-      type: object
-      required:
-      - endMinutes
-      - startMinutes
-      - timezone
-      - weekDays
-      properties:
-        weekDays:
-          type: array
-          items:
-            format: int32
-            type: integer
-        timezone:
-          type: string
-        startMinutes:
-          format: int32
-          type: integer
-        endMinutes:
-          format: int32
-          type: integer
-    EscalationChainPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EscalatingChain'
-    Recipient:
-      type: object
-      required:
-      - method
-      - type
-      properties:
-        method:
-          description: Admin | Arbitrary, where Admin = a user, and Arbitrary = an arbitrary email
-          type: string
-          example: EMAIL
-        contact:
-          type: string
-        type:
-          description: email | sms | voice, where type must be email if method = arbitrary
-          type: string
-          example: Admin
-        addr:
-          description: the user name if method = admin, or the email address if method = arbitrary
-          type: string
-          example: john.doe@logicmonitor.com
     EscalatingChain:
       type: object
       required:
@@ -335,6 +263,61 @@ components:
           format: int32
           type: integer
           example: 30.0
+    Recipient:
+      type: object
+      required:
+      - method
+      - type
+      properties:
+        method:
+          description: Admin | Arbitrary, where Admin = a user, and Arbitrary = an arbitrary email
+          type: string
+          example: EMAIL
+        contact:
+          type: string
+        type:
+          description: email | sms | voice, where type must be email if method = arbitrary
+          type: string
+          example: Admin
+        addr:
+          description: the user name if method = admin, or the email address if method = arbitrary
+          type: string
+          example: john.doe@logicmonitor.com
+    EscalationChainPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EscalatingChain'
+    Period:
+      type: object
+      required:
+      - endMinutes
+      - startMinutes
+      - timezone
+      - weekDays
+      properties:
+        weekDays:
+          type: array
+          items:
+            format: int32
+            type: integer
+        timezone:
+          type: string
+        startMinutes:
+          format: int32
+          type: integer
+        endMinutes:
+          format: int32
+          type: integer
     ErrorResponse:
       type: object
       properties:
@@ -351,79 +334,23 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    Chain_2:
-      description: The chain destinations
+    Chain:
       type: object
       required:
       - stages
       - type
       properties:
         period:
-          $ref: '#/components/schemas/Period_2'
+          $ref: '#/components/schemas/Period'
         stages:
-          description: List of recipients list
           type: array
           items:
-            description: List of recipients list
             type: array
             items:
-              $ref: '#/components/schemas/Recipient_2'
+              $ref: '#/components/schemas/Recipient'
         type:
-          description: Type of stages in this chain. The values can be timebased|simple
+          description: single
           type: string
-    Period_2:
-      description: 'If type is timebased then effective time when recipient receive notification.
-
-        '
-      type: object
-      required:
-      - endMinutes
-      - startMinutes
-      - timezone
-      - weekDays
-      properties:
-        weekDays:
-          description: The list of week day of this period
-          type: array
-          items:
-            format: int32
-            description: The list of week day of this period
-            type: integer
-        timezone:
-          description: The timezone for this period
-          type: string
-        startMinutes:
-          format: int32
-          description: The start minute of this period
-          type: integer
-        endMinutes:
-          format: int32
-          description: The end minute of this period
-          type: integer
-    Recipient_2:
-      description: The chain's cc destinations
-      type: object
-      required:
-      - addr
-      - contact
-      - method
-      - type
-      properties:
-        method:
-          description: "Recipient method for each type. \nThe values can be EMAIL|SMEMAIL|VOICE|SMS \n            group: \"method\" not used\n            arbitrary: The method should be email.\n            admin: The method should be email, smsEmail, voice, sms, or defaultMethod;\n"
-          type: string
-          example: EMAIL
-        contact:
-          description: Contact details, email address or phone number
-          type: string
-        type:
-          description: "The recipient type. \nThe values can be GROUP|ARBITRARY|ADMIN, where Admin = a user, and Arbitrary = an arbitrary email"
-          type: string
-          example: Admin
-        addr:
-          description: "The recipient address. \nThe value will be user name if method = admin, or the email address if method = arbitrary"
-          type: string
-          example: user@domain.com
     EscalatingChain_2:
       type: object
       required:
@@ -471,6 +398,79 @@ components:
           description: The throttle period
           type: integer
           example: 30
+    Recipient_2:
+      description: The chain's cc destinations
+      type: object
+      required:
+      - addr
+      - contact
+      - method
+      - type
+      properties:
+        method:
+          description: "Recipient method for each type. \nThe values can be EMAIL|SMEMAIL|VOICE|SMS \n            group: \"method\" not used\n            arbitrary: The method should be email.\n            admin: The method should be email, smsEmail, voice, sms, or defaultMethod;\n"
+          type: string
+          example: EMAIL
+        contact:
+          description: Contact details, email address or phone number
+          type: string
+        type:
+          description: "The recipient type. \nThe values can be GROUP|ARBITRARY|ADMIN, where Admin = a user, and Arbitrary = an arbitrary email"
+          type: string
+          example: Admin
+        addr:
+          description: "The recipient address. \nThe value will be user name if method = admin, or the email address if method = arbitrary"
+          type: string
+          example: user@domain.com
+    Period_2:
+      description: 'If type is timebased then effective time when recipient receive notification.
+
+        '
+      type: object
+      required:
+      - endMinutes
+      - startMinutes
+      - timezone
+      - weekDays
+      properties:
+        weekDays:
+          description: The list of week day of this period
+          type: array
+          items:
+            format: int32
+            description: The list of week day of this period
+            type: integer
+        timezone:
+          description: The timezone for this period
+          type: string
+        startMinutes:
+          format: int32
+          description: The start minute of this period
+          type: integer
+        endMinutes:
+          format: int32
+          description: The end minute of this period
+          type: integer
+    Chain_2:
+      description: The chain destinations
+      type: object
+      required:
+      - stages
+      - type
+      properties:
+        period:
+          $ref: '#/components/schemas/Period_2'
+        stages:
+          description: List of recipients list
+          type: array
+          items:
+            description: List of recipients list
+            type: array
+            items:
+              $ref: '#/components/schemas/Recipient_2'
+        type:
+          description: Type of stages in this chain. The values can be timebased|simple
+          type: string
   securitySchemes:
     LMv1:
       in: header

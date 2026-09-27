@@ -336,6 +336,22 @@ components:
         containsMultiValue:
           description: request contains multi value field
           type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     NameAndValue:
       description: The properties associated with the website
       readOnly: true
@@ -368,22 +384,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RestDeviceDeltaV3'
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
   securitySchemes:
     LMv1:
       in: header

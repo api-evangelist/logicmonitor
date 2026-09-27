@@ -309,6 +309,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ActionRule'
+    ActionRuleStatus:
+      description: Action Rule Status
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          description: Indicates whether the action rule is enabled
+          type: boolean
+          example: false
     ActionRule:
       type: object
       required:
@@ -382,42 +392,6 @@ components:
           description: Whether action Rule is enabled or not
           type: boolean
           example: true
-    RestDeviceProperty:
-      description: The resource property filters list
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The resource property name
-          type: string
-        value:
-          description: The resource property value
-          type: string
-    ActionChainSummary:
-      description: The action chain summary for the action rule
-      readOnly: true
-      type: object
-      properties:
-        name:
-          type: string
-        id:
-          format: int32
-          type: integer
-      example:
-        name: Action Chain 1
-        id: 1
-    ActionRuleStatus:
-      description: Action Rule Status
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          description: Indicates whether the action rule is enabled
-          type: boolean
-          example: false
     ErrorResponse:
       type: object
       properties:
@@ -434,6 +408,32 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    ActionChainSummary:
+      description: The action chain summary for the action rule
+      readOnly: true
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          format: int32
+          type: integer
+      example:
+        name: Action Chain 1
+        id: 1
+    RestDeviceProperty:
+      description: The resource property filters list
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The resource property name
+          type: string
+        value:
+          description: The resource property value
+          type: string
   securitySchemes:
     LMv1:
       in: header

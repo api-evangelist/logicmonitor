@@ -227,26 +227,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    ExcludeDuplicateIps:
-      type: object
-      properties:
-        collectors:
-          description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
-          type: array
-          items:
-            type: string
-          example: '["ip-172-31-45-179.us-west-2.compute.internal"]'
-        groups:
-          description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
-          type: array
-          items:
-            type: string
-          example: '["Network Devices"]'
-        type:
-          format: int32
-          description: What types of duplicate IPs should be excluded. Options are 1 (matching any monitored devices), 2 (matching devices already discovered by this scan), 3 (matching devices in these groups), and 4 (matching devices assigned to these collectors)
-          type: integer
-          example: 1.0
     RestSchedule:
       type: object
       properties:
@@ -288,6 +268,20 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    NetscanPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Netscan'
     Netscan:
       type: object
       required:
@@ -369,55 +363,26 @@ components:
           example: RT_check
       discriminator:
         propertyName: method
-    NetscanPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Netscan'
-    ExcludeDuplicateIps_2:
-      description: Information that determines how duplicate discovered devices should be handled
+    ExcludeDuplicateIps:
       type: object
       properties:
         collectors:
           description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
           type: array
           items:
-            description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
             type: string
-            example: '"[ip-172-31-45-179.us-west-2.compute.internal]"'
-          example: '[ip-172-31-45-179.us-west-2.compute.internal]'
+          example: '["ip-172-31-45-179.us-west-2.compute.internal"]'
         groups:
           description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
           type: array
           items:
-            description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
             type: string
-            example: '"[Network Devices]"'
-          example: '[Network Devices]'
+          example: '["Network Devices"]'
         type:
           format: int32
-          description: 'The types of duplicate IPs that should be excluded. The values can be 1|2|3|4 which denotes
-
-            1: matching any monitored devices
-
-            2: matching devices already discovered by this scan
-
-            3: matching devices in these groups
-
-            4: matching devices assigned to these collectors
-
-            '
+          description: What types of duplicate IPs should be excluded. Options are 1 (matching any monitored devices), 2 (matching devices already discovered by this scan), 3 (matching devices in these groups), and 4 (matching devices assigned to these collectors)
           type: integer
-          example: 1
+          example: 1.0
     RestSchedule_2:
       description: Information related to the recurring execution schedule for the Netscan Policy
       type: object
@@ -537,6 +502,41 @@ components:
           example: RT_check
       discriminator:
         propertyName: method
+    ExcludeDuplicateIps_2:
+      description: Information that determines how duplicate discovered devices should be handled
+      type: object
+      properties:
+        collectors:
+          description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
+          type: array
+          items:
+            description: The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4
+            type: string
+            example: '"[ip-172-31-45-179.us-west-2.compute.internal]"'
+          example: '[ip-172-31-45-179.us-west-2.compute.internal]'
+        groups:
+          description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
+          type: array
+          items:
+            description: The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3
+            type: string
+            example: '"[Network Devices]"'
+          example: '[Network Devices]'
+        type:
+          format: int32
+          description: 'The types of duplicate IPs that should be excluded. The values can be 1|2|3|4 which denotes
+
+            1: matching any monitored devices
+
+            2: matching devices already discovered by this scan
+
+            3: matching devices in these groups
+
+            4: matching devices assigned to these collectors
+
+            '
+          type: integer
+          example: 1
   securitySchemes:
     LMv1:
       in: header

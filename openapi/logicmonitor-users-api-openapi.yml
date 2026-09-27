@@ -237,6 +237,61 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    APIToken:
+      type: object
+      properties:
+        accessId:
+          description: The access Id associated with the API Tokens
+          readOnly: true
+          type: string
+        adminName:
+          description: The name of the user associated with the API Tokens
+          readOnly: true
+          type: string
+        note:
+          description: The note associated with the API Tokens
+          type: string
+          example: John Doe's API Token
+        lastUsedOn:
+          format: int64
+          description: The epoch at which the API Tokens were last used
+          readOnly: true
+          type: integer
+        accessKey:
+          description: The secret key associated with the API Tokens
+          readOnly: true
+          type: string
+        createdBy:
+          description: The user who is the API Tokens created by
+          readOnly: true
+          type: string
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user that is associated with the API Tokens
+          readOnly: true
+          type: array
+          items:
+            type: string
+        adminId:
+          format: int32
+          description: The id of the user associated with the API Tokens
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the API Token
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: The epoch at which the API Tokens were created
+          readOnly: true
+          type: integer
+        status:
+          format: int32
+          description: 1 | 2 - Whether or not the API Tokens are enabled, where 2 = enabled
+          type: integer
+          example: 2.0
     Privilege:
       type: object
       required:
@@ -397,61 +452,36 @@ components:
           description: The user's status. Should be one of active and suspended
           type: string
           example: active
-    APIToken:
+    ErrorResponse:
       type: object
       properties:
-        accessId:
-          description: The access Id associated with the API Tokens
+        errorMessage:
+          description: The error message
           readOnly: true
           type: string
-        adminName:
-          description: The name of the user associated with the API Tokens
-          readOnly: true
-          type: string
-        note:
-          description: The note associated with the API Tokens
-          type: string
-          example: John Doe's API Token
-        lastUsedOn:
-          format: int64
-          description: The epoch at which the API Tokens were last used
+        errorCode:
+          format: int32
+          description: The error code
           readOnly: true
           type: integer
-        accessKey:
-          description: The secret key associated with the API Tokens
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AdminPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
           readOnly: true
           type: string
-        createdBy:
-          description: The user who is the API Tokens created by
-          readOnly: true
-          type: string
-        roles:
-          uniqueItems: true
-          description: The roles assigned to the user that is associated with the API Tokens
-          readOnly: true
+        items:
           type: array
           items:
-            type: string
-        adminId:
-          format: int32
-          description: The id of the user associated with the API Tokens
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          description: The id of the API Token
-          readOnly: true
-          type: integer
-        createdOn:
-          format: int64
-          description: The epoch at which the API Tokens were created
-          readOnly: true
-          type: integer
-        status:
-          format: int32
-          description: 1 | 2 - Whether or not the API Tokens are enabled, where 2 = enabled
-          type: integer
-          example: 2.0
+            $ref: '#/components/schemas/Admin'
     Role:
       type: object
       required:
@@ -505,36 +535,73 @@ components:
           description: Whether Two-Factor Authentication should be required for the entire account
           readOnly: true
           type: boolean
-    ErrorResponse:
+    APIToken_2:
+      description: Any API Tokens associated with the user
       type: object
       properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
+        note:
+          description: The note associated with the API Tokens
           type: string
-        errorCode:
-          format: int32
-          description: The error code
+          example: John Doe's API Token
+        lastUsedOn:
+          format: int64
+          description: The epoch at which the API Tokens were last used
           readOnly: true
           type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    AdminPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
+        userPermission:
+          description: The permission of current apiToken with the admin. The values can be write|read|none
           readOnly: true
           type: string
-        items:
+          example: read
+        roles:
+          uniqueItems: true
+          description: The roles assigned to the user that is associated with the API Tokens
+          readOnly: true
           type: array
           items:
-            $ref: '#/components/schemas/Admin'
+            description: The roles assigned to the user that is associated with the API Tokens
+            readOnly: true
+            type: string
+        createdOn:
+          format: int64
+          description: The epoch at which the API Tokens were created
+          readOnly: true
+          type: integer
+        accessId:
+          description: The access Id associated with the API Tokens
+          readOnly: true
+          type: string
+        adminName:
+          description: The name of the user associated with the API Tokens
+          readOnly: true
+          type: string
+        lastAuthIp:
+          description: The IP from which the API Tokens were last used
+          readOnly: true
+          type: string
+        accessKey:
+          description: The secret key associated with the API Tokens
+          readOnly: true
+          type: string
+        createdBy:
+          description: The user who is the API Tokens created by
+          readOnly: true
+          type: string
+        adminId:
+          format: int32
+          description: The id of the user associated with the API Tokens
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the API Token
+          readOnly: true
+          type: integer
+        status:
+          format: int32
+          description: The values can be 1 | 2. Specifies whether or not the API Tokens are enabled, where 2 = enabled
+          type: integer
+          example: 2
     Privilege_2:
       description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
       type: object
@@ -741,73 +808,6 @@ components:
           description: The user's status. The values can be active|suspended
           type: string
           example: active
-    APIToken_2:
-      description: Any API Tokens associated with the user
-      type: object
-      properties:
-        note:
-          description: The note associated with the API Tokens
-          type: string
-          example: John Doe's API Token
-        lastUsedOn:
-          format: int64
-          description: The epoch at which the API Tokens were last used
-          readOnly: true
-          type: integer
-        userPermission:
-          description: The permission of current apiToken with the admin. The values can be write|read|none
-          readOnly: true
-          type: string
-          example: read
-        roles:
-          uniqueItems: true
-          description: The roles assigned to the user that is associated with the API Tokens
-          readOnly: true
-          type: array
-          items:
-            description: The roles assigned to the user that is associated with the API Tokens
-            readOnly: true
-            type: string
-        createdOn:
-          format: int64
-          description: The epoch at which the API Tokens were created
-          readOnly: true
-          type: integer
-        accessId:
-          description: The access Id associated with the API Tokens
-          readOnly: true
-          type: string
-        adminName:
-          description: The name of the user associated with the API Tokens
-          readOnly: true
-          type: string
-        lastAuthIp:
-          description: The IP from which the API Tokens were last used
-          readOnly: true
-          type: string
-        accessKey:
-          description: The secret key associated with the API Tokens
-          readOnly: true
-          type: string
-        createdBy:
-          description: The user who is the API Tokens created by
-          readOnly: true
-          type: string
-        adminId:
-          format: int32
-          description: The id of the user associated with the API Tokens
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          description: The id of the API Token
-          readOnly: true
-          type: integer
-        status:
-          format: int32
-          description: The values can be 1 | 2. Specifies whether or not the API Tokens are enabled, where 2 = enabled
-          type: integer
-          example: 2
     Role_2:
       type: object
       required:

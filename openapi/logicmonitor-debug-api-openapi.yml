@@ -88,6 +88,22 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     Debug:
       type: object
       properties:
@@ -105,22 +121,6 @@ components:
           description: The session id
           readOnly: true
           type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
     Debug_2:
       type: object
       properties:

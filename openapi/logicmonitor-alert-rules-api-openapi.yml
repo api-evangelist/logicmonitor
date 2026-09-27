@@ -225,20 +225,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    AlertRulePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AlertRule'
     AlertRule:
       type: object
       required:
@@ -312,6 +298,20 @@ components:
           description: The escalation interval associated with the alert rule, in minutes
           type: integer
           example: 15.0
+    AlertRulePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertRule'
     ErrorResponse:
       type: object
       properties:
@@ -328,19 +328,6 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    DeviceProperty:
-      description: The resource property filters list
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The resource property name
-          type: string
-        value:
-          description: The resource property value
-          type: string
     AlertRule_2:
       type: object
       required:
@@ -428,6 +415,19 @@ components:
           description: The escalation interval associated with the alert rule, in minutes
           type: integer
           example: 15
+    DeviceProperty:
+      description: The resource property filters list
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The resource property name
+          type: string
+        value:
+          description: The resource property value
+          type: string
   securitySchemes:
     LMv1:
       in: header

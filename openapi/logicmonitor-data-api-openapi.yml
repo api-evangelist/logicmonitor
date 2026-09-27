@@ -624,102 +624,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    GraphPlotLine:
-      type: object
-      properties:
-        colorName:
-          readOnly: true
-          type: string
-        std:
-          readOnly: true
-          type: object
-        visible:
-          readOnly: true
-          type: boolean
-        color:
-          readOnly: true
-          type: string
-        data:
-          readOnly: true
-          type: array
-          items:
-            type: object
-        max:
-          readOnly: true
-          type: object
-        legend:
-          readOnly: true
-          type: string
-        description:
-          readOnly: true
-          type: string
-        label:
-          readOnly: true
-          type: string
-        type:
-          readOnly: true
-          type: string
-        min:
-          readOnly: true
-          type: object
-        avg:
-          readOnly: true
-          type: object
-        decimal:
-          format: int32
-          readOnly: true
-          type: integer
-        useYMax:
-          readOnly: true
-          type: boolean
-    WebsiteCheckpointRawData:
-      type: object
-      properties:
-        values:
-          readOnly: true
-          type: array
-          items:
-            type: array
-            items:
-              type: object
-        time:
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            type: integer
-        nextPageParams:
-          readOnly: true
-          type: string
-    DeviceDataSourceInstanceConfigAlert:
-      type: object
-      properties:
-        alertLevel:
-          format: int32
-          type: integer
-        id:
-          type: string
-        alertId:
-          type: string
-        alertSummary:
-          type: string
-        timestamp:
-          format: int64
-          type: integer
-    DeviceInstanceDataPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceInstanceData'
     DeviceDataSourceInstanceConfig:
       type: object
       properties:
@@ -775,60 +679,20 @@ components:
           description: the ids of the instances, separated by commas
           type: string
           example: 1,2,3,4,5
-    DeviceDataSourceInstanceConfigDiff:
+    DeviceInstanceDataPaginationResponse:
       type: object
       properties:
-        rowNo:
+        total:
           format: int32
-          type: integer
-        type:
-          type: string
-        content:
-          type: string
-    DeviceInstanceData:
-      type: object
-      properties:
-        instanceId:
-          readOnly: true
-          type: string
-        values:
-          readOnly: true
-          type: array
-          items:
-            type: array
-            items:
-              type: object
-        errMsg:
-          readOnly: true
-          type: string
-        time:
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            type: integer
-        nextPageParams:
-          readOnly: true
-          type: string
-        dataSourceName:
-          readOnly: true
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
           readOnly: true
           type: integer
-        errorDetail:
-          description: The error detail
+        searchId:
           readOnly: true
-          type: object
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceInstanceData'
     GraphPlot:
       allOf:
       - $ref: '#/components/schemas/WidgetData'
@@ -939,16 +803,64 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
-    WidgetData:
+    GraphPlotLine:
       type: object
       properties:
+        colorName:
+          readOnly: true
+          type: string
+        std:
+          readOnly: true
+          type: object
+        visible:
+          readOnly: true
+          type: boolean
+        color:
+          readOnly: true
+          type: string
+        data:
+          readOnly: true
+          type: array
+          items:
+            type: object
+        max:
+          readOnly: true
+          type: object
+        legend:
+          readOnly: true
+          type: string
+        description:
+          readOnly: true
+          type: string
+        label:
+          readOnly: true
+          type: string
         type:
           readOnly: true
           type: string
-        title:
+        min:
+          readOnly: true
+          type: object
+        avg:
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          readOnly: true
+          type: integer
+        useYMax:
+          readOnly: true
+          type: boolean
+    DeviceDataSourceInstanceConfigDiff:
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          type: integer
+        type:
           type: string
-      discriminator:
-        propertyName: type
+        content:
+          type: string
     DeviceDataSourceInstanceData:
       type: object
       properties:
@@ -959,6 +871,94 @@ components:
             type: array
             items:
               type: object
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    WidgetData:
+      type: object
+      properties:
+        type:
+          readOnly: true
+          type: string
+        title:
+          type: string
+      discriminator:
+        propertyName: type
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    DeviceDataSourceInstanceConfigAlert:
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          type: integer
+        id:
+          type: string
+        alertId:
+          type: string
+        alertSummary:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+    WebsiteCheckpointRawData:
+      type: object
+      properties:
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+    DeviceInstanceData:
+      type: object
+      properties:
+        instanceId:
+          readOnly: true
+          type: string
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        errMsg:
+          readOnly: true
+          type: string
         time:
           readOnly: true
           type: array
@@ -991,137 +991,6 @@ components:
             type: integer
         deviceId:
           format: int32
-          type: integer
-    GraphPlotLine_2:
-      description: The properties of the graph and graph lines
-      readOnly: true
-      type: object
-      properties:
-        colorName:
-          description: The color name
-          readOnly: true
-          type: string
-        std:
-          description: The standard deviation value
-          readOnly: true
-          type: object
-        visible:
-          description: 'true | false
-
-            Specifies whether the graph will be visible or not'
-          readOnly: true
-          type: boolean
-        color:
-          description: The color of the graph
-          readOnly: true
-          type: string
-        data:
-          description: The polled data used to plot the graph
-          readOnly: true
-          type: array
-          items:
-            format: double
-            description: The polled data used to plot the graph
-            readOnly: true
-            type: number
-        max:
-          description: The max value of datapoint or instance
-          readOnly: true
-          type: object
-        legend:
-          description: The legend of the datapoint or instance
-          readOnly: true
-          type: string
-        description:
-          description: The description for the datapoint or instance
-          readOnly: true
-          type: string
-        label:
-          description: The label for the datapoint or instance
-          readOnly: true
-          type: string
-        type:
-          description: 'Specifies how the data of the datapoint or instance will be plotted
-
-            The values can be line | area | stack | column | statusBar'
-          readOnly: true
-          type: string
-        min:
-          description: The min value of the datapoint or instance
-          readOnly: true
-          type: object
-        avg:
-          description: The average value of the datapoint or instance
-          readOnly: true
-          type: object
-        decimal:
-          format: int32
-          description: 'The decimal value
-
-            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
-          readOnly: true
-          type: integer
-        useYMax:
-          description: 'true | false
-
-            Specifies whether to use YMax or not'
-          readOnly: true
-          type: boolean
-    WebsiteCheckpointRawData_2:
-      type: object
-      properties:
-        values:
-          description: Datapoint values 2-D list
-          readOnly: true
-          type: array
-          items:
-            description: Datapoint values 2-D list
-            readOnly: true
-            type: array
-            items:
-              format: double
-              description: Datapoint values 2-D list
-              readOnly: true
-              type: number
-        time:
-          description: Timestamp list
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            description: Timestamp list
-            readOnly: true
-            type: integer
-        nextPageParams:
-          description: The next page parameters
-          readOnly: true
-          type: string
-    DeviceDataSourceInstanceConfigAlert_2:
-      description: Alerts associated to this configuration file
-      readOnly: true
-      type: object
-      properties:
-        alertLevel:
-          format: int32
-          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
-          readOnly: true
-          type: integer
-        id:
-          description: Alert id
-          readOnly: true
-          type: string
-        alertId:
-          description: Alert internal id
-          readOnly: true
-          type: string
-        alertSummary:
-          description: Summary of this config source alert
-          readOnly: true
-          type: string
-        timestamp:
-          format: int64
-          description: Timestamp of alert start or clear
-          readOnly: true
           type: integer
     DeviceDataSourceInstanceConfig_2:
       type: object
@@ -1212,62 +1081,6 @@ components:
           type: integer
         config:
           description: Configuration file content
-          readOnly: true
-          type: string
-    DeviceDataSourceInstanceConfigDiff_2:
-      description: Configuration file diff
-      readOnly: true
-      type: object
-      properties:
-        rowNo:
-          format: int32
-          description: Diff row number
-          readOnly: true
-          type: integer
-        type:
-          description: 'Diff type. The values can be : add|remove'
-          readOnly: true
-          type: string
-        content:
-          description: Configuration content
-          readOnly: true
-          type: string
-    DeviceInstanceData_2:
-      type: object
-      properties:
-        instanceId:
-          readOnly: true
-          type: string
-        values:
-          description: Datapoint values 2-D list
-          readOnly: true
-          type: array
-          items:
-            description: Datapoint values 2-D list
-            readOnly: true
-            type: array
-            items:
-              format: double
-              description: Datapoint values 2-D list
-              readOnly: true
-              type: number
-        errMsg:
-          readOnly: true
-          type: string
-        time:
-          description: Timestamp list
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            description: Timestamp list
-            readOnly: true
-            type: integer
-        nextPageParams:
-          description: The next page parameters
-          readOnly: true
-          type: string
-        dataSourceName:
           readOnly: true
           type: string
     GraphPlot_2:
@@ -1417,18 +1230,99 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
-    WidgetData_2:
+    GraphPlotLine_2:
+      description: The properties of the graph and graph lines
+      readOnly: true
       type: object
       properties:
-        type:
-          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
+        colorName:
+          description: The color name
           readOnly: true
           type: string
-        title:
-          description: The widget title
+        std:
+          description: The standard deviation value
+          readOnly: true
+          type: object
+        visible:
+          description: 'true | false
+
+            Specifies whether the graph will be visible or not'
+          readOnly: true
+          type: boolean
+        color:
+          description: The color of the graph
+          readOnly: true
           type: string
-      discriminator:
-        propertyName: type
+        data:
+          description: The polled data used to plot the graph
+          readOnly: true
+          type: array
+          items:
+            format: double
+            description: The polled data used to plot the graph
+            readOnly: true
+            type: number
+        max:
+          description: The max value of datapoint or instance
+          readOnly: true
+          type: object
+        legend:
+          description: The legend of the datapoint or instance
+          readOnly: true
+          type: string
+        description:
+          description: The description for the datapoint or instance
+          readOnly: true
+          type: string
+        label:
+          description: The label for the datapoint or instance
+          readOnly: true
+          type: string
+        type:
+          description: 'Specifies how the data of the datapoint or instance will be plotted
+
+            The values can be line | area | stack | column | statusBar'
+          readOnly: true
+          type: string
+        min:
+          description: The min value of the datapoint or instance
+          readOnly: true
+          type: object
+        avg:
+          description: The average value of the datapoint or instance
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          description: 'The decimal value
+
+            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
+          readOnly: true
+          type: integer
+        useYMax:
+          description: 'true | false
+
+            Specifies whether to use YMax or not'
+          readOnly: true
+          type: boolean
+    DeviceDataSourceInstanceConfigDiff_2:
+      description: Configuration file diff
+      readOnly: true
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          description: Diff row number
+          readOnly: true
+          type: integer
+        type:
+          description: 'Diff type. The values can be : add|remove'
+          readOnly: true
+          type: string
+        content:
+          description: Configuration content
+          readOnly: true
+          type: string
     DeviceDataSourceInstanceData_2:
       type: object
       properties:
@@ -1460,6 +1354,112 @@ components:
           type: string
         dataSourceName:
           description: Datasource name
+          readOnly: true
+          type: string
+    WidgetData_2:
+      type: object
+      properties:
+        type:
+          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
+          readOnly: true
+          type: string
+        title:
+          description: The widget title
+          type: string
+      discriminator:
+        propertyName: type
+    DeviceDataSourceInstanceConfigAlert_2:
+      description: Alerts associated to this configuration file
+      readOnly: true
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
+          readOnly: true
+          type: integer
+        id:
+          description: Alert id
+          readOnly: true
+          type: string
+        alertId:
+          description: Alert internal id
+          readOnly: true
+          type: string
+        alertSummary:
+          description: Summary of this config source alert
+          readOnly: true
+          type: string
+        timestamp:
+          format: int64
+          description: Timestamp of alert start or clear
+          readOnly: true
+          type: integer
+    WebsiteCheckpointRawData_2:
+      type: object
+      properties:
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+    DeviceInstanceData_2:
+      type: object
+      properties:
+        instanceId:
+          readOnly: true
+          type: string
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        errMsg:
+          readOnly: true
+          type: string
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+        dataSourceName:
           readOnly: true
           type: string
     GraphOpsNoteScope_2:

@@ -225,6 +225,22 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     RolePaginationResponse:
       type: object
       properties:
@@ -239,28 +255,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Role'
-    Privilege:
-      type: object
-      required:
-      - objectId
-      - objectType
-      - operation
-      properties:
-        objectName:
-          readOnly: true
-          type: string
-        subOperation:
-          readOnly: true
-          type: string
-        operation:
-          type: string
-          example: write
-        objectId:
-          type: string
-          example: '123'
-        objectType:
-          type: string
-          example: dashboard group
     Role:
       type: object
       required:
@@ -314,24 +308,7 @@ components:
           description: Whether Two-Factor Authentication should be required for the entire account
           readOnly: true
           type: boolean
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    Privilege_2:
-      description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+    Privilege:
       type: object
       required:
       - objectId
@@ -339,23 +316,18 @@ components:
       - operation
       properties:
         objectName:
-          description: The privilege object name
           readOnly: true
           type: string
         subOperation:
-          description: The highest privilege operation on its children operations
           readOnly: true
           type: string
         operation:
-          description: The privilege operation
           type: string
           example: write
         objectId:
-          description: The privilege object identifier
           type: string
           example: '123'
         objectType:
-          description: The privilege object type. The values can be dashboard_group|dashboard|host_group|service_group|website_group|report_group|remoteSession|chat|setting|device_dashboard|help|logs|configNeedDeviceManagePermission|map|resourceMapTab|tracesManageTab|otlpMetrics|costOptimization|dexda|lmSupportAccess
           type: string
           example: dashboard group
     Role_2:
@@ -421,6 +393,34 @@ components:
           description: The group Id of the role
           type: integer
           example: 3
+    Privilege_2:
+      description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
+      type: object
+      required:
+      - objectId
+      - objectType
+      - operation
+      properties:
+        objectName:
+          description: The privilege object name
+          readOnly: true
+          type: string
+        subOperation:
+          description: The highest privilege operation on its children operations
+          readOnly: true
+          type: string
+        operation:
+          description: The privilege operation
+          type: string
+          example: write
+        objectId:
+          description: The privilege object identifier
+          type: string
+          example: '123'
+        objectType:
+          description: The privilege object type. The values can be dashboard_group|dashboard|host_group|service_group|website_group|report_group|remoteSession|chat|setting|device_dashboard|help|logs|configNeedDeviceManagePermission|map|resourceMapTab|tracesManageTab|otlpMetrics|costOptimization|dexda|lmSupportAccess
+          type: string
+          example: dashboard group
   securitySchemes:
     LMv1:
       in: header

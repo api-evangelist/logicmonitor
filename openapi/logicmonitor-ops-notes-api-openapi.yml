@@ -222,16 +222,55 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    OpsNoteScope:
+    OpsNoteTagBase:
       type: object
       required:
-      - type
+      - name
       properties:
-        type:
+        updateOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        createdOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        name:
+          description: release
           type: string
-          example: device
-      discriminator:
-        propertyName: type
+        id:
+          readOnly: true
+          type: string
+    OpsNotePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpsNote'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     OpsNote:
       type: object
       required:
@@ -264,57 +303,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OpsNoteTagBase'
-    OpsNotePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpsNote'
-    OpsNoteTagBase:
-      type: object
-      required:
-      - name
-      properties:
-        updateOnInSec:
-          format: int64
-          readOnly: true
-          type: integer
-        createdOnInSec:
-          format: int64
-          readOnly: true
-          type: integer
-        name:
-          description: release
-          type: string
-        id:
-          readOnly: true
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    OpsNoteScope_2:
-      description: The scopes associated with the note. Each scope has a type of device, service, deviceGroup or serviceGroup. A note with no scope will show up for everything in the account
+    OpsNoteScope:
       type: object
       required:
       - type
@@ -344,6 +333,17 @@ components:
         id:
           readOnly: true
           type: string
+    OpsNoteScope_2:
+      description: The scopes associated with the note. Each scope has a type of device, service, deviceGroup or serviceGroup. A note with no scope will show up for everything in the account
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          example: device
+      discriminator:
+        propertyName: type
   securitySchemes:
     LMv1:
       in: header

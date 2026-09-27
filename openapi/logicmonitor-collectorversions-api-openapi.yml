@@ -62,20 +62,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    CollectorVersionPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectorVersion'
     CollectorVersion:
       type: object
       properties:
@@ -126,6 +112,20 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    CollectorVersionPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorVersion'
     CollectorVersion_2:
       type: object
       properties:

@@ -284,20 +284,31 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    DashboardGroupPaginationResponse:
+    DashboardData:
       type: object
       properties:
-        total:
+        userPermission:
+          readOnly: true
+          type: string
+        name:
+          readOnly: true
+          type: string
+        sharable:
+          readOnly: true
+          type: boolean
+        id:
           format: int32
           readOnly: true
           type: integer
-        searchId:
+    WidgetTokenInheritance:
+      type: object
+      properties:
+        fullpath:
           readOnly: true
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardGroup'
+        value:
+          readOnly: true
+          type: string
     DashboardGroup:
       type: object
       required:
@@ -358,22 +369,36 @@ components:
           description: The number of dashboards that belong directly to the Dashboard Group
           readOnly: true
           type: integer
-    DashboardData:
+    DashboardGroupPaginationResponse:
       type: object
       properties:
-        userPermission:
-          readOnly: true
-          type: string
-        name:
-          readOnly: true
-          type: string
-        sharable:
-          readOnly: true
-          type: boolean
-        id:
+        total:
           format: int32
           readOnly: true
           type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardGroup'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     WidgetToken:
       type: object
       properties:
@@ -392,31 +417,48 @@ components:
           description: this is the name of the child group of devices, if there is one
           type: string
           example: Devices by Type/Network
-    WidgetTokenInheritance:
+    DashboardData_2:
+      description: The dashboards that belong to the group
+      readOnly: true
+      type: object
+      properties:
+        userPermission:
+          description: The permission of the user that made the API call
+          readOnly: true
+          type: string
+        name:
+          description: The name of the dashboard
+          readOnly: true
+          type: string
+        sharable:
+          description: Whether or not the dashboard is sharable. This value will always be true unless the dashboard is a private dashboard
+          readOnly: true
+          type: boolean
+        id:
+          format: int32
+          description: The Id of the dashboard
+          readOnly: true
+          type: integer
+    WidgetTokenInheritance_2:
+      description: The widget token inherit list
       type: object
       properties:
         fullpath:
+          description: The fullpath for the widget token
           readOnly: true
           type: string
         value:
+          description: The property value for the group
           readOnly: true
           type: string
-    ErrorResponse:
+    RestDashboardGroupAsyncCloneResponse:
       type: object
       properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
+        jobId:
           format: int32
-          description: The error code
+          description: The jobId of the Clone Dashboard Group
           readOnly: true
           type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
     DashboardGroup_2:
       type: object
       required:
@@ -477,28 +519,6 @@ components:
           description: The number of dashboards that belong directly to the Dashboard Group
           readOnly: true
           type: integer
-    DashboardData_2:
-      description: The dashboards that belong to the group
-      readOnly: true
-      type: object
-      properties:
-        userPermission:
-          description: The permission of the user that made the API call
-          readOnly: true
-          type: string
-        name:
-          description: The name of the dashboard
-          readOnly: true
-          type: string
-        sharable:
-          description: Whether or not the dashboard is sharable. This value will always be true unless the dashboard is a private dashboard
-          readOnly: true
-          type: boolean
-        id:
-          format: int32
-          description: The Id of the dashboard
-          readOnly: true
-          type: integer
     WidgetToken_2:
       description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
       type: object
@@ -523,26 +543,6 @@ components:
           type: string
           example: Devices by Type/Network
       example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
-    WidgetTokenInheritance_2:
-      description: The widget token inherit list
-      type: object
-      properties:
-        fullpath:
-          description: The fullpath for the widget token
-          readOnly: true
-          type: string
-        value:
-          description: The property value for the group
-          readOnly: true
-          type: string
-    RestDashboardGroupAsyncCloneResponse:
-      type: object
-      properties:
-        jobId:
-          format: int32
-          description: The jobId of the Clone Dashboard Group
-          readOnly: true
-          type: integer
   securitySchemes:
     LMv1:
       in: header

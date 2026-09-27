@@ -300,38 +300,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    GenerateReportRequest:
-      type: object
-      properties:
-        withAdminId:
-          format: int32
-          description: Generate the report with the admin. 0 mean current user
-          readOnly: true
-          type: integer
-        reportId:
-          format: int32
-          description: The id of the report to run
-          readOnly: true
-          type: integer
-          example: 998.0
-        receiveEmails:
-          description: The email addresses that LogicMonitor should send the report to, separated by commas
-          type: string
-          example: bob@logicmonitor.com
-    ReportPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportBase'
     ReportRecipient:
       type: object
       required:
@@ -354,6 +322,24 @@ components:
           description: This should be a username if type=admin, or an email address if type=arbitrary
           type: string
           example: sarah
+    GenerateReportResult:
+      type: object
+      required:
+      - reportId
+      - taskId
+      properties:
+        reportId:
+          format: int32
+          description: The id of the report
+          type: integer
+        taskId:
+          format: int64
+          description: The task id of the generating process
+          type: integer
+        resulturl:
+          description: The url of the generated report
+          readOnly: true
+          type: string
     ReportBase:
       type: object
       required:
@@ -455,6 +441,24 @@ components:
           example: America/Los_Angeles
       discriminator:
         propertyName: type
+    GenerateReportRequest:
+      type: object
+      properties:
+        withAdminId:
+          format: int32
+          description: Generate the report with the admin. 0 mean current user
+          readOnly: true
+          type: integer
+        reportId:
+          format: int32
+          description: The id of the report to run
+          readOnly: true
+          type: integer
+          example: 998.0
+        receiveEmails:
+          description: The email addresses that LogicMonitor should send the report to, separated by commas
+          type: string
+          example: bob@logicmonitor.com
     ErrorResponse:
       type: object
       properties:
@@ -471,41 +475,20 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    GenerateReportResult:
-      type: object
-      required:
-      - reportId
-      - taskId
-      properties:
-        reportId:
-          format: int32
-          description: The id of the report
-          type: integer
-        taskId:
-          format: int64
-          description: The task id of the generating process
-          type: integer
-        resulturl:
-          description: The url of the generated report
-          readOnly: true
-          type: string
-    GenerateReportRequest_2:
+    ReportPaginationResponse:
       type: object
       properties:
-        withAdminId:
+        total:
           format: int32
-          description: Generate the report with the admin. 0 mean current user
-          type: integer
-        reportId:
-          format: int32
-          description: The id of the report to run
           readOnly: true
           type: integer
-          example: 998
-        receiveEmails:
-          description: The email addresses that LogicMonitor should send the report to, separated by commas. If set to null, the report will be generated immediately and the response will contain the report file URLOtherwise, the report will be generated in the background and delivered to the specified email addresses
+        searchId:
+          readOnly: true
           type: string
-          example: user@domain.com
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportBase'
     ReportRecipient_2:
       description: If the report is configured to be delivered via email, this object provides the recipients that the report will be delivered to
       type: object
@@ -630,6 +613,23 @@ components:
           example: America/Los_Angeles
       discriminator:
         propertyName: type
+    GenerateReportRequest_2:
+      type: object
+      properties:
+        withAdminId:
+          format: int32
+          description: Generate the report with the admin. 0 mean current user
+          type: integer
+        reportId:
+          format: int32
+          description: The id of the report to run
+          readOnly: true
+          type: integer
+          example: 998
+        receiveEmails:
+          description: The email addresses that LogicMonitor should send the report to, separated by commas. If set to null, the report will be generated immediately and the response will contain the report file URLOtherwise, the report will be generated in the background and delivered to the specified email addresses
+          type: string
+          example: user@domain.com
   securitySchemes:
     LMv1:
       in: header

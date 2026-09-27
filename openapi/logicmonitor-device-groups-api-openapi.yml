@@ -1199,7 +1199,7 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    AlertPaginationResponse:
+    DeviceGroupPaginationResponse:
       type: object
       properties:
         total:
@@ -1212,108 +1212,111 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/Alert'
-    AzureAccountTestResult:
+            $ref: '#/components/schemas/DeviceGroup'
+    EntityProperty:
+      type: object
+      properties:
+        inheritList:
+          type: array
+          items:
+            $ref: '#/components/schemas/InheritanceProp'
+        name:
+          readOnly: true
+          type: string
+        type:
+          readOnly: true
+          type: string
+        value:
+          readOnly: true
+          type: string
+    DeviceGroupData:
+      type: object
+      properties:
+        fullPath:
+          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
+          readOnly: true
+          type: string
+        groupType:
+          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permissions for the device group that are granted to the user that made this API request
+          readOnly: true
+          type: string
+        gcpRegionsInfo:
+          readOnly: true
+          type: string
+        description:
+          description: The description of the device group
+          readOnly: true
+          type: string
+        appliesTo:
+          description: The Applies to custom query for this group (only for dynamic groups)
+          readOnly: true
+          type: string
+        awsRegionsInfo:
+          description: The number of instances in each AWS region (only applies to AWS groups)
+          readOnly: true
+          type: string
+        numOfHosts:
+          format: int32
+          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the device group
+          readOnly: true
+          type: string
+        numOfDirectSubGroups:
+          format: int64
+          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
+          readOnly: true
+          type: integer
+        numOfDirectDevices:
+          format: int64
+          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the device group
+          readOnly: true
+          type: integer
+        azureRegionsInfo:
+          description: The number of instances in each Azure region (only applies to Azure groups)
+          readOnly: true
+          type: string
+    SDTPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDT'
+    AwsAccountTestResult:
       type: object
       properties:
         noPermissionServices:
-          readOnly: true
-          type: object
+          uniqueItems: true
+          type: array
+          items:
+            type: string
         detailLink:
-          readOnly: true
-          type: object
-    SDT:
-      type: object
-      required:
-      - type
-      properties:
-        endDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
-          readOnly: true
           type: string
-        timezone:
-          description: The specific timezone for SDT
-          type: string
-          example: America/Los_Angeles
-        sdtType:
-          type: string
-          example: oneTime
-        monthDay:
-          format: int32
-          description: 1 | 2....| 31 The day of the month that the SDT will be active for a monthly SDT
-          type: integer
-          example: 7.0
-        weekOfMonth:
-          description: The weel of the month that the SDT will be active for a monthly SDT
-          type: string
-          example: '1'
-        admin:
-          description: The name of the user that created the SDT
-          readOnly: true
-          type: string
-        endDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will end
-          type: integer
-          example: 1534554000000.0
-        type:
-          description: 'The type resource that this SDT is for: ServiceSDT | CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | DeviceGroupSDT | DeviceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT'
-          type: string
-          example: DeviceGroupSDT
-        isEffective:
-          description: 'true: the SDT is currently actice
-
-            false: the SDT is currently inactive'
-          readOnly: true
-          type: boolean
-        minute:
-          format: int32
-          description: 1 | 2....| 60 The minute of the hour that the SDT should begin for a repeating SDT
-          type: integer
-          example: 6.0
-        duration:
-          format: int32
-          description: The duration of the SDT in minutes
-          type: integer
-          example: 138.0
-        endHour:
-          format: int32
-          description: 1 | 2....| 24 The hour that the SDT ends for a repeating SDT
-          type: integer
-          example: 5.0
-        startDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will start
-          type: integer
-          example: 1534460400000.0
-        hour:
-          format: int32
-          description: 1 | 2....| 24 The hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
-          type: integer
-          example: 3.0
-        startDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
-          readOnly: true
-          type: string
-        weekDay:
-          type: string
-          example: Sunday
-        comment:
-          description: The notes associated with the SDT
-          type: string
-          example: Emergency prod deployment
-        id:
-          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
-          readOnly: true
-          type: string
-        endMinute:
-          format: int32
-          description: 1 | 2....| 60 The minute of the hour that the SDT ends for a repeating SDT
-          type: integer
-          example: 18.0
-      discriminator:
-        propertyName: type
-    DeviceGroupSDTHistoryPaginationResponse:
+        nonPermissionErrors:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    DeviceGroupDatasourcePaginationResponse:
       type: object
       properties:
         total:
@@ -1326,7 +1329,7 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/SDTHistory'
+            $ref: '#/components/schemas/DeviceGroupDataSource'
     Alert:
       type: object
       properties:
@@ -1502,22 +1505,120 @@ components:
           description: The name of the datasource in alert
           readOnly: true
           type: string
-    InheritanceProp:
+    AzureAccountTestResult:
       type: object
       properties:
-        fullpath:
+        noPermissionServices:
           readOnly: true
-          type: string
-        id:
+          type: object
+        detailLink:
+          readOnly: true
+          type: object
+    DeviceGroupSDTHistoryPaginationResponse:
+      type: object
+      properties:
+        total:
           format: int32
           readOnly: true
           type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDTHistory'
+    SDT:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          type: string
+          example: oneTime
+        monthDay:
+          format: int32
+          description: 1 | 2....| 31 The day of the month that the SDT will be active for a monthly SDT
+          type: integer
+          example: 7.0
+        weekOfMonth:
+          description: The weel of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000.0
         type:
+          description: 'The type resource that this SDT is for: ServiceSDT | CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | DeviceGroupSDT | DeviceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT'
+          type: string
+          example: DeviceGroupSDT
+        isEffective:
+          description: 'true: the SDT is currently actice
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6.0
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138.0
+        endHour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5.0
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000.0
+        hour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3.0
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
           readOnly: true
           type: string
-        value:
+        weekDay:
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
           readOnly: true
           type: string
+        endMinute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18.0
+      discriminator:
+        propertyName: type
     SDTHistory:
       type: object
       properties:
@@ -1565,48 +1666,6 @@ components:
           readOnly: true
           type: integer
           example: 1475875446000.0
-    DeviceGroupPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceGroup'
-    PropertyPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityProperty'
-    SDTPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SDT'
     AwsExternalId:
       type: object
       properties:
@@ -1614,280 +1673,20 @@ components:
           type: string
         externalId:
           type: string
-    DeviceGroupData:
+    AlertPaginationResponse:
       type: object
       properties:
-        fullPath:
-          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
-          readOnly: true
-          type: string
-        groupType:
-          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
-          readOnly: true
-          type: string
-        userPermission:
-          description: The permissions for the device group that are granted to the user that made this API request
-          readOnly: true
-          type: string
-        gcpRegionsInfo:
-          readOnly: true
-          type: string
-        description:
-          description: The description of the device group
-          readOnly: true
-          type: string
-        appliesTo:
-          description: The Applies to custom query for this group (only for dynamic groups)
-          readOnly: true
-          type: string
-        awsRegionsInfo:
-          description: The number of instances in each AWS region (only applies to AWS groups)
-          readOnly: true
-          type: string
-        numOfHosts:
+        total:
           format: int32
-          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
           readOnly: true
           type: integer
-        name:
-          description: The name of the device group
+        searchId:
           readOnly: true
           type: string
-        numOfDirectSubGroups:
-          format: int64
-          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
-          readOnly: true
-          type: integer
-        numOfDirectDevices:
-          format: int64
-          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          description: The id of the device group
-          readOnly: true
-          type: integer
-        azureRegionsInfo:
-          description: The number of instances in each Azure region (only applies to Azure groups)
-          readOnly: true
-          type: string
-    DeviceGroup:
-      type: object
-      required:
-      - name
-      properties:
-        fullPath:
-          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
-          readOnly: true
-          type: string
-        groupType:
-          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
-          type: string
-          example: Normal
-        numOfAWSDevices:
-          format: int64
-          description: The number of AWS devices that belong to this device group (includes AWS devices in sub groups)
-          readOnly: true
-          type: integer
-        description:
-          description: The description of the device group
-          type: string
-          example: Linux Servers
-        appliesTo:
-          description: The Applies to custom query for this group (only for dynamic groups)
-          type: string
-          example: isLinux()
-        gcpTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the GCP credentials associated with the GCP group
-          readOnly: true
-          type: integer
-        disableAlerting:
-          description: Indicates whether alerting is disabled (true) or enabled (false) for this device group
-          type: boolean
-          example: true
-        awsRegionsInfo:
-          description: The number of instances in each AWS region (only applies to AWS groups)
-          readOnly: true
-          type: string
-        createdOn:
-          format: int64
-          description: The time, in epoch seconds format, that the device group was created
-          readOnly: true
-          type: integer
-        hasNetflowEnabledDevices:
-          description: Whether if any Netflow enabled devices in this device group
-          readOnly: true
-          type: boolean
-        numOfAzureDevices:
-          format: int64
-          description: The number of Azure devices that belong to this device group (includes Azure devices in sub groups)
-          readOnly: true
-          type: integer
-        defaultCollectorDescription:
-          description: The description of the default collector assigned to the device group
-          readOnly: true
-          type: string
-        defaultCollectorId:
-          format: int32
-          description: The Id of the default collector assigned to the device group
-          type: integer
-          example: 1.0
-        awsTestResult:
-          description: The String result returned by the transaction that tests the AWS credentials associated with the AWS group
-          readOnly: true
-          $ref: '#/components/schemas/AwsAccountTestResult'
-        extra:
-          description: The extra setting for cloud group
-          type: object
-        numOfDirectSubGroups:
-          format: int64
-          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
-          readOnly: true
-          type: integer
-        subGroups:
-          description: The child device groups within this device group
-          readOnly: true
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceGroupData'
-        numOfDirectDevices:
-          format: int64
-          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          description: The id of the device group
-          readOnly: true
-          type: integer
-        enableNetflow:
-          description: Indicates whether Netflow is enabled (true) or disabled (false) for the device group, the default value is true
-          type: boolean
-          example: 'true'
-        azureTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the Azure credentials associated with the Azure group
-          readOnly: true
-          type: integer
-        effectiveAlertEnabled:
-          description: Whether or not alerting is effectively disabled for this device group (alerting may be disabled at a higher level, e.g. parent group)
-          readOnly: true
-          type: boolean
-        userPermission:
-          description: The permissions for the device group that are granted to the user that made this API request
-          readOnly: true
-          type: string
-        gcpRegionsInfo:
-          readOnly: true
-          type: string
-        groupStatus:
-          description: "normal | dead \nThe status of this device group, where possible statuses are normal and dead. A group with a status of dead may indicate that one or more devices are dead within the group"
-          readOnly: true
-          type: string
-        numOfGcpDevices:
-          format: int64
-          readOnly: true
-          type: integer
-        azureTestResult:
-          description: The String result returned by the transaction that tests the Azure credentials associated with the Azure group
-          readOnly: true
-          $ref: '#/components/schemas/AzureAccountTestResult'
-        parentId:
-          format: int32
-          description: The id of the parent group for this device group (the root device group has an Id of 1)
-          type: integer
-          example: 1.0
-        awsTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the AWS credentials associated with the AWS group
-          readOnly: true
-          type: integer
-        customProperties:
-          description: The properties associated with this device group
-          type: array
-          items:
-            $ref: '#/components/schemas/NameAndValue'
-        numOfHosts:
-          format: int64
-          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
-          readOnly: true
-          type: integer
-        name:
-          description: The name of the device group
-          type: string
-          example: Linux Servers
-        gcpTestResult:
-          description: The result returned by the transaction that tests the GCP credentials associated with the GCP group
-          readOnly: true
-          $ref: '#/components/schemas/GcpAccountTestResult'
-        azureRegionsInfo:
-          description: The number of instances in each Azure region (only applies to Azure groups)
-          readOnly: true
-          type: string
-    EntityProperty:
-      type: object
-      properties:
-        inheritList:
-          type: array
-          items:
-            $ref: '#/components/schemas/InheritanceProp'
-        name:
-          readOnly: true
-          type: string
-        type:
-          readOnly: true
-          type: string
-        value:
-          readOnly: true
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    AwsAccountTestResult:
-      type: object
-      properties:
-        noPermissionServices:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        detailLink:
-          type: string
-        nonPermissionErrors:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    GcpAccountTestResult:
-      type: object
-      properties:
-        noPermissionServices:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        detailLink:
-          type: string
-        nonPermissionErrors:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+            $ref: '#/components/schemas/Alert'
     Device:
       type: object
       required:
@@ -2090,7 +1889,23 @@ components:
           description: The time in milliseconds that the device has been dead for, or since the AWS device was filtered out
           readOnly: true
           type: integer
-    DeviceGroupDatasourcePaginationResponse:
+    InheritanceProp:
+      type: object
+      properties:
+        fullpath:
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+        type:
+          readOnly: true
+          type: string
+        value:
+          readOnly: true
+          type: string
+    PropertyPaginationResponse:
       type: object
       properties:
         total:
@@ -2103,7 +1918,175 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceGroupDataSource'
+            $ref: '#/components/schemas/EntityProperty'
+    NameAndValue:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceGroup:
+      type: object
+      required:
+      - name
+      properties:
+        fullPath:
+          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
+          readOnly: true
+          type: string
+        groupType:
+          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
+          type: string
+          example: Normal
+        numOfAWSDevices:
+          format: int64
+          description: The number of AWS devices that belong to this device group (includes AWS devices in sub groups)
+          readOnly: true
+          type: integer
+        description:
+          description: The description of the device group
+          type: string
+          example: Linux Servers
+        appliesTo:
+          description: The Applies to custom query for this group (only for dynamic groups)
+          type: string
+          example: isLinux()
+        gcpTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the GCP credentials associated with the GCP group
+          readOnly: true
+          type: integer
+        disableAlerting:
+          description: Indicates whether alerting is disabled (true) or enabled (false) for this device group
+          type: boolean
+          example: true
+        awsRegionsInfo:
+          description: The number of instances in each AWS region (only applies to AWS groups)
+          readOnly: true
+          type: string
+        createdOn:
+          format: int64
+          description: The time, in epoch seconds format, that the device group was created
+          readOnly: true
+          type: integer
+        hasNetflowEnabledDevices:
+          description: Whether if any Netflow enabled devices in this device group
+          readOnly: true
+          type: boolean
+        numOfAzureDevices:
+          format: int64
+          description: The number of Azure devices that belong to this device group (includes Azure devices in sub groups)
+          readOnly: true
+          type: integer
+        defaultCollectorDescription:
+          description: The description of the default collector assigned to the device group
+          readOnly: true
+          type: string
+        defaultCollectorId:
+          format: int32
+          description: The Id of the default collector assigned to the device group
+          type: integer
+          example: 1.0
+        awsTestResult:
+          description: The String result returned by the transaction that tests the AWS credentials associated with the AWS group
+          readOnly: true
+          $ref: '#/components/schemas/AwsAccountTestResult'
+        extra:
+          description: The extra setting for cloud group
+          type: object
+        numOfDirectSubGroups:
+          format: int64
+          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
+          readOnly: true
+          type: integer
+        subGroups:
+          description: The child device groups within this device group
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupData'
+        numOfDirectDevices:
+          format: int64
+          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the device group
+          readOnly: true
+          type: integer
+        enableNetflow:
+          description: Indicates whether Netflow is enabled (true) or disabled (false) for the device group, the default value is true
+          type: boolean
+          example: 'true'
+        azureTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the Azure credentials associated with the Azure group
+          readOnly: true
+          type: integer
+        effectiveAlertEnabled:
+          description: Whether or not alerting is effectively disabled for this device group (alerting may be disabled at a higher level, e.g. parent group)
+          readOnly: true
+          type: boolean
+        userPermission:
+          description: The permissions for the device group that are granted to the user that made this API request
+          readOnly: true
+          type: string
+        gcpRegionsInfo:
+          readOnly: true
+          type: string
+        groupStatus:
+          description: "normal | dead \nThe status of this device group, where possible statuses are normal and dead. A group with a status of dead may indicate that one or more devices are dead within the group"
+          readOnly: true
+          type: string
+        numOfGcpDevices:
+          format: int64
+          readOnly: true
+          type: integer
+        azureTestResult:
+          description: The String result returned by the transaction that tests the Azure credentials associated with the Azure group
+          readOnly: true
+          $ref: '#/components/schemas/AzureAccountTestResult'
+        parentId:
+          format: int32
+          description: The id of the parent group for this device group (the root device group has an Id of 1)
+          type: integer
+          example: 1.0
+        awsTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the AWS credentials associated with the AWS group
+          readOnly: true
+          type: integer
+        customProperties:
+          description: The properties associated with this device group
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue'
+        numOfHosts:
+          format: int64
+          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
+          readOnly: true
+          type: integer
+        name:
+          description: The name of the device group
+          type: string
+          example: Linux Servers
+        gcpTestResult:
+          description: The result returned by the transaction that tests the GCP credentials associated with the GCP group
+          readOnly: true
+          $ref: '#/components/schemas/GcpAccountTestResult'
+        azureRegionsInfo:
+          description: The number of instances in each Azure region (only applies to Azure groups)
+          readOnly: true
+          type: string
     DeviceGroupDataSource:
       type: object
       properties:
@@ -2154,210 +2137,335 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Device'
-    NameAndValue:
+    ErrorResponse:
       type: object
-      required:
-      - name
-      - value
       properties:
-        name:
-          description: The name of a property
+        errorMessage:
+          description: The error message
+          readOnly: true
           type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    AzureAccountTestResult_2:
-      description: The String result returned by the transaction that tests the Azure credentials associated with the Azure group
-      readOnly: true
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    GcpAccountTestResult:
       type: object
       properties:
         noPermissionServices:
-          readOnly: true
-          type: object
+          uniqueItems: true
+          type: array
+          items:
+            type: string
         detailLink:
-          readOnly: true
-          type: object
-    FieldFilter:
-      type: object
-      properties:
-        fieldName:
           type: string
-        supportGlob:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: string
-        operator:
-          type: string
-    restCloudOkPermissionsV3:
-      type: object
-    restAWSVerifyBillingPermissionsV3:
-      type: object
-      properties:
-        optInWarnings:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        isValid:
-          type: boolean
-        permissionErrors:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
         nonPermissionErrors:
           uniqueItems: true
           type: array
           items:
             type: string
-    ArrayNode:
+    RestAlertQueryContext:
       type: object
-    SDT_2:
-      type: object
-      required:
-      - type
       properties:
-        endDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
-          readOnly: true
-          type: string
-        timezone:
-          description: The specific timezone for SDT
-          type: string
-          example: America/Los_Angeles
-        sdtType:
-          description: The type of sdt. The values can be oneTime|weekly|monthly|daily|monthlyByWeek
-          type: string
-          example: oneTime
-        defaultValue:
-          format: date-time
-          type: string
-        monthDay:
-          description: The values can be -3 | 1 | 2....| 31. Specifies the day(s) of the month that the SDT will be active for a monthly SDT. Use -3 for the last day of the month. Supports comma-separated values (e.g., '1,15,28') when multi-day is enabled.
-          type: string
-          example: '7'
-        weekOfMonth:
-          description: The week of the month that the SDT will be active for a monthly SDT
-          type: string
-          example: '1'
-        admin:
-          description: The name of the user that created the SDT
-          readOnly: true
-          type: string
-        endDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will end
-          type: integer
-          example: 1534554000000
-        type:
-          description: The type of resource that this SDT is for. The values can be CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | ResourceGroupSDT | ResourceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT | DeviceLogPipeLineResourceSDT
-          type: string
-          example: ResourceGroupSDT
-        isEffective:
-          description: 'The values can be true|false, where true: the SDT is currently active
-
-            false: the SDT is currently inactive'
-          readOnly: true
+        activeOnly:
           type: boolean
-        minute:
+        pivotType:
+          type: string
+        anomaly:
+          type: string
+        suppressorFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        forServices:
+          type: boolean
+        pivotDimensions:
+          type: array
+          items:
+            type: string
+        refreshActiveAlertCache:
+          type: boolean
+        dependencyRoutingStateFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        excludePhatomFlag:
+          type: boolean
+        pivotDimensionESField:
+          type: array
+          items:
+            type: string
+        dependencyRoleFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        lmconfigEnabled:
+          type: boolean
+        dependencyRoutingStateFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        dependencyRoleFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        clearedOnly:
+          type: boolean
+        suppressorFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        alertsById:
+          $ref: '#/components/schemas/AlertsById'
+    RestAzureSubscriptionsDiscoverV3:
+      type: object
+      properties:
+        clientId:
+          type: string
+        secretKey:
+          type: string
+        groupId:
           format: int32
-          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT should begin for a repeating SDT
           type: integer
-          example: 6
-        duration:
+        tenantId:
+          type: string
+        isChinaAccount:
+          type: boolean
+    AzureSubscriptionIdPaginationResponse:
+      type: object
+      properties:
+        total:
           format: int32
-          description: The duration of the SDT in minutes
+          readOnly: true
           type: integer
-          example: 138
-        endHour:
-          format: int32
-          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT ends for a repeating SDT
-          type: integer
-          example: 5
-        startDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will start
-          type: integer
-          example: 1534460400000
-        hour:
-          format: int32
-          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
-          type: integer
-          example: 3
-        startDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
+        searchId:
           readOnly: true
           type: string
-        weekDay:
-          description: The week day of sdt. For weekly & monthlyByWeek SDT, supports comma-separated values like 'Monday,Friday'. Values can be SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY
-          type: string
-          example: Sunday
-        comment:
-          description: The notes associated with the SDT
-          type: string
-          example: Emergency prod deployment
-        id:
-          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestAzureSubscriptionV3'
+    EntityProperty_2:
+      type: object
+      properties:
+        inheritList:
+          description: The inherit list of the property
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/InheritanceProp_2'
+        name:
+          description: The name of the property
           readOnly: true
           type: string
-        endMinute:
-          format: int32
-          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT ends for a repeating SDT
-          type: integer
-          example: 18
-      discriminator:
-        propertyName: type
-    SaasAccountTestResult:
-      description: The result returned by the transaction that tests the SaaS credentials associated with the Saas group
+        type:
+          description: The type of property. The values can be Inherit|System|Custom
+          readOnly: true
+          type: string
+        value:
+          description: The value of the property
+          readOnly: true
+          type: string
+    AwsAccountId:
+      type: object
+      properties:
+        accountId:
+          type: string
+    DeviceGroupData_2:
+      description: The child device groups within this device group
       readOnly: true
       type: object
       properties:
-        nonPermissionApisErrors:
-          uniqueItems: true
+        fullPath:
+          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
+          readOnly: true
+          type: string
+        groupType:
+          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permissions for the device group that are granted to the user that made this API request
+          readOnly: true
+          type: string
+        gcpRegionsInfo:
+          readOnly: true
+          type: string
+        description:
+          description: The description of the device group
+          readOnly: true
+          type: string
+        ociRegionsInfo:
+          readOnly: true
+          type: string
+        appliesTo:
+          description: The Applies to custom query for this group (only for dynamic groups)
+          readOnly: true
+          type: string
+        rolePrivileges:
+          description: The role privilege operations for the device group that are granted to the user that made this API request
+          readOnly: true
           type: array
           items:
+            description: The role privilege operations for the device group that are granted to the user that made this API request
+            readOnly: true
             type: string
-        invalidStatusUrls:
+        awsRegionsInfo:
+          description: The number of instances in each AWS region (only applies to AWS groups)
+          readOnly: true
           type: string
-        noPermissionService:
-          type: string
-        resultCode:
+        numOfHosts:
           format: int32
+          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
+          readOnly: true
           type: integer
-        detailLink:
+        name:
+          description: The name of the device group
+          readOnly: true
           type: string
-        noPermissionApis:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    RestResponseMetaBlock:
+        numOfDirectSubGroups:
+          format: int64
+          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
+          readOnly: true
+          type: integer
+        numOfDirectDevices:
+          format: int64
+          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the device group
+          readOnly: true
+          type: integer
+        azureRegionsInfo:
+          description: The number of instances in each Azure region (only applies to Azure groups)
+          readOnly: true
+          type: string
+    RestAwsAccountTestV3:
       type: object
       properties:
-        filteredCount:
-          format: int64
-          type: integer
-        isTotalCountExhaustive:
-          type: boolean
-        fromPagingResponseInfo:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        fromSortInfo:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        perPageCount:
-          format: int32
-          type: integer
-        sort:
+        accessId:
           type: string
-        totalCount:
-          format: int64
-          type: integer
-        pageOffsetCount:
+        isBillingAcceptOptInWarnings:
+          type: boolean
+        accountId:
+          type: string
+        newBillingBucket:
+          type: string
+        assumedRoleArn:
+          type: string
+        bucketNameForBillingFiles:
+          type: string
+        accessKey:
+          type: string
+        checkedServices:
+          type: string
+        groupId:
           format: int32
           type: integer
+        newBillingPath:
+          type: string
+        externalId:
+          type: string
+    AwsAccountTestResult_2:
+      description: The String result returned by the transaction that tests the AWS credentials associated with the AWS group
+      readOnly: true
+      type: object
+      properties:
+        warnings:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - CLIENT_ID_ISSUE
+            - TENANT_ID_ISSUE
+            - KEY_ISSUE
+            - SUBSCRIPTION_ID_ISSUE
+            - SERVICE_NAME_ERROR
+            - TEMPORARY_WARNING
+            - SERVICE_MEMBER_LIMIT_EXCEEDED
+            - PROJECT_ID_ISSUE
+            - CLIENT_EMAIL_ISSUE
+            - TOKEN_URI_ISSUE
+            - ROLE_ARN_ISSUE
+            - MISSING_PERMISSIONS
+            - PERMISSION_TEST_BYPASSED
+            - POLICY_OR_NAME_ISSUE
+            - SERVICE_PERMISION_FAILURE
+            - MISSING_REQUIRED_CREDENTIAL_DATA
+            - MISSING_CREDENTIALS
+            - MISSING_SUBSCRIPTION_IDS
+            - NO_SERVICES_CHECKED
+            - MAXIMUM_RECORDS_EXCEEDED
+            - FILTER_UNUSED
+            - ID_NOT_FOUND
+            - TYPE_INVALID
+            - ID_INVALID
+            - INVALID_TIME_RANGE
+            - UNAUTHORIZED
+            - OPTIONAL_FIELD_NOT_FOUND
+            - EXTRA_FIELDS_PROVIDED
+            - DEFAULT_COLUMNS_FILTER
+            - SAAS_O365_EXTRA_PERMISSION
+            - SAAS_O365_API_INACCESSIBLE
+            - SAAS_O365_NO_PERMISSION_GRANTED
+            - PATCH_NOT_ALLOWED_ON_READ_ONLY
+            - PATCH_NOT_ALLOWED_ON_MULTI
+            - IGNORED_COMPONENT_OF_PAYLOAD
+            - INVALID_FIELD_VALUE
+            - NO_ALERT_RULE_MATCHES_THIS_ALERT
+            - INVALID_PROPERTY_NAMES_IGNORED
+            - NO_STAGE_1_RECEIPIENTS_DEFINED_FOR_ALERT
+            - NO_ESCALATING_CHAIN_MATCHES_THIS_ALERT
+            - ASSUMED_TYPE
+            - NO_DATA_FOR_MODEL
+            - GET_INTEGRATION_FAIL
+            - DASHBOARDS_NOT_CREATED
+            - MISSING_PERMISSION_OR_MISSING_DATAPOINT
+            - DISABLED_CLOUD_TYPE
+            - SERVICE_API_DISABLED
+            - ALERT_GENERATION_DISABLED
+            - ALERT_GENERATION_DISABLED_WITH_NAME
+            - PARENT_GROUP_DP_LIMIT_EXCEEDED
+        noPermissionServices:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        detailLink:
+          type: string
+        nonPermissionErrors:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    RestResponse:
+      type: object
+      properties:
+        diagnostics:
+          $ref: '#/components/schemas/ArrayNode'
+        suppressedWarnings:
+          $ref: '#/components/schemas/ArrayNode'
+        preserveInsertionOrder:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ObjectNode'
+        suppressedErrors:
+          $ref: '#/components/schemas/ArrayNode'
+        successes:
+          $ref: '#/components/schemas/ArrayNode'
+        meta:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        warnings:
+          $ref: '#/components/schemas/ArrayNode'
+        errors:
+          $ref: '#/components/schemas/ArrayNode'
     Alert_2:
       type: object
       properties:
@@ -2617,34 +2725,650 @@ components:
           description: The dependency role
           readOnly: true
           type: string
-    ObjectNode:
-      type: object
-    AwsAccountId:
+    RestSaaSAccountTestV3:
       type: object
       properties:
+        privateKey:
+          type: string
         accountId:
           type: string
-    RestResponse:
+        clientId:
+          type: string
+        secretKey:
+          type: string
+        statusType:
+          type: string
+        accountType:
+          type: string
+        tenantId:
+          type: string
+        serviceName:
+          type: string
+        userId:
+          type: string
+        statusUrls:
+          type: string
+    OciAccountTestResult:
+      description: The result returned by the transaction that tests the OCI credentials associated with the OCI group
+      readOnly: true
       type: object
       properties:
-        diagnostics:
-          $ref: '#/components/schemas/ArrayNode'
-        suppressedWarnings:
-          $ref: '#/components/schemas/ArrayNode'
-        preserveInsertionOrder:
+        noPermissionServices:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        nonPermissionErrors:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    AlertsModelAndId:
+      type: object
+      properties:
+        deleted:
           type: boolean
-        data:
-          $ref: '#/components/schemas/ObjectNode'
-        suppressedErrors:
-          $ref: '#/components/schemas/ArrayNode'
-        successes:
-          $ref: '#/components/schemas/ArrayNode'
-        meta:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        warnings:
-          $ref: '#/components/schemas/ArrayNode'
-        errors:
-          $ref: '#/components/schemas/ArrayNode'
+        isDeleted:
+          type: boolean
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    ModelAndId:
+      description: SDT target
+      readOnly: true
+      type: object
+      properties:
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    AzureAccountTestResult_2:
+      description: The String result returned by the transaction that tests the Azure credentials associated with the Azure group
+      readOnly: true
+      type: object
+      properties:
+        noPermissionServices:
+          readOnly: true
+          type: object
+        detailLink:
+          readOnly: true
+          type: object
+    RestAzureStorageAccountVerify:
+      type: object
+      properties:
+        clientId:
+          type: string
+        secretKey:
+          type: string
+        chinaAccount:
+          type: boolean
+        groupId:
+          format: int32
+          type: integer
+        tenantId:
+          type: string
+        storageAccountName:
+          type: string
+        storageAccountContainerName:
+          type: string
+        exportName:
+          type: string
+        storageAccountContainerDirectory:
+          type: string
+        isChinaAccount:
+          type: boolean
+    ObjectNode:
+      type: object
+    SDT_2:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          description: The type of sdt. The values can be oneTime|weekly|monthly|daily|monthlyByWeek
+          type: string
+          example: oneTime
+        defaultValue:
+          format: date-time
+          type: string
+        monthDay:
+          description: The values can be -3 | 1 | 2....| 31. Specifies the day(s) of the month that the SDT will be active for a monthly SDT. Use -3 for the last day of the month. Supports comma-separated values (e.g., '1,15,28') when multi-day is enabled.
+          type: string
+          example: '7'
+        weekOfMonth:
+          description: The week of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000
+        type:
+          description: The type of resource that this SDT is for. The values can be CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | ResourceGroupSDT | ResourceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT | DeviceLogPipeLineResourceSDT
+          type: string
+          example: ResourceGroupSDT
+        isEffective:
+          description: 'The values can be true|false, where true: the SDT is currently active
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138
+        endHour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000
+        hour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        weekDay:
+          description: The week day of sdt. For weekly & monthlyByWeek SDT, supports comma-separated values like 'Monday,Friday'. Values can be SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          readOnly: true
+          type: string
+        endMinute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18
+      discriminator:
+        propertyName: type
+    RestAzureAccountTestV3:
+      type: object
+      properties:
+        clientId:
+          type: string
+        secretKey:
+          type: string
+        checkedServices:
+          type: string
+        subscriptionIds:
+          type: string
+        groupId:
+          format: int32
+          type: integer
+        tenantId:
+          type: string
+        isChinaAccount:
+          type: boolean
+    SDTHistory_2:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1
+        approximateEndEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: user@domain.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        approximateStartEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000
+    RestAzureSubscriptionV3:
+      type: object
+      properties:
+        spendingLimit:
+          type: string
+        locationPlacementId:
+          type: string
+        name:
+          type: string
+        tenantId:
+          type: string
+        quotaId:
+          type: string
+        id:
+          type: string
+        state:
+          type: string
+        authorizationSource:
+          type: string
+    restAWSVerifyBillingPermissionsV3:
+      type: object
+      properties:
+        optInWarnings:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        isValid:
+          type: boolean
+        permissionErrors:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        nonPermissionErrors:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    SaasAccountTestResult:
+      description: The result returned by the transaction that tests the SaaS credentials associated with the Saas group
+      readOnly: true
+      type: object
+      properties:
+        nonPermissionApisErrors:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        invalidStatusUrls:
+          type: string
+        noPermissionService:
+          type: string
+        resultCode:
+          format: int32
+          type: integer
+        detailLink:
+          type: string
+        noPermissionApis:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    restCloudOkPermissionsV3:
+      type: object
+    AdvancedFieldFilter:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        supportGlob:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: string
+        operator:
+          type: string
+    Device_2:
+      type: object
+      required:
+      - displayName
+      - name
+      - preferredCollectorId
+      properties:
+        logCollectorGroupId:
+          format: int32
+          description: The id of the Collector Group associated with the device's log collection
+          readOnly: true
+          type: integer
+        disableAlerting:
+          description: Indicates whether alerting is disabled (true) or enabled (false) for this device
+          type: boolean
+          example: true
+        type:
+          description: "Specifies the v3 Uptime Device request type. Supported values:\n uptimewebcheck - for Uptime Web Check devices\n uptimepingcheck - for Uptime Ping Check devices blank/empty value- for regular devices"
+          type: string
+          example: uptimewebcheck
+        netflowCollectorGroupId:
+          format: int32
+          description: The id of the Collector Group associated with the device's netflow collector
+          readOnly: true
+          type: integer
+        rolePrivileges:
+          description: The role privilege operation(s) for this device that are granted to the user who made the API request
+          readOnly: true
+          type: array
+          items:
+            description: The role privilege operation(s) for this device that are granted to the user who made the API request
+            readOnly: true
+            type: string
+        systemProperties:
+          description: Any system properties (aside from system.categories) defined for this device
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        isPreferredLogCollectorConfigured:
+          description: Indicates whether Preferred Log Collector is configured  (true) or not (false) for the device
+          type: boolean
+          example: true
+        hostStatus:
+          description: The status of this device, where possible statuses are normal, dead and dead-collector
+          readOnly: true
+          type: string
+        autoBalancedCollectorGroupId:
+          format: int32
+          description: The Auto Balanced Collector Group id. 0 means not monitored by ABCG
+          type: integer
+        inheritedProperties:
+          description: Any properties inherit from parents
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        id:
+          format: int32
+          description: The Id of the device
+          readOnly: true
+          type: integer
+        syntheticsCollectorIds:
+          uniqueItems: true
+          description: The list of ids of the collectors currently monitoring the resource and discovering instances
+          type: array
+          items:
+            format: int32
+            description: The list of ids of the collectors currently monitoring the resource and discovering instances
+            type: integer
+          example: 1,4
+        upTimeInSeconds:
+          format: int64
+          description: 'The uptime of the device in seconds. This value will always be the largest value reported by the following datasources:
+
+            Host Uptime-
+
+            SNMPUptime-
+
+            SNMP_Engine_Uptime-
+
+            WinSystemUptime-
+
+            NimbleUptime-'
+          readOnly: true
+          type: integer
+        deviceType:
+          format: int32
+          description: 'The type of device: 0 indicates a regular device, 1 indicates an APPGROUP device, 2 indicates an AWS device, 3 indicates a service device, 4 indicates an Azure device, 6 indicates a biz_service device, 7 indicates a GCP device, 8 indicates K8S device'
+          type: integer
+          example: 0
+        currentCollectorId:
+          format: int32
+          description: The id of the collector currently monitoring the device and discovering instances
+          type: integer
+          example: 1
+        netflowCollectorId:
+          format: int32
+          description: The Id of the netflow collector associated with the device
+          type: integer
+          example: 1
+        autoPropsAssignedOn:
+          format: int64
+          description: The time, in epoch seconds format, that properties were first discovered for this device
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: The time, in epoch seconds format, that the device was last updated
+          readOnly: true
+          type: integer
+        preferredCollectorGroupId:
+          format: int32
+          description: The id of the Collector Group associated with the device's preferred collector
+          readOnly: true
+          type: integer
+        customProperties:
+          description: Any non-system properties (aside from system.categories) defined for this device
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        collectorDescription:
+          description: The description/name of the collector for this device
+          readOnly: true
+          type: string
+        preferredCollectorId:
+          format: int32
+          description: The Id of the preferred collector assigned to monitor the device
+          type: integer
+          example: 2
+        lastRawdataTime:
+          format: int64
+          description: The last time, in epoch seconds, that raw Netflow data was reported
+          readOnly: true
+          type: integer
+        name:
+          description: The host name or IP address of the device
+          type: string
+          example: Main Collector
+        deletedTimeInMs:
+          format: int64
+          description: The time in milliseconds that the device has been dead for, or since the AWS device was filtered out
+          readOnly: true
+          type: integer
+        netflowCollectorGroupName:
+          description: The name of the Collector Group associated with the device's netflow collector
+          readOnly: true
+          type: string
+        azureState:
+          format: int32
+          description: 'The Azure instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated.'
+          readOnly: true
+          type: integer
+        relatedDeviceId:
+          format: int32
+          description: The Id of the AWS EC2 instance related to this device, if one exists in the LogicMonitor account. This value defaults to -1, which indicates that there are no related devices
+          type: integer
+          example: -1
+        logCollectorGroupName:
+          description: The name of the Collector Group associated with the device's.
+          readOnly: true
+          type: string
+        displayName:
+          description: The display name of the device
+          type: string
+          example: Cisco Router
+        logCollectorDescription:
+          description: The description/name of the log collector for this device
+          readOnly: true
+          type: string
+        link:
+          description: The URL link associated with the device
+          type: string
+          example: www.ciscorouter.com
+        awsState:
+          format: int32
+          description: 'The AWS instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated'
+          readOnly: true
+          type: integer
+        description:
+          description: The device description
+          type: string
+          example: This is a Cisco Router
+        createdOn:
+          format: int64
+          description: The time, in epoch seconds format, that the device was added to your LogicMonitor account
+          readOnly: true
+          type: integer
+        gcpState:
+          format: int32
+          description: 'The GCP instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated.'
+          readOnly: true
+          type: integer
+        autoPropsUpdatedOn:
+          format: int64
+          description: The time, in epoch seconds, that auto properties last ran and updated the properties table for this device
+          readOnly: true
+          type: integer
+        scanConfigId:
+          format: int32
+          description: The Id of the netscan configuration which was used to discover this device. 0 indicates that the device was not discovered by a scan
+          readOnly: true
+          type: integer
+          example: 0
+        enableNetflow:
+          description: Indicates whether Netflow is enabled (true) or disabled (false) for the device
+          type: boolean
+          example: true
+        lastDataTime:
+          format: int64
+          description: The last time, in epoch seconds, that the device received Netflow data
+          readOnly: true
+          type: integer
+        hostGroupIds:
+          description: The Id(s) of the groups the device is in, where multiple group ids are comma separated
+          type: string
+          example: 16,4,3
+        resourceIds:
+          description: Any non-system properties (aside from system.categories) defined for this device
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        op:
+          description: whether to use AND or OR for device matching
+          type: string
+        currentLogCollectorId:
+          format: int32
+          description: The id of the Log collector currently collecting logs.
+          type: integer
+          example: 1
+        logCollectorId:
+          format: int32
+          description: The Id of the netflow collector associated with the device
+          type: integer
+          example: 1
+        netflowCollectorDescription:
+          description: The description/name of the netflow collector for this device
+          readOnly: true
+          type: string
+        userPermission:
+          description: The read and/or write permissions for this device that are granted to the user who made the API request
+          readOnly: true
+          type: string
+        preferredCollectorGroupName:
+          description: The name of the Collector Group associated with the device's preferred collector
+          readOnly: true
+          type: string
+        autoProperties:
+          description: Any auto properties assigned to the device
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        toDeleteTimeInMs:
+          format: int64
+          description: The number of milliseconds until the device will be automatically deleted from your LogicMonitor account (a value of zero indicates that a future delete time/date has not been scheduled)
+          readOnly: true
+          type: integer
+        containsMultiValue:
+          description: request contains multi value field
+          type: boolean
+      discriminator:
+        propertyName: type
+    InheritanceProp_2:
+      description: The inherit list of the property
+      readOnly: true
+      type: object
+      properties:
+        fullpath:
+          description: The fullpath of the property
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: 'Source id for the property. For example: group id or property rule'
+          readOnly: true
+          type: integer
+        type:
+          description: The parent property type from which it is inheriting
+          readOnly: true
+          type: string
+        value:
+          description: The property value for the group
+          readOnly: true
+          type: string
+    RestGcpAccountTestV3:
+      type: object
+      properties:
+        serviceAccountKey:
+          type: string
+        checkedServices:
+          type: string
+        groupId:
+          format: int32
+          type: integer
+        projectId:
+          type: string
     ObjectIdentifier:
       type: object
       properties:
@@ -2910,91 +3634,25 @@ components:
           - dashboardFilterMappings
         id:
           type: string
-    InheritanceProp_2:
-      description: The inherit list of the property
+    ArrayNode:
+      type: object
+    NameAndValue_2:
+      description: The properties associated with the website
       readOnly: true
       type: object
+      required:
+      - name
+      - value
       properties:
-        fullpath:
-          description: The fullpath of the property
-          readOnly: true
+        name:
+          description: The name of a property
           type: string
-        id:
-          format: int32
-          description: 'Source id for the property. For example: group id or property rule'
-          readOnly: true
-          type: integer
-        type:
-          description: The parent property type from which it is inheriting
-          readOnly: true
-          type: string
+          example: addr
         value:
-          description: The property value for the group
-          readOnly: true
+          description: The value of a property
           type: string
-    SDTHistory_2:
-      type: object
-      properties:
-        duration:
-          format: int64
-          description: The duration of the SDT, in minutes
-          readOnly: true
-          type: integer
-          example: 456
-        itemId:
-          format: int32
-          description: The ID of the resource in SDT, e.g. the group or device in SDT
-          readOnly: true
-          type: integer
-          example: 1
-        approximateEndEpoch:
-          format: int64
-          description: The end epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475902808000
-        admin:
-          description: The user that added the SDT
-          readOnly: true
-          type: string
-          example: user@domain.com
-        comment:
-          description: The comment associated with the SDT
-          readOnly: true
-          type: string
-          example: migrating devices to new network and new IP addresses
-        id:
-          description: The ID of the SDT
-          readOnly: true
-          type: string
-          example: b-nTH4ECTH2rZ-Q548GOKg
-        type:
-          description: The SDT type
-          readOnly: true
-          type: string
-          example: DeviceGroupSDT
-        approximateStartEpoch:
-          format: int64
-          description: The start epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475875446000
-    OciAccountTestResult:
-      description: The result returned by the transaction that tests the OCI credentials associated with the OCI group
-      readOnly: true
-      type: object
-      properties:
-        noPermissionServices:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        nonPermissionErrors:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    AdvancedFieldFilter:
+          example: 127.0.0.1
+    FieldFilter:
       type: object
       properties:
         fieldName:
@@ -3007,86 +3665,222 @@ components:
             type: string
         operator:
           type: string
-    RestAzureStorageAccountVerify:
+    DeviceGroup_2:
       type: object
+      required:
+      - name
       properties:
-        clientId:
-          type: string
-        secretKey:
-          type: string
-        chinaAccount:
-          type: boolean
-        groupId:
-          format: int32
-          type: integer
-        tenantId:
-          type: string
-        storageAccountName:
-          type: string
-        storageAccountContainerName:
-          type: string
-        exportName:
-          type: string
-        storageAccountContainerDirectory:
-          type: string
-        isChinaAccount:
-          type: boolean
-    RestSaaSAccountTestV3:
-      type: object
-      properties:
-        privateKey:
-          type: string
-        accountId:
-          type: string
-        clientId:
-          type: string
-        secretKey:
-          type: string
-        statusType:
-          type: string
-        accountType:
-          type: string
-        tenantId:
-          type: string
-        serviceName:
-          type: string
-        userId:
-          type: string
-        statusUrls:
-          type: string
-    RestAzureSubscriptionV3:
-      type: object
-      properties:
-        spendingLimit:
-          type: string
-        locationPlacementId:
-          type: string
-        name:
-          type: string
-        tenantId:
-          type: string
-        quotaId:
-          type: string
-        id:
-          type: string
-        state:
-          type: string
-        authorizationSource:
-          type: string
-    AzureSubscriptionIdPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
+        fullPath:
+          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
           readOnly: true
           type: string
-        items:
+        groupType:
+          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
+          type: string
+          example: Normal
+        numOfAWSDevices:
+          format: int64
+          description: The number of AWS devices that belong to this device group (includes AWS devices in sub groups)
+          readOnly: true
+          type: integer
+        description:
+          description: The description of the device group
+          type: string
+          example: Linux Servers
+        appliesTo:
+          description: The Applies to custom query for this group (only for dynamic groups)
+          type: string
+          example: isLinux()
+        gcpTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the GCP credentials associated with the GCP group
+          readOnly: true
+          type: integer
+        disableAlerting:
+          description: Indicates whether alerting is disabled (true) or enabled (false) for this device group
+          type: boolean
+          example: true
+        numOfKubernetesDevices:
+          format: int64
+          description: The number of kubernetes devices that belong to this device group (includes Kubernetes devices in sub groups)
+          readOnly: true
+          type: integer
+        awsRegionsInfo:
+          description: The number of instances in each AWS region (only applies to AWS groups)
+          readOnly: true
+          type: string
+        createdOn:
+          format: int64
+          description: The time, in epoch seconds format, that the device group was created
+          readOnly: true
+          type: integer
+        rolePrivileges:
+          description: The role privilege operations for the device group that are granted to the user that made this API request
+          readOnly: true
           type: array
           items:
-            $ref: '#/components/schemas/RestAzureSubscriptionV3'
+            description: The role privilege operations for the device group that are granted to the user that made this API request
+            readOnly: true
+            type: string
+        hasNetflowEnabledDevices:
+          description: Whether if any Netflow enabled devices in this device group
+          readOnly: true
+          type: boolean
+        numOfAzureDevices:
+          format: int64
+          description: The number of Azure devices that belong to this device group (includes Azure devices in sub groups)
+          readOnly: true
+          type: integer
+        ociTestResult:
+          description: The result returned by the transaction that tests the OCI credentials associated with the OCI group
+          readOnly: true
+          $ref: '#/components/schemas/OciAccountTestResult'
+        propertyChangeWarningMessage:
+          description: Warning message if Parent Property of system.tenant.identifier is changed for a group
+          readOnly: true
+          type: string
+        defaultCollectorDescription:
+          description: The description of the default collector assigned to the device group
+          readOnly: true
+          type: string
+        defaultCollectorId:
+          format: int32
+          description: The Id of the default collector assigned to the device group
+          type: integer
+          example: 1
+        awsTestResult:
+          description: The String result returned by the transaction that tests the AWS credentials associated with the AWS group
+          readOnly: true
+          $ref: '#/components/schemas/AwsAccountTestResult_2'
+        extra:
+          description: The extra setting for cloud group
+          type: object
+        numOfDirectSubGroups:
+          format: int64
+          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
+          readOnly: true
+          type: integer
+        subGroups:
+          description: The child device groups within this device group
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupData_2'
+        numOfDirectDevices:
+          format: int64
+          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of the device group
+          readOnly: true
+          type: integer
+        enableNetflow:
+          description: Indicates whether Netflow is enabled (true) or disabled (false) for the device group, the default value is true
+          type: boolean
+          example: 'true'
+        azureTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the Azure credentials associated with the Azure group
+          readOnly: true
+          type: integer
+        effectiveAlertEnabled:
+          description: Whether or not alerting is effectively disabled for this device group (alerting may be disabled at a higher level, e.g. parent group)
+          readOnly: true
+          type: boolean
+        defaultCollectorGroupDescription:
+          description: The description of the default collector group assigned to the device group
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permissions for the device group that are granted to the user that made this API request
+          readOnly: true
+          type: string
+        gcpRegionsInfo:
+          readOnly: true
+          type: string
+        numOfOciDevices:
+          format: int64
+          readOnly: true
+          type: integer
+        ociRegionsInfo:
+          readOnly: true
+          type: string
+        saasTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the SaaS credentials associated with the SaaS group
+          readOnly: true
+          type: integer
+        defaultCollectorGroupId:
+          format: int32
+          description: The collector group id of the default collector assigned to the device group
+          readOnly: true
+          type: integer
+        groupStatus:
+          description: "normal | dead \nThe status of this device group, where possible statuses are normal and dead. A group with a status of dead may indicate that one or more devices are dead within the group"
+          readOnly: true
+          type: string
+        numOfGcpDevices:
+          format: int64
+          readOnly: true
+          type: integer
+        azureTestResult:
+          description: The String result returned by the transaction that tests the Azure credentials associated with the Azure group
+          readOnly: true
+          $ref: '#/components/schemas/AzureAccountTestResult_2'
+        parentId:
+          format: int32
+          description: The id of the parent group for this device group (the root device group has an Id of 1)
+          type: integer
+          example: 1
+        awsTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the AWS credentials associated with the AWS group
+          readOnly: true
+          type: integer
+        customProperties:
+          description: The properties associated with this device group
+          type: array
+          items:
+            $ref: '#/components/schemas/NameAndValue_2'
+        numOfHosts:
+          format: int64
+          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
+          readOnly: true
+          type: integer
+        defaultAutoBalancedCollectorGroupId:
+          format: int32
+          description: The id of the default Auto Balanced Collector Group assigned to the device group
+          type: integer
+        saasTestResult:
+          description: The result returned by the transaction that tests the SaaS credentials associated with the Saas group
+          readOnly: true
+          $ref: '#/components/schemas/SaasAccountTestResult'
+        name:
+          description: The name of the device group
+          type: string
+          example: Linux Servers
+        ociTestResultCode:
+          format: int32
+          description: The Status code result returned by the transaction that tests the OCI credentials associated with the OCI group
+          readOnly: true
+          type: integer
+        gcpTestResult:
+          description: The result returned by the transaction that tests the GCP credentials associated with the GCP group
+          readOnly: true
+          $ref: '#/components/schemas/GcpAccountTestResult_2'
+        azureRegionsInfo:
+          description: The number of instances in each Azure region (only applies to Azure groups)
+          readOnly: true
+          type: string
+    JSONObject:
+      description: The alert external ticket urls
+      readOnly: true
+      type: object
+      properties:
+        empty:
+          type: boolean
     RestSDTV4:
       type: object
       required:
@@ -3459,470 +4253,29 @@ components:
           type: integer
       discriminator:
         propertyName: type
-    DeviceGroupData_2:
-      description: The child device groups within this device group
-      readOnly: true
+    RestResponseMetaBlock:
       type: object
       properties:
-        fullPath:
-          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
-          readOnly: true
-          type: string
-        groupType:
-          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
-          readOnly: true
-          type: string
-        userPermission:
-          description: The permissions for the device group that are granted to the user that made this API request
-          readOnly: true
-          type: string
-        gcpRegionsInfo:
-          readOnly: true
-          type: string
-        description:
-          description: The description of the device group
-          readOnly: true
-          type: string
-        ociRegionsInfo:
-          readOnly: true
-          type: string
-        appliesTo:
-          description: The Applies to custom query for this group (only for dynamic groups)
-          readOnly: true
-          type: string
-        rolePrivileges:
-          description: The role privilege operations for the device group that are granted to the user that made this API request
-          readOnly: true
-          type: array
-          items:
-            description: The role privilege operations for the device group that are granted to the user that made this API request
-            readOnly: true
-            type: string
-        awsRegionsInfo:
-          description: The number of instances in each AWS region (only applies to AWS groups)
-          readOnly: true
-          type: string
-        numOfHosts:
-          format: int32
-          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
-          readOnly: true
-          type: integer
-        name:
-          description: The name of the device group
-          readOnly: true
-          type: string
-        numOfDirectSubGroups:
+        filteredCount:
           format: int64
-          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
-          readOnly: true
           type: integer
-        numOfDirectDevices:
+        isTotalCountExhaustive:
+          type: boolean
+        fromPagingResponseInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        fromSortInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        perPageCount:
+          format: int32
+          type: integer
+        sort:
+          type: string
+        totalCount:
           format: int64
-          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
-          readOnly: true
           type: integer
-        id:
-          format: int32
-          description: The id of the device group
-          readOnly: true
-          type: integer
-        azureRegionsInfo:
-          description: The number of instances in each Azure region (only applies to Azure groups)
-          readOnly: true
-          type: string
-    DeviceGroup_2:
-      type: object
-      required:
-      - name
-      properties:
-        fullPath:
-          description: The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'
-          readOnly: true
-          type: string
-        groupType:
-          description: 'The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)'
-          type: string
-          example: Normal
-        numOfAWSDevices:
-          format: int64
-          description: The number of AWS devices that belong to this device group (includes AWS devices in sub groups)
-          readOnly: true
-          type: integer
-        description:
-          description: The description of the device group
-          type: string
-          example: Linux Servers
-        appliesTo:
-          description: The Applies to custom query for this group (only for dynamic groups)
-          type: string
-          example: isLinux()
-        gcpTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the GCP credentials associated with the GCP group
-          readOnly: true
-          type: integer
-        disableAlerting:
-          description: Indicates whether alerting is disabled (true) or enabled (false) for this device group
-          type: boolean
-          example: true
-        numOfKubernetesDevices:
-          format: int64
-          description: The number of kubernetes devices that belong to this device group (includes Kubernetes devices in sub groups)
-          readOnly: true
-          type: integer
-        awsRegionsInfo:
-          description: The number of instances in each AWS region (only applies to AWS groups)
-          readOnly: true
-          type: string
-        createdOn:
-          format: int64
-          description: The time, in epoch seconds format, that the device group was created
-          readOnly: true
-          type: integer
-        rolePrivileges:
-          description: The role privilege operations for the device group that are granted to the user that made this API request
-          readOnly: true
-          type: array
-          items:
-            description: The role privilege operations for the device group that are granted to the user that made this API request
-            readOnly: true
-            type: string
-        hasNetflowEnabledDevices:
-          description: Whether if any Netflow enabled devices in this device group
-          readOnly: true
-          type: boolean
-        numOfAzureDevices:
-          format: int64
-          description: The number of Azure devices that belong to this device group (includes Azure devices in sub groups)
-          readOnly: true
-          type: integer
-        ociTestResult:
-          description: The result returned by the transaction that tests the OCI credentials associated with the OCI group
-          readOnly: true
-          $ref: '#/components/schemas/OciAccountTestResult'
-        propertyChangeWarningMessage:
-          description: Warning message if Parent Property of system.tenant.identifier is changed for a group
-          readOnly: true
-          type: string
-        defaultCollectorDescription:
-          description: The description of the default collector assigned to the device group
-          readOnly: true
-          type: string
-        defaultCollectorId:
-          format: int32
-          description: The Id of the default collector assigned to the device group
-          type: integer
-          example: 1
-        awsTestResult:
-          description: The String result returned by the transaction that tests the AWS credentials associated with the AWS group
-          readOnly: true
-          $ref: '#/components/schemas/AwsAccountTestResult_2'
-        extra:
-          description: The extra setting for cloud group
-          type: object
-        numOfDirectSubGroups:
-          format: int64
-          description: The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)
-          readOnly: true
-          type: integer
-        subGroups:
-          description: The child device groups within this device group
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceGroupData_2'
-        numOfDirectDevices:
-          format: int64
-          description: The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          description: The id of the device group
-          readOnly: true
-          type: integer
-        enableNetflow:
-          description: Indicates whether Netflow is enabled (true) or disabled (false) for the device group, the default value is true
-          type: boolean
-          example: 'true'
-        azureTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the Azure credentials associated with the Azure group
-          readOnly: true
-          type: integer
-        effectiveAlertEnabled:
-          description: Whether or not alerting is effectively disabled for this device group (alerting may be disabled at a higher level, e.g. parent group)
-          readOnly: true
-          type: boolean
-        defaultCollectorGroupDescription:
-          description: The description of the default collector group assigned to the device group
-          readOnly: true
-          type: string
-        userPermission:
-          description: The permissions for the device group that are granted to the user that made this API request
-          readOnly: true
-          type: string
-        gcpRegionsInfo:
-          readOnly: true
-          type: string
-        numOfOciDevices:
-          format: int64
-          readOnly: true
-          type: integer
-        ociRegionsInfo:
-          readOnly: true
-          type: string
-        saasTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the SaaS credentials associated with the SaaS group
-          readOnly: true
-          type: integer
-        defaultCollectorGroupId:
-          format: int32
-          description: The collector group id of the default collector assigned to the device group
-          readOnly: true
-          type: integer
-        groupStatus:
-          description: "normal | dead \nThe status of this device group, where possible statuses are normal and dead. A group with a status of dead may indicate that one or more devices are dead within the group"
-          readOnly: true
-          type: string
-        numOfGcpDevices:
-          format: int64
-          readOnly: true
-          type: integer
-        azureTestResult:
-          description: The String result returned by the transaction that tests the Azure credentials associated with the Azure group
-          readOnly: true
-          $ref: '#/components/schemas/AzureAccountTestResult_2'
-        parentId:
-          format: int32
-          description: The id of the parent group for this device group (the root device group has an Id of 1)
-          type: integer
-          example: 1
-        awsTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the AWS credentials associated with the AWS group
-          readOnly: true
-          type: integer
-        customProperties:
-          description: The properties associated with this device group
-          type: array
-          items:
-            $ref: '#/components/schemas/NameAndValue_2'
-        numOfHosts:
-          format: int64
-          description: The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)
-          readOnly: true
-          type: integer
-        defaultAutoBalancedCollectorGroupId:
-          format: int32
-          description: The id of the default Auto Balanced Collector Group assigned to the device group
-          type: integer
-        saasTestResult:
-          description: The result returned by the transaction that tests the SaaS credentials associated with the Saas group
-          readOnly: true
-          $ref: '#/components/schemas/SaasAccountTestResult'
-        name:
-          description: The name of the device group
-          type: string
-          example: Linux Servers
-        ociTestResultCode:
-          format: int32
-          description: The Status code result returned by the transaction that tests the OCI credentials associated with the OCI group
-          readOnly: true
-          type: integer
-        gcpTestResult:
-          description: The result returned by the transaction that tests the GCP credentials associated with the GCP group
-          readOnly: true
-          $ref: '#/components/schemas/GcpAccountTestResult_2'
-        azureRegionsInfo:
-          description: The number of instances in each Azure region (only applies to Azure groups)
-          readOnly: true
-          type: string
-    EntityProperty_2:
-      type: object
-      properties:
-        inheritList:
-          description: The inherit list of the property
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/InheritanceProp_2'
-        name:
-          description: The name of the property
-          readOnly: true
-          type: string
-        type:
-          description: The type of property. The values can be Inherit|System|Custom
-          readOnly: true
-          type: string
-        value:
-          description: The value of the property
-          readOnly: true
-          type: string
-    AlertsModelAndId:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        isDeleted:
-          type: boolean
-        displayName:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        id:
-          type: string
-    AwsAccountTestResult_2:
-      description: The String result returned by the transaction that tests the AWS credentials associated with the AWS group
-      readOnly: true
-      type: object
-      properties:
-        warnings:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-            enum:
-            - CLIENT_ID_ISSUE
-            - TENANT_ID_ISSUE
-            - KEY_ISSUE
-            - SUBSCRIPTION_ID_ISSUE
-            - SERVICE_NAME_ERROR
-            - TEMPORARY_WARNING
-            - SERVICE_MEMBER_LIMIT_EXCEEDED
-            - PROJECT_ID_ISSUE
-            - CLIENT_EMAIL_ISSUE
-            - TOKEN_URI_ISSUE
-            - ROLE_ARN_ISSUE
-            - MISSING_PERMISSIONS
-            - PERMISSION_TEST_BYPASSED
-            - POLICY_OR_NAME_ISSUE
-            - SERVICE_PERMISION_FAILURE
-            - MISSING_REQUIRED_CREDENTIAL_DATA
-            - MISSING_CREDENTIALS
-            - MISSING_SUBSCRIPTION_IDS
-            - NO_SERVICES_CHECKED
-            - MAXIMUM_RECORDS_EXCEEDED
-            - FILTER_UNUSED
-            - ID_NOT_FOUND
-            - TYPE_INVALID
-            - ID_INVALID
-            - INVALID_TIME_RANGE
-            - UNAUTHORIZED
-            - OPTIONAL_FIELD_NOT_FOUND
-            - EXTRA_FIELDS_PROVIDED
-            - DEFAULT_COLUMNS_FILTER
-            - SAAS_O365_EXTRA_PERMISSION
-            - SAAS_O365_API_INACCESSIBLE
-            - SAAS_O365_NO_PERMISSION_GRANTED
-            - PATCH_NOT_ALLOWED_ON_READ_ONLY
-            - PATCH_NOT_ALLOWED_ON_MULTI
-            - IGNORED_COMPONENT_OF_PAYLOAD
-            - INVALID_FIELD_VALUE
-            - NO_ALERT_RULE_MATCHES_THIS_ALERT
-            - INVALID_PROPERTY_NAMES_IGNORED
-            - NO_STAGE_1_RECEIPIENTS_DEFINED_FOR_ALERT
-            - NO_ESCALATING_CHAIN_MATCHES_THIS_ALERT
-            - ASSUMED_TYPE
-            - NO_DATA_FOR_MODEL
-            - GET_INTEGRATION_FAIL
-            - DASHBOARDS_NOT_CREATED
-            - MISSING_PERMISSION_OR_MISSING_DATAPOINT
-            - DISABLED_CLOUD_TYPE
-            - SERVICE_API_DISABLED
-            - ALERT_GENERATION_DISABLED
-            - ALERT_GENERATION_DISABLED_WITH_NAME
-            - PARENT_GROUP_DP_LIMIT_EXCEEDED
-        noPermissionServices:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        detailLink:
-          type: string
-        nonPermissionErrors:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    RestAzureAccountTestV3:
-      type: object
-      properties:
-        clientId:
-          type: string
-        secretKey:
-          type: string
-        checkedServices:
-          type: string
-        subscriptionIds:
-          type: string
-        groupId:
+        pageOffsetCount:
           format: int32
           type: integer
-        tenantId:
-          type: string
-        isChinaAccount:
-          type: boolean
-    RestAlertQueryContext:
-      type: object
-      properties:
-        activeOnly:
-          type: boolean
-        pivotType:
-          type: string
-        anomaly:
-          type: string
-        suppressorFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        forServices:
-          type: boolean
-        pivotDimensions:
-          type: array
-          items:
-            type: string
-        refreshActiveAlertCache:
-          type: boolean
-        dependencyRoutingStateFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        excludePhatomFlag:
-          type: boolean
-        pivotDimensionESField:
-          type: array
-          items:
-            type: string
-        dependencyRoleFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        lmconfigEnabled:
-          type: boolean
-        dependencyRoutingStateFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        dependencyRoleFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        clearedOnly:
-          type: boolean
-        suppressorFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        alertsById:
-          $ref: '#/components/schemas/AlertsById'
     GcpAccountTestResult_2:
       description: The result returned by the transaction that tests the GCP credentials associated with the GCP group
       readOnly: true
@@ -3940,306 +4293,6 @@ components:
           type: array
           items:
             type: string
-    RestAzureSubscriptionsDiscoverV3:
-      type: object
-      properties:
-        clientId:
-          type: string
-        secretKey:
-          type: string
-        groupId:
-          format: int32
-          type: integer
-        tenantId:
-          type: string
-        isChinaAccount:
-          type: boolean
-    Device_2:
-      type: object
-      required:
-      - displayName
-      - name
-      - preferredCollectorId
-      properties:
-        logCollectorGroupId:
-          format: int32
-          description: The id of the Collector Group associated with the device's log collection
-          readOnly: true
-          type: integer
-        disableAlerting:
-          description: Indicates whether alerting is disabled (true) or enabled (false) for this device
-          type: boolean
-          example: true
-        type:
-          description: "Specifies the v3 Uptime Device request type. Supported values:\n uptimewebcheck - for Uptime Web Check devices\n uptimepingcheck - for Uptime Ping Check devices blank/empty value- for regular devices"
-          type: string
-          example: uptimewebcheck
-        netflowCollectorGroupId:
-          format: int32
-          description: The id of the Collector Group associated with the device's netflow collector
-          readOnly: true
-          type: integer
-        rolePrivileges:
-          description: The role privilege operation(s) for this device that are granted to the user who made the API request
-          readOnly: true
-          type: array
-          items:
-            description: The role privilege operation(s) for this device that are granted to the user who made the API request
-            readOnly: true
-            type: string
-        systemProperties:
-          description: Any system properties (aside from system.categories) defined for this device
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/NameAndValue_2'
-        isPreferredLogCollectorConfigured:
-          description: Indicates whether Preferred Log Collector is configured  (true) or not (false) for the device
-          type: boolean
-          example: true
-        hostStatus:
-          description: The status of this device, where possible statuses are normal, dead and dead-collector
-          readOnly: true
-          type: string
-        autoBalancedCollectorGroupId:
-          format: int32
-          description: The Auto Balanced Collector Group id. 0 means not monitored by ABCG
-          type: integer
-        inheritedProperties:
-          description: Any properties inherit from parents
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/NameAndValue_2'
-        id:
-          format: int32
-          description: The Id of the device
-          readOnly: true
-          type: integer
-        syntheticsCollectorIds:
-          uniqueItems: true
-          description: The list of ids of the collectors currently monitoring the resource and discovering instances
-          type: array
-          items:
-            format: int32
-            description: The list of ids of the collectors currently monitoring the resource and discovering instances
-            type: integer
-          example: 1,4
-        upTimeInSeconds:
-          format: int64
-          description: 'The uptime of the device in seconds. This value will always be the largest value reported by the following datasources:
-
-            Host Uptime-
-
-            SNMPUptime-
-
-            SNMP_Engine_Uptime-
-
-            WinSystemUptime-
-
-            NimbleUptime-'
-          readOnly: true
-          type: integer
-        deviceType:
-          format: int32
-          description: 'The type of device: 0 indicates a regular device, 1 indicates an APPGROUP device, 2 indicates an AWS device, 3 indicates a service device, 4 indicates an Azure device, 6 indicates a biz_service device, 7 indicates a GCP device, 8 indicates K8S device'
-          type: integer
-          example: 0
-        currentCollectorId:
-          format: int32
-          description: The id of the collector currently monitoring the device and discovering instances
-          type: integer
-          example: 1
-        netflowCollectorId:
-          format: int32
-          description: The Id of the netflow collector associated with the device
-          type: integer
-          example: 1
-        autoPropsAssignedOn:
-          format: int64
-          description: The time, in epoch seconds format, that properties were first discovered for this device
-          readOnly: true
-          type: integer
-        updatedOn:
-          format: int64
-          description: The time, in epoch seconds format, that the device was last updated
-          readOnly: true
-          type: integer
-        preferredCollectorGroupId:
-          format: int32
-          description: The id of the Collector Group associated with the device's preferred collector
-          readOnly: true
-          type: integer
-        customProperties:
-          description: Any non-system properties (aside from system.categories) defined for this device
-          type: array
-          items:
-            $ref: '#/components/schemas/NameAndValue_2'
-        collectorDescription:
-          description: The description/name of the collector for this device
-          readOnly: true
-          type: string
-        preferredCollectorId:
-          format: int32
-          description: The Id of the preferred collector assigned to monitor the device
-          type: integer
-          example: 2
-        lastRawdataTime:
-          format: int64
-          description: The last time, in epoch seconds, that raw Netflow data was reported
-          readOnly: true
-          type: integer
-        name:
-          description: The host name or IP address of the device
-          type: string
-          example: Main Collector
-        deletedTimeInMs:
-          format: int64
-          description: The time in milliseconds that the device has been dead for, or since the AWS device was filtered out
-          readOnly: true
-          type: integer
-        netflowCollectorGroupName:
-          description: The name of the Collector Group associated with the device's netflow collector
-          readOnly: true
-          type: string
-        azureState:
-          format: int32
-          description: 'The Azure instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated.'
-          readOnly: true
-          type: integer
-        relatedDeviceId:
-          format: int32
-          description: The Id of the AWS EC2 instance related to this device, if one exists in the LogicMonitor account. This value defaults to -1, which indicates that there are no related devices
-          type: integer
-          example: -1
-        logCollectorGroupName:
-          description: The name of the Collector Group associated with the device's.
-          readOnly: true
-          type: string
-        displayName:
-          description: The display name of the device
-          type: string
-          example: Cisco Router
-        logCollectorDescription:
-          description: The description/name of the log collector for this device
-          readOnly: true
-          type: string
-        link:
-          description: The URL link associated with the device
-          type: string
-          example: www.ciscorouter.com
-        awsState:
-          format: int32
-          description: 'The AWS instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated'
-          readOnly: true
-          type: integer
-        description:
-          description: The device description
-          type: string
-          example: This is a Cisco Router
-        createdOn:
-          format: int64
-          description: The time, in epoch seconds format, that the device was added to your LogicMonitor account
-          readOnly: true
-          type: integer
-        gcpState:
-          format: int32
-          description: 'The GCP instance state (if applicable): 1 indicates that the instance is running, 2 indicates that the instance is stopped and 3 the instance is terminated.'
-          readOnly: true
-          type: integer
-        autoPropsUpdatedOn:
-          format: int64
-          description: The time, in epoch seconds, that auto properties last ran and updated the properties table for this device
-          readOnly: true
-          type: integer
-        scanConfigId:
-          format: int32
-          description: The Id of the netscan configuration which was used to discover this device. 0 indicates that the device was not discovered by a scan
-          readOnly: true
-          type: integer
-          example: 0
-        enableNetflow:
-          description: Indicates whether Netflow is enabled (true) or disabled (false) for the device
-          type: boolean
-          example: true
-        lastDataTime:
-          format: int64
-          description: The last time, in epoch seconds, that the device received Netflow data
-          readOnly: true
-          type: integer
-        hostGroupIds:
-          description: The Id(s) of the groups the device is in, where multiple group ids are comma separated
-          type: string
-          example: 16,4,3
-        resourceIds:
-          description: Any non-system properties (aside from system.categories) defined for this device
-          type: array
-          items:
-            $ref: '#/components/schemas/NameAndValue_2'
-        op:
-          description: whether to use AND or OR for device matching
-          type: string
-        currentLogCollectorId:
-          format: int32
-          description: The id of the Log collector currently collecting logs.
-          type: integer
-          example: 1
-        logCollectorId:
-          format: int32
-          description: The Id of the netflow collector associated with the device
-          type: integer
-          example: 1
-        netflowCollectorDescription:
-          description: The description/name of the netflow collector for this device
-          readOnly: true
-          type: string
-        userPermission:
-          description: The read and/or write permissions for this device that are granted to the user who made the API request
-          readOnly: true
-          type: string
-        preferredCollectorGroupName:
-          description: The name of the Collector Group associated with the device's preferred collector
-          readOnly: true
-          type: string
-        autoProperties:
-          description: Any auto properties assigned to the device
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/NameAndValue_2'
-        toDeleteTimeInMs:
-          format: int64
-          description: The number of milliseconds until the device will be automatically deleted from your LogicMonitor account (a value of zero indicates that a future delete time/date has not been scheduled)
-          readOnly: true
-          type: integer
-        containsMultiValue:
-          description: request contains multi value field
-          type: boolean
-      discriminator:
-        propertyName: type
-    JSONObject:
-      description: The alert external ticket urls
-      readOnly: true
-      type: object
-      properties:
-        empty:
-          type: boolean
-    NameAndValue_2:
-      description: The properties associated with the website
-      readOnly: true
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The name of a property
-          type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
     AlertsById:
       type: object
       properties:
@@ -4331,59 +4384,6 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AlertsModelAndId'
           type: object
-    ModelAndId:
-      description: SDT target
-      readOnly: true
-      type: object
-      properties:
-        displayName:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        model:
-          type: string
-        id:
-          type: string
-    RestGcpAccountTestV3:
-      type: object
-      properties:
-        serviceAccountKey:
-          type: string
-        checkedServices:
-          type: string
-        groupId:
-          format: int32
-          type: integer
-        projectId:
-          type: string
-    RestAwsAccountTestV3:
-      type: object
-      properties:
-        accessId:
-          type: string
-        isBillingAcceptOptInWarnings:
-          type: boolean
-        accountId:
-          type: string
-        newBillingBucket:
-          type: string
-        assumedRoleArn:
-          type: string
-        bucketNameForBillingFiles:
-          type: string
-        accessKey:
-          type: string
-        checkedServices:
-          type: string
-        groupId:
-          format: int32
-          type: integer
-        newBillingPath:
-          type: string
-        externalId:
-          type: string
   securitySchemes:
     LMv1:
       in: header

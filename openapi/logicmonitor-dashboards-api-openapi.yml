@@ -305,20 +305,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    WidgetPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Widget'
     DashboardPaginationResponse:
       type: object
       properties:
@@ -333,24 +319,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Dashboard'
-    WidgetToken:
-      type: object
-      properties:
-        inheritList:
-          type: array
-          items:
-            $ref: '#/components/schemas/WidgetTokenInheritance'
-        name:
-          description: This is the name of the parent group of devices, if there is one established
-          type: string
-          example: Default Device Group
-        type:
-          readOnly: true
-          type: string
-        value:
-          description: this is the name of the child group of devices, if there is one
-          type: string
-          example: Devices by Type/Network
     Dashboard:
       type: object
       required:
@@ -419,6 +387,22 @@ components:
         value:
           readOnly: true
           type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     Widget:
       type: object
       required:
@@ -475,57 +459,55 @@ components:
           type: string
       discriminator:
         propertyName: type
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    RestDefaultDashboardFilterDetails:
-      type: object
-      properties:
-        name:
-          type: string
-        alias:
-          type: string
-        label:
-          type: string
-        type:
-          type: string
-    WidgetToken_2:
-      description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
+    WidgetToken:
       type: object
       properties:
         inheritList:
-          description: The widget token inherit list
           type: array
           items:
-            $ref: '#/components/schemas/WidgetTokenInheritance_2'
+            $ref: '#/components/schemas/WidgetTokenInheritance'
         name:
           description: This is the name of the parent group of devices, if there is one established
           type: string
           example: Default Device Group
         type:
-          description: 'The values can be owned | inherit
-
-            Specifies the type of the widget'
           readOnly: true
           type: string
         value:
-          description: This is the name of the child group of devices, if there is one
+          description: this is the name of the child group of devices, if there is one
           type: string
           example: Devices by Type/Network
-      example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
+    WidgetPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Widget'
+    RestDefaultDashboardFilters:
+      description: this field will hold values for a dashboard filter on account level
+      type: object
+      properties:
+        defaultDashboardFilterDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestDefaultDashboardFilterDetails'
+      example:
+      - name: fix.version
+        alias: version
+        label: version
+        type: RESOURCE_PROPERTY
+      - name: system.instancedescription
+        alias: instanceDescription
+        label: instanceDescription
+        type: INSTANCE_PROPERTY
     Dashboard_2:
       type: object
       required:
@@ -605,6 +587,17 @@ components:
           description: The property value for the group
           readOnly: true
           type: string
+    RestDefaultDashboardFilterDetails:
+      type: object
+      properties:
+        name:
+          type: string
+        alias:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
     Widget_2:
       type: object
       required:
@@ -667,23 +660,30 @@ components:
           type: string
       discriminator:
         propertyName: type
-    RestDefaultDashboardFilters:
-      description: this field will hold values for a dashboard filter on account level
+    WidgetToken_2:
+      description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
       type: object
       properties:
-        defaultDashboardFilterDetails:
+        inheritList:
+          description: The widget token inherit list
           type: array
           items:
-            $ref: '#/components/schemas/RestDefaultDashboardFilterDetails'
-      example:
-      - name: fix.version
-        alias: version
-        label: version
-        type: RESOURCE_PROPERTY
-      - name: system.instancedescription
-        alias: instanceDescription
-        label: instanceDescription
-        type: INSTANCE_PROPERTY
+            $ref: '#/components/schemas/WidgetTokenInheritance_2'
+        name:
+          description: This is the name of the parent group of devices, if there is one established
+          type: string
+          example: Default Device Group
+        type:
+          description: 'The values can be owned | inherit
+
+            Specifies the type of the widget'
+          readOnly: true
+          type: string
+        value:
+          description: This is the name of the child group of devices, if there is one
+          type: string
+          example: Devices by Type/Network
+      example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
   securitySchemes:
     LMv1:
       in: header

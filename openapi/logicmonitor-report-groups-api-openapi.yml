@@ -220,6 +220,22 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     ReportGroupPaginationResponse:
       type: object
       properties:
@@ -252,22 +268,6 @@ components:
         reportsCount:
           format: int32
           type: integer
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
     ReportGroup_2:
       type: object
       required:

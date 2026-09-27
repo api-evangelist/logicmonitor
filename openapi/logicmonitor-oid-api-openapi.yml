@@ -243,121 +243,6 @@ paths:
       - OID
 components:
   schemas:
-    RestOidV3:
-      type: object
-      required:
-      - oid
-      properties:
-        installationMetadata:
-          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
-          readOnly: true
-          $ref: '#/components/schemas/IntegrationMetadata'
-        accessGroups:
-          description: Access group Details in response
-          type: array
-          items:
-            $ref: '#/components/schemas/AccessGroup'
-        originRegistryId:
-          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
-          type: string
-        checksum:
-          description: Checksum generated from the content of the module
-          readOnly: true
-          type: string
-        id:
-          format: int32
-          description: Local ID of the module
-          readOnly: true
-          type: integer
-          minimum: 0
-        oid:
-          description: The OID pattern to match to
-          type: string
-        categories:
-          description: Categories to match the OID on
-          type: string
-        accessGroupIds:
-          uniqueItems: true
-          description: The Access Groups Id's
-          type: array
-          items:
-            format: int32
-            description: The Access Groups Id's
-            type: integer
-          example: 1, 2, 3
-        isInUse:
-          description: Whether the SNMP SysOID Map is currently in use
-          readOnly: true
-          type: boolean
-        lineageId:
-          description: The lineage ID that the LMModule belongs to
-          readOnly: true
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    AccessGroup:
-      description: Module's access groups
-      type: object
-      required:
-      - name
-      properties:
-        createdBy:
-          description: User who created access group
-          readOnly: true
-          type: string
-        name:
-          description: The name of the access group
-          type: string
-          example: LinuxGroup
-        tenantId:
-          description: Tenancy details
-          type: string
-        description:
-          description: Description about access group
-          type: string
-        id:
-          format: int32
-          description: The id of the access group
-          readOnly: true
-          type: integer
-        updatedOn:
-          format: int64
-          description: Time when access group updated
-          readOnly: true
-          type: integer
-        createdOn:
-          format: int64
-          description: Time when access group created
-          readOnly: true
-          type: integer
-    OidSourcePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestOidV3'
     IntegrationMetadata:
       description: The local module's IntegrationMetadata, readable for troubleshooting purposes
       readOnly: true
@@ -450,6 +335,121 @@ components:
           description: Specifies the origin module name
           readOnly: true
           type: string
+    RestOidV3:
+      type: object
+      required:
+      - oid
+      properties:
+        installationMetadata:
+          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+          readOnly: true
+          $ref: '#/components/schemas/IntegrationMetadata'
+        accessGroups:
+          description: Access group Details in response
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGroup'
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
+          type: string
+        checksum:
+          description: Checksum generated from the content of the module
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: Local ID of the module
+          readOnly: true
+          type: integer
+          minimum: 0
+        oid:
+          description: The OID pattern to match to
+          type: string
+        categories:
+          description: Categories to match the OID on
+          type: string
+        accessGroupIds:
+          uniqueItems: true
+          description: The Access Groups Id's
+          type: array
+          items:
+            format: int32
+            description: The Access Groups Id's
+            type: integer
+          example: 1, 2, 3
+        isInUse:
+          description: Whether the SNMP SysOID Map is currently in use
+          readOnly: true
+          type: boolean
+        lineageId:
+          description: The lineage ID that the LMModule belongs to
+          readOnly: true
+          type: string
+    OidSourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestOidV3'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
   securitySchemes:
     LMv1:
       in: header

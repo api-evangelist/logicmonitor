@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Logicmonitor SD Ts API
+  title: Logicmonitor SDTs API
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -308,6 +308,20 @@ components:
           example: 18.0
       discriminator:
         propertyName: type
+    SDTPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDT'
     ErrorResponse:
       type: object
       properties:
@@ -324,20 +338,6 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    SDTPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SDT'
     SDT_2:
       type: object
       required:

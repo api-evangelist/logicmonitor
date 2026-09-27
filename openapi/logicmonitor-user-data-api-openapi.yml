@@ -82,13 +82,6 @@ paths:
               $ref: '#/components/schemas/RestUserCustomizedDataV3'
 components:
   schemas:
-    RestUserCustomizedDataV3:
-      type: object
-      properties:
-        id:
-          type: string
-        value:
-          type: string
     ErrorResponse:
       type: object
       properties:
@@ -105,6 +98,13 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    RestUserCustomizedDataV3:
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: string
   securitySchemes:
     LMv1:
       in: header

@@ -243,57 +243,6 @@ paths:
               $ref: '#/components/schemas/RemediationSource'
 components:
   schemas:
-    RemediationSourceExecution:
-      description: Represents a remediation execution for a host in the LogicMonitor system.
-      type: object
-      required:
-      - executionStatus
-      - hostId
-      - hostRemediationSourceId
-      - remediationId
-      - triggerType
-      properties:
-        output:
-          description: Script output when includeOutput is true and execution has completed
-          readOnly: true
-          type: string
-        executionId:
-          description: 'execution Id '
-          readOnly: true
-          type: string
-        executionStatus:
-          description: The remediation module id
-          readOnly: true
-          type: string
-          example: '60'
-        hostId:
-          format: int32
-          description: The host id
-          type: integer
-          example: 12345
-        remediationId:
-          format: int32
-          description: The remediation module id
-          type: integer
-          example: 12345
-        alertId:
-          description: The alert id
-          type: string
-          example: alert12345
-        triggerType:
-          description: type of trigger
-          readOnly: true
-          type: string
-          example: scheduled
-        hostRemediationSourceId:
-          format: int64
-          description: The remediation module id
-          type: integer
-          example: 12345
-        includeOutput:
-          description: When true, the API waits for execution to finish and returns script output in the response
-          type: boolean
-          example: false
     RemediationSource:
       type: object
       properties:
@@ -391,64 +340,6 @@ components:
         group:
           description: The group the LMModule is in
           type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    AccessGroup:
-      description: Module's access groups
-      type: object
-      required:
-      - name
-      properties:
-        createdBy:
-          description: User who created access group
-          readOnly: true
-          type: string
-        name:
-          description: The name of the access group
-          type: string
-          example: LinuxGroup
-        tenantId:
-          description: Tenancy details
-          type: string
-        description:
-          description: Description about access group
-          type: string
-        id:
-          format: int32
-          description: The id of the access group
-          readOnly: true
-          type: integer
-        updatedOn:
-          format: int64
-          description: Time when access group updated
-          readOnly: true
-          type: integer
-        createdOn:
-          format: int64
-          description: Time when access group created
-          readOnly: true
-          type: integer
-    RemediationSourcePaginationResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RemediationSource'
     IntegrationMetadata:
       description: The local module's IntegrationMetadata, readable for troubleshooting purposes
       readOnly: true
@@ -541,6 +432,115 @@ components:
           description: Specifies the origin module name
           readOnly: true
           type: string
+    RemediationSourceExecution:
+      description: Represents a remediation execution for a host in the LogicMonitor system.
+      type: object
+      required:
+      - executionStatus
+      - hostId
+      - hostRemediationSourceId
+      - remediationId
+      - triggerType
+      properties:
+        output:
+          description: Script output when includeOutput is true and execution has completed
+          readOnly: true
+          type: string
+        executionId:
+          description: 'execution Id '
+          readOnly: true
+          type: string
+        executionStatus:
+          description: The remediation module id
+          readOnly: true
+          type: string
+          example: '60'
+        hostId:
+          format: int32
+          description: The host id
+          type: integer
+          example: 12345
+        remediationId:
+          format: int32
+          description: The remediation module id
+          type: integer
+          example: 12345
+        alertId:
+          description: The alert id
+          type: string
+          example: alert12345
+        triggerType:
+          description: type of trigger
+          readOnly: true
+          type: string
+          example: scheduled
+        hostRemediationSourceId:
+          format: int64
+          description: The remediation module id
+          type: integer
+          example: 12345
+        includeOutput:
+          description: When true, the API waits for execution to finish and returns script output in the response
+          type: boolean
+          example: false
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
+    RemediationSourcePaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RemediationSource'
   securitySchemes:
     LMv1:
       in: header

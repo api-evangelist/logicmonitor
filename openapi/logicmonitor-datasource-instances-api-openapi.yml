@@ -977,7 +977,7 @@ paths:
         Resources -> Configs tab only visible with Manage permissions: Unchecked
         Resources: View
         Users -> Permissions: View permissions on Services and Resources page
-      operationId: collectDeviceConfigSourceConfig
+      operationId: postDeviceDevicesByDeviceIdDevicedatasourcesByHdsIdInstancesByInstanceIdConfigConfigCollection
       responses:
         '200':
           description: Successful operation
@@ -1012,6 +1012,8 @@ paths:
           format: int32
       tags:
       - Datasource Instances
+      x-operation-id-source: normalized
+      x-operation-id-original: collectDeviceConfigSourceConfig
     servers:
     - url: /santaba/rest
   /device/devices/{deviceId}/devicedatasources/{deviceDsId}/groups/{dsigId}/datapoints/{dpId}/alertconfig:
@@ -1143,81 +1145,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    DeviceGroupSDTHistoryPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SDTHistory'
-    DeviceDatasourceInstanceConfigPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstanceConfig'
-    DeviceDataSourceInstanceGroup:
-      type: object
-      required:
-      - name
-      properties:
-        deviceDataSourceId:
-          format: int32
-          readOnly: true
-          type: integer
-        name:
-          description: Name of the datasource instance group
-          type: string
-          example: Ping Checks at HQ
-        description:
-          description: The description of the datasource instance group
-          type: string
-          example: Test the availability of HQ
-        createOn:
-          format: int64
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          readOnly: true
-          type: integer
-        deviceId:
-          format: int32
-          readOnly: true
-          type: integer
-        deviceDisplayName:
-          readOnly: true
-          type: string
-    DeviceDataSourceInstanceConfigAlert:
-      type: object
-      properties:
-        alertLevel:
-          format: int32
-          type: integer
-        id:
-          type: string
-        alertId:
-          type: string
-        alertSummary:
-          type: string
-        timestamp:
-          format: int64
-          type: integer
     DeviceDataSourceInstanceConfig:
       type: object
       properties:
@@ -1264,93 +1191,34 @@ components:
           type: integer
         config:
           type: string
-    NameAndValue:
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The name of a property
-          type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    DeviceDataSourceInstanceConfigDiff:
+    DeviceGroupSDTHistoryPaginationResponse:
       type: object
       properties:
-        rowNo:
+        total:
           format: int32
+          readOnly: true
           type: integer
-        type:
+        searchId:
+          readOnly: true
           type: string
-        content:
-          type: string
-    ErrorResponse:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDTHistory'
+    DeviceDatasourceInstanceConfigPaginationResponse:
       type: object
       properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
+        total:
           format: int32
-          description: The error code
           readOnly: true
           type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    SDTHistory:
-      type: object
-      properties:
-        duration:
-          format: int64
-          description: The duration of the SDT, in minutes
-          readOnly: true
-          type: integer
-          example: 456.0
-        itemId:
-          format: int32
-          description: The ID of the resource in SDT, e.g. the group or device in SDT
-          readOnly: true
-          type: integer
-          example: 1.0
-        endEpoch:
-          format: int64
-          description: The end epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475902808000.0
-        admin:
-          description: The user that added the SDT
+        searchId:
           readOnly: true
           type: string
-          example: sarah@logicmonitor.com
-        comment:
-          description: The comment associated with the SDT
-          readOnly: true
-          type: string
-          example: migrating devices to new network and new IP addresses
-        id:
-          description: The ID of the SDT
-          readOnly: true
-          type: string
-          example: b-nTH4ECTH2rZ-Q548GOKg
-        type:
-          description: The SDT type
-          readOnly: true
-          type: string
-          example: DeviceGroupSDT
-        startEpoch:
-          format: int64
-          description: The start epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475875446000.0
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfig'
     DeviceDatasourceInstanceGroupPaginationResponse:
       type: object
       properties:
@@ -1365,20 +1233,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DeviceDataSourceInstanceGroup'
-    DeviceDatasourceInstancePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstance'
     DeviceDataSourceInstance:
       type: object
       required:
@@ -1473,101 +1327,66 @@ components:
           description: The type of LogicModule, e.g. DS (datasource)
           readOnly: true
           type: string
-    GraphPlotLine:
-      description: The properties of the graph and graph lines
-      readOnly: true
+    DeviceDatasourceInstancePaginationResponse:
       type: object
       properties:
-        colorName:
-          description: The color name
-          readOnly: true
-          type: string
-        std:
-          description: The standard deviation value
-          readOnly: true
-          type: object
-        visible:
-          description: 'true | false
-
-            Specifies whether the graph will be visible or not'
-          readOnly: true
-          type: boolean
-        color:
-          description: The color of the graph
-          readOnly: true
-          type: string
-        data:
-          description: The polled data used to plot the graph
-          readOnly: true
-          type: array
-          items:
-            format: double
-            description: The polled data used to plot the graph
-            readOnly: true
-            type: number
-        max:
-          description: The max value of datapoint or instance
-          readOnly: true
-          type: object
-        legend:
-          description: The legend of the datapoint or instance
-          readOnly: true
-          type: string
-        description:
-          description: The description for the datapoint or instance
-          readOnly: true
-          type: string
-        label:
-          description: The label for the datapoint or instance
-          readOnly: true
-          type: string
-        type:
-          description: 'Specifies how the data of the datapoint or instance will be plotted
-
-            The values can be line | area | stack | column | statusBar'
-          readOnly: true
-          type: string
-        min:
-          description: The min value of the datapoint or instance
-          readOnly: true
-          type: object
-        avg:
-          description: The average value of the datapoint or instance
-          readOnly: true
-          type: object
-        decimal:
+        total:
           format: int32
-          description: 'The decimal value
-
-            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
           readOnly: true
           type: integer
-        useYMax:
-          description: 'true | false
-
-            Specifies whether to use YMax or not'
+        searchId:
           readOnly: true
-          type: boolean
-    WidgetData:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstance'
+    NameAndValue:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceDataSourceInstanceConfigDiff:
       type: object
       properties:
+        rowNo:
+          format: int32
+          type: integer
         type:
-          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
-          readOnly: true
           type: string
-        title:
-          description: The widget title
+        content:
           type: string
-      discriminator:
-        propertyName: type
-    DeviceDataSourceInstanceGroup_2:
+    DeviceDataSourceInstanceConfigAlert:
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          type: integer
+        id:
+          type: string
+        alertId:
+          type: string
+        alertSummary:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+    DeviceDataSourceInstanceGroup:
       type: object
       required:
       - name
       properties:
         deviceDataSourceId:
           format: int32
-          description: The device datasource id
           readOnly: true
           type: integer
         name:
@@ -1580,140 +1399,36 @@ components:
           example: Test the availability of HQ
         createOn:
           format: int64
-          description: Time when the group was created.
           readOnly: true
           type: integer
         id:
           format: int32
-          description: The instance group id
           readOnly: true
           type: integer
         deviceId:
           format: int32
-          description: The id of associated device
           readOnly: true
           type: integer
         deviceDisplayName:
-          description: The display name of the device
           readOnly: true
           type: string
-    DeviceDataSourceInstanceConfigAlert_2:
-      description: Alerts associated to this configuration file
-      readOnly: true
+    ErrorResponse:
       type: object
       properties:
-        alertLevel:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
           format: int32
-          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
+          description: The error code
           readOnly: true
           type: integer
-        id:
-          description: Alert id
+        errorDetail:
+          description: The error detail
           readOnly: true
-          type: string
-        alertId:
-          description: Alert internal id
-          readOnly: true
-          type: string
-        alertSummary:
-          description: Summary of this config source alert
-          readOnly: true
-          type: string
-        timestamp:
-          format: int64
-          description: Timestamp of alert start or clear
-          readOnly: true
-          type: integer
-    GraphOpsNoteScope:
-      description: 'Scopes: use this field to find match opsnote'
-      readOnly: true
-      type: object
-      properties:
-        serviceGroupIds:
-          description: The service group Id
-          readOnly: true
-          type: array
-          items:
-            format: int32
-            description: The service group Id
-            readOnly: true
-            type: integer
-        serviceId:
-          format: int32
-          description: The service Id
-          readOnly: true
-          type: integer
-        type:
-          description: The values can be device | service | website
-          readOnly: true
-          type: string
-        deviceGroupIds:
-          description: The device group Id
-          readOnly: true
-          type: array
-          items:
-            format: int32
-            description: The device group Id
-            readOnly: true
-            type: integer
-        deviceId:
-          format: int32
-          description: The device Id
-          readOnly: true
-          type: integer
-    RestDeviceInstanceGroupAlertConfigV3:
-      type: object
-      properties:
-        alertForNoData:
-          format: int32
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
-          type: integer
-          example: 1
-        enableAnomalyAlertSuppression:
-          type: string
-        globalAlertForNoData:
-          format: int32
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
-          readOnly: true
-          type: integer
-          example: 1
-        alertEnable:
-          type: boolean
-        criticalAdAdvSetting:
-          type: string
-        alertClearTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared (0-60)
-          type: integer
-          example: 0
-        globalAlertTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before it will be triggered
-          readOnly: true
-          type: integer
-          example: 0
-        alertExprNote:
-          type: string
-        adAdvSettingEnabled:
-          type: boolean
-        errorAdAdvSetting:
-          type: string
-        warnAdAdvSetting:
-          type: string
-        globalAlertClearTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
-          readOnly: true
-          type: integer
-          example: 0
-        alertExpr:
-          type: string
-        alertTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before it will be triggered (0-60)
-          type: integer
-          example: 0
-    SDTHistory_2:
+          type: object
+    SDTHistory:
       type: object
       properties:
         duration:
@@ -1721,24 +1436,24 @@ components:
           description: The duration of the SDT, in minutes
           readOnly: true
           type: integer
-          example: 456
+          example: 456.0
         itemId:
           format: int32
           description: The ID of the resource in SDT, e.g. the group or device in SDT
           readOnly: true
           type: integer
-          example: 1
-        approximateEndEpoch:
+          example: 1.0
+        endEpoch:
           format: int64
           description: The end epoch for the SDT
           readOnly: true
           type: integer
-          example: 1475902808000
+          example: 1475902808000.0
         admin:
           description: The user that added the SDT
           readOnly: true
           type: string
-          example: user@domain.com
+          example: sarah@logicmonitor.com
         comment:
           description: The comment associated with the SDT
           readOnly: true
@@ -1754,12 +1469,12 @@ components:
           readOnly: true
           type: string
           example: DeviceGroupSDT
-        approximateStartEpoch:
+        startEpoch:
           format: int64
           description: The start epoch for the SDT
           readOnly: true
           type: integer
-          example: 1475875446000
+          example: 1475875446000.0
     DeviceDataSourceInstanceConfig_2:
       type: object
       properties:
@@ -1851,40 +1566,58 @@ components:
           description: Configuration file content
           readOnly: true
           type: string
-    NameAndValue_2:
-      description: The properties associated with the website
-      readOnly: true
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The name of a property
-          type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    DeviceDataSourceInstanceConfigDiff_2:
-      description: Configuration file diff
-      readOnly: true
+    RestDeviceInstanceGroupAlertConfigV3:
       type: object
       properties:
-        rowNo:
+        alertForNoData:
           format: int32
-          description: Diff row number
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          type: integer
+          example: 1
+        enableAnomalyAlertSuppression:
+          type: string
+        globalAlertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
           readOnly: true
           type: integer
-        type:
-          description: 'Diff type. The values can be : add|remove'
-          readOnly: true
+          example: 1
+        alertEnable:
+          type: boolean
+        criticalAdAdvSetting:
           type: string
-        content:
-          description: Configuration content
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared (0-60)
+          type: integer
+          example: 0
+        globalAlertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
           readOnly: true
+          type: integer
+          example: 0
+        alertExprNote:
           type: string
+        adAdvSettingEnabled:
+          type: boolean
+        errorAdAdvSetting:
+          type: string
+        warnAdAdvSetting:
+          type: string
+        globalAlertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        alertExpr:
+          type: string
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered (0-60)
+          type: integer
+          example: 0
     GraphPlot:
       allOf:
       - $ref: '#/components/schemas/WidgetData'
@@ -2032,39 +1765,6 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
-    DeviceDataSourceInstanceData:
-      type: object
-      properties:
-        values:
-          description: Datapoint values 2-D list
-          readOnly: true
-          type: array
-          items:
-            description: Datapoint values 2-D list
-            readOnly: true
-            type: array
-            items:
-              format: double
-              description: Datapoint values 2-D list
-              readOnly: true
-              type: number
-        time:
-          description: Timestamp list
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            description: Timestamp list
-            readOnly: true
-            type: integer
-        nextPageParams:
-          description: The next page parameters
-          readOnly: true
-          type: string
-        dataSourceName:
-          description: Datasource name
-          readOnly: true
-          type: string
     DeviceDataSourceInstance_2:
       type: object
       required:
@@ -2164,6 +1864,308 @@ components:
           description: The type of LogicModule, e.g. DS (datasource)
           readOnly: true
           type: string
+    NameAndValue_2:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceDataSourceInstanceData:
+      type: object
+      properties:
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+        dataSourceName:
+          description: Datasource name
+          readOnly: true
+          type: string
+    GraphPlotLine:
+      description: The properties of the graph and graph lines
+      readOnly: true
+      type: object
+      properties:
+        colorName:
+          description: The color name
+          readOnly: true
+          type: string
+        std:
+          description: The standard deviation value
+          readOnly: true
+          type: object
+        visible:
+          description: 'true | false
+
+            Specifies whether the graph will be visible or not'
+          readOnly: true
+          type: boolean
+        color:
+          description: The color of the graph
+          readOnly: true
+          type: string
+        data:
+          description: The polled data used to plot the graph
+          readOnly: true
+          type: array
+          items:
+            format: double
+            description: The polled data used to plot the graph
+            readOnly: true
+            type: number
+        max:
+          description: The max value of datapoint or instance
+          readOnly: true
+          type: object
+        legend:
+          description: The legend of the datapoint or instance
+          readOnly: true
+          type: string
+        description:
+          description: The description for the datapoint or instance
+          readOnly: true
+          type: string
+        label:
+          description: The label for the datapoint or instance
+          readOnly: true
+          type: string
+        type:
+          description: 'Specifies how the data of the datapoint or instance will be plotted
+
+            The values can be line | area | stack | column | statusBar'
+          readOnly: true
+          type: string
+        min:
+          description: The min value of the datapoint or instance
+          readOnly: true
+          type: object
+        avg:
+          description: The average value of the datapoint or instance
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          description: 'The decimal value
+
+            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
+          readOnly: true
+          type: integer
+        useYMax:
+          description: 'true | false
+
+            Specifies whether to use YMax or not'
+          readOnly: true
+          type: boolean
+    DeviceDataSourceInstanceConfigDiff_2:
+      description: Configuration file diff
+      readOnly: true
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          description: Diff row number
+          readOnly: true
+          type: integer
+        type:
+          description: 'Diff type. The values can be : add|remove'
+          readOnly: true
+          type: string
+        content:
+          description: Configuration content
+          readOnly: true
+          type: string
+    WidgetData:
+      type: object
+      properties:
+        type:
+          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
+          readOnly: true
+          type: string
+        title:
+          description: The widget title
+          type: string
+      discriminator:
+        propertyName: type
+    DeviceDataSourceInstanceGroup_2:
+      type: object
+      required:
+      - name
+      properties:
+        deviceDataSourceId:
+          format: int32
+          description: The device datasource id
+          readOnly: true
+          type: integer
+        name:
+          description: Name of the datasource instance group
+          type: string
+          example: Ping Checks at HQ
+        description:
+          description: The description of the datasource instance group
+          type: string
+          example: Test the availability of HQ
+        createOn:
+          format: int64
+          description: Time when the group was created.
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The instance group id
+          readOnly: true
+          type: integer
+        deviceId:
+          format: int32
+          description: The id of associated device
+          readOnly: true
+          type: integer
+        deviceDisplayName:
+          description: The display name of the device
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigAlert_2:
+      description: Alerts associated to this configuration file
+      readOnly: true
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
+          readOnly: true
+          type: integer
+        id:
+          description: Alert id
+          readOnly: true
+          type: string
+        alertId:
+          description: Alert internal id
+          readOnly: true
+          type: string
+        alertSummary:
+          description: Summary of this config source alert
+          readOnly: true
+          type: string
+        timestamp:
+          format: int64
+          description: Timestamp of alert start or clear
+          readOnly: true
+          type: integer
+    SDTHistory_2:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1
+        approximateEndEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: user@domain.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        approximateStartEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000
+    GraphOpsNoteScope:
+      description: 'Scopes: use this field to find match opsnote'
+      readOnly: true
+      type: object
+      properties:
+        serviceGroupIds:
+          description: The service group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The service group Id
+            readOnly: true
+            type: integer
+        serviceId:
+          format: int32
+          description: The service Id
+          readOnly: true
+          type: integer
+        type:
+          description: The values can be device | service | website
+          readOnly: true
+          type: string
+        deviceGroupIds:
+          description: The device group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The device group Id
+            readOnly: true
+            type: integer
+        deviceId:
+          format: int32
+          description: The device Id
+          readOnly: true
+          type: integer
   securitySchemes:
     LMv1:
       in: header

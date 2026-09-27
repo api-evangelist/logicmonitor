@@ -239,6 +239,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Widget'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     Widget:
       type: object
       required:
@@ -295,22 +311,6 @@ components:
           type: string
       discriminator:
         propertyName: type
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
     Widget_2:
       type: object
       required:
