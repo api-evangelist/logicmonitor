@@ -775,87 +775,22 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    AckCollectorDown:
-      type: object
-      properties:
-        comment:
-          type: string
-          example: Collector Down Acknowledged
-    CollectorPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectorBase'
-    NameAndValue:
+    AutomaticUpgradeInfo:
       type: object
       required:
-      - name
-      - value
+      - dayOfWeek
+      - hour
+      - minute
+      - occurrence
+      - version
       properties:
-        name:
-          description: The name of a property
+        dayOfWeek:
           type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    NextUpgradeInfo:
-      type: object
-      properties:
-        upgradeTime:
-          readOnly: true
-          type: string
-        stable:
-          readOnly: true
-          type: boolean
-        majorVersion:
+          example: MON
+        hour:
           format: int32
-          readOnly: true
           type: integer
-        minorVersion:
-          format: int32
-          readOnly: true
-          type: integer
-        mandatory:
-          readOnly: true
-          type: boolean
-        upgradeTimeEpoch:
-          format: int64
-          readOnly: true
-          type: integer
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    OnetimeUpgradeInfo:
-      type: object
-      required:
-      - majorVersion
-      - minorVersion
-      - startEpoch
-      properties:
+          example: 15.0
         createdBy:
           readOnly: true
           type: string
@@ -864,28 +799,23 @@ components:
           type: string
         timezone:
           type: string
-        endEpoch:
-          format: int64
-          readOnly: true
-          type: integer
+          example: Americas/Los Angeles
         description:
           type: string
           example: regular MGD updates
+        occurrence:
+          type: string
+          example: Any
         type:
           readOnly: true
           type: string
-        majorVersion:
+        version:
+          type: string
+          example: MGD
+        minute:
           format: int32
           type: integer
-          example: 27.0
-        minorVersion:
-          format: int32
-          type: integer
-          example: 1.0
-        startEpoch:
-          format: int64
-          type: integer
-          example: 1534888740.0
+          example: 0.0
     CollectorBase:
       type: object
       properties:
@@ -1144,22 +1074,13 @@ components:
           description: Whether or not the device the Collector is installed on is enabled for fail over
           type: boolean
           example: true
-    AutomaticUpgradeInfo:
+    OnetimeUpgradeInfo:
       type: object
       required:
-      - dayOfWeek
-      - hour
-      - minute
-      - occurrence
-      - version
+      - majorVersion
+      - minorVersion
+      - startEpoch
       properties:
-        dayOfWeek:
-          type: string
-          example: MON
-        hour:
-          format: int32
-          type: integer
-          example: 15.0
         createdBy:
           readOnly: true
           type: string
@@ -1168,23 +1089,86 @@ components:
           type: string
         timezone:
           type: string
-          example: Americas/Los Angeles
+        endEpoch:
+          format: int64
+          readOnly: true
+          type: integer
         description:
           type: string
           example: regular MGD updates
-        occurrence:
-          type: string
-          example: Any
         type:
           readOnly: true
           type: string
-        version:
-          type: string
-          example: MGD
-        minute:
+        majorVersion:
           format: int32
           type: integer
-          example: 0.0
+          example: 27.0
+        minorVersion:
+          format: int32
+          type: integer
+          example: 1.0
+        startEpoch:
+          format: int64
+          type: integer
+          example: 1534888740.0
+    CollectorPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorBase'
+    AckCollectorDown:
+      type: object
+      properties:
+        comment:
+          type: string
+          example: Collector Down Acknowledged
+    NextUpgradeInfo:
+      type: object
+      properties:
+        upgradeTime:
+          readOnly: true
+          type: string
+        stable:
+          readOnly: true
+          type: boolean
+        majorVersion:
+          format: int32
+          readOnly: true
+          type: integer
+        minorVersion:
+          format: int32
+          readOnly: true
+          type: integer
+        mandatory:
+          readOnly: true
+          type: boolean
+        upgradeTimeEpoch:
+          format: int64
+          readOnly: true
+          type: integer
+    NameAndValue:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
     Collector:
       type: object
       properties:
@@ -1457,88 +1441,27 @@ components:
           description: Whether or not the device the Collector is installed on is enabled for fail over
           type: boolean
           example: true
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     RestCollectorDownloadTokenV3:
       type: object
       properties:
         token:
           type: string
-    NetFlowSourceCount:
-      type: object
-      properties:
-        count:
-          format: int32
-          maximum: 1000000
-          type: integer
-          minimum: 0
-    RestAgentLogLevelV3:
-      type: object
-      properties:
-        component:
-          type: string
-        logLevel:
-          type: string
-    CollectorLogFilePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestCollectorLogFileV3'
-    CollectorRecommendation:
-      type: object
-      properties:
-        utilizationPercent:
-          format: double
-          type: number
-        size:
-          type: string
-        count:
-          format: int32
-          type: integer
-        totalLoad:
-          format: double
-          type: number
-        maxCapacity:
-          format: double
-          type: number
-        failoverEnabled:
-          type: boolean
-        perCollectorLoad:
-          format: double
-          type: number
-        workloadType:
-          type: string
-    SizingOptions:
-      type: object
-      properties:
-        maxLoadPercent:
-          format: int32
-          maximum: 100
-          type: integer
-          minimum: 1
-        pollingFailover:
-          type: boolean
-        logsFailover:
-          type: boolean
-        forcedSize:
-          type: string
-        netflowFailover:
-          type: boolean
-    LogSourceCount:
-      type: object
-      properties:
-        count:
-          format: int32
-          maximum: 1000000
-          type: integer
-          minimum: 0
     RestCollectorEventV3:
       type: object
       properties:
@@ -1563,268 +1486,6 @@ components:
           type: integer
         collectorBuild:
           type: string
-    RestCollectorStatusV3:
-      type: object
-      properties:
-        lastTriggeredMills:
-          format: int64
-          type: integer
-        totalScriptCount:
-          format: int32
-          type: integer
-        lastUpdateMills:
-          format: int64
-          type: integer
-        aborted:
-          type: boolean
-        finished:
-          type: boolean
-        checkPoints:
-          $ref: '#/components/schemas/JSONArray'
-        finishedScriptCount:
-          format: int32
-          type: integer
-        skippedScriptCount:
-          format: int32
-          type: integer
-    CollectorUpgradeHistoryPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestCollectorUpgradeHistoryV3'
-    RestCollectorSizingResponseV3:
-      type: object
-      properties:
-        summary:
-          $ref: '#/components/schemas/SizingSummary'
-        netflow:
-          $ref: '#/components/schemas/CollectorRecommendation'
-        polling:
-          $ref: '#/components/schemas/CollectorRecommendation'
-        logs:
-          $ref: '#/components/schemas/CollectorRecommendation'
-    RestRestartCollectorV3:
-      type: object
-      properties:
-        collectorConf:
-          type: string
-        sbproxyConf:
-          type: string
-        collectorSize:
-          type: string
-        wrapperConf:
-          type: string
-        watchdogConf:
-          type: string
-        websiteConf:
-          type: string
-    SizingSummary:
-      type: object
-      properties:
-        totalCollectors:
-          format: int32
-          type: integer
-        largestSize:
-          type: string
-        activeWorkloads:
-          type: array
-          items:
-            type: string
-        configurationUsed:
-          additionalProperties:
-            type: object
-          type: object
-    AutomaticUpgradeInfo_2:
-      description: The details of the Collector's automatic upgrade schedule, if one exists
-      type: object
-      required:
-      - dayOfWeek
-      - hour
-      - minute
-      - occurrence
-      - version
-      properties:
-        dayOfWeek:
-          type: string
-          example: MON
-        hour:
-          format: int32
-          type: integer
-          example: 15
-        createdBy:
-          readOnly: true
-          type: string
-        level:
-          readOnly: true
-          type: string
-        timezone:
-          type: string
-          example: Americas/Los Angeles
-        description:
-          type: string
-          example: regular MGD updates
-        occurrence:
-          type: string
-          example: Any
-        type:
-          readOnly: true
-          type: string
-        version:
-          type: string
-          example: MGD
-        minute:
-          format: int32
-          type: integer
-          example: 0
-    RestDowngradeInfoOnetime:
-      description: The details of the Collector's automatic downgrade schedule, if one exists
-      type: object
-      required:
-      - majorVersion
-      - minorVersion
-      - startEpoch
-      properties:
-        createdBy:
-          readOnly: true
-          type: string
-        level:
-          readOnly: true
-          type: string
-        timezone:
-          type: string
-        endEpoch:
-          format: int64
-          readOnly: true
-          type: integer
-        description:
-          type: string
-          example: regular MGD updates
-        type:
-          readOnly: true
-          type: string
-        majorVersion:
-          format: int32
-          type: integer
-          example: 27
-        minorVersion:
-          format: int32
-          type: integer
-          example: 1
-        startEpoch:
-          format: int64
-          type: integer
-          example: 1534888740
-    RestCollectorLogFileV3:
-      type: object
-      properties:
-        fileName:
-          type: string
-        size:
-          format: int64
-          type: integer
-        uploaded:
-          format: int64
-          type: integer
-        lastModified:
-          format: int64
-          type: integer
-        lastModifiedOnOnLocal:
-          type: string
-    RestCollectorSizingRequestV3:
-      type: object
-      properties:
-        traps:
-          additionalProperties:
-            $ref: '#/components/schemas/LogSourceCount'
-          type: object
-        netflow:
-          additionalProperties:
-            $ref: '#/components/schemas/NetFlowSourceCount'
-          type: object
-        devices:
-          additionalProperties:
-            $ref: '#/components/schemas/DeviceCount'
-          type: object
-        options:
-          $ref: '#/components/schemas/SizingOptions'
-        logs:
-          additionalProperties:
-            $ref: '#/components/schemas/LogSourceCount'
-          type: object
-    NameAndValue_2:
-      description: The properties associated with the website
-      readOnly: true
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The name of a property
-          type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    NextUpgradeInfo_2:
-      description: The details of the Collector's next upgrade, if one has been scheduled
-      readOnly: true
-      type: object
-      properties:
-        upgradeTime:
-          readOnly: true
-          type: string
-        stable:
-          readOnly: true
-          type: boolean
-        majorVersion:
-          format: int32
-          readOnly: true
-          type: integer
-        minorVersion:
-          format: int32
-          readOnly: true
-          type: integer
-        mandatory:
-          readOnly: true
-          type: boolean
-        upgradeTimeEpoch:
-          format: int64
-          readOnly: true
-          type: integer
-    RestCollectorUpgradeHistoryV3:
-      type: object
-      properties:
-        notes:
-          type: string
-        previousVersion:
-          type: string
-        happenedOn:
-          format: int64
-          type: integer
-        collectorId:
-          format: int32
-          type: integer
-        id:
-          type: string
-        newVersion:
-          type: string
-        status:
-          format: int32
-          type: integer
-        collectorType:
-          format: int32
-          type: integer
     OnetimeUpgradeInfo_2:
       description: The details of the Collector's one time upgrade, if one has been scheduled
       type: object
@@ -1863,6 +1524,119 @@ components:
           format: int64
           type: integer
           example: 1534888740
+    CollectorLogFilePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestCollectorLogFileV3'
+    RestRestartCollectorV3:
+      type: object
+      properties:
+        collectorConf:
+          type: string
+        sbproxyConf:
+          type: string
+        collectorSize:
+          type: string
+        wrapperConf:
+          type: string
+        watchdogConf:
+          type: string
+        websiteConf:
+          type: string
+    RestCollectorStatusV3:
+      type: object
+      properties:
+        lastTriggeredMills:
+          format: int64
+          type: integer
+        totalScriptCount:
+          format: int32
+          type: integer
+        lastUpdateMills:
+          format: int64
+          type: integer
+        aborted:
+          type: boolean
+        finished:
+          type: boolean
+        checkPoints:
+          $ref: '#/components/schemas/JSONArray'
+        finishedScriptCount:
+          format: int32
+          type: integer
+        skippedScriptCount:
+          format: int32
+          type: integer
+    JSONArray:
+      type: object
+      properties:
+        empty:
+          type: boolean
+    RestCollectorLogFileV3:
+      type: object
+      properties:
+        fileName:
+          type: string
+        size:
+          format: int64
+          type: integer
+        uploaded:
+          format: int64
+          type: integer
+        lastModified:
+          format: int64
+          type: integer
+        lastModifiedOnOnLocal:
+          type: string
+    NextUpgradeInfo_2:
+      description: The details of the Collector's next upgrade, if one has been scheduled
+      readOnly: true
+      type: object
+      properties:
+        upgradeTime:
+          readOnly: true
+          type: string
+        stable:
+          readOnly: true
+          type: boolean
+        majorVersion:
+          format: int32
+          readOnly: true
+          type: integer
+        minorVersion:
+          format: int32
+          readOnly: true
+          type: integer
+        mandatory:
+          readOnly: true
+          type: boolean
+        upgradeTimeEpoch:
+          format: int64
+          readOnly: true
+          type: integer
+    DeviceCount:
+      type: object
+      properties:
+        instances:
+          format: int32
+          maximum: 100000
+          type: integer
+          minimum: 1
+        count:
+          format: int32
+          maximum: 1000000
+          type: integer
+          minimum: 0
     CollectorBase_2:
       type: object
       properties:
@@ -2205,24 +1979,192 @@ components:
           description: Collector Config
           readOnly: true
           type: string
-    DeviceCount:
+    RestCollectorSizingResponseV3:
       type: object
       properties:
-        instances:
-          format: int32
-          maximum: 100000
-          type: integer
-          minimum: 1
+        summary:
+          $ref: '#/components/schemas/SizingSummary'
+        netflow:
+          $ref: '#/components/schemas/CollectorRecommendation'
+        polling:
+          $ref: '#/components/schemas/CollectorRecommendation'
+        logs:
+          $ref: '#/components/schemas/CollectorRecommendation'
+    NameAndValue_2:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    NetFlowSourceCount:
+      type: object
+      properties:
         count:
           format: int32
           maximum: 1000000
           type: integer
           minimum: 0
-    JSONArray:
+    CollectorRecommendation:
       type: object
       properties:
-        empty:
+        utilizationPercent:
+          format: double
+          type: number
+        size:
+          type: string
+        count:
+          format: int32
+          type: integer
+        totalLoad:
+          format: double
+          type: number
+        maxCapacity:
+          format: double
+          type: number
+        failoverEnabled:
           type: boolean
+        perCollectorLoad:
+          format: double
+          type: number
+        workloadType:
+          type: string
+    AutomaticUpgradeInfo_2:
+      description: The details of the Collector's automatic upgrade schedule, if one exists
+      type: object
+      required:
+      - dayOfWeek
+      - hour
+      - minute
+      - occurrence
+      - version
+      properties:
+        dayOfWeek:
+          type: string
+          example: MON
+        hour:
+          format: int32
+          type: integer
+          example: 15
+        createdBy:
+          readOnly: true
+          type: string
+        level:
+          readOnly: true
+          type: string
+        timezone:
+          type: string
+          example: Americas/Los Angeles
+        description:
+          type: string
+          example: regular MGD updates
+        occurrence:
+          type: string
+          example: Any
+        type:
+          readOnly: true
+          type: string
+        version:
+          type: string
+          example: MGD
+        minute:
+          format: int32
+          type: integer
+          example: 0
+    LogSourceCount:
+      type: object
+      properties:
+        count:
+          format: int32
+          maximum: 1000000
+          type: integer
+          minimum: 0
+    SizingOptions:
+      type: object
+      properties:
+        maxLoadPercent:
+          format: int32
+          maximum: 100
+          type: integer
+          minimum: 1
+        pollingFailover:
+          type: boolean
+        logsFailover:
+          type: boolean
+        forcedSize:
+          type: string
+        netflowFailover:
+          type: boolean
+    RestDowngradeInfoOnetime:
+      description: The details of the Collector's automatic downgrade schedule, if one exists
+      type: object
+      required:
+      - majorVersion
+      - minorVersion
+      - startEpoch
+      properties:
+        createdBy:
+          readOnly: true
+          type: string
+        level:
+          readOnly: true
+          type: string
+        timezone:
+          type: string
+        endEpoch:
+          format: int64
+          readOnly: true
+          type: integer
+        description:
+          type: string
+          example: regular MGD updates
+        type:
+          readOnly: true
+          type: string
+        majorVersion:
+          format: int32
+          type: integer
+          example: 27
+        minorVersion:
+          format: int32
+          type: integer
+          example: 1
+        startEpoch:
+          format: int64
+          type: integer
+          example: 1534888740
+    RestCollectorUpgradeHistoryV3:
+      type: object
+      properties:
+        notes:
+          type: string
+        previousVersion:
+          type: string
+        happenedOn:
+          format: int64
+          type: integer
+        collectorId:
+          format: int32
+          type: integer
+        id:
+          type: string
+        newVersion:
+          type: string
+        status:
+          format: int32
+          type: integer
+        collectorType:
+          format: int32
+          type: integer
     Collector_2:
       type: object
       properties:
@@ -2579,6 +2521,64 @@ components:
           description: Collector Config
           readOnly: true
           type: string
+    RestCollectorSizingRequestV3:
+      type: object
+      properties:
+        traps:
+          additionalProperties:
+            $ref: '#/components/schemas/LogSourceCount'
+          type: object
+        netflow:
+          additionalProperties:
+            $ref: '#/components/schemas/NetFlowSourceCount'
+          type: object
+        devices:
+          additionalProperties:
+            $ref: '#/components/schemas/DeviceCount'
+          type: object
+        options:
+          $ref: '#/components/schemas/SizingOptions'
+        logs:
+          additionalProperties:
+            $ref: '#/components/schemas/LogSourceCount'
+          type: object
+    RestAgentLogLevelV3:
+      type: object
+      properties:
+        component:
+          type: string
+        logLevel:
+          type: string
+    CollectorUpgradeHistoryPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestCollectorUpgradeHistoryV3'
+    SizingSummary:
+      type: object
+      properties:
+        totalCollectors:
+          format: int32
+          type: integer
+        largestSize:
+          type: string
+        activeWorkloads:
+          type: array
+          items:
+            type: string
+        configurationUsed:
+          additionalProperties:
+            type: object
+          type: object
   securitySchemes:
     LMv1:
       in: header

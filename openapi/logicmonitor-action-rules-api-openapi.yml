@@ -319,6 +319,32 @@ components:
           description: Indicates whether the action rule is enabled
           type: boolean
           example: false
+    ActionChainSummary:
+      description: The action chain summary for the action rule
+      readOnly: true
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          format: int32
+          type: integer
+      example:
+        name: Action Chain 1
+        id: 1
+    RestDeviceProperty:
+      description: The resource property filters list
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The resource property name
+          type: string
+        value:
+          description: The resource property value
+          type: string
     ActionRule:
       type: object
       required:
@@ -408,32 +434,6 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    ActionChainSummary:
-      description: The action chain summary for the action rule
-      readOnly: true
-      type: object
-      properties:
-        name:
-          type: string
-        id:
-          format: int32
-          type: integer
-      example:
-        name: Action Chain 1
-        id: 1
-    RestDeviceProperty:
-      description: The resource property filters list
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The resource property name
-          type: string
-        value:
-          description: The resource property value
-          type: string
   securitySchemes:
     LMv1:
       in: header

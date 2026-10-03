@@ -624,6 +624,22 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     DeviceDataSourceInstanceConfig:
       type: object
       properties:
@@ -670,29 +686,6 @@ components:
           type: integer
         config:
           type: string
-    DeviceInstances:
-      type: object
-      required:
-      - instanceIds
-      properties:
-        instanceIds:
-          description: the ids of the instances, separated by commas
-          type: string
-          example: 1,2,3,4,5
-    DeviceInstanceDataPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceInstanceData'
     GraphPlot:
       allOf:
       - $ref: '#/components/schemas/WidgetData'
@@ -803,6 +796,29 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
+    DeviceInstances:
+      type: object
+      required:
+      - instanceIds
+      properties:
+        instanceIds:
+          description: the ids of the instances, separated by commas
+          type: string
+          example: 1,2,3,4,5
+    DeviceInstanceDataPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceInstanceData'
     GraphPlotLine:
       type: object
       properties:
@@ -851,16 +867,6 @@ components:
         useYMax:
           readOnly: true
           type: boolean
-    DeviceDataSourceInstanceConfigDiff:
-      type: object
-      properties:
-        rowNo:
-          format: int32
-          type: integer
-        type:
-          type: string
-        content:
-          type: string
     DeviceDataSourceInstanceData:
       type: object
       properties:
@@ -883,32 +889,27 @@ components:
         dataSourceName:
           readOnly: true
           type: string
-    WidgetData:
+    GraphOpsNoteScope:
       type: object
       properties:
-        type:
-          readOnly: true
-          type: string
-        title:
-          type: string
-      discriminator:
-        propertyName: type
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
+        serviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        serviceId:
           format: int32
-          description: The error code
-          readOnly: true
           type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
+        type:
+          type: string
+        deviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        deviceId:
+          format: int32
+          type: integer
     DeviceDataSourceInstanceConfigAlert:
       type: object
       properties:
@@ -943,6 +944,16 @@ components:
         nextPageParams:
           readOnly: true
           type: string
+    DeviceDataSourceInstanceConfigDiff:
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          type: integer
+        type:
+          type: string
+        content:
+          type: string
     DeviceInstanceData:
       type: object
       properties:
@@ -971,27 +982,16 @@ components:
         dataSourceName:
           readOnly: true
           type: string
-    GraphOpsNoteScope:
+    WidgetData:
       type: object
       properties:
-        serviceGroupIds:
-          type: array
-          items:
-            format: int32
-            type: integer
-        serviceId:
-          format: int32
-          type: integer
         type:
+          readOnly: true
           type: string
-        deviceGroupIds:
-          type: array
-          items:
-            format: int32
-            type: integer
-        deviceId:
-          format: int32
-          type: integer
+        title:
+          type: string
+      discriminator:
+        propertyName: type
     DeviceDataSourceInstanceConfig_2:
       type: object
       properties:
@@ -1305,24 +1305,6 @@ components:
             Specifies whether to use YMax or not'
           readOnly: true
           type: boolean
-    DeviceDataSourceInstanceConfigDiff_2:
-      description: Configuration file diff
-      readOnly: true
-      type: object
-      properties:
-        rowNo:
-          format: int32
-          description: Diff row number
-          readOnly: true
-          type: integer
-        type:
-          description: 'Diff type. The values can be : add|remove'
-          readOnly: true
-          type: string
-        content:
-          description: Configuration content
-          readOnly: true
-          type: string
     DeviceDataSourceInstanceData_2:
       type: object
       properties:
@@ -1356,18 +1338,43 @@ components:
           description: Datasource name
           readOnly: true
           type: string
-    WidgetData_2:
+    GraphOpsNoteScope_2:
+      description: 'Scopes: use this field to find match opsnote'
+      readOnly: true
       type: object
       properties:
+        serviceGroupIds:
+          description: The service group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The service group Id
+            readOnly: true
+            type: integer
+        serviceId:
+          format: int32
+          description: The service Id
+          readOnly: true
+          type: integer
         type:
-          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
+          description: The values can be device | service | website
           readOnly: true
           type: string
-        title:
-          description: The widget title
-          type: string
-      discriminator:
-        propertyName: type
+        deviceGroupIds:
+          description: The device group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The device group Id
+            readOnly: true
+            type: integer
+        deviceId:
+          format: int32
+          description: The device Id
+          readOnly: true
+          type: integer
     DeviceDataSourceInstanceConfigAlert_2:
       description: Alerts associated to this configuration file
       readOnly: true
@@ -1424,6 +1431,24 @@ components:
           description: The next page parameters
           readOnly: true
           type: string
+    DeviceDataSourceInstanceConfigDiff_2:
+      description: Configuration file diff
+      readOnly: true
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          description: Diff row number
+          readOnly: true
+          type: integer
+        type:
+          description: 'Diff type. The values can be : add|remove'
+          readOnly: true
+          type: string
+        content:
+          description: Configuration content
+          readOnly: true
+          type: string
     DeviceInstanceData_2:
       type: object
       properties:
@@ -1462,43 +1487,18 @@ components:
         dataSourceName:
           readOnly: true
           type: string
-    GraphOpsNoteScope_2:
-      description: 'Scopes: use this field to find match opsnote'
-      readOnly: true
+    WidgetData_2:
       type: object
       properties:
-        serviceGroupIds:
-          description: The service group Id
-          readOnly: true
-          type: array
-          items:
-            format: int32
-            description: The service group Id
-            readOnly: true
-            type: integer
-        serviceId:
-          format: int32
-          description: The service Id
-          readOnly: true
-          type: integer
         type:
-          description: The values can be device | service | website
+          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
           readOnly: true
           type: string
-        deviceGroupIds:
-          description: The device group Id
-          readOnly: true
-          type: array
-          items:
-            format: int32
-            description: The device group Id
-            readOnly: true
-            type: integer
-        deviceId:
-          format: int32
-          description: The device Id
-          readOnly: true
-          type: integer
+        title:
+          description: The widget title
+          type: string
+      discriminator:
+        propertyName: type
   securitySchemes:
     LMv1:
       in: header

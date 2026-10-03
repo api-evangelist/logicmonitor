@@ -354,6 +354,415 @@ paths:
         required: true
 components:
   schemas:
+    ObjectIdentifier:
+      type: object
+      properties:
+        model:
+          type: string
+          enum:
+          - accessLogs
+          - accessGroups
+          - adminNotifications
+          - aggregateSavings
+          - alerts
+          - visualizationAggregateEntry
+          - visualizationAggregateValue
+          - alertDependencyRules
+          - alertRoutings
+          - alertRules
+          - actionRules
+          - alertTuningConfigAncestry
+          - alertTuningConfigs
+          - alertTuningConfigsHistory
+          - alertTuningConfigSlots
+          - alertTuningGraphs
+          - alertsTuningSeries
+          - asnMappings
+          - billingConfigurations
+          - cloudAccounts
+          - cloudResourceProperty
+          - clusterAlertRoutings
+          - clusterAlertTuningConfigs
+          - collectors
+          - collectorEvents
+          - collectorGroups
+          - collectorStatus
+          - collectorUpgradeHistory
+          - collectorUpgradeInfo
+          - configSources
+          - configSourceInstance
+          - configSourceInstanceAlert
+          - collectorLogs
+          - config
+          - configAlert
+          - correlationGraphs
+          - dashboards
+          - datapoints
+          - dataQueries
+          - dataSources
+          - dataSourceInstances
+          - dataSourceInstanceAlertSettings
+          - dataSourceInstanceGroups
+          - datasets
+          - dnsMappings
+          - escalationChains
+          - actionChains
+          - eventSources
+          - integrations
+          - integrationAuditLogs
+          - logSources
+          - exchangeAccessGroups
+          - exchangeActiveDiscoveryFilters
+          - exchangeAppliesToFunctions
+          - exchangeChangelogs
+          - exchangeConfigSources
+          - exchangeConfigSourceConfigChecks
+          - exchangeDataSources
+          - exchangeDataSourceDataPoints
+          - exchangeDataSourceDataPointDisplayStatusNames
+          - exchangeDataSourceGraphs
+          - exchangeDataSourceGraphSeries
+          - exchangeDataSourceGraphVirtualSeries
+          - exchangeDataSourceOverviewGraphs
+          - exchangeDataSourceOverviewGraphSeries
+          - exchangeDataSourceOverviewGraphVirtualSeries
+          - exchangeDiagnosticSources
+          - exchangeEventSources
+          - exchangeEventSourceFilters
+          - exchangeEventSourceLogFiles
+          - exchangeJobMonitors
+          - exchangeLogSources
+          - exchangeLogSourceFilters
+          - exchangeSnmpTrapLogSourceFilters
+          - exchangeLogSourceLogFields
+          - exchangeLogSourceResourceMappings
+          - exchangeLogSourceSensitiveDataMaskingRules
+          - exchangeLogSourceCollectorMappings
+          - exchangeLogicModules
+          - exchangeLogicModulePackages
+          - exchangeLogicModulePermissions
+          - exchangePackagedLogicModules
+          - exchangePropertySources
+          - exchangeRemediationSources
+          - exchangeSNMPSysOIDMaps
+          - exchangeTopologySources
+          - externalResourceIdentifiers
+          - failedDataSourceInfo
+          - filterFieldList
+          - graphs
+          - graphMeta
+          - healthMetrics
+          - hierarchy
+          - hostclusterAlertDefs
+          - auditLogSummaryContext
+          - hostDiagnosticSourceDetails
+          - diagnosticExecutionContext
+          - remediationExecutionContext
+          - latestDiagnosticExecutionResultContext
+          - diagnosticExecutionSearchContext
+          - remediationSourceExecutionSearchContext
+          - diagnosticSourceAssociatedDevices
+          - hostRemediationSourceDetails
+          - hostActionToolDetails
+          - actionToolExecutionContext
+          - actionToolExecutionSearchContext
+          - remediationSourceAssociatedDevices
+          - latestRemediationExecutionResultContext
+          - hostGroups
+          - internalAlertSettings
+          - jobMonitors
+          - jobMonitorExecutions
+          - lmSupportAccessHasConnection
+          - lmSupportAccessState
+          - lmotelCollectors
+          - lmotelCollectorVersions
+          - lmCollectorVersions
+          - logalerts
+          - logicModuleGroups
+          - logpipelinesources
+          - logpipelineprocessors
+          - matchedEvents
+          - metaGroupings
+          - metricsCorrelation
+          - monitoredResources
+          - netscanGroups
+          - netscans
+          - netflow
+          - netflowAlertRule
+          - allLevels
+          - nocWidgets
+          - normalizedProperties
+          - netscanPolicies
+          - netscanExecutions
+          - opsNotes
+          - opsNoteResourceScopes
+          - opsNoteServiceScopes
+          - opsNoteResourceGroupScopes
+          - opsNoteServiceGroupScopes
+          - opsNoteGroupAllScopes
+          - opsNoteTags
+          - orgTreeNodes
+          - portMappings
+          - productIds
+          - properties
+          - propertySources
+          - rawData
+          - recentlyDeletedItems
+          - recipientGroups
+          - cloudConfigIssues
+          - cloudConfigIntegrations
+          - cloudConfigAccounts
+          - cloudHealthEvents
+          - cloudHealthEventDetails
+          - cloudHealthEventAdditionalInfo
+          - cloudRecommendations
+          - cloudRecommendationAdditionalData
+          - recommendationTypes
+          - relationships
+          - reports
+          - reportHistories
+          - reportGroups
+          - resources
+          - resourceDashboards
+          - resourceDataSources
+          - resourceDatapoints
+          - resourceEventSources
+          - resourceConfigSources
+          - ConfigSourcesGoldStandard
+          - ConfigSourceConfiguration
+          - resourceDashboardTemplates
+          - resourceGroups
+          - resourceGroupDataSourceConfigs
+          - resourceGroupEventSourceConfigs
+          - resourceGroupInfoSourceConfigs
+          - resourceJobMonitors
+          - resourceLogPipelineResources
+          - resourceLogSources
+          - sdts
+          - services
+          - serviceCheckpoints
+          - serviceGroups
+          - sharedQueries
+          - siteMonitors
+          - slaWidgets
+          - spanCount
+          - securityRecommendations
+          - subscriptions
+          - topology
+          - topologyMaps
+          - topologyMaps-1
+          - topologyMaps-2
+          - topologyMapsHistogram
+          - topologyMapsGraphs
+          - subEntities
+          - subEntitiesDetails
+          - topologySavedMapsGroupType
+          - topologySavedMapsGroup
+          - topologyManualMapping
+          - topologyManualInterfaceList
+          - traffic
+          - treeNodes
+          - unmonitoredResources
+          - userdata
+          - users
+          - userSettings
+          - websiteCheckpoints
+          - websiteGroups
+          - websites
+          - ServicePreview
+          - BizServiceDatapoint
+          - ServiceTemplateView
+          - ServiceMemberPreview
+          - RestServiceTemplate
+          - ServiceTemplateServiceStats
+          - synthetics
+          - usage
+          - tracesDevicesNamesIds
+          - tracesGraphIds
+          - tracesServices
+          - tracesDeviceDatasources
+          - tracesDeviceDatasourceInstances
+          - tracesNamespaceGraphDetails
+          - tracesResourceNamesIds
+          - tracesTopologyEdgeData
+          - members
+          - apiTokens
+          - roleGroups
+          - roles
+          - userGroups
+          - sharingTokens
+          - scimTokens
+          - syntheticsDSInstanceRawData
+          - syntheticsDSInstanceStepData
+          - syntheticsDSInstanceAlerts
+          - usageDimensions
+          - vizResourceInfo
+          - lmqlResult
+          - lmqlParsed
+          - partitions
+          - cloudRecommendationStatus
+          - recommendationStatusUpdateRequest
+          - websiteDevice
+          - mibUpload
+          - logQueryGroups
+          - logQueryGroupChangelog
+          - logQuery
+          - trackingLogQueries
+          - billingBudgets
+          - trackedQuery
+          - trackedQueryGroups
+          - trackedQueryGroupChangelog
+          - adminName
+          - droppedInstances
+          - dashboardFilterGroups
+          - dashboardFilters
+          - dashboardFilterMappings
+        id:
+          type: string
+    RestResponseMetaBlock:
+      type: object
+      properties:
+        filteredCount:
+          format: int64
+          type: integer
+        isTotalCountExhaustive:
+          type: boolean
+        fromPagingResponseInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        fromSortInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        perPageCount:
+          format: int32
+          type: integer
+        sort:
+          type: string
+        totalCount:
+          format: int64
+          type: integer
+        pageOffsetCount:
+          format: int32
+          type: integer
+    LogQueryGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogQueryGroup'
+    ViewConfig:
+      description: log query group fields view
+      type: object
+      properties:
+        aggregateConfig:
+          $ref: '#/components/schemas/AggregateConfig'
+        fieldPanel:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldPanelItem'
+    ErrorResponseV2:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          format: int32
+          type: integer
+        errorDetail:
+          type: object
+    RestResponse:
+      type: object
+      properties:
+        diagnostics:
+          $ref: '#/components/schemas/ArrayNode'
+        suppressedWarnings:
+          $ref: '#/components/schemas/ArrayNode'
+        preserveInsertionOrder:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ObjectNode'
+        suppressedErrors:
+          $ref: '#/components/schemas/ArrayNode'
+        successes:
+          $ref: '#/components/schemas/ArrayNode'
+        meta:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        warnings:
+          $ref: '#/components/schemas/ArrayNode'
+        errors:
+          $ref: '#/components/schemas/ArrayNode'
+    AggregateConfig:
+      type: object
+      properties:
+        chartMetadata:
+          type: string
+        data:
+          type: string
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregateColumn'
+        donut:
+          type: string
+        chartType:
+          type: string
+        sortBy:
+          type: string
+        label:
+          type: string
+    ObjectNode:
+      type: object
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    RestLogQueryValidationRequestItemV4:
+      type: object
+      properties:
+        duration:
+          type: string
+        partitions:
+          type: array
+          items:
+            type: string
+        query:
+          type: string
+        label:
+          type: string
+        viewConfig:
+          $ref: '#/components/schemas/View_Config'
+        version:
+          type: string
+    View_Config:
+      type: object
+      properties:
+        aggregateConfig:
+          description: aggregate chart configuration
+          readOnly: false
+          $ref: '#/components/schemas/AggregateConfig'
+        fieldPanel:
+          description: field panel configuration
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldPanelItem'
     FieldPanelItem:
       type: object
       properties:
@@ -364,6 +773,91 @@ components:
           type: integer
         isVisible:
           type: boolean
+    RestLogQueryImportResult:
+      description: Import result for one log query.
+      type: object
+      properties:
+        duration:
+          description: Saved query time range.
+          type: string
+          example: 5min
+        partitions:
+          description: Optional log partitions selected for the query.
+          type: array
+          items:
+            description: Optional log partitions selected for the query.
+            type: string
+            example: '["partition1"]'
+          example:
+          - partition1
+        reason:
+          description: Validation or import status reason for the query.
+          type: string
+          example: Existing query
+        query:
+          description: Log query expression.
+          type: string
+          example: error
+        isValid:
+          type: boolean
+        label:
+          description: Saved query label.
+          type: string
+          example: AWS error logs
+        viewConfig:
+          description: Optional saved view configuration for the query.
+          readOnly: false
+          $ref: '#/components/schemas/View_Config'
+    LogQueryGroup:
+      type: object
+      required:
+      - name
+      properties:
+        groupType:
+          type: string
+          enum:
+          - PRIVATE
+          - SHARED
+          - PUBLIC
+        userPermission:
+          description: Effective user permission for this group
+          type: string
+        logQuery:
+          description: List of log queries in this group
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Log_Query'
+        name:
+          description: The name of the log query group
+          type: string
+        description:
+          description: Description of the log query group
+          type: string
+        id:
+          format: int32
+          description: The ID of the log query group
+          readOnly: true
+          type: integer
+        ownerId:
+          format: int32
+          description: Owner of the log query group
+          type: integer
+        parentId:
+          format: int32
+          description: Parent group ID if nested
+          type: integer
+    RestLogQueryGroupValidationRequestItemV4:
+      type: object
+      properties:
+        logQuery:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestLogQueryValidationRequestItemV4'
+        name:
+          type: string
+        description:
+          type: string
     RestLogQueryGroupImportResult:
       description: Import result for one log query group.
       type: object
@@ -387,37 +881,6 @@ components:
           description: Description of the target log query group.
           type: string
           example: Ungrouped folder
-    ViewConfig:
-      description: log query group fields view
-      type: object
-      properties:
-        aggregateConfig:
-          $ref: '#/components/schemas/AggregateConfig'
-        fieldPanel:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldPanelItem'
-    RestResponse:
-      type: object
-      properties:
-        diagnostics:
-          $ref: '#/components/schemas/ArrayNode'
-        suppressedWarnings:
-          $ref: '#/components/schemas/ArrayNode'
-        preserveInsertionOrder:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/ObjectNode'
-        suppressedErrors:
-          $ref: '#/components/schemas/ArrayNode'
-        successes:
-          $ref: '#/components/schemas/ArrayNode'
-        meta:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        warnings:
-          $ref: '#/components/schemas/ArrayNode'
-        errors:
-          $ref: '#/components/schemas/ArrayNode'
     Log_Query:
       description: List of log queries in this group
       readOnly: true
@@ -741,140 +1204,6 @@ components:
         isAggregate:
           description: is aggregate query or not
           type: boolean
-    View_Config:
-      type: object
-      properties:
-        aggregateConfig:
-          description: aggregate chart configuration
-          readOnly: false
-          $ref: '#/components/schemas/AggregateConfig'
-        fieldPanel:
-          description: field panel configuration
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldPanelItem'
-    LogQueryGroup:
-      type: object
-      required:
-      - name
-      properties:
-        groupType:
-          type: string
-          enum:
-          - PRIVATE
-          - SHARED
-          - PUBLIC
-        userPermission:
-          description: Effective user permission for this group
-          type: string
-        logQuery:
-          description: List of log queries in this group
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Log_Query'
-        name:
-          description: The name of the log query group
-          type: string
-        description:
-          description: Description of the log query group
-          type: string
-        id:
-          format: int32
-          description: The ID of the log query group
-          readOnly: true
-          type: integer
-        ownerId:
-          format: int32
-          description: Owner of the log query group
-          type: integer
-        parentId:
-          format: int32
-          description: Parent group ID if nested
-          type: integer
-    AggregateConfig:
-      type: object
-      properties:
-        chartMetadata:
-          type: string
-        data:
-          type: string
-        columns:
-          type: array
-          items:
-            $ref: '#/components/schemas/AggregateColumn'
-        donut:
-          type: string
-        chartType:
-          type: string
-        sortBy:
-          type: string
-        label:
-          type: string
-    ErrorResponseV2:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-        errorCode:
-          format: int32
-          type: integer
-        errorDetail:
-          type: object
-    ObjectNode:
-      type: object
-    RestLogQueryValidationRequestItemV4:
-      type: object
-      properties:
-        duration:
-          type: string
-        partitions:
-          type: array
-          items:
-            type: string
-        query:
-          type: string
-        label:
-          type: string
-        viewConfig:
-          $ref: '#/components/schemas/View_Config'
-        version:
-          type: string
-    RestLogQueryImportResult:
-      description: Import result for one log query.
-      type: object
-      properties:
-        duration:
-          description: Saved query time range.
-          type: string
-          example: 5min
-        partitions:
-          description: Optional log partitions selected for the query.
-          type: array
-          items:
-            description: Optional log partitions selected for the query.
-            type: string
-            example: '["partition1"]'
-          example:
-          - partition1
-        reason:
-          description: Validation or import status reason for the query.
-          type: string
-          example: Existing query
-        query:
-          description: Log query expression.
-          type: string
-          example: error
-        isValid:
-          type: boolean
-        label:
-          description: Saved query label.
-          type: string
-          example: AWS error logs
-        viewConfig:
-          description: Optional saved view configuration for the query.
-          readOnly: false
-          $ref: '#/components/schemas/View_Config'
     AggregateColumn:
       type: object
       properties:
@@ -883,337 +1212,8 @@ components:
           type: integer
         column:
           type: string
-    RestLogQueryGroupValidationRequestItemV4:
-      type: object
-      properties:
-        logQuery:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestLogQueryValidationRequestItemV4'
-        name:
-          type: string
-        description:
-          type: string
-    LogQueryGroupPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogQueryGroup'
-    ObjectIdentifier:
-      type: object
-      properties:
-        model:
-          type: string
-          enum:
-          - accessLogs
-          - accessGroups
-          - adminNotifications
-          - aggregateSavings
-          - alerts
-          - visualizationAggregateEntry
-          - visualizationAggregateValue
-          - alertDependencyRules
-          - alertRoutings
-          - alertRules
-          - actionRules
-          - alertTuningConfigAncestry
-          - alertTuningConfigs
-          - alertTuningConfigsHistory
-          - alertTuningConfigSlots
-          - alertTuningGraphs
-          - alertsTuningSeries
-          - asnMappings
-          - billingConfigurations
-          - cloudAccounts
-          - cloudResourceProperty
-          - clusterAlertRoutings
-          - clusterAlertTuningConfigs
-          - collectors
-          - collectorEvents
-          - collectorGroups
-          - collectorStatus
-          - collectorUpgradeHistory
-          - collectorUpgradeInfo
-          - configSources
-          - configSourceInstance
-          - configSourceInstanceAlert
-          - collectorLogs
-          - config
-          - configAlert
-          - correlationGraphs
-          - dashboards
-          - datapoints
-          - dataQueries
-          - dataSources
-          - dataSourceInstances
-          - dataSourceInstanceAlertSettings
-          - dataSourceInstanceGroups
-          - datasets
-          - dnsMappings
-          - escalationChains
-          - actionChains
-          - eventSources
-          - integrations
-          - integrationAuditLogs
-          - logSources
-          - exchangeAccessGroups
-          - exchangeActiveDiscoveryFilters
-          - exchangeAppliesToFunctions
-          - exchangeChangelogs
-          - exchangeConfigSources
-          - exchangeConfigSourceConfigChecks
-          - exchangeDataSources
-          - exchangeDataSourceDataPoints
-          - exchangeDataSourceDataPointDisplayStatusNames
-          - exchangeDataSourceGraphs
-          - exchangeDataSourceGraphSeries
-          - exchangeDataSourceGraphVirtualSeries
-          - exchangeDataSourceOverviewGraphs
-          - exchangeDataSourceOverviewGraphSeries
-          - exchangeDataSourceOverviewGraphVirtualSeries
-          - exchangeDiagnosticSources
-          - exchangeEventSources
-          - exchangeEventSourceFilters
-          - exchangeEventSourceLogFiles
-          - exchangeJobMonitors
-          - exchangeLogSources
-          - exchangeLogSourceFilters
-          - exchangeSnmpTrapLogSourceFilters
-          - exchangeLogSourceLogFields
-          - exchangeLogSourceResourceMappings
-          - exchangeLogSourceSensitiveDataMaskingRules
-          - exchangeLogSourceCollectorMappings
-          - exchangeLogicModules
-          - exchangeLogicModulePackages
-          - exchangeLogicModulePermissions
-          - exchangePackagedLogicModules
-          - exchangePropertySources
-          - exchangeRemediationSources
-          - exchangeSNMPSysOIDMaps
-          - exchangeTopologySources
-          - externalResourceIdentifiers
-          - failedDataSourceInfo
-          - filterFieldList
-          - graphs
-          - graphMeta
-          - healthMetrics
-          - hierarchy
-          - hostclusterAlertDefs
-          - auditLogSummaryContext
-          - hostDiagnosticSourceDetails
-          - diagnosticExecutionContext
-          - remediationExecutionContext
-          - latestDiagnosticExecutionResultContext
-          - diagnosticExecutionSearchContext
-          - remediationSourceExecutionSearchContext
-          - diagnosticSourceAssociatedDevices
-          - hostRemediationSourceDetails
-          - hostActionToolDetails
-          - actionToolExecutionContext
-          - actionToolExecutionSearchContext
-          - remediationSourceAssociatedDevices
-          - latestRemediationExecutionResultContext
-          - hostGroups
-          - internalAlertSettings
-          - jobMonitors
-          - jobMonitorExecutions
-          - lmSupportAccessHasConnection
-          - lmSupportAccessState
-          - lmotelCollectors
-          - lmotelCollectorVersions
-          - lmCollectorVersions
-          - logalerts
-          - logicModuleGroups
-          - logpipelinesources
-          - logpipelineprocessors
-          - matchedEvents
-          - metaGroupings
-          - metricsCorrelation
-          - monitoredResources
-          - netscanGroups
-          - netscans
-          - netflow
-          - netflowAlertRule
-          - allLevels
-          - nocWidgets
-          - normalizedProperties
-          - netscanPolicies
-          - netscanExecutions
-          - opsNotes
-          - opsNoteResourceScopes
-          - opsNoteServiceScopes
-          - opsNoteResourceGroupScopes
-          - opsNoteServiceGroupScopes
-          - opsNoteGroupAllScopes
-          - opsNoteTags
-          - orgTreeNodes
-          - portMappings
-          - productIds
-          - properties
-          - propertySources
-          - rawData
-          - recentlyDeletedItems
-          - recipientGroups
-          - cloudConfigIssues
-          - cloudConfigIntegrations
-          - cloudConfigAccounts
-          - cloudHealthEvents
-          - cloudHealthEventDetails
-          - cloudHealthEventAdditionalInfo
-          - cloudRecommendations
-          - cloudRecommendationAdditionalData
-          - recommendationTypes
-          - relationships
-          - reports
-          - reportHistories
-          - reportGroups
-          - resources
-          - resourceDashboards
-          - resourceDataSources
-          - resourceDatapoints
-          - resourceEventSources
-          - resourceConfigSources
-          - ConfigSourcesGoldStandard
-          - ConfigSourceConfiguration
-          - resourceDashboardTemplates
-          - resourceGroups
-          - resourceGroupDataSourceConfigs
-          - resourceGroupEventSourceConfigs
-          - resourceGroupInfoSourceConfigs
-          - resourceJobMonitors
-          - resourceLogPipelineResources
-          - resourceLogSources
-          - sdts
-          - services
-          - serviceCheckpoints
-          - serviceGroups
-          - sharedQueries
-          - siteMonitors
-          - slaWidgets
-          - spanCount
-          - securityRecommendations
-          - subscriptions
-          - topology
-          - topologyMaps
-          - topologyMaps-1
-          - topologyMaps-2
-          - topologyMapsHistogram
-          - topologyMapsGraphs
-          - subEntities
-          - subEntitiesDetails
-          - topologySavedMapsGroupType
-          - topologySavedMapsGroup
-          - topologyManualMapping
-          - topologyManualInterfaceList
-          - traffic
-          - treeNodes
-          - unmonitoredResources
-          - userdata
-          - users
-          - userSettings
-          - websiteCheckpoints
-          - websiteGroups
-          - websites
-          - ServicePreview
-          - BizServiceDatapoint
-          - ServiceTemplateView
-          - ServiceMemberPreview
-          - RestServiceTemplate
-          - ServiceTemplateServiceStats
-          - synthetics
-          - usage
-          - tracesDevicesNamesIds
-          - tracesGraphIds
-          - tracesServices
-          - tracesDeviceDatasources
-          - tracesDeviceDatasourceInstances
-          - tracesNamespaceGraphDetails
-          - tracesResourceNamesIds
-          - tracesTopologyEdgeData
-          - members
-          - apiTokens
-          - roleGroups
-          - roles
-          - userGroups
-          - sharingTokens
-          - scimTokens
-          - syntheticsDSInstanceRawData
-          - syntheticsDSInstanceStepData
-          - syntheticsDSInstanceAlerts
-          - usageDimensions
-          - vizResourceInfo
-          - lmqlResult
-          - lmqlParsed
-          - partitions
-          - cloudRecommendationStatus
-          - recommendationStatusUpdateRequest
-          - websiteDevice
-          - mibUpload
-          - logQueryGroups
-          - logQueryGroupChangelog
-          - logQuery
-          - trackingLogQueries
-          - billingBudgets
-          - trackedQuery
-          - trackedQueryGroups
-          - trackedQueryGroupChangelog
-          - adminName
-          - droppedInstances
-          - dashboardFilterGroups
-          - dashboardFilters
-          - dashboardFilterMappings
-        id:
-          type: string
     ArrayNode:
       type: object
-    RestResponseMetaBlock:
-      type: object
-      properties:
-        filteredCount:
-          format: int64
-          type: integer
-        isTotalCountExhaustive:
-          type: boolean
-        fromPagingResponseInfo:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        fromSortInfo:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        perPageCount:
-          format: int32
-          type: integer
-        sort:
-          type: string
-        totalCount:
-          format: int64
-          type: integer
-        pageOffsetCount:
-          format: int32
-          type: integer
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
   securitySchemes:
     LMv1:
       in: header

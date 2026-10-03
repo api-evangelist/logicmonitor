@@ -305,6 +305,15 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    WidgetTokenInheritance:
+      type: object
+      properties:
+        fullpath:
+          readOnly: true
+          type: string
+        value:
+          readOnly: true
+          type: string
     DashboardPaginationResponse:
       type: object
       properties:
@@ -319,6 +328,110 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Dashboard'
+    Widget:
+      type: object
+      required:
+      - dashboardId
+      - name
+      - type
+      properties:
+        lastUpdatedBy:
+          description: The user that last updated the widget
+          readOnly: true
+          type: string
+        userPermission:
+          description: The permission level of the user who last modified the widget
+          readOnly: true
+          type: string
+          example: write
+        dashboardId:
+          format: int32
+          description: The id of the dashboard the widget belongs to
+          type: integer
+          example: 1.0
+        name:
+          description: The name of the widget
+          type: string
+          example: Test
+        description:
+          description: The description of the widget
+          type: string
+          example: Devices By Type
+        lastUpdatedOn:
+          format: int64
+          description: The time that corresponds to when the widget was last updated, in epoch format
+          readOnly: true
+          type: integer
+        theme:
+          description: 'The color scheme of the widget. Options are: borderPurple | borderGray | borderBlue | solidPurple | solidGray | solidBlue | simplePurple | simpleBlue | simpleGray | newBorderGray | newBorderBlue | newBorderDarkBlue | newSolidGray | newSolidBlue | newSolidDarkBlue | newSimpleGray | newSimpleBlue |newSimpleDarkBlue'
+          type: string
+          example: newBorderBlue
+        interval:
+          format: int32
+          description: The refresh interval of the widget, in minutes
+          type: integer
+          example: 5.0
+        id:
+          format: int32
+          description: The Id of the widget
+          type: integer
+        type:
+          description: alert | batchjob | flash | gmap | ngraph | ograph | cgraph | sgraph | netflowgraph | groupNetflowGraph | netflow | groupNetflow | html | bigNumber | gauge | pieChart | table | dynamicTable | deviceSLA | text | statsd | deviceStatus | serviceAlert | noc | websiteOverview | websiteOverallStatus | websiteIndividualStatus | websiteSLA
+          type: string
+          example: bigNumber
+        timescale:
+          description: The default timescale of the widget
+          type: string
+      discriminator:
+        propertyName: type
+    WidgetPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Widget'
+    WidgetToken:
+      type: object
+      properties:
+        inheritList:
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetTokenInheritance'
+        name:
+          description: This is the name of the parent group of devices, if there is one established
+          type: string
+          example: Default Device Group
+        type:
+          readOnly: true
+          type: string
+        value:
+          description: this is the name of the child group of devices, if there is one
+          type: string
+          example: Devices by Type/Network
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     Dashboard:
       type: object
       required:
@@ -378,32 +491,19 @@ components:
           description: The full path (excluding root group) of the group the dashboard belongs to
           readOnly: true
           type: string
-    WidgetTokenInheritance:
+    WidgetTokenInheritance_2:
+      description: The widget token inherit list
       type: object
       properties:
         fullpath:
+          description: The fullpath for the widget token
           readOnly: true
           type: string
         value:
+          description: The property value for the group
           readOnly: true
           type: string
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    Widget:
+    Widget_2:
       type: object
       required:
       - dashboardId
@@ -419,19 +519,29 @@ components:
           readOnly: true
           type: string
           example: write
-        dashboardId:
-          format: int32
-          description: The id of the dashboard the widget belongs to
-          type: integer
-          example: 1.0
-        name:
-          description: The name of the widget
-          type: string
-          example: Test
+        supportCustomProperty:
+          type: boolean
         description:
           description: The description of the widget
           type: string
           example: Devices By Type
+        type:
+          description: alert | batchjob | flash | gmap | ngraph | ograph | cgraph | sgraph | netflowgraph | groupNetflowGraph | netflow | groupNetflow | html | bigNumber | gauge | pieChart | table | dynamicTable | deviceSLA | text | statsd | deviceStatus | serviceAlert | noc | websiteOverview | websiteOverallStatus | websiteIndividualStatus | websiteSLA | savedMap
+          type: string
+          example: bigNumber
+        dashboardId:
+          format: int32
+          description: The id of the dashboard the widget belongs to
+          type: integer
+          example: 1
+        isSupportCustomProperty:
+          description: Custom property support in table widget or not
+          type: boolean
+          example: false
+        name:
+          description: The name of the widget
+          type: string
+          example: Test
         lastUpdatedOn:
           format: int64
           description: The time that corresponds to when the widget was last updated, in epoch format
@@ -445,52 +555,16 @@ components:
           format: int32
           description: The refresh interval of the widget, in minutes
           type: integer
-          example: 5.0
+          example: 5
         id:
           format: int32
           description: The Id of the widget
           type: integer
-        type:
-          description: alert | batchjob | flash | gmap | ngraph | ograph | cgraph | sgraph | netflowgraph | groupNetflowGraph | netflow | groupNetflow | html | bigNumber | gauge | pieChart | table | dynamicTable | deviceSLA | text | statsd | deviceStatus | serviceAlert | noc | websiteOverview | websiteOverallStatus | websiteIndividualStatus | websiteSLA
-          type: string
-          example: bigNumber
         timescale:
           description: The default timescale of the widget
           type: string
       discriminator:
         propertyName: type
-    WidgetToken:
-      type: object
-      properties:
-        inheritList:
-          type: array
-          items:
-            $ref: '#/components/schemas/WidgetTokenInheritance'
-        name:
-          description: This is the name of the parent group of devices, if there is one established
-          type: string
-          example: Default Device Group
-        type:
-          readOnly: true
-          type: string
-        value:
-          description: this is the name of the child group of devices, if there is one
-          type: string
-          example: Devices by Type/Network
-    WidgetPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Widget'
     RestDefaultDashboardFilters:
       description: this field will hold values for a dashboard filter on account level
       type: object
@@ -508,6 +582,41 @@ components:
         alias: instanceDescription
         label: instanceDescription
         type: INSTANCE_PROPERTY
+    RestDefaultDashboardFilterDetails:
+      type: object
+      properties:
+        name:
+          type: string
+        alias:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+    WidgetToken_2:
+      description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
+      type: object
+      properties:
+        inheritList:
+          description: The widget token inherit list
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetTokenInheritance_2'
+        name:
+          description: This is the name of the parent group of devices, if there is one established
+          type: string
+          example: Default Device Group
+        type:
+          description: 'The values can be owned | inherit
+
+            Specifies the type of the widget'
+          readOnly: true
+          type: string
+        value:
+          description: This is the name of the child group of devices, if there is one
+          type: string
+          example: Devices by Type/Network
+      example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
     Dashboard_2:
       type: object
       required:
@@ -575,115 +684,6 @@ components:
           description: The full path (excluding root group) of the group the dashboard belongs to
           readOnly: true
           type: string
-    WidgetTokenInheritance_2:
-      description: The widget token inherit list
-      type: object
-      properties:
-        fullpath:
-          description: The fullpath for the widget token
-          readOnly: true
-          type: string
-        value:
-          description: The property value for the group
-          readOnly: true
-          type: string
-    RestDefaultDashboardFilterDetails:
-      type: object
-      properties:
-        name:
-          type: string
-        alias:
-          type: string
-        label:
-          type: string
-        type:
-          type: string
-    Widget_2:
-      type: object
-      required:
-      - dashboardId
-      - name
-      - type
-      properties:
-        lastUpdatedBy:
-          description: The user that last updated the widget
-          readOnly: true
-          type: string
-        userPermission:
-          description: The permission level of the user who last modified the widget
-          readOnly: true
-          type: string
-          example: write
-        supportCustomProperty:
-          type: boolean
-        description:
-          description: The description of the widget
-          type: string
-          example: Devices By Type
-        type:
-          description: alert | batchjob | flash | gmap | ngraph | ograph | cgraph | sgraph | netflowgraph | groupNetflowGraph | netflow | groupNetflow | html | bigNumber | gauge | pieChart | table | dynamicTable | deviceSLA | text | statsd | deviceStatus | serviceAlert | noc | websiteOverview | websiteOverallStatus | websiteIndividualStatus | websiteSLA | savedMap
-          type: string
-          example: bigNumber
-        dashboardId:
-          format: int32
-          description: The id of the dashboard the widget belongs to
-          type: integer
-          example: 1
-        isSupportCustomProperty:
-          description: Custom property support in table widget or not
-          type: boolean
-          example: false
-        name:
-          description: The name of the widget
-          type: string
-          example: Test
-        lastUpdatedOn:
-          format: int64
-          description: The time that corresponds to when the widget was last updated, in epoch format
-          readOnly: true
-          type: integer
-        theme:
-          description: 'The color scheme of the widget. Options are: borderPurple | borderGray | borderBlue | solidPurple | solidGray | solidBlue | simplePurple | simpleBlue | simpleGray | newBorderGray | newBorderBlue | newBorderDarkBlue | newSolidGray | newSolidBlue | newSolidDarkBlue | newSimpleGray | newSimpleBlue |newSimpleDarkBlue'
-          type: string
-          example: newBorderBlue
-        interval:
-          format: int32
-          description: The refresh interval of the widget, in minutes
-          type: integer
-          example: 5
-        id:
-          format: int32
-          description: The Id of the widget
-          type: integer
-        timescale:
-          description: The default timescale of the widget
-          type: string
-      discriminator:
-        propertyName: type
-    WidgetToken_2:
-      description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
-      type: object
-      properties:
-        inheritList:
-          description: The widget token inherit list
-          type: array
-          items:
-            $ref: '#/components/schemas/WidgetTokenInheritance_2'
-        name:
-          description: This is the name of the parent group of devices, if there is one established
-          type: string
-          example: Default Device Group
-        type:
-          description: 'The values can be owned | inherit
-
-            Specifies the type of the widget'
-          readOnly: true
-          type: string
-        value:
-          description: This is the name of the child group of devices, if there is one
-          type: string
-          example: Devices by Type/Network
-      example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
   securitySchemes:
     LMv1:
       in: header

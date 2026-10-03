@@ -212,20 +212,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    AlertPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alert'
     ErrorResponse:
       type: object
       properties:
@@ -242,6 +228,20 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    AlertPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
     AlertAck:
       type: object
       required:
@@ -425,74 +425,6 @@ components:
         resourceTemplateName:
           description: The name of the datasource in alert
           readOnly: true
-          type: string
-    RestAlertQueryContext:
-      type: object
-      properties:
-        activeOnly:
-          type: boolean
-        pivotType:
-          type: string
-        anomaly:
-          type: string
-        suppressorFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        forServices:
-          type: boolean
-        pivotDimensions:
-          type: array
-          items:
-            type: string
-        refreshActiveAlertCache:
-          type: boolean
-        dependencyRoutingStateFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        excludePhatomFlag:
-          type: boolean
-        pivotDimensionESField:
-          type: array
-          items:
-            type: string
-        dependencyRoleFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        lmconfigEnabled:
-          type: boolean
-        dependencyRoutingStateFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        dependencyRoleFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        clearedOnly:
-          type: boolean
-        suppressorFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        alertsById:
-          $ref: '#/components/schemas/AlertsById'
-    ModelAndId:
-      description: SDT target
-      readOnly: true
-      type: object
-      properties:
-        displayName:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        model:
-          type: string
-        id:
           type: string
     ObjectIdentifier:
       type: object
@@ -759,11 +691,7 @@ components:
           - dashboardFilterMappings
         id:
           type: string
-    ArrayNode:
-      type: object
-    ObjectNode:
-      type: object
-    FieldFilter:
+    AdvancedFieldFilter:
       type: object
       properties:
         fieldName:
@@ -776,6 +704,135 @@ components:
             type: string
         operator:
           type: string
+    AlertsById:
+      type: object
+      properties:
+        resourceGroups:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        eventSources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        clusterAlertSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        datapoints:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        escalationChains:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        sdts:
+          additionalProperties:
+            $ref: '#/components/schemas/RestSDTV4'
+          type: object
+        alertRules:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        serviceGroups:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        resources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        logpipelinesources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        services:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSourceInstances:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingAlerts:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        alerts:
+          additionalProperties:
+            $ref: '#/components/schemas/Alert_2'
+          type: object
+        logalerts:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        batchJobs:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingBudgets:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSourceInstanceAlertSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingAlertsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        serviceCheckpoints:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        logAlertsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+    ModelAndId:
+      description: SDT target
+      readOnly: true
+      type: object
+      properties:
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    RestResponseMetaBlock:
+      type: object
+      properties:
+        filteredCount:
+          format: int64
+          type: integer
+        isTotalCountExhaustive:
+          type: boolean
+        fromPagingResponseInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        fromSortInfo:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        perPageCount:
+          format: int32
+          type: integer
+        sort:
+          type: string
+        totalCount:
+          format: int64
+          type: integer
+        pageOffsetCount:
+          format: int32
+          type: integer
     RestSDTV4:
       type: object
       required:
@@ -1148,36 +1205,6 @@ components:
           type: integer
       discriminator:
         propertyName: type
-    RestResponseMetaBlock:
-      type: object
-      properties:
-        filteredCount:
-          format: int64
-          type: integer
-        isTotalCountExhaustive:
-          type: boolean
-        fromPagingResponseInfo:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        fromSortInfo:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        perPageCount:
-          format: int32
-          type: integer
-        sort:
-          type: string
-        totalCount:
-          format: int64
-          type: integer
-        pageOffsetCount:
-          format: int32
-          type: integer
-    JSONObject:
-      description: The alert external ticket urls
-      readOnly: true
-      type: object
-      properties:
-        empty:
-          type: boolean
     RestResponse:
       type: object
       properties:
@@ -1199,6 +1226,79 @@ components:
           $ref: '#/components/schemas/ArrayNode'
         errors:
           $ref: '#/components/schemas/ArrayNode'
+    FieldFilter:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        supportGlob:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: string
+        operator:
+          type: string
+    RestAlertQueryContext:
+      type: object
+      properties:
+        activeOnly:
+          type: boolean
+        pivotType:
+          type: string
+        anomaly:
+          type: string
+        suppressorFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        forServices:
+          type: boolean
+        pivotDimensions:
+          type: array
+          items:
+            type: string
+        refreshActiveAlertCache:
+          type: boolean
+        dependencyRoutingStateFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        excludePhatomFlag:
+          type: boolean
+        pivotDimensionESField:
+          type: array
+          items:
+            type: string
+        dependencyRoleFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        lmconfigEnabled:
+          type: boolean
+        dependencyRoutingStateFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        dependencyRoleFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        clearedOnly:
+          type: boolean
+        suppressorFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        alertsById:
+          $ref: '#/components/schemas/AlertsById'
+    JSONObject:
+      description: The alert external ticket urls
+      readOnly: true
+      type: object
+      properties:
+        empty:
+          type: boolean
     AlertListPaginationResponse:
       type: object
       properties:
@@ -1213,6 +1313,280 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AlertResponse'
+    AlertsModelAndId:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        isDeleted:
+          type: boolean
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    AlertResponse:
+      type: object
+      properties:
+        sdtIds:
+          description: The SDT Ids associated with the alert
+          readOnly: true
+          type: string
+        resourceId:
+          format: int32
+          description: The device specific LogicModule Id
+          readOnly: true
+          type: integer
+        endEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert ended
+          readOnly: true
+          type: integer
+        threshold:
+          description: The threshold associated with the object in alert
+          readOnly: true
+          type: string
+        type:
+          description: The type of alert
+          readOnly: true
+          type: string
+        startEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert started
+          readOnly: true
+          type: integer
+        enableAnomalyAlertGeneration:
+          description: 'Indicates dynamic threshold alert generation setting. Expression is comma separated
+
+            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
+
+            1,0,1 =   warn : ON     error: OFF   critical: ON
+
+            Empty value on this parameter means : 0,0,0'
+          readOnly: true
+          type: string
+        internalId:
+          description: The internal id for the alert
+          readOnly: true
+          type: string
+        monitorObjectName:
+          description: The name of the object that the alert is associated with
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint in alert
+          readOnly: true
+          type: string
+        dataPointId:
+          format: int32
+          description: The id of the datapoint in alert
+          readOnly: true
+          type: integer
+        suppressor:
+          description: 'The component (For example: SDT, CollectorDown, HostClusterAlert, Dependency, HostDown, ADS) which suppressed the alert'
+          readOnly: true
+          type: string
+        context:
+          $ref: '#/components/schemas/RestAlertQueryContext'
+        id:
+          description: The alert id
+          readOnly: true
+          type: string
+        ruleId:
+          format: int32
+          description: The id of the rule the alert matches
+          readOnly: true
+          type: integer
+        alertExternalTicketUrl:
+          description: The alert external ticket urls
+          readOnly: true
+          $ref: '#/components/schemas/JSONObject'
+        tenant:
+          description: 'Tenant to which this alert belongs to. '
+          readOnly: true
+          type: string
+        alertValue:
+          description: The value that triggered the alert
+          readOnly: true
+          type: string
+        sdted:
+          description: It specifies if the SDT is set for an active alert or not. However, the sdted is set to false for cleared alert as you cannot apply SDT to a cleared alert.
+          readOnly: true
+          type: object
+        SDT:
+          description: The active SDT, if one exists
+          readOnly: true
+          $ref: '#/components/schemas/JSONObject'
+        enableAnomalyAlertSuppression:
+          description: 'Indicates anomaly detection alert suppression setting, expression is comma separated
+
+            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
+
+            1,0,1 =   warn : ON     error: OFF   critical: ON
+
+            Empty value on this parameter means : 0,0,0'
+          readOnly: true
+          type: string
+        receivedList:
+          description: The recipients that have received the alert
+          readOnly: true
+          type: string
+        monitorObjectGroups:
+          description: Information about the groups the object is a member of
+          readOnly: true
+          type: object
+        chainId:
+          format: int32
+          description: The id of the escalation chain the alert was routed to
+          readOnly: true
+          type: integer
+        resourceTemplateId:
+          format: int32
+          description: The id of the datasource in alert
+          readOnly: true
+          type: integer
+        lastUpdatedOnEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert was last updated. This field is used to track the most recent update to the alert, such as changes in its state, acknowledgment, or other properties
+          readOnly: true
+          type: integer
+        cleared:
+          description: Whether or not the alert has cleared
+          readOnly: true
+          type: boolean
+        adAlertDesc:
+          description: The description for dynamic threshold based alert
+          readOnly: true
+          type: string
+        resourceTemplateName:
+          description: The name of the datasource in alert
+          readOnly: true
+          type: string
+        anomaly:
+          description: Indicates the anomaly alert, value can be true/false/null. If alert value lies within confidence band then false, otherwise true. If confidence band is not available then value will be null.
+          readOnly: true
+          type: boolean
+        instanceName:
+          description: The name of the instance in alert
+          readOnly: true
+          type: string
+        monitorObjectId:
+          format: int32
+          description: The id of the object that the alert is associated with
+          readOnly: true
+          type: integer
+        rule:
+          description: The rule the alert matches
+          readOnly: true
+          type: string
+        ackComment:
+          description: The comment submitted with the acknowledgement
+          readOnly: true
+          type: string
+        alertTriggerValue:
+          description: The trigger value associated with the alert
+          readOnly: true
+          type: string
+        alertGroupEntityValue:
+          description: Alert group entity value for stateful log alerts
+          readOnly: true
+          type: string
+        instanceId:
+          format: int32
+          description: The id of the instance in alert
+          readOnly: true
+          type: integer
+        suppressDesc:
+          description: The description for suppressed alert
+          readOnly: true
+          type: string
+        logPartition:
+          description: Specified log alert partition information
+          readOnly: true
+          type: string
+        nextRecipient:
+          format: int32
+          description: The next recipient in the escalation chain for this alert
+          readOnly: true
+          type: integer
+        clearExpr:
+          description: Specified log alert clear expression information
+          readOnly: true
+          type: string
+        adAlert:
+          description: Specifies whether alert is dynamic threshold based or not
+          readOnly: true
+          type: boolean
+        ackedBy:
+          description: The user that acknowledged the alert
+          readOnly: true
+          type: string
+        severity:
+          format: int32
+          description: The alert severity, where 2=warning, 3=error and 4=critical
+          readOnly: true
+          type: integer
+        ackedEpoch:
+          format: int64
+          description: The time (in epoch format) that the alert was acknowledged
+          readOnly: true
+          type: integer
+        chain:
+          description: The escalation chain the alert was routed to
+          readOnly: true
+          type: string
+        alertQuery:
+          description: Specified alert query information
+          readOnly: true
+          type: string
+        subChainId:
+          format: int32
+          description: The id of the sub time based chain
+          readOnly: true
+          type: integer
+        logMetaData:
+          description: Specified log alert metadata fields value
+          readOnly: true
+          type: string
+        monitorObjectType:
+          readOnly: true
+          type: string
+        sessionId:
+          format: int32
+          description: The session id of alert
+          readOnly: true
+          type: integer
+        acked:
+          description: Whether or not the alert has been acknowledged
+          readOnly: true
+          type: boolean
+        resourceTemplateType:
+          description: The type of the logicmodule in alert
+          readOnly: true
+          type: string
+        clearValue:
+          description: The value that cleared the alert
+          readOnly: true
+          type: string
+        instanceDescription:
+          description: The description of the instance in alert
+          readOnly: true
+          type: string
+        dependencyRoutingState:
+          description: The dependency routing state
+          readOnly: true
+          type: string
+        dependencyRole:
+          description: The dependency role
+          readOnly: true
+          type: string
     Alert_2:
       type: object
       properties:
@@ -1472,384 +1846,10 @@ components:
           description: The dependency role
           readOnly: true
           type: string
-    AlertResponse:
+    ArrayNode:
       type: object
-      properties:
-        sdtIds:
-          description: The SDT Ids associated with the alert
-          readOnly: true
-          type: string
-        resourceId:
-          format: int32
-          description: The device specific LogicModule Id
-          readOnly: true
-          type: integer
-        endEpoch:
-          format: int64
-          description: The time (in epoch format) that the alert ended
-          readOnly: true
-          type: integer
-        threshold:
-          description: The threshold associated with the object in alert
-          readOnly: true
-          type: string
-        type:
-          description: The type of alert
-          readOnly: true
-          type: string
-        startEpoch:
-          format: int64
-          description: The time (in epoch format) that the alert started
-          readOnly: true
-          type: integer
-        enableAnomalyAlertGeneration:
-          description: 'Indicates dynamic threshold alert generation setting. Expression is comma separated
-
-            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
-
-            1,0,1 =   warn : ON     error: OFF   critical: ON
-
-            Empty value on this parameter means : 0,0,0'
-          readOnly: true
-          type: string
-        internalId:
-          description: The internal id for the alert
-          readOnly: true
-          type: string
-        monitorObjectName:
-          description: The name of the object that the alert is associated with
-          readOnly: true
-          type: string
-        dataPointName:
-          description: The name of the datapoint in alert
-          readOnly: true
-          type: string
-        dataPointId:
-          format: int32
-          description: The id of the datapoint in alert
-          readOnly: true
-          type: integer
-        suppressor:
-          description: 'The component (For example: SDT, CollectorDown, HostClusterAlert, Dependency, HostDown, ADS) which suppressed the alert'
-          readOnly: true
-          type: string
-        context:
-          $ref: '#/components/schemas/RestAlertQueryContext'
-        id:
-          description: The alert id
-          readOnly: true
-          type: string
-        ruleId:
-          format: int32
-          description: The id of the rule the alert matches
-          readOnly: true
-          type: integer
-        alertExternalTicketUrl:
-          description: The alert external ticket urls
-          readOnly: true
-          $ref: '#/components/schemas/JSONObject'
-        tenant:
-          description: 'Tenant to which this alert belongs to. '
-          readOnly: true
-          type: string
-        alertValue:
-          description: The value that triggered the alert
-          readOnly: true
-          type: string
-        sdted:
-          description: It specifies if the SDT is set for an active alert or not. However, the sdted is set to false for cleared alert as you cannot apply SDT to a cleared alert.
-          readOnly: true
-          type: object
-        SDT:
-          description: The active SDT, if one exists
-          readOnly: true
-          $ref: '#/components/schemas/JSONObject'
-        enableAnomalyAlertSuppression:
-          description: 'Indicates anomaly detection alert suppression setting, expression is comma separated
-
-            0 denotes OFF, 1 denotes ON, -1 denotes INVALID
-
-            1,0,1 =   warn : ON     error: OFF   critical: ON
-
-            Empty value on this parameter means : 0,0,0'
-          readOnly: true
-          type: string
-        receivedList:
-          description: The recipients that have received the alert
-          readOnly: true
-          type: string
-        monitorObjectGroups:
-          description: Information about the groups the object is a member of
-          readOnly: true
-          type: object
-        chainId:
-          format: int32
-          description: The id of the escalation chain the alert was routed to
-          readOnly: true
-          type: integer
-        resourceTemplateId:
-          format: int32
-          description: The id of the datasource in alert
-          readOnly: true
-          type: integer
-        lastUpdatedOnEpoch:
-          format: int64
-          description: The time (in epoch format) that the alert was last updated. This field is used to track the most recent update to the alert, such as changes in its state, acknowledgment, or other properties
-          readOnly: true
-          type: integer
-        cleared:
-          description: Whether or not the alert has cleared
-          readOnly: true
-          type: boolean
-        adAlertDesc:
-          description: The description for dynamic threshold based alert
-          readOnly: true
-          type: string
-        resourceTemplateName:
-          description: The name of the datasource in alert
-          readOnly: true
-          type: string
-        anomaly:
-          description: Indicates the anomaly alert, value can be true/false/null. If alert value lies within confidence band then false, otherwise true. If confidence band is not available then value will be null.
-          readOnly: true
-          type: boolean
-        instanceName:
-          description: The name of the instance in alert
-          readOnly: true
-          type: string
-        monitorObjectId:
-          format: int32
-          description: The id of the object that the alert is associated with
-          readOnly: true
-          type: integer
-        rule:
-          description: The rule the alert matches
-          readOnly: true
-          type: string
-        ackComment:
-          description: The comment submitted with the acknowledgement
-          readOnly: true
-          type: string
-        alertTriggerValue:
-          description: The trigger value associated with the alert
-          readOnly: true
-          type: string
-        alertGroupEntityValue:
-          description: Alert group entity value for stateful log alerts
-          readOnly: true
-          type: string
-        instanceId:
-          format: int32
-          description: The id of the instance in alert
-          readOnly: true
-          type: integer
-        suppressDesc:
-          description: The description for suppressed alert
-          readOnly: true
-          type: string
-        logPartition:
-          description: Specified log alert partition information
-          readOnly: true
-          type: string
-        nextRecipient:
-          format: int32
-          description: The next recipient in the escalation chain for this alert
-          readOnly: true
-          type: integer
-        clearExpr:
-          description: Specified log alert clear expression information
-          readOnly: true
-          type: string
-        adAlert:
-          description: Specifies whether alert is dynamic threshold based or not
-          readOnly: true
-          type: boolean
-        ackedBy:
-          description: The user that acknowledged the alert
-          readOnly: true
-          type: string
-        severity:
-          format: int32
-          description: The alert severity, where 2=warning, 3=error and 4=critical
-          readOnly: true
-          type: integer
-        ackedEpoch:
-          format: int64
-          description: The time (in epoch format) that the alert was acknowledged
-          readOnly: true
-          type: integer
-        chain:
-          description: The escalation chain the alert was routed to
-          readOnly: true
-          type: string
-        alertQuery:
-          description: Specified alert query information
-          readOnly: true
-          type: string
-        subChainId:
-          format: int32
-          description: The id of the sub time based chain
-          readOnly: true
-          type: integer
-        logMetaData:
-          description: Specified log alert metadata fields value
-          readOnly: true
-          type: string
-        monitorObjectType:
-          readOnly: true
-          type: string
-        sessionId:
-          format: int32
-          description: The session id of alert
-          readOnly: true
-          type: integer
-        acked:
-          description: Whether or not the alert has been acknowledged
-          readOnly: true
-          type: boolean
-        resourceTemplateType:
-          description: The type of the logicmodule in alert
-          readOnly: true
-          type: string
-        clearValue:
-          description: The value that cleared the alert
-          readOnly: true
-          type: string
-        instanceDescription:
-          description: The description of the instance in alert
-          readOnly: true
-          type: string
-        dependencyRoutingState:
-          description: The dependency routing state
-          readOnly: true
-          type: string
-        dependencyRole:
-          description: The dependency role
-          readOnly: true
-          type: string
-    AlertsById:
+    ObjectNode:
       type: object
-      properties:
-        resourceGroups:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        eventSources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        clusterAlertSettings:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        datapoints:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        escalationChains:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        sdts:
-          additionalProperties:
-            $ref: '#/components/schemas/RestSDTV4'
-          type: object
-        alertRules:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        serviceGroups:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        resources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        logpipelinesources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        services:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        dataSourceInstances:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        billingAlerts:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        alerts:
-          additionalProperties:
-            $ref: '#/components/schemas/Alert_2'
-          type: object
-        logalerts:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        batchJobs:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        billingBudgets:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        dataSourceInstanceAlertSettings:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        billingAlertsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        serviceCheckpoints:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        logAlertsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        dataSources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-    AlertsModelAndId:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        isDeleted:
-          type: boolean
-        displayName:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        id:
-          type: string
-    AdvancedFieldFilter:
-      type: object
-      properties:
-        fieldName:
-          type: string
-        supportGlob:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: string
-        operator:
-          type: string
   securitySchemes:
     LMv1:
       in: header

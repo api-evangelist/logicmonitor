@@ -220,22 +220,40 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    ErrorResponse:
+    Recipient:
+      type: object
+      required:
+      - method
+      - type
+      properties:
+        method:
+          description: Admin | Arbitrary, where Admin = a user, and Arbitrary = an arbitrary email
+          type: string
+          example: EMAIL
+        contact:
+          type: string
+        type:
+          description: email | sms | voice, where type must be email if method = arbitrary
+          type: string
+          example: Admin
+        addr:
+          description: the user name if method = admin, or the email address if method = arbitrary
+          type: string
+          example: john.doe@logicmonitor.com
+    RecipientGroupPaginationResponse:
       type: object
       properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
+        total:
           format: int32
-          description: The error code
           readOnly: true
           type: integer
-        errorDetail:
-          description: The error detail
+        searchId:
           readOnly: true
-          type: object
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipientGroup'
     RecipientGroup:
       type: object
       required:
@@ -258,40 +276,22 @@ components:
           format: int32
           readOnly: true
           type: integer
-    RecipientGroupPaginationResponse:
+    ErrorResponse:
       type: object
       properties:
-        total:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
           format: int32
+          description: The error code
           readOnly: true
           type: integer
-        searchId:
+        errorDetail:
+          description: The error detail
           readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecipientGroup'
-    Recipient:
-      type: object
-      required:
-      - method
-      - type
-      properties:
-        method:
-          description: Admin | Arbitrary, where Admin = a user, and Arbitrary = an arbitrary email
-          type: string
-          example: EMAIL
-        contact:
-          type: string
-        type:
-          description: email | sms | voice, where type must be email if method = arbitrary
-          type: string
-          example: Admin
-        addr:
-          description: the user name if method = admin, or the email address if method = arbitrary
-          type: string
-          example: john.doe@logicmonitor.com
+          type: object
     Recipient_2:
       description: The chain's cc destinations
       type: object

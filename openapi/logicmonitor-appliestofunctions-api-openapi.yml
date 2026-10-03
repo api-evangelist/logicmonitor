@@ -314,6 +314,20 @@ components:
           description: The ID of the AppliesTo Function
           readOnly: true
           type: integer
+    RestAppliesToFunctionPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliesToFunction'
     ErrorResponse:
       type: object
       properties:
@@ -330,20 +344,6 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    RestAppliesToFunctionPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppliesToFunction'
     IntegrationMetadata:
       description: The local module's IntegrationMetadata, readable for troubleshooting purposes
       readOnly: true
@@ -436,6 +436,41 @@ components:
           description: Specifies the origin module name
           readOnly: true
           type: string
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
     AppliesToFunction_2:
       type: object
       required:
@@ -491,41 +526,6 @@ components:
           description: The lineage Id of the LMModule
           readOnly: true
           type: string
-    AccessGroup:
-      description: Module's access groups
-      type: object
-      required:
-      - name
-      properties:
-        createdBy:
-          description: User who created access group
-          readOnly: true
-          type: string
-        name:
-          description: The name of the access group
-          type: string
-          example: LinuxGroup
-        tenantId:
-          description: Tenancy details
-          type: string
-        description:
-          description: Description about access group
-          type: string
-        id:
-          format: int32
-          description: The id of the access group
-          readOnly: true
-          type: integer
-        updatedOn:
-          format: int64
-          description: Time when access group updated
-          readOnly: true
-          type: integer
-        createdOn:
-          format: int64
-          description: Time when access group created
-          readOnly: true
-          type: integer
   securitySchemes:
     LMv1:
       in: header

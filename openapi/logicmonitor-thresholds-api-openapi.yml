@@ -625,6 +625,48 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    DeviceGroupDataSourceDataPointConfig:
+      type: object
+      required:
+      - alertExpr
+      - dataPointId
+      - dataPointName
+      properties:
+        globalAlertExpr:
+          readOnly: true
+          type: string
+        dataPointName:
+          type: string
+        dataPointId:
+          format: int32
+          type: integer
+        disableAlerting:
+          type: boolean
+        alertExprNote:
+          type: string
+        alertExpr:
+          type: string
+        dataPointDescription:
+          readOnly: true
+          type: string
+    DeviceGroupDataSourceAlertConfig:
+      type: object
+      properties:
+        datasourceType:
+          readOnly: true
+          type: string
+        dpConfig:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupDataSourceDataPointConfig'
+    DeviceDataSourceInstanceAlertSettingPaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
     DeviceDataSourceInstanceAlertSetting:
       type: object
       properties:
@@ -704,41 +746,6 @@ components:
           description: The interval of alert transition
           readOnly: true
           type: integer
-    DeviceGroupDataSourceAlertConfig:
-      type: object
-      properties:
-        datasourceType:
-          readOnly: true
-          type: string
-        dpConfig:
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceGroupDataSourceDataPointConfig'
-    DeviceGroupDataSourceDataPointConfig:
-      type: object
-      required:
-      - alertExpr
-      - dataPointId
-      - dataPointName
-      properties:
-        globalAlertExpr:
-          readOnly: true
-          type: string
-        dataPointName:
-          type: string
-        dataPointId:
-          format: int32
-          type: integer
-        disableAlerting:
-          type: boolean
-        alertExprNote:
-          type: string
-        alertExpr:
-          type: string
-        dataPointDescription:
-          readOnly: true
-          type: string
     DeviceGroupAlertThresholdInfo:
       type: object
       properties:
@@ -758,29 +765,20 @@ components:
         alertExpr:
           readOnly: true
           type: string
-    DeviceDataSourceInstanceAlertSettingPaginationResponse:
+    DeviceClusterAlertConfigPaginationResponse:
       type: object
       properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
+            $ref: '#/components/schemas/DeviceClusterAlertConfig'
     DeviceClusterAlertConfig:
       type: object
       properties:
@@ -842,22 +840,121 @@ components:
           description: The expression that indicates the number of objects (devices or instances) that need to be in alert to trigger the cluster alert. E.g. > 5
           type: string
           example: '>=2'
-    DeviceClusterAlertConfigPaginationResponse:
+    ErrorResponse:
       type: object
       properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
+        errorMessage:
+          description: The error message
           readOnly: true
           type: string
-        items:
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    DeviceGroupDataSourceDataPointConfig_2:
+      type: object
+      required:
+      - alertExpr
+      - dataPointId
+      - dataPointName
+      properties:
+        globalAlertExpr:
+          readOnly: true
+          type: string
+        alertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          type: integer
+          example: 1
+        disableAlerting:
+          type: boolean
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared (0-60)
+          type: integer
+          example: 0
+        globalCriticalAdAdvSetting:
+          type: string
+        globalAlertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          readOnly: true
+          type: integer
+          example: 0
+        dataPointDescription:
+          readOnly: true
+          type: string
+        globalEnableAnomalyAlertGeneration:
+          type: string
+        globalErrorAdAdvSetting:
+          type: string
+        enableAnomalyAlertGeneration:
+          type: string
+        dataPointName:
+          type: string
+        dataPointId:
+          format: int32
+          type: integer
+        globalEnableAnomalyAlertSuppression:
+          type: string
+        globalAlertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered (0-60)
+          type: integer
+          example: 0
+        enableAnomalyAlertSuppression:
+          type: string
+        globalAlertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          readOnly: true
+          type: integer
+          example: 1
+        criticalAdAdvSetting:
+          type: string
+        alertExprNote:
+          type: string
+        globalWarnAdAdvSetting:
+          type: string
+        adAdvSettingEnabled:
+          type: boolean
+        errorAdAdvSetting:
+          type: string
+        warnAdAdvSetting:
+          type: string
+        parentDeviceGroupAlertExprList:
+          $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo_2'
+        globalAdAdvSettingEnabled:
+          type: boolean
+        collectionInterval:
+          format: int64
+          description: Collection Interval
+          readOnly: true
+          type: integer
+        alertExpr:
+          type: string
+    DeviceGroupDataSourceAlertConfig_2:
+      type: object
+      properties:
+        datasourceType:
+          type: string
+        dpConfig:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceClusterAlertConfig'
-    InstanceGroupAlertThresholdInfo:
-      description: Instance group alert expression list base on the priority. The first is the highest priority and effected on this instance
+            $ref: '#/components/schemas/DeviceGroupDataSourceDataPointConfig_2'
+    ResourceDataSourceAlertThresholdInfo:
+      description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
       readOnly: true
       type: object
       properties:
@@ -866,37 +963,31 @@ components:
           readOnly: true
           type: string
         alertForNoData:
-          format: int32
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 ( 1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
-          readOnly: true
-          type: integer
-          example: 1
+          format: byte
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 0-4 (0:unused alert, 1:alert ok, 2:warn alert, 2:error alert, 4:critical alert)
+          type: string
         enableAnomalyAlertSuppression:
           description: enable anomaly alert suppression
           readOnly: true
           type: string
-        groupId:
-          format: int32
-          readOnly: true
-          type: integer
         alertClearTransitionInterval:
-          format: int32
+          format: byte
           description: The count that the alert must exist for this many poll cycles before the alert will be cleared
-          readOnly: true
-          type: integer
-          example: 0
+          type: string
         alertEnabled:
           readOnly: true
           type: boolean
+        resourceDatasourceId:
+          format: int32
+          readOnly: true
+          type: integer
         alertExpr:
           readOnly: true
           type: string
         alertTransitionInterval:
-          format: int32
+          format: byte
           description: The count that the alert must exist for this many poll cycles before it will be triggered
-          readOnly: true
-          type: integer
-          example: 0
+          type: string
     DeviceDataSourceInstanceAlertSetting_2:
       type: object
       properties:
@@ -1042,103 +1133,6 @@ components:
           description: The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)
           type: string
           example: '>= 70 90 95'
-    DeviceGroupDataSourceAlertConfig_2:
-      type: object
-      properties:
-        datasourceType:
-          type: string
-        dpConfig:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceGroupDataSourceDataPointConfig_2'
-    DeviceGroupDataSourceDataPointConfig_2:
-      type: object
-      required:
-      - alertExpr
-      - dataPointId
-      - dataPointName
-      properties:
-        globalAlertExpr:
-          readOnly: true
-          type: string
-        alertForNoData:
-          format: int32
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
-          type: integer
-          example: 1
-        disableAlerting:
-          type: boolean
-        alertClearTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared (0-60)
-          type: integer
-          example: 0
-        globalCriticalAdAdvSetting:
-          type: string
-        globalAlertTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before it will be triggered
-          readOnly: true
-          type: integer
-          example: 0
-        dataPointDescription:
-          readOnly: true
-          type: string
-        globalEnableAnomalyAlertGeneration:
-          type: string
-        globalErrorAdAdvSetting:
-          type: string
-        enableAnomalyAlertGeneration:
-          type: string
-        dataPointName:
-          type: string
-        dataPointId:
-          format: int32
-          type: integer
-        globalEnableAnomalyAlertSuppression:
-          type: string
-        globalAlertClearTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
-          readOnly: true
-          type: integer
-          example: 0
-        alertTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before it will be triggered (0-60)
-          type: integer
-          example: 0
-        enableAnomalyAlertSuppression:
-          type: string
-        globalAlertForNoData:
-          format: int32
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
-          readOnly: true
-          type: integer
-          example: 1
-        criticalAdAdvSetting:
-          type: string
-        alertExprNote:
-          type: string
-        globalWarnAdAdvSetting:
-          type: string
-        adAdvSettingEnabled:
-          type: boolean
-        errorAdAdvSetting:
-          type: string
-        warnAdAdvSetting:
-          type: string
-        parentDeviceGroupAlertExprList:
-          $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo_2'
-        globalAdAdvSettingEnabled:
-          type: boolean
-        collectionInterval:
-          format: int64
-          description: Collection Interval
-          readOnly: true
-          type: integer
-        alertExpr:
-          type: string
     DeviceGroupAlertThresholdInfo_2:
       description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
       readOnly: true
@@ -1183,8 +1177,8 @@ components:
           description: The count that the alert must exist for this many poll cycles before it will be triggered
           type: integer
           example: 0
-    ResourceDataSourceAlertThresholdInfo:
-      description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
+    InstanceGroupAlertThresholdInfo:
+      description: Instance group alert expression list base on the priority. The first is the highest priority and effected on this instance
       readOnly: true
       type: object
       properties:
@@ -1193,31 +1187,37 @@ components:
           readOnly: true
           type: string
         alertForNoData:
-          format: byte
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 0-4 (0:unused alert, 1:alert ok, 2:warn alert, 2:error alert, 4:critical alert)
-          type: string
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 ( 1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          readOnly: true
+          type: integer
+          example: 1
         enableAnomalyAlertSuppression:
           description: enable anomaly alert suppression
           readOnly: true
           type: string
-        alertClearTransitionInterval:
-          format: byte
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
-          type: string
-        alertEnabled:
-          readOnly: true
-          type: boolean
-        resourceDatasourceId:
+        groupId:
           format: int32
           readOnly: true
           type: integer
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        alertEnabled:
+          readOnly: true
+          type: boolean
         alertExpr:
           readOnly: true
           type: string
         alertTransitionInterval:
-          format: byte
+          format: int32
           description: The count that the alert must exist for this many poll cycles before it will be triggered
-          type: string
+          readOnly: true
+          type: integer
+          example: 0
     DeviceClusterAlertConfig_2:
       type: object
       properties:

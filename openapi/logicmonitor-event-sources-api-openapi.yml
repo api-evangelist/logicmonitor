@@ -330,6 +330,34 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    EventSourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSource'
+    RestEventSourceFilter:
+      type: object
+      properties:
+        name:
+          type: string
+        comment:
+          type: string
+        id:
+          format: int32
+          type: integer
+        value:
+          type: string
+        operator:
+          type: string
     EventSource:
       type: object
       required:
@@ -410,9 +438,16 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    RestEventSourceFilter:
+    EventSourceFilter:
       type: object
       properties:
+        eventSourceId:
+          format: int32
+          type: integer
+        op:
+          type: string
+        originId:
+          type: string
         name:
           type: string
         comment:
@@ -422,22 +457,6 @@ components:
           type: integer
         value:
           type: string
-        operator:
-          type: string
-    EventSourcePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventSource'
     IntegrationMetadata:
       description: The local module's IntegrationMetadata, readable for troubleshooting purposes
       readOnly: true
@@ -529,25 +548,6 @@ components:
         originName:
           description: Specifies the origin module name
           readOnly: true
-          type: string
-    EventSourceFilter:
-      type: object
-      properties:
-        eventSourceId:
-          format: int32
-          type: integer
-        op:
-          type: string
-        originId:
-          type: string
-        name:
-          type: string
-        comment:
-          type: string
-        id:
-          format: int32
-          type: integer
-        value:
           type: string
     RestEventSourceFilter_2:
       description: The filters for the EventSource

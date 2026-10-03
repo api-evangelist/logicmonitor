@@ -258,47 +258,6 @@ paths:
       - Access Group
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    RestMapModuleV3:
-      type: object
-      required:
-      - mappingDetails
-      properties:
-        success:
-          uniqueItems: true
-          description: The Module Id's mapped successfully
-          type: array
-          items:
-            format: int32
-            description: The Module Id's mapped successfully
-            type: integer
-        failure:
-          uniqueItems: true
-          description: The Module Id's not mapped successfully
-          type: array
-          items:
-            description: The Module Id's not mapped successfully
-            type: string
-        mappingDetails:
-          description: Can provide module id, module type and access group for mapping
-          type: array
-          items:
-            $ref: '#/components/schemas/MapModuleToAccessGroup'
     AccessGroup:
       description: Module's access groups
       type: object
@@ -358,6 +317,47 @@ components:
           format: int32
           description: Id of the logic module
           type: integer
+    RestMapModuleV3:
+      type: object
+      required:
+      - mappingDetails
+      properties:
+        success:
+          uniqueItems: true
+          description: The Module Id's mapped successfully
+          type: array
+          items:
+            format: int32
+            description: The Module Id's mapped successfully
+            type: integer
+        failure:
+          uniqueItems: true
+          description: The Module Id's not mapped successfully
+          type: array
+          items:
+            description: The Module Id's not mapped successfully
+            type: string
+        mappingDetails:
+          description: Can provide module id, module type and access group for mapping
+          type: array
+          items:
+            $ref: '#/components/schemas/MapModuleToAccessGroup'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     AccessGroupPaginationResponse:
       type: object
       properties:

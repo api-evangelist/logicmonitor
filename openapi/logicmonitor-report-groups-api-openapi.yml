@@ -220,6 +220,20 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    ReportGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportGroup'
     ErrorResponse:
       type: object
       properties:
@@ -236,20 +250,6 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    ReportGroupPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportGroup'
     ReportGroup:
       type: object
       properties:

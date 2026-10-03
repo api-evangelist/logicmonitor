@@ -62,22 +62,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
     Usage:
       type: object
       properties:
@@ -171,6 +155,22 @@ components:
           description: Number of AWS resources monitored with a local Collector
           readOnly: true
           type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     JSONObject:
       description: The alert external ticket urls
       readOnly: true

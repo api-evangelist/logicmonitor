@@ -378,6 +378,151 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    UpdateReason:
+      type: object
+      properties:
+        timeEpoch:
+          format: int64
+          description: Update date epoch
+          readOnly: true
+          type: integer
+        clientIp:
+          description: Client IP from which this update has been made
+          readOnly: true
+          type: string
+        updateReason:
+          description: Update reason
+          type: string
+        timeStr:
+          description: Update date in form 'YYYY-MM-DD HH:MM:SS'
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: ID of update reason
+          readOnly: true
+          type: integer
+        userName:
+          description: User who made this update
+          type: string
+    AutoDiscoveryConfiguration:
+      description: Auto discovery configuration
+      type: object
+      required:
+      - method
+      properties:
+        persistentInstance:
+          description: Persist discovered instance
+          type: boolean
+        scheduleInterval:
+          format: int32
+          description: Auto discovery schedule interval in minutes. 0 means host or data source changed. The values can be 0|15|60|1440
+          type: integer
+        deleteInactiveInstance:
+          description: Delete inactive instance
+          type: boolean
+        method:
+          $ref: '#/components/schemas/AutoDiscoveryMethod'
+        instanceAutoGroupMethod:
+          description: Auto group method. The values can be none|netscaler|netscalerservicegroup|regex|esx|ilp
+          type: string
+        instanceAutoGroupMethodParams:
+          description: Auto group method's parameters
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoDiscoveryFilter'
+        disableInstance:
+          description: Disable discovered instance
+          type: boolean
+        showDeletedInstanceDays:
+          format: int32
+          description: show deleted instance days
+          type: integer
+    AutoDiscoveryFilter:
+      type: object
+      required:
+      - attribute
+      - operation
+      properties:
+        comment:
+          description: The filter comment
+          type: string
+        attribute:
+          description: Attribute to filter
+          type: string
+        operation:
+          description: 'The filter''s operation. The values can be : Equal|NotEqual|GreaterThan|GreaterEqual|LessThan|LessEqual|Contain|NotContain|NotExist|RegexMatch|RegexNotMatch'
+          type: string
+        value:
+          description: The operation value
+          type: string
+    ConfigsourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigSource'
+    CollectorAttribute:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: The data collector's name
+          type: string
+      discriminator:
+        propertyName: name
+    StatusDisplayName:
+      description: The status display name list
+      type: object
+      required:
+      - metricValue
+      - operator
+      - statusDisplayName
+      properties:
+        statusDisplayName:
+          description: The status display name for the metric value
+          type: string
+        metricValue:
+          description: The metric value that the alert must be greater than, less than, or equal to for this status display to be considered
+          type: string
+        id:
+          format: int32
+          description: The datapoint id
+          readOnly: true
+          type: integer
+        datapointId:
+          format: int32
+          description: The datappoint id
+          readOnly: true
+          type: integer
+        operator:
+          description: The operator to use for the status display
+          type: string
+    ConfigSourceUpdateReasonsPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateReason'
     DataSource:
       type: object
       required:
@@ -504,127 +649,95 @@ components:
           description: Whether the LM module is currently in use
           readOnly: true
           type: boolean
-    AutoDiscoveryMethod:
-      description: Method used to do auto discovery instance
+    JSONObject:
+      description: The alert external ticket urls
+      readOnly: true
+      type: object
+      properties:
+        empty:
+          type: boolean
+    AccessGroup:
+      description: Module's access groups
       type: object
       required:
       - name
       properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
         name:
-          description: "The auto discovery method name. \nThe values can be ad_cim|ad_cloudwatch|ad_collector|ad_dummy|ad_ec2|ad_esx|ad_http|ad_ipmi|ad_jdbc|ad_jmx|ad_netapp|ad_pdh|ad_port|ad_script|ad_snmp|ad_wmi|ad_xen|ad_azurerediscache|ad_awsserviceregion|ad_awsec2reservedinstance|ad_awsecsservice|ad_awsec2scheduledevents|ad_azureserviceregion|ad_azuresubscription|ad_azurebackupjob|ad_azuresdk|ad_azurewebjob|ad_awsbillingreport|ad_awselasticache|ad_awsredshift|ad_azurebilling|ad_awslbtargetgroups|ad_gcpappengine|ad_gcpbilling|ad_awsvpntunnel|ad_gcpvpntunnel|ad_awsglobalwebacl|ad_gcplbbackendservice|ad_gcppubsubsubscription|ad_gcppubsubsnapshot|ad_gcpcloudrouternatgateway|ad_azurereplicationjob|ad_azureexpressroutecircuitpeering|ad_awsapigatewaystage|ad_azureautomationaccountcertificate|ad_azurevngconnection|ad_azurewebappinstance|ad_azureappserviceenvironmentmultirolepool|ad_openmetrics|ad_awsmediaconnectoutput|ad_awsmediaconnectsource|ad_awswebaclwafv2|ad_saaso365sharepointsite|ad_awscognitoidentityproviders|ad_saaszoomplanusage|ad_saasstatus|ad_azuresynapse|ad_saasairbrake|ad_syntheticsselenium|ad_azurevirtualdesktopsessionhosts|ad_saaso365subscribedsku|ad_azuredimension|ad_azurecostmanagementdimensions|ad_saaso365servicehealth|ad_saaso365mailbox|ad_azurenetappvolumes|ad_azureloganalyticsworkspaces|ad_saaszoomstatus|ad_saassalesforcelicense|ad_saaszoomroom|ad_saaswebexlicenseusage|ad_azureloganalyticsreplicationjob|ad_paasjsonpath|ad_awsrabbitmqqueue|ad_awssagemakerendpointvariant|ad_awsroute53resolveripaddress|ad_saasopenaiusagecost|ad_saasopenaiusagecompletion|ad_saasopenaiusageimage|ad_awsamprulegroups|ad_awsampanomalydetectors"
+          description: The name of the access group
           type: string
-      discriminator:
-        propertyName: name
-    AutoDiscoveryFilter:
-      type: object
-      required:
-      - attribute
-      - operation
-      properties:
-        comment:
-          description: The filter comment
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
           type: string
-        attribute:
-          description: Attribute to filter
+        description:
+          description: Description about access group
           type: string
-        operation:
-          description: 'The filter''s operation. The values can be : Equal|NotEqual|GreaterThan|GreaterEqual|LessThan|LessEqual|Contain|NotContain|NotExist|RegexMatch|RegexNotMatch'
-          type: string
-        value:
-          description: The operation value
-          type: string
-    IntegrationMetadata:
-      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
-      readOnly: true
-      type: object
-      properties:
-        targetLastPublishedId:
-          description: Specifies the target last published Id
-          readOnly: true
-          type: string
-        targetLastPublishedChecksum:
-          description: The metadata checksum for the target last published LMModule content
-          readOnly: true
-          type: string
-        targetLastPublishedVersion:
-          description: Specifies the target last published version
-          readOnly: true
-          type: string
-        originChecksum:
-          description: The metadata checksum for the LMModule content
-          readOnly: true
-          type: string
-        originAuthorNamespace:
-          description: Specifies the origin Author companies namespace
-          readOnly: true
-          type: string
-        originLocator:
-          description: Specifies the origin version locator
-          readOnly: true
-          type: string
-        isChangedFromOrigin:
-          description: Specifies if the Applies To function is changed from origin or not
-          readOnly: true
-          type: boolean
-        auditedRegistryId:
-          description: Specifies the audited registry Id
-          readOnly: true
-          type: string
-        targetLineageId:
-          description: Specifies the target lineage Id
-          readOnly: true
-          type: string
-        logicModuleType:
-          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
-
-            The type of LogicModule'
-          readOnly: true
-          type: string
-          enum:
-          - DATASOURCE
-          - EVENTSOURCE
-          - CONFIGSOURCE
-          - PROPERTYSOURCE
-          - DIAGNOSTICSOURCE
-          - REMEDIATIONSOURCE
-          - TOPOLOGYSOURCE
-          - JOBMONITOR
-          - APPLIESTO_FUNCTION
-          - SNMP_SYSOID_MAP
-          - LOGSOURCE
-        isChangedFromTargetLastPublished:
-          description: Specifies if the Applies To function is changed from target last published or not
-          readOnly: true
-          type: boolean
-        originLineageId:
-          description: The origin lineage Id of the LMmodule
-          readOnly: true
-          type: string
-        originAuthorCompanyUUID:
-          description: Specifies the origin Author companies unique Id
-          readOnly: true
-          type: string
-        localModuleId:
+        id:
           format: int32
-          description: The LocalModule Id
+          description: The id of the access group
           readOnly: true
           type: integer
-        originRegistryId:
-          description: The Registry ID of the Exchange Integration this module is based from
+        updatedOn:
+          format: int64
+          description: Time when access group updated
           readOnly: true
-          type: string
-        originVersion:
-          description: Specifies the origin version
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
           readOnly: true
+          type: integer
+    ConfigCheck:
+      description: The List of ConfigChecks
+      type: object
+      properties:
+        ackClearAlert:
+          description: Clear alert after ACKED or not
+          type: boolean
+        originId:
+          description: Portable id for origin tracking
           type: string
-        auditedVersion:
-          description: Specifies the audited registry version
-          readOnly: true
+        name:
+          description: The ConfigCheck name
           type: string
-        originName:
-          description: Specifies the origin module name
-          readOnly: true
+        alertLevel:
+          format: int32
+          description: 'The triggered alert level if config check failure.
+
+            The values can be 1|2|3|4
+
+            where, 1: no alert, 2: warn alert, 3: error alert, 4: critical alert'
+          type: integer
+        description:
+          description: The ConfigCheck description
           type: string
+        configSourceId:
+          format: int32
+          description: The ConfigSource id
+          type: integer
+        id:
+          format: int32
+          description: The ConfigCheck id
+          type: integer
+        type:
+          description: The ConfigCheck type. The values can be fetch|ignore|missing|value|groovy
+          type: string
+        alertEffectiveIval:
+          format: int32
+          description: Alert effective interval
+          type: integer
+        script:
+          description: The ConfigCheck script
+          readOnly: false
+          $ref: '#/components/schemas/JSONObject'
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for these many poll cycles before it will be triggered
+          type: integer
     ConfigSource:
       type: object
       properties:
@@ -729,6 +842,109 @@ components:
         fileFormat:
           description: Configuration file format. The values can be arbitrary|unix|java-properties|JSON|XML
           type: string
+    IntegrationMetadata:
+      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+      readOnly: true
+      type: object
+      properties:
+        targetLastPublishedId:
+          description: Specifies the target last published Id
+          readOnly: true
+          type: string
+        targetLastPublishedChecksum:
+          description: The metadata checksum for the target last published LMModule content
+          readOnly: true
+          type: string
+        targetLastPublishedVersion:
+          description: Specifies the target last published version
+          readOnly: true
+          type: string
+        originChecksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        originAuthorNamespace:
+          description: Specifies the origin Author companies namespace
+          readOnly: true
+          type: string
+        originLocator:
+          description: Specifies the origin version locator
+          readOnly: true
+          type: string
+        isChangedFromOrigin:
+          description: Specifies if the Applies To function is changed from origin or not
+          readOnly: true
+          type: boolean
+        auditedRegistryId:
+          description: Specifies the audited registry Id
+          readOnly: true
+          type: string
+        targetLineageId:
+          description: Specifies the target lineage Id
+          readOnly: true
+          type: string
+        logicModuleType:
+          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
+
+            The type of LogicModule'
+          readOnly: true
+          type: string
+          enum:
+          - DATASOURCE
+          - EVENTSOURCE
+          - CONFIGSOURCE
+          - PROPERTYSOURCE
+          - DIAGNOSTICSOURCE
+          - REMEDIATIONSOURCE
+          - TOPOLOGYSOURCE
+          - JOBMONITOR
+          - APPLIESTO_FUNCTION
+          - SNMP_SYSOID_MAP
+          - LOGSOURCE
+        isChangedFromTargetLastPublished:
+          description: Specifies if the Applies To function is changed from target last published or not
+          readOnly: true
+          type: boolean
+        originLineageId:
+          description: The origin lineage Id of the LMmodule
+          readOnly: true
+          type: string
+        originAuthorCompanyUUID:
+          description: Specifies the origin Author companies unique Id
+          readOnly: true
+          type: string
+        localModuleId:
+          format: int32
+          description: The LocalModule Id
+          readOnly: true
+          type: integer
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from
+          readOnly: true
+          type: string
+        originVersion:
+          description: Specifies the origin version
+          readOnly: true
+          type: string
+        auditedVersion:
+          description: Specifies the audited registry version
+          readOnly: true
+          type: string
+        originName:
+          description: Specifies the origin module name
+          readOnly: true
+          type: string
+    AutoDiscoveryMethod:
+      description: Method used to do auto discovery instance
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: "The auto discovery method name. \nThe values can be ad_cim|ad_cloudwatch|ad_collector|ad_dummy|ad_ec2|ad_esx|ad_http|ad_ipmi|ad_jdbc|ad_jmx|ad_netapp|ad_pdh|ad_port|ad_script|ad_snmp|ad_wmi|ad_xen|ad_azurerediscache|ad_awsserviceregion|ad_awsec2reservedinstance|ad_awsecsservice|ad_awsec2scheduledevents|ad_azureserviceregion|ad_azuresubscription|ad_azurebackupjob|ad_azuresdk|ad_azurewebjob|ad_awsbillingreport|ad_awselasticache|ad_awsredshift|ad_azurebilling|ad_awslbtargetgroups|ad_gcpappengine|ad_gcpbilling|ad_awsvpntunnel|ad_gcpvpntunnel|ad_awsglobalwebacl|ad_gcplbbackendservice|ad_gcppubsubsubscription|ad_gcppubsubsnapshot|ad_gcpcloudrouternatgateway|ad_azurereplicationjob|ad_azureexpressroutecircuitpeering|ad_awsapigatewaystage|ad_azureautomationaccountcertificate|ad_azurevngconnection|ad_azurewebappinstance|ad_azureappserviceenvironmentmultirolepool|ad_openmetrics|ad_awsmediaconnectoutput|ad_awsmediaconnectsource|ad_awswebaclwafv2|ad_saaso365sharepointsite|ad_awscognitoidentityproviders|ad_saaszoomplanusage|ad_saasstatus|ad_azuresynapse|ad_saasairbrake|ad_syntheticsselenium|ad_azurevirtualdesktopsessionhosts|ad_saaso365subscribedsku|ad_azuredimension|ad_azurecostmanagementdimensions|ad_saaso365servicehealth|ad_saaso365mailbox|ad_azurenetappvolumes|ad_azureloganalyticsworkspaces|ad_saaszoomstatus|ad_saassalesforcelicense|ad_saaszoomroom|ad_saaswebexlicenseusage|ad_azureloganalyticsreplicationjob|ad_paasjsonpath|ad_awsrabbitmqqueue|ad_awssagemakerendpointvariant|ad_awsroute53resolveripaddress|ad_saasopenaiusagecost|ad_saasopenaiusagecompletion|ad_saasopenaiusageimage|ad_awsamprulegroups|ad_awsampanomalydetectors"
+          type: string
+      discriminator:
+        propertyName: name
     ScriptERIDiscoveryAttributeV3:
       description: Enable ERI Discovery or not
       type: object
@@ -867,222 +1083,6 @@ components:
         alertExpr:
           description: "The alert threshold define for the datapoint. e.g. '> 60 80 90' mean it will: \ntrigger warn alert if value > 60\ntrigger error alert if value > 80\ntrigger critical alert if value > 90"
           type: string
-    UpdateReason:
-      type: object
-      properties:
-        timeEpoch:
-          format: int64
-          description: Update date epoch
-          readOnly: true
-          type: integer
-        clientIp:
-          description: Client IP from which this update has been made
-          readOnly: true
-          type: string
-        updateReason:
-          description: Update reason
-          type: string
-        timeStr:
-          description: Update date in form 'YYYY-MM-DD HH:MM:SS'
-          readOnly: true
-          type: string
-        id:
-          format: int32
-          description: ID of update reason
-          readOnly: true
-          type: integer
-        userName:
-          description: User who made this update
-          type: string
-    JSONObject:
-      description: The alert external ticket urls
-      readOnly: true
-      type: object
-      properties:
-        empty:
-          type: boolean
-    AutoDiscoveryConfiguration:
-      description: Auto discovery configuration
-      type: object
-      required:
-      - method
-      properties:
-        persistentInstance:
-          description: Persist discovered instance
-          type: boolean
-        scheduleInterval:
-          format: int32
-          description: Auto discovery schedule interval in minutes. 0 means host or data source changed. The values can be 0|15|60|1440
-          type: integer
-        deleteInactiveInstance:
-          description: Delete inactive instance
-          type: boolean
-        method:
-          $ref: '#/components/schemas/AutoDiscoveryMethod'
-        instanceAutoGroupMethod:
-          description: Auto group method. The values can be none|netscaler|netscalerservicegroup|regex|esx|ilp
-          type: string
-        instanceAutoGroupMethodParams:
-          description: Auto group method's parameters
-          type: string
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutoDiscoveryFilter'
-        disableInstance:
-          description: Disable discovered instance
-          type: boolean
-        showDeletedInstanceDays:
-          format: int32
-          description: show deleted instance days
-          type: integer
-    ConfigCheck:
-      description: The List of ConfigChecks
-      type: object
-      properties:
-        ackClearAlert:
-          description: Clear alert after ACKED or not
-          type: boolean
-        originId:
-          description: Portable id for origin tracking
-          type: string
-        name:
-          description: The ConfigCheck name
-          type: string
-        alertLevel:
-          format: int32
-          description: 'The triggered alert level if config check failure.
-
-            The values can be 1|2|3|4
-
-            where, 1: no alert, 2: warn alert, 3: error alert, 4: critical alert'
-          type: integer
-        description:
-          description: The ConfigCheck description
-          type: string
-        configSourceId:
-          format: int32
-          description: The ConfigSource id
-          type: integer
-        id:
-          format: int32
-          description: The ConfigCheck id
-          type: integer
-        type:
-          description: The ConfigCheck type. The values can be fetch|ignore|missing|value|groovy
-          type: string
-        alertEffectiveIval:
-          format: int32
-          description: Alert effective interval
-          type: integer
-        script:
-          description: The ConfigCheck script
-          readOnly: false
-          $ref: '#/components/schemas/JSONObject'
-        alertTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for these many poll cycles before it will be triggered
-          type: integer
-    AccessGroup:
-      description: Module's access groups
-      type: object
-      required:
-      - name
-      properties:
-        createdBy:
-          description: User who created access group
-          readOnly: true
-          type: string
-        name:
-          description: The name of the access group
-          type: string
-          example: LinuxGroup
-        tenantId:
-          description: Tenancy details
-          type: string
-        description:
-          description: Description about access group
-          type: string
-        id:
-          format: int32
-          description: The id of the access group
-          readOnly: true
-          type: integer
-        updatedOn:
-          format: int64
-          description: Time when access group updated
-          readOnly: true
-          type: integer
-        createdOn:
-          format: int64
-          description: Time when access group created
-          readOnly: true
-          type: integer
-    ConfigSourceUpdateReasonsPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/UpdateReason'
-    CollectorAttribute:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          description: The data collector's name
-          type: string
-      discriminator:
-        propertyName: name
-    StatusDisplayName:
-      description: The status display name list
-      type: object
-      required:
-      - metricValue
-      - operator
-      - statusDisplayName
-      properties:
-        statusDisplayName:
-          description: The status display name for the metric value
-          type: string
-        metricValue:
-          description: The metric value that the alert must be greater than, less than, or equal to for this status display to be considered
-          type: string
-        id:
-          format: int32
-          description: The datapoint id
-          readOnly: true
-          type: integer
-        datapointId:
-          format: int32
-          description: The datappoint id
-          readOnly: true
-          type: integer
-        operator:
-          description: The operator to use for the status display
-          type: string
-    ConfigsourcePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigSource'
   securitySchemes:
     LMv1:
       in: header

@@ -284,6 +284,63 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    DashboardGroupPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardGroup'
+    WidgetTokenInheritance:
+      type: object
+      properties:
+        fullpath:
+          readOnly: true
+          type: string
+        value:
+          readOnly: true
+          type: string
+    WidgetToken:
+      type: object
+      properties:
+        inheritList:
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetTokenInheritance'
+        name:
+          description: This is the name of the parent group of devices, if there is one established
+          type: string
+          example: Default Device Group
+        type:
+          readOnly: true
+          type: string
+        value:
+          description: this is the name of the child group of devices, if there is one
+          type: string
+          example: Devices by Type/Network
     DashboardData:
       type: object
       properties:
@@ -300,15 +357,6 @@ components:
           format: int32
           readOnly: true
           type: integer
-    WidgetTokenInheritance:
-      type: object
-      properties:
-        fullpath:
-          readOnly: true
-          type: string
-        value:
-          readOnly: true
-          type: string
     DashboardGroup:
       type: object
       required:
@@ -369,54 +417,50 @@ components:
           description: The number of dashboards that belong directly to the Dashboard Group
           readOnly: true
           type: integer
-    DashboardGroupPaginationResponse:
+    RestDashboardGroupAsyncCloneResponse:
       type: object
       properties:
-        total:
+        jobId:
           format: int32
+          description: The jobId of the Clone Dashboard Group
           readOnly: true
           type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardGroup'
-    ErrorResponse:
+    WidgetTokenInheritance_2:
+      description: The widget token inherit list
       type: object
       properties:
-        errorMessage:
-          description: The error message
+        fullpath:
+          description: The fullpath for the widget token
           readOnly: true
           type: string
-        errorCode:
-          format: int32
-          description: The error code
+        value:
+          description: The property value for the group
           readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    WidgetToken:
+          type: string
+    WidgetToken_2:
+      description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
       type: object
       properties:
         inheritList:
+          description: The widget token inherit list
           type: array
           items:
-            $ref: '#/components/schemas/WidgetTokenInheritance'
+            $ref: '#/components/schemas/WidgetTokenInheritance_2'
         name:
           description: This is the name of the parent group of devices, if there is one established
           type: string
           example: Default Device Group
         type:
+          description: 'The values can be owned | inherit
+
+            Specifies the type of the widget'
           readOnly: true
           type: string
         value:
-          description: this is the name of the child group of devices, if there is one
+          description: This is the name of the child group of devices, if there is one
           type: string
           example: Devices by Type/Network
+      example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
     DashboardData_2:
       description: The dashboards that belong to the group
       readOnly: true
@@ -437,26 +481,6 @@ components:
         id:
           format: int32
           description: The Id of the dashboard
-          readOnly: true
-          type: integer
-    WidgetTokenInheritance_2:
-      description: The widget token inherit list
-      type: object
-      properties:
-        fullpath:
-          description: The fullpath for the widget token
-          readOnly: true
-          type: string
-        value:
-          description: The property value for the group
-          readOnly: true
-          type: string
-    RestDashboardGroupAsyncCloneResponse:
-      type: object
-      properties:
-        jobId:
-          format: int32
-          description: The jobId of the Clone Dashboard Group
           readOnly: true
           type: integer
     DashboardGroup_2:
@@ -519,30 +543,6 @@ components:
           description: The number of dashboards that belong directly to the Dashboard Group
           readOnly: true
           type: integer
-    WidgetToken_2:
-      description: If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup
-      type: object
-      properties:
-        inheritList:
-          description: The widget token inherit list
-          type: array
-          items:
-            $ref: '#/components/schemas/WidgetTokenInheritance_2'
-        name:
-          description: This is the name of the parent group of devices, if there is one established
-          type: string
-          example: Default Device Group
-        type:
-          description: 'The values can be owned | inherit
-
-            Specifies the type of the widget'
-          readOnly: true
-          type: string
-        value:
-          description: This is the name of the child group of devices, if there is one
-          type: string
-          example: Devices by Type/Network
-      example: '"[{"name":"defaultDeviceGroup","value":"*"},{"name":"defaultServiceGroup","value":"*"}]"'
   securitySchemes:
     LMv1:
       in: header

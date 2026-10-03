@@ -293,183 +293,41 @@ paths:
               - file
 components:
   schemas:
-    DataSource:
+    AutoDiscoveryConfiguration:
+      description: Auto discovery configuration
       type: object
       required:
-      - collectInterval
-      - collectMethod
-      - collectorAttribute
-      - name
+      - method
       properties:
-        eriDiscoveryConfig:
-          description: Enable ERI Discovery or not
-          readOnly: false
-          $ref: '#/components/schemas/ScriptERIDiscoveryAttributeV3'
-        accessGroups:
-          description: Module's access groups
+        persistentInstance:
+          description: Persist discovered instance
+          type: boolean
+        scheduleInterval:
+          format: int32
+          description: Auto discovery schedule interval in minutes. 0 means host or data source changed. The values can be 0|15|60|1440
+          type: integer
+        deleteInactiveInstance:
+          description: Delete inactive instance
+          type: boolean
+        method:
+          $ref: '#/components/schemas/AutoDiscoveryMethod'
+        instanceAutoGroupMethod:
+          description: Auto group method. The values can be none|netscaler|netscalerservicegroup|regex|esx|ilp
+          type: string
+        instanceAutoGroupMethodParams:
+          description: Auto group method's parameters
+          type: string
+        filters:
           type: array
           items:
-            $ref: '#/components/schemas/AccessGroup'
-        displayName:
-          description: The data source display name
-          type: string
-        description:
-          description: The description for the LMModule
-          type: string
-        appliesTo:
-          description: The Applies To for the LMModule
-          type: string
-        lineageId:
-          description: The lineageId the LMModule belongs to
-          readOnly: true
-          type: string
-        collectMethod:
-          description: The  method to collect data. The values can be snmp|ping|exs|webpage|wmi|cim|datadump|dns|ipmi|jdbb|script|udp|tcp|xen
-          type: string
-        originRegistryId:
-          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
-          type: string
-        checksum:
-          description: The metadata checksum for the LMModule content
-          readOnly: true
-          type: string
-        dataPoints:
-          description: The data point list
-          type: array
-          items:
-            $ref: '#/components/schemas/DataPoint'
-        id:
-          format: int32
-          description: The ID of the LMModule
-          readOnly: true
-          type: integer
-        accessGroupIds:
-          uniqueItems: true
-          description: The Access Groups Id's
-          type: array
-          items:
-            format: int32
-            description: The Access Groups Id's
-            type: integer
-          example: 1, 2, 3
-        group:
-          description: The group the LMModule is in
-          type: string
-        collectorAttribute:
-          description: "Data collector's attributes to collector data. e.g. a ping data source has a ping collector attribute. \n PingCollectorAttributeV1 has two fields. the ip to ping, the data size send to ping"
-          readOnly: false
-          $ref: '#/components/schemas/CollectorAttribute'
-        autoDiscoveryConfig:
-          description: Auto discovery configuration
-          readOnly: false
-          $ref: '#/components/schemas/AutoDiscoveryConfiguration'
-        adParameters:
-          $ref: '#/components/schemas/DataSource'
-        payloadVersion:
-          format: int32
-          description: The DataSource payload version for custom metrics
-          readOnly: true
-          type: integer
-        useWildValueAsUUID:
-          description: 'Use wild-value as unique identifier in case of multi instance datasource: true|false'
-          readOnly: true
+            $ref: '#/components/schemas/AutoDiscoveryFilter'
+        disableInstance:
+          description: Disable discovered instance
           type: boolean
-        enableAutoDiscovery:
-          description: 'Enable Auto Discovery or not when this data source has multi instance: false|true'
-          type: boolean
-        technology:
-          description: The Technical Notes for the LMModule
-          type: string
-        version:
-          format: int64
-          description: The data source version
-          readOnly: true
-          type: integer
-        tags:
-          description: The Tags for the LMModule
-          type: string
-        auditVersion:
-          format: int64
-          description: The data source audit version
-          readOnly: true
-          type: integer
-        hasMultiInstances:
-          description: 'If the DataSource has multi instance: true|false'
-          readOnly: true
-          type: boolean
-        installationMetadata:
-          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
-          readOnly: true
-          $ref: '#/components/schemas/IntegrationMetadata'
-        eriDiscoveryInterval:
+        showDeletedInstanceDays:
           format: int32
-          description: The DataSource data collect interval
+          description: show deleted instance days
           type: integer
-        enableEriDiscovery:
-          description: 'Enable ERI Discovery or not: false|true'
-          type: boolean
-        collectInterval:
-          format: int32
-          description: The DataSource data collect interval
-          type: integer
-        name:
-          description: The data source name
-          type: string
-        isInUse:
-          description: Whether the LM module is currently in use
-          readOnly: true
-          type: boolean
-    DiagnosticsSourceExecution:
-      description: Represents a diagnostic execution for a host in the LogicMonitor system.
-      type: object
-      required:
-      - diagnosticId
-      - executionStatus
-      - hostDiagnosticSourceId
-      - hostId
-      - triggerType
-      properties:
-        output:
-          description: Script output when includeOutput is true and execution has completed
-          readOnly: true
-          type: string
-        executionId:
-          description: 'execution Id '
-          readOnly: true
-          type: string
-        diagnosticId:
-          format: int32
-          description: The diagnostic module id
-          type: integer
-          example: 12345
-        executionStatus:
-          description: The diagnostic module id
-          readOnly: true
-          type: string
-          example: '60'
-        hostId:
-          format: int32
-          description: The host id
-          type: integer
-          example: 12345
-        alertId:
-          description: The alert id
-          type: string
-          example: alert12345
-        triggerType:
-          description: type of trigger
-          readOnly: true
-          type: string
-          example: scheduled
-        hostDiagnosticSourceId:
-          format: int32
-          description: The diagnostic module id
-          type: integer
-          example: 12345
-        includeOutput:
-          description: When true, the API waits for execution to finish and returns script output in the response
-          type: boolean
-          example: false
     IntegrationMetadata:
       description: The local module's IntegrationMetadata, readable for troubleshooting purposes
       readOnly: true
@@ -597,362 +455,165 @@ components:
           description: Time when access group created
           readOnly: true
           type: integer
-    LogicModuleAssociationCounts:
+    RestScriptV4:
       type: object
       properties:
-        inUse:
-          type: boolean
-    RestChangelogV4:
-      type: object
-      properties:
-        comments:
+        powershellScript:
           type: string
-        updatedAtMS:
-          format: int64
-          type: integer
-        model:
+        linuxScriptFilename:
           type: string
-          enum:
-          - accessLogs
-          - accessGroups
-          - adminNotifications
-          - aggregateSavings
-          - alerts
-          - visualizationAggregateEntry
-          - visualizationAggregateValue
-          - alertDependencyRules
-          - alertRoutings
-          - alertRules
-          - actionRules
-          - alertTuningConfigAncestry
-          - alertTuningConfigs
-          - alertTuningConfigsHistory
-          - alertTuningConfigSlots
-          - alertTuningGraphs
-          - alertsTuningSeries
-          - asnMappings
-          - billingConfigurations
-          - cloudAccounts
-          - cloudResourceProperty
-          - clusterAlertRoutings
-          - clusterAlertTuningConfigs
-          - collectors
-          - collectorEvents
-          - collectorGroups
-          - collectorStatus
-          - collectorUpgradeHistory
-          - collectorUpgradeInfo
-          - configSources
-          - configSourceInstance
-          - configSourceInstanceAlert
-          - collectorLogs
-          - config
-          - configAlert
-          - correlationGraphs
-          - dashboards
-          - datapoints
-          - dataQueries
-          - dataSources
-          - dataSourceInstances
-          - dataSourceInstanceAlertSettings
-          - dataSourceInstanceGroups
-          - datasets
-          - dnsMappings
-          - escalationChains
-          - actionChains
-          - eventSources
-          - integrations
-          - integrationAuditLogs
-          - logSources
-          - exchangeAccessGroups
-          - exchangeActiveDiscoveryFilters
-          - exchangeAppliesToFunctions
-          - exchangeChangelogs
-          - exchangeConfigSources
-          - exchangeConfigSourceConfigChecks
-          - exchangeDataSources
-          - exchangeDataSourceDataPoints
-          - exchangeDataSourceDataPointDisplayStatusNames
-          - exchangeDataSourceGraphs
-          - exchangeDataSourceGraphSeries
-          - exchangeDataSourceGraphVirtualSeries
-          - exchangeDataSourceOverviewGraphs
-          - exchangeDataSourceOverviewGraphSeries
-          - exchangeDataSourceOverviewGraphVirtualSeries
-          - exchangeDiagnosticSources
-          - exchangeEventSources
-          - exchangeEventSourceFilters
-          - exchangeEventSourceLogFiles
-          - exchangeJobMonitors
-          - exchangeLogSources
-          - exchangeLogSourceFilters
-          - exchangeSnmpTrapLogSourceFilters
-          - exchangeLogSourceLogFields
-          - exchangeLogSourceResourceMappings
-          - exchangeLogSourceSensitiveDataMaskingRules
-          - exchangeLogSourceCollectorMappings
-          - exchangeLogicModules
-          - exchangeLogicModulePackages
-          - exchangeLogicModulePermissions
-          - exchangePackagedLogicModules
-          - exchangePropertySources
-          - exchangeRemediationSources
-          - exchangeSNMPSysOIDMaps
-          - exchangeTopologySources
-          - externalResourceIdentifiers
-          - failedDataSourceInfo
-          - filterFieldList
-          - graphs
-          - graphMeta
-          - healthMetrics
-          - hierarchy
-          - hostclusterAlertDefs
-          - auditLogSummaryContext
-          - hostDiagnosticSourceDetails
-          - diagnosticExecutionContext
-          - remediationExecutionContext
-          - latestDiagnosticExecutionResultContext
-          - diagnosticExecutionSearchContext
-          - remediationSourceExecutionSearchContext
-          - diagnosticSourceAssociatedDevices
-          - hostRemediationSourceDetails
-          - hostActionToolDetails
-          - actionToolExecutionContext
-          - actionToolExecutionSearchContext
-          - remediationSourceAssociatedDevices
-          - latestRemediationExecutionResultContext
-          - hostGroups
-          - internalAlertSettings
-          - jobMonitors
-          - jobMonitorExecutions
-          - lmSupportAccessHasConnection
-          - lmSupportAccessState
-          - lmotelCollectors
-          - lmotelCollectorVersions
-          - lmCollectorVersions
-          - logalerts
-          - logicModuleGroups
-          - logpipelinesources
-          - logpipelineprocessors
-          - matchedEvents
-          - metaGroupings
-          - metricsCorrelation
-          - monitoredResources
-          - netscanGroups
-          - netscans
-          - netflow
-          - netflowAlertRule
-          - allLevels
-          - nocWidgets
-          - normalizedProperties
-          - netscanPolicies
-          - netscanExecutions
-          - opsNotes
-          - opsNoteResourceScopes
-          - opsNoteServiceScopes
-          - opsNoteResourceGroupScopes
-          - opsNoteServiceGroupScopes
-          - opsNoteGroupAllScopes
-          - opsNoteTags
-          - orgTreeNodes
-          - portMappings
-          - productIds
-          - properties
-          - propertySources
-          - rawData
-          - recentlyDeletedItems
-          - recipientGroups
-          - cloudConfigIssues
-          - cloudConfigIntegrations
-          - cloudConfigAccounts
-          - cloudHealthEvents
-          - cloudHealthEventDetails
-          - cloudHealthEventAdditionalInfo
-          - cloudRecommendations
-          - cloudRecommendationAdditionalData
-          - recommendationTypes
-          - relationships
-          - reports
-          - reportHistories
-          - reportGroups
-          - resources
-          - resourceDashboards
-          - resourceDataSources
-          - resourceDatapoints
-          - resourceEventSources
-          - resourceConfigSources
-          - ConfigSourcesGoldStandard
-          - ConfigSourceConfiguration
-          - resourceDashboardTemplates
-          - resourceGroups
-          - resourceGroupDataSourceConfigs
-          - resourceGroupEventSourceConfigs
-          - resourceGroupInfoSourceConfigs
-          - resourceJobMonitors
-          - resourceLogPipelineResources
-          - resourceLogSources
-          - sdts
-          - services
-          - serviceCheckpoints
-          - serviceGroups
-          - sharedQueries
-          - siteMonitors
-          - slaWidgets
-          - spanCount
-          - securityRecommendations
-          - subscriptions
-          - topology
-          - topologyMaps
-          - topologyMaps-1
-          - topologyMaps-2
-          - topologyMapsHistogram
-          - topologyMapsGraphs
-          - subEntities
-          - subEntitiesDetails
-          - topologySavedMapsGroupType
-          - topologySavedMapsGroup
-          - topologyManualMapping
-          - topologyManualInterfaceList
-          - traffic
-          - treeNodes
-          - unmonitoredResources
-          - userdata
-          - users
-          - userSettings
-          - websiteCheckpoints
-          - websiteGroups
-          - websites
-          - ServicePreview
-          - BizServiceDatapoint
-          - ServiceTemplateView
-          - ServiceMemberPreview
-          - RestServiceTemplate
-          - ServiceTemplateServiceStats
-          - synthetics
-          - usage
-          - tracesDevicesNamesIds
-          - tracesGraphIds
-          - tracesServices
-          - tracesDeviceDatasources
-          - tracesDeviceDatasourceInstances
-          - tracesNamespaceGraphDetails
-          - tracesResourceNamesIds
-          - tracesTopologyEdgeData
-          - members
-          - apiTokens
-          - roleGroups
-          - roles
-          - userGroups
-          - sharingTokens
-          - scimTokens
-          - syntheticsDSInstanceRawData
-          - syntheticsDSInstanceStepData
-          - syntheticsDSInstanceAlerts
-          - usageDimensions
-          - vizResourceInfo
-          - lmqlResult
-          - lmqlParsed
-          - partitions
-          - cloudRecommendationStatus
-          - recommendationStatusUpdateRequest
-          - websiteDevice
-          - mibUpload
-          - logQueryGroups
-          - logQueryGroupChangelog
-          - logQuery
-          - trackingLogQueries
-          - billingBudgets
-          - trackedQuery
-          - trackedQueryGroups
-          - trackedQueryGroupChangelog
-          - adminName
-          - droppedInstances
-          - dashboardFilterGroups
-          - dashboardFilters
-          - dashboardFilterMappings
-        id:
+        windowsUploadScriptContent:
+          readOnly: true
           type: string
-        addressIP:
-          type: string
-        username:
-          type: string
-    ModelAndId:
-      description: SDT target
-      readOnly: true
-      type: object
-      properties:
-        displayName:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        model:
-          type: string
-        id:
-          type: string
-    AutoDiscoveryMethod:
-      description: Method used to do auto discovery instance
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          description: "The auto discovery method name. \nThe values can be ad_cim|ad_cloudwatch|ad_collector|ad_dummy|ad_ec2|ad_esx|ad_http|ad_ipmi|ad_jdbc|ad_jmx|ad_netapp|ad_pdh|ad_port|ad_script|ad_snmp|ad_wmi|ad_xen|ad_azurerediscache|ad_awsserviceregion|ad_awsec2reservedinstance|ad_awsecsservice|ad_awsec2scheduledevents|ad_azureserviceregion|ad_azuresubscription|ad_azurebackupjob|ad_azuresdk|ad_azurewebjob|ad_awsbillingreport|ad_awselasticache|ad_awsredshift|ad_azurebilling|ad_awslbtargetgroups|ad_gcpappengine|ad_gcpbilling|ad_awsvpntunnel|ad_gcpvpntunnel|ad_awsglobalwebacl|ad_gcplbbackendservice|ad_gcppubsubsubscription|ad_gcppubsubsnapshot|ad_gcpcloudrouternatgateway|ad_azurereplicationjob|ad_azureexpressroutecircuitpeering|ad_awsapigatewaystage|ad_azureautomationaccountcertificate|ad_azurevngconnection|ad_azurewebappinstance|ad_azureappserviceenvironmentmultirolepool|ad_openmetrics|ad_awsmediaconnectoutput|ad_awsmediaconnectsource|ad_awswebaclwafv2|ad_saaso365sharepointsite|ad_awscognitoidentityproviders|ad_saaszoomplanusage|ad_saasstatus|ad_azuresynapse|ad_saasairbrake|ad_syntheticsselenium|ad_azurevirtualdesktopsessionhosts|ad_saaso365subscribedsku|ad_azuredimension|ad_azurecostmanagementdimensions|ad_saaso365servicehealth|ad_saaso365mailbox|ad_azurenetappvolumes|ad_azureloganalyticsworkspaces|ad_saaszoomstatus|ad_saassalesforcelicense|ad_saaszoomroom|ad_saaswebexlicenseusage|ad_azureloganalyticsreplicationjob|ad_paasjsonpath|ad_awsrabbitmqqueue|ad_awssagemakerendpointvariant|ad_awsroute53resolveripaddress|ad_saasopenaiusagecost|ad_saasopenaiusagecompletion|ad_saasopenaiusageimage|ad_awsamprulegroups|ad_awsampanomalydetectors"
-          type: string
-      discriminator:
-        propertyName: name
-    AutoDiscoveryFilter:
-      type: object
-      required:
-      - attribute
-      - operation
-      properties:
-        comment:
-          description: The filter comment
-          type: string
-        attribute:
-          description: Attribute to filter
-          type: string
-        operation:
-          description: 'The filter''s operation. The values can be : Equal|NotEqual|GreaterThan|GreaterEqual|LessThan|LessEqual|Contain|NotContain|NotExist|RegexMatch|RegexNotMatch'
-          type: string
-        value:
-          description: The operation value
-          type: string
-    DiagnosticsourcePaginationResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSource'
-    ScriptERIDiscoveryAttributeV3:
-      description: Enable ERI Discovery or not
-      type: object
-      required:
-      - name
-      properties:
-        winScript:
-          description: The Windows script
+        linuxUploadScriptContent:
+          readOnly: true
           type: string
         groovyScript:
-          description: The Groovy script
           type: string
-        name:
-          description: ERI detection name
+        windowsScriptFilename:
+          type: string
+        linuxArguments:
+          type: string
+        windowsArguments:
+          type: string
+        windowsUploadScriptBinaryContentChecksum:
+          readOnly: true
           type: string
         type:
-          description: The script type
           type: string
-        linuxCmdline:
-          description: The Linux script command line
+          enum:
+          - INVALID
+          - GROOVY
+          - POWERSHELL
+          - UPLOADED_FILE
+          - PROPERTY
+        linuxUploadScriptBinaryContentChecksum:
+          readOnly: true
           type: string
-        linuxScript:
-          description: The Linux script file
+    StatusDisplayName:
+      description: The status display name list
+      type: object
+      required:
+      - metricValue
+      - operator
+      - statusDisplayName
+      properties:
+        statusDisplayName:
+          description: The status display name for the metric value
           type: string
-        winCmdline:
-          description: The Windows script command line
+        metricValue:
+          description: The metric value that the alert must be greater than, less than, or equal to for this status display to be considered
+          type: string
+        id:
+          format: int32
+          description: The datapoint id
+          readOnly: true
+          type: integer
+        datapointId:
+          format: int32
+          description: The datappoint id
+          readOnly: true
+          type: integer
+        operator:
+          description: The operator to use for the status display
+          type: string
+    DiagnosticsSource:
+      type: object
+      properties:
+        accessGroups:
+          description: Access group Details in response
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessGroup'
+        groovyScript:
+          description: groovy script
+          type: string
+        dataType:
+          format: int32
+          description: "The data type of diagnostics source, default is 0. The values can be\n\n0: diagnostics source\n\n1: raw ERI\n\n "
+          readOnly: true
+          type: integer
+        description:
+          description: The description for the LMModule
+          type: string
+        appliesTo:
+          description: The Applies To for the LMModule
+          type: string
+        technology:
+          description: The Technical Notes for the LMModule
+          type: string
+        source:
+          description: The diagnostics source
+          readOnly: true
+          type: string
+        lineageId:
+          description: The lineageId the LMModule belongs to
+          readOnly: true
+          type: string
+        tags:
+          description: The Tags for the LMModule
+          type: string
+        installationMetadata:
+          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+          readOnly: true
+          $ref: '#/components/schemas/IntegrationMetadata'
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
+          type: string
+        scriptType:
+          description: 'script type: groovy | powershell'
+          type: string
+        checksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        name:
+          description: The diagnostics source name
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The ID of the LMModule
+          readOnly: true
+          type: integer
+        accessGroupIds:
+          uniqueItems: true
+          description: The Access Groups Id's
+          type: array
+          items:
+            format: int32
+            description: The Access Groups Id's
+            type: integer
+          example: 1, 2, 3
+        isInUse:
+          description: Whether the LM module is currently in use
+          readOnly: true
+          type: boolean
+        installationStatuses:
+          description: The diagnostics Installation status
+          readOnly: true
+          type: array
+          items:
+            description: The diagnostics Installation status
+            readOnly: true
+            type: string
+            enum:
+            - NEW
+            - UPGRADED
+            - AUDITED
+            - OUTDATED
+            - INSTALLED
+            - CUSTOMIZED
+            - CONFLICT
+            - PARTIALLY_INSTALLED
+            - IS_INSTALLED
+            - IS_CUSTOMIZED
+            - CAN_INSTALL
+            - CAN_UPGRADE
+            - CAN_SKIP
+            - CAN_DOWNGRADE
+        group:
+          description: The group the LMModule is in
           type: string
     DataPoint:
       description: The data point list
@@ -1065,77 +726,54 @@ components:
         alertExpr:
           description: "The alert threshold define for the datapoint. e.g. '> 60 80 90' mean it will: \ntrigger warn alert if value > 60\ntrigger error alert if value > 80\ntrigger critical alert if value > 90"
           type: string
-    AutoDiscoveryConfiguration:
-      description: Auto discovery configuration
+    ErrorResponse:
       type: object
-      required:
-      - method
       properties:
-        persistentInstance:
-          description: Persist discovered instance
-          type: boolean
-        scheduleInterval:
-          format: int32
-          description: Auto discovery schedule interval in minutes. 0 means host or data source changed. The values can be 0|15|60|1440
-          type: integer
-        deleteInactiveInstance:
-          description: Delete inactive instance
-          type: boolean
-        method:
-          $ref: '#/components/schemas/AutoDiscoveryMethod'
-        instanceAutoGroupMethod:
-          description: Auto group method. The values can be none|netscaler|netscalerservicegroup|regex|esx|ilp
+        errorMessage:
+          description: The error message
+          readOnly: true
           type: string
-        instanceAutoGroupMethodParams:
-          description: Auto group method's parameters
-          type: string
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutoDiscoveryFilter'
-        disableInstance:
-          description: Disable discovered instance
-          type: boolean
-        showDeletedInstanceDays:
+        errorCode:
           format: int32
-          description: show deleted instance days
+          description: The error code
+          readOnly: true
           type: integer
-    CollectorAttribute:
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    ModelAndId:
+      description: SDT target
+      readOnly: true
       type: object
-      required:
-      - name
       properties:
+        displayName:
+          type: string
         name:
-          description: The data collector's name
           type: string
-      discriminator:
-        propertyName: name
-    StatusDisplayName:
-      description: The status display name list
-      type: object
-      required:
-      - metricValue
-      - operator
-      - statusDisplayName
-      properties:
-        statusDisplayName:
-          description: The status display name for the metric value
+        namespace:
           type: string
-        metricValue:
-          description: The metric value that the alert must be greater than, less than, or equal to for this status display to be considered
+        model:
           type: string
         id:
-          format: int32
-          description: The datapoint id
-          readOnly: true
-          type: integer
-        datapointId:
-          format: int32
-          description: The datappoint id
-          readOnly: true
-          type: integer
-        operator:
-          description: The operator to use for the status display
+          type: string
+    AutoDiscoveryFilter:
+      type: object
+      required:
+      - attribute
+      - operation
+      properties:
+        comment:
+          description: The filter comment
+          type: string
+        attribute:
+          description: Attribute to filter
+          type: string
+        operation:
+          description: 'The filter''s operation. The values can be : Equal|NotEqual|GreaterThan|GreaterEqual|LessThan|LessEqual|Contain|NotContain|NotExist|RegexMatch|RegexNotMatch'
+          type: string
+        value:
+          description: The operation value
           type: string
     RestDiagnosticSourceV4:
       type: object
@@ -1579,76 +1217,347 @@ components:
           type: boolean
         originName:
           type: string
-    ErrorResponse:
+    RestChangelogV4:
       type: object
       properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
+        comments:
           type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
+        updatedAtMS:
+          format: int64
           type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    DiagnosticsSource:
+        model:
+          type: string
+          enum:
+          - accessLogs
+          - accessGroups
+          - adminNotifications
+          - aggregateSavings
+          - alerts
+          - visualizationAggregateEntry
+          - visualizationAggregateValue
+          - alertDependencyRules
+          - alertRoutings
+          - alertRules
+          - actionRules
+          - alertTuningConfigAncestry
+          - alertTuningConfigs
+          - alertTuningConfigsHistory
+          - alertTuningConfigSlots
+          - alertTuningGraphs
+          - alertsTuningSeries
+          - asnMappings
+          - billingConfigurations
+          - cloudAccounts
+          - cloudResourceProperty
+          - clusterAlertRoutings
+          - clusterAlertTuningConfigs
+          - collectors
+          - collectorEvents
+          - collectorGroups
+          - collectorStatus
+          - collectorUpgradeHistory
+          - collectorUpgradeInfo
+          - configSources
+          - configSourceInstance
+          - configSourceInstanceAlert
+          - collectorLogs
+          - config
+          - configAlert
+          - correlationGraphs
+          - dashboards
+          - datapoints
+          - dataQueries
+          - dataSources
+          - dataSourceInstances
+          - dataSourceInstanceAlertSettings
+          - dataSourceInstanceGroups
+          - datasets
+          - dnsMappings
+          - escalationChains
+          - actionChains
+          - eventSources
+          - integrations
+          - integrationAuditLogs
+          - logSources
+          - exchangeAccessGroups
+          - exchangeActiveDiscoveryFilters
+          - exchangeAppliesToFunctions
+          - exchangeChangelogs
+          - exchangeConfigSources
+          - exchangeConfigSourceConfigChecks
+          - exchangeDataSources
+          - exchangeDataSourceDataPoints
+          - exchangeDataSourceDataPointDisplayStatusNames
+          - exchangeDataSourceGraphs
+          - exchangeDataSourceGraphSeries
+          - exchangeDataSourceGraphVirtualSeries
+          - exchangeDataSourceOverviewGraphs
+          - exchangeDataSourceOverviewGraphSeries
+          - exchangeDataSourceOverviewGraphVirtualSeries
+          - exchangeDiagnosticSources
+          - exchangeEventSources
+          - exchangeEventSourceFilters
+          - exchangeEventSourceLogFiles
+          - exchangeJobMonitors
+          - exchangeLogSources
+          - exchangeLogSourceFilters
+          - exchangeSnmpTrapLogSourceFilters
+          - exchangeLogSourceLogFields
+          - exchangeLogSourceResourceMappings
+          - exchangeLogSourceSensitiveDataMaskingRules
+          - exchangeLogSourceCollectorMappings
+          - exchangeLogicModules
+          - exchangeLogicModulePackages
+          - exchangeLogicModulePermissions
+          - exchangePackagedLogicModules
+          - exchangePropertySources
+          - exchangeRemediationSources
+          - exchangeSNMPSysOIDMaps
+          - exchangeTopologySources
+          - externalResourceIdentifiers
+          - failedDataSourceInfo
+          - filterFieldList
+          - graphs
+          - graphMeta
+          - healthMetrics
+          - hierarchy
+          - hostclusterAlertDefs
+          - auditLogSummaryContext
+          - hostDiagnosticSourceDetails
+          - diagnosticExecutionContext
+          - remediationExecutionContext
+          - latestDiagnosticExecutionResultContext
+          - diagnosticExecutionSearchContext
+          - remediationSourceExecutionSearchContext
+          - diagnosticSourceAssociatedDevices
+          - hostRemediationSourceDetails
+          - hostActionToolDetails
+          - actionToolExecutionContext
+          - actionToolExecutionSearchContext
+          - remediationSourceAssociatedDevices
+          - latestRemediationExecutionResultContext
+          - hostGroups
+          - internalAlertSettings
+          - jobMonitors
+          - jobMonitorExecutions
+          - lmSupportAccessHasConnection
+          - lmSupportAccessState
+          - lmotelCollectors
+          - lmotelCollectorVersions
+          - lmCollectorVersions
+          - logalerts
+          - logicModuleGroups
+          - logpipelinesources
+          - logpipelineprocessors
+          - matchedEvents
+          - metaGroupings
+          - metricsCorrelation
+          - monitoredResources
+          - netscanGroups
+          - netscans
+          - netflow
+          - netflowAlertRule
+          - allLevels
+          - nocWidgets
+          - normalizedProperties
+          - netscanPolicies
+          - netscanExecutions
+          - opsNotes
+          - opsNoteResourceScopes
+          - opsNoteServiceScopes
+          - opsNoteResourceGroupScopes
+          - opsNoteServiceGroupScopes
+          - opsNoteGroupAllScopes
+          - opsNoteTags
+          - orgTreeNodes
+          - portMappings
+          - productIds
+          - properties
+          - propertySources
+          - rawData
+          - recentlyDeletedItems
+          - recipientGroups
+          - cloudConfigIssues
+          - cloudConfigIntegrations
+          - cloudConfigAccounts
+          - cloudHealthEvents
+          - cloudHealthEventDetails
+          - cloudHealthEventAdditionalInfo
+          - cloudRecommendations
+          - cloudRecommendationAdditionalData
+          - recommendationTypes
+          - relationships
+          - reports
+          - reportHistories
+          - reportGroups
+          - resources
+          - resourceDashboards
+          - resourceDataSources
+          - resourceDatapoints
+          - resourceEventSources
+          - resourceConfigSources
+          - ConfigSourcesGoldStandard
+          - ConfigSourceConfiguration
+          - resourceDashboardTemplates
+          - resourceGroups
+          - resourceGroupDataSourceConfigs
+          - resourceGroupEventSourceConfigs
+          - resourceGroupInfoSourceConfigs
+          - resourceJobMonitors
+          - resourceLogPipelineResources
+          - resourceLogSources
+          - sdts
+          - services
+          - serviceCheckpoints
+          - serviceGroups
+          - sharedQueries
+          - siteMonitors
+          - slaWidgets
+          - spanCount
+          - securityRecommendations
+          - subscriptions
+          - topology
+          - topologyMaps
+          - topologyMaps-1
+          - topologyMaps-2
+          - topologyMapsHistogram
+          - topologyMapsGraphs
+          - subEntities
+          - subEntitiesDetails
+          - topologySavedMapsGroupType
+          - topologySavedMapsGroup
+          - topologyManualMapping
+          - topologyManualInterfaceList
+          - traffic
+          - treeNodes
+          - unmonitoredResources
+          - userdata
+          - users
+          - userSettings
+          - websiteCheckpoints
+          - websiteGroups
+          - websites
+          - ServicePreview
+          - BizServiceDatapoint
+          - ServiceTemplateView
+          - ServiceMemberPreview
+          - RestServiceTemplate
+          - ServiceTemplateServiceStats
+          - synthetics
+          - usage
+          - tracesDevicesNamesIds
+          - tracesGraphIds
+          - tracesServices
+          - tracesDeviceDatasources
+          - tracesDeviceDatasourceInstances
+          - tracesNamespaceGraphDetails
+          - tracesResourceNamesIds
+          - tracesTopologyEdgeData
+          - members
+          - apiTokens
+          - roleGroups
+          - roles
+          - userGroups
+          - sharingTokens
+          - scimTokens
+          - syntheticsDSInstanceRawData
+          - syntheticsDSInstanceStepData
+          - syntheticsDSInstanceAlerts
+          - usageDimensions
+          - vizResourceInfo
+          - lmqlResult
+          - lmqlParsed
+          - partitions
+          - cloudRecommendationStatus
+          - recommendationStatusUpdateRequest
+          - websiteDevice
+          - mibUpload
+          - logQueryGroups
+          - logQueryGroupChangelog
+          - logQuery
+          - trackingLogQueries
+          - billingBudgets
+          - trackedQuery
+          - trackedQueryGroups
+          - trackedQueryGroupChangelog
+          - adminName
+          - droppedInstances
+          - dashboardFilterGroups
+          - dashboardFilters
+          - dashboardFilterMappings
+        id:
+          type: string
+        addressIP:
+          type: string
+        username:
+          type: string
+    DiagnosticsourcePaginationResponse:
       type: object
       properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSource'
+    CollectorAttribute:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: The data collector's name
+          type: string
+      discriminator:
+        propertyName: name
+    LogicModuleAssociationCounts:
+      type: object
+      properties:
+        inUse:
+          type: boolean
+    DataSource:
+      type: object
+      required:
+      - collectInterval
+      - collectMethod
+      - collectorAttribute
+      - name
+      properties:
+        eriDiscoveryConfig:
+          description: Enable ERI Discovery or not
+          readOnly: false
+          $ref: '#/components/schemas/ScriptERIDiscoveryAttributeV3'
         accessGroups:
-          description: Access group Details in response
+          description: Module's access groups
           type: array
           items:
             $ref: '#/components/schemas/AccessGroup'
-        groovyScript:
-          description: groovy script
+        displayName:
+          description: The data source display name
           type: string
-        dataType:
-          format: int32
-          description: "The data type of diagnostics source, default is 0. The values can be\n\n0: diagnostics source\n\n1: raw ERI\n\n "
-          readOnly: true
-          type: integer
         description:
           description: The description for the LMModule
           type: string
         appliesTo:
           description: The Applies To for the LMModule
           type: string
-        technology:
-          description: The Technical Notes for the LMModule
-          type: string
-        source:
-          description: The diagnostics source
-          readOnly: true
-          type: string
         lineageId:
           description: The lineageId the LMModule belongs to
           readOnly: true
           type: string
-        tags:
-          description: The Tags for the LMModule
+        collectMethod:
+          description: The  method to collect data. The values can be snmp|ping|exs|webpage|wmi|cim|datadump|dns|ipmi|jdbb|script|udp|tcp|xen
           type: string
-        installationMetadata:
-          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
-          readOnly: true
-          $ref: '#/components/schemas/IntegrationMetadata'
         originRegistryId:
           description: The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited
-          type: string
-        scriptType:
-          description: 'script type: groovy | powershell'
           type: string
         checksum:
           description: The metadata checksum for the LMModule content
           readOnly: true
           type: string
-        name:
-          description: The diagnostics source name
-          readOnly: true
-          type: string
+        dataPoints:
+          description: The data point list
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPoint'
         id:
           format: int32
           description: The ID of the LMModule
@@ -1663,71 +1572,162 @@ components:
             description: The Access Groups Id's
             type: integer
           example: 1, 2, 3
+        group:
+          description: The group the LMModule is in
+          type: string
+        collectorAttribute:
+          description: "Data collector's attributes to collector data. e.g. a ping data source has a ping collector attribute. \n PingCollectorAttributeV1 has two fields. the ip to ping, the data size send to ping"
+          readOnly: false
+          $ref: '#/components/schemas/CollectorAttribute'
+        autoDiscoveryConfig:
+          description: Auto discovery configuration
+          readOnly: false
+          $ref: '#/components/schemas/AutoDiscoveryConfiguration'
+        adParameters:
+          $ref: '#/components/schemas/DataSource'
+        payloadVersion:
+          format: int32
+          description: The DataSource payload version for custom metrics
+          readOnly: true
+          type: integer
+        useWildValueAsUUID:
+          description: 'Use wild-value as unique identifier in case of multi instance datasource: true|false'
+          readOnly: true
+          type: boolean
+        enableAutoDiscovery:
+          description: 'Enable Auto Discovery or not when this data source has multi instance: false|true'
+          type: boolean
+        technology:
+          description: The Technical Notes for the LMModule
+          type: string
+        version:
+          format: int64
+          description: The data source version
+          readOnly: true
+          type: integer
+        tags:
+          description: The Tags for the LMModule
+          type: string
+        auditVersion:
+          format: int64
+          description: The data source audit version
+          readOnly: true
+          type: integer
+        hasMultiInstances:
+          description: 'If the DataSource has multi instance: true|false'
+          readOnly: true
+          type: boolean
+        installationMetadata:
+          description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+          readOnly: true
+          $ref: '#/components/schemas/IntegrationMetadata'
+        eriDiscoveryInterval:
+          format: int32
+          description: The DataSource data collect interval
+          type: integer
+        enableEriDiscovery:
+          description: 'Enable ERI Discovery or not: false|true'
+          type: boolean
+        collectInterval:
+          format: int32
+          description: The DataSource data collect interval
+          type: integer
+        name:
+          description: The data source name
+          type: string
         isInUse:
           description: Whether the LM module is currently in use
           readOnly: true
           type: boolean
-        installationStatuses:
-          description: The diagnostics Installation status
-          readOnly: true
-          type: array
-          items:
-            description: The diagnostics Installation status
-            readOnly: true
-            type: string
-            enum:
-            - NEW
-            - UPGRADED
-            - AUDITED
-            - OUTDATED
-            - INSTALLED
-            - CUSTOMIZED
-            - CONFLICT
-            - PARTIALLY_INSTALLED
-            - IS_INSTALLED
-            - IS_CUSTOMIZED
-            - CAN_INSTALL
-            - CAN_UPGRADE
-            - CAN_SKIP
-            - CAN_DOWNGRADE
-        group:
-          description: The group the LMModule is in
-          type: string
-    RestScriptV4:
+    AutoDiscoveryMethod:
+      description: Method used to do auto discovery instance
       type: object
+      required:
+      - name
       properties:
-        powershellScript:
+        name:
+          description: "The auto discovery method name. \nThe values can be ad_cim|ad_cloudwatch|ad_collector|ad_dummy|ad_ec2|ad_esx|ad_http|ad_ipmi|ad_jdbc|ad_jmx|ad_netapp|ad_pdh|ad_port|ad_script|ad_snmp|ad_wmi|ad_xen|ad_azurerediscache|ad_awsserviceregion|ad_awsec2reservedinstance|ad_awsecsservice|ad_awsec2scheduledevents|ad_azureserviceregion|ad_azuresubscription|ad_azurebackupjob|ad_azuresdk|ad_azurewebjob|ad_awsbillingreport|ad_awselasticache|ad_awsredshift|ad_azurebilling|ad_awslbtargetgroups|ad_gcpappengine|ad_gcpbilling|ad_awsvpntunnel|ad_gcpvpntunnel|ad_awsglobalwebacl|ad_gcplbbackendservice|ad_gcppubsubsubscription|ad_gcppubsubsnapshot|ad_gcpcloudrouternatgateway|ad_azurereplicationjob|ad_azureexpressroutecircuitpeering|ad_awsapigatewaystage|ad_azureautomationaccountcertificate|ad_azurevngconnection|ad_azurewebappinstance|ad_azureappserviceenvironmentmultirolepool|ad_openmetrics|ad_awsmediaconnectoutput|ad_awsmediaconnectsource|ad_awswebaclwafv2|ad_saaso365sharepointsite|ad_awscognitoidentityproviders|ad_saaszoomplanusage|ad_saasstatus|ad_azuresynapse|ad_saasairbrake|ad_syntheticsselenium|ad_azurevirtualdesktopsessionhosts|ad_saaso365subscribedsku|ad_azuredimension|ad_azurecostmanagementdimensions|ad_saaso365servicehealth|ad_saaso365mailbox|ad_azurenetappvolumes|ad_azureloganalyticsworkspaces|ad_saaszoomstatus|ad_saassalesforcelicense|ad_saaszoomroom|ad_saaswebexlicenseusage|ad_azureloganalyticsreplicationjob|ad_paasjsonpath|ad_awsrabbitmqqueue|ad_awssagemakerendpointvariant|ad_awsroute53resolveripaddress|ad_saasopenaiusagecost|ad_saasopenaiusagecompletion|ad_saasopenaiusageimage|ad_awsamprulegroups|ad_awsampanomalydetectors"
           type: string
-        linuxScriptFilename:
-          type: string
-        windowsUploadScriptContent:
-          readOnly: true
-          type: string
-        linuxUploadScriptContent:
-          readOnly: true
+      discriminator:
+        propertyName: name
+    ScriptERIDiscoveryAttributeV3:
+      description: Enable ERI Discovery or not
+      type: object
+      required:
+      - name
+      properties:
+        winScript:
+          description: The Windows script
           type: string
         groovyScript:
+          description: The Groovy script
           type: string
-        windowsScriptFilename:
-          type: string
-        linuxArguments:
-          type: string
-        windowsArguments:
-          type: string
-        windowsUploadScriptBinaryContentChecksum:
-          readOnly: true
+        name:
+          description: ERI detection name
           type: string
         type:
+          description: The script type
           type: string
-          enum:
-          - INVALID
-          - GROOVY
-          - POWERSHELL
-          - UPLOADED_FILE
-          - PROPERTY
-        linuxUploadScriptBinaryContentChecksum:
+        linuxCmdline:
+          description: The Linux script command line
+          type: string
+        linuxScript:
+          description: The Linux script file
+          type: string
+        winCmdline:
+          description: The Windows script command line
+          type: string
+    DiagnosticsSourceExecution:
+      description: Represents a diagnostic execution for a host in the LogicMonitor system.
+      type: object
+      required:
+      - diagnosticId
+      - executionStatus
+      - hostDiagnosticSourceId
+      - hostId
+      - triggerType
+      properties:
+        output:
+          description: Script output when includeOutput is true and execution has completed
           readOnly: true
           type: string
+        executionId:
+          description: 'execution Id '
+          readOnly: true
+          type: string
+        diagnosticId:
+          format: int32
+          description: The diagnostic module id
+          type: integer
+          example: 12345
+        executionStatus:
+          description: The diagnostic module id
+          readOnly: true
+          type: string
+          example: '60'
+        hostId:
+          format: int32
+          description: The host id
+          type: integer
+          example: 12345
+        alertId:
+          description: The alert id
+          type: string
+          example: alert12345
+        triggerType:
+          description: type of trigger
+          readOnly: true
+          type: string
+          example: scheduled
+        hostDiagnosticSourceId:
+          format: int32
+          description: The diagnostic module id
+          type: integer
+          example: 12345
+        includeOutput:
+          description: When true, the API waits for execution to finish and returns script output in the response
+          type: boolean
+          example: false
   securitySchemes:
     LMv1:
       in: header

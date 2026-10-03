@@ -139,22 +139,6 @@ paths:
       - Automated Diagnostic & Remediation
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
     DiagnosticRemediationAssignedSource:
       description: Diagnostic or remediation exchange module metadata assigned to a host or scoped to alert executions.
       type: object
@@ -181,28 +165,6 @@ components:
           - remediationsource
         group:
           description: Module group.
-          type: string
-    AdrOutputList:
-      description: List of diagnostic and remediation execution results (ADR).
-      type: object
-      properties:
-        cursor:
-          description: 'Next page cursor for diagnostic results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is diagnostic. Not set when moduleType is both.'
-          type: string
-        total:
-          format: int32
-          description: Number of items returned
-          type: integer
-        sort:
-          description: Sort applied to history results (echo of request, e.g. -startTime).
-          type: string
-        items:
-          description: Matched ADR execution result rows
-          type: array
-          items:
-            $ref: '#/components/schemas/AdrOutput'
-        remediationCursor:
-          description: 'Next page cursor for remediation results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is remediation.'
           type: string
     AdrOutput:
       description: Diagnostic Source or Remediation Source execution result (output and metadata).
@@ -253,6 +215,44 @@ components:
           format: int64
           description: Execution end or log timestamp in epoch seconds (UTC), when available
           type: integer
+    AdrOutputList:
+      description: List of diagnostic and remediation execution results (ADR).
+      type: object
+      properties:
+        cursor:
+          description: 'Next page cursor for diagnostic results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is diagnostic. Not set when moduleType is both.'
+          type: string
+        total:
+          format: int32
+          description: Number of items returned
+          type: integer
+        sort:
+          description: Sort applied to history results (echo of request, e.g. -startTime).
+          type: string
+        items:
+          description: Matched ADR execution result rows
+          type: array
+          items:
+            $ref: '#/components/schemas/AdrOutput'
+        remediationCursor:
+          description: 'Next page cursor for remediation results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is remediation.'
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
   securitySchemes:
     LMv1:
       in: header
