@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-log-query-group-import-result-schema.json",
+  "title": "RestLogQueryGroupImportResult",
+  "description": "Import result for one log query group.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-logquerygroups-api-openapi.yml#/components/schemas/RestLogQueryGroupImportResult",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "description": "Validation or import status reason for the group.",
+      "type": "string"
+    },
+    "logQuery": {
+      "description": "Per-query import results for this group.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RestLogQueryImportResult"
+      }
+    },
+    "isValid": {
+      "type": "boolean"
+    },
+    "name": {
+      "description": "Name of the target log query group.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the target log query group.",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "AggregateColumn": {
+      "type": "object",
+      "properties": {
+        "columnSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "column": {
+          "type": "string"
+        }
+      }
+    },
+    "AggregateConfig": {
+      "type": "object",
+      "properties": {
+        "chartMetadata": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AggregateColumn"
+          }
+        },
+        "donut": {
+          "type": "string"
+        },
+        "chartType": {
+          "type": "string"
+        },
+        "sortBy": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "FieldPanelItem": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "columnSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "isVisible": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RestLogQueryImportResult": {
+      "description": "Import result for one log query.",
+      "type": "object",
+      "properties": {
+        "duration": {
+          "description": "Saved query time range.",
+          "type": "string"
+        },
+        "partitions": {
+          "description": "Optional log partitions selected for the query.",
+          "type": "array",
+          "items": {
+            "description": "Optional log partitions selected for the query.",
+            "type": "string"
+          }
+        },
+        "reason": {
+          "description": "Validation or import status reason for the query.",
+          "type": "string"
+        },
+        "query": {
+          "description": "Log query expression.",
+          "type": "string"
+        },
+        "isValid": {
+          "type": "boolean"
+        },
+        "label": {
+          "description": "Saved query label.",
+          "type": "string"
+        },
+        "viewConfig": {
+          "description": "Optional saved view configuration for the query.",
+          "readOnly": false,
+          "$ref": "#/$defs/View_Config"
+        }
+      }
+    },
+    "View_Config": {
+      "type": "object",
+      "properties": {
+        "aggregateConfig": {
+          "description": "aggregate chart configuration",
+          "readOnly": false,
+          "$ref": "#/$defs/AggregateConfig"
+        },
+        "fieldPanel": {
+          "description": "field panel configuration",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldPanelItem"
+          }
+        }
+      }
+    }
+  }
+}

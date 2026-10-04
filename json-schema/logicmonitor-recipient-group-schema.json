@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-recipient-group-schema.json",
+  "title": "RecipientGroup",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-recipient-groups-api-openapi.yml#/components/schemas/RecipientGroup",
+  "type": "object",
+  "required": [
+    "groupName"
+  ],
+  "properties": {
+    "groupName": {
+      "description": "The name of the recipient group",
+      "type": "string"
+    },
+    "recipients": {
+      "description": "The recipients in the group",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Recipient"
+      }
+    },
+    "description": {
+      "description": "The description of the recipient group",
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "Recipient": {
+      "type": "object",
+      "required": [
+        "method",
+        "type"
+      ],
+      "properties": {
+        "method": {
+          "description": "Admin | Arbitrary, where Admin = a user, and Arbitrary = an arbitrary email",
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        },
+        "type": {
+          "description": "email | sms | voice, where type must be email if method = arbitrary",
+          "type": "string"
+        },
+        "addr": {
+          "description": "the user name if method = admin, or the email address if method = arbitrary",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

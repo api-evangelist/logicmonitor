@@ -1644,118 +1644,34 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    DeviceDataSource:
+    NameAndValue:
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceDatasourceInstancePaginationResponse:
       type: object
       properties:
-        alertStatus:
-          readOnly: true
-          type: string
-        autoDiscovery:
-          readOnly: true
-          type: boolean
-        dataSourceDisplayName:
-          readOnly: true
-          type: string
-        deviceId:
+        total:
           format: int32
           readOnly: true
           type: integer
-        deviceName:
+        searchId:
           readOnly: true
           type: string
-        createdOn:
-          format: int64
-          readOnly: true
-          type: integer
-        collectMethod:
-          type: string
-        dataSourceId:
-          format: int32
-          readOnly: true
-          type: integer
-        graphs:
-          readOnly: true
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceDatasourceGraph'
-        sdtAt:
-          readOnly: true
-          type: string
-        nextAutoDiscoveryOn:
-          format: int64
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          readOnly: true
-          type: integer
-        alertStatusPriority:
-          format: int32
-          readOnly: true
-          type: integer
-        alertDisableStatus:
-          readOnly: true
-          type: string
-        dataSourceDescription:
-          readOnly: true
-          type: string
-        overviewGraphs:
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDatasourceGraph'
-        stopMonitoring:
-          readOnly: true
-          type: boolean
-        assignedOn:
-          format: int64
-          readOnly: true
-          type: integer
-        isMultiple:
-          readOnly: true
-          type: boolean
-        instanceNumber:
-          format: int32
-          readOnly: true
-          type: integer
-        updatedOn:
-          format: int64
-          readOnly: true
-          type: integer
-        sdtStatus:
-          readOnly: true
-          type: string
-        dataSourceName:
-          readOnly: true
-          type: string
-        deviceDisplayName:
-          readOnly: true
-          type: string
-        monitoringInstanceNumber:
-          format: int32
-          readOnly: true
-          type: integer
-        groupsDisabledThisSource:
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/TreeNode'
-        groupName:
-          readOnly: true
-          type: string
-        instanceAutoGroupEnabled:
-          readOnly: true
-          type: boolean
-        alertingDisabledOn:
-          readOnly: true
-          $ref: '#/components/schemas/TreeNode'
-        dataSourceType:
-          readOnly: true
-          type: string
-        status:
-          format: int32
-          readOnly: true
-          type: integer
+            $ref: '#/components/schemas/DeviceDataSourceInstance'
     Device:
       type: object
       required:
@@ -1958,229 +1874,118 @@ components:
           description: The time in milliseconds that the device has been dead for, or since the AWS device was filtered out
           readOnly: true
           type: integer
-    DeviceSDTHistoryPaginationResponse:
+    InheritanceProp:
       type: object
       properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
+        fullpath:
           readOnly: true
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SDTHistory'
-    DeviceDataSourceInstanceAlertSettingPaginationResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
-    NetFlowRecord:
-      x-discriminator-value: flowrecord
-      type: object
-      properties:
-        srcIP:
-          readOnly: true
-          type: string
-        percentUsage:
-          format: double
-          readOnly: true
-          type: number
-        lastEpochInSec:
-          format: int64
-          readOnly: true
-          type: integer
-        ifOut:
-          format: int64
-          readOnly: true
-          type: integer
-        dataType:
-          readOnly: true
-          type: string
-        usage:
-          format: double
-          readOnly: true
-          type: number
-        dstDNS:
-          readOnly: true
-          type: string
-        srcPort:
-          format: int32
-          readOnly: true
-          type: integer
-        firstEpochInSec:
-          format: int64
-          readOnly: true
-          type: integer
-        protocol:
-          readOnly: true
-          type: string
-        dstPort:
-          format: int32
-          readOnly: true
-          type: integer
-        ifIn:
-          format: int64
-          readOnly: true
-          type: integer
-        sourceMBytes:
-          format: double
-          readOnly: true
-          type: number
-        srcDNS:
-          readOnly: true
-          type: string
-        destinationMBytes:
-          format: double
-          readOnly: true
-          type: number
-        dstIP:
-          readOnly: true
-          type: string
-    GraphPlotLine:
-      type: object
-      properties:
-        colorName:
-          readOnly: true
-          type: string
-        std:
-          readOnly: true
-          type: object
-        visible:
-          readOnly: true
-          type: boolean
-        color:
-          readOnly: true
-          type: string
-        data:
-          readOnly: true
-          type: array
-          items:
-            type: object
-        max:
-          readOnly: true
-          type: object
-        legend:
-          readOnly: true
-          type: string
-        description:
-          readOnly: true
-          type: string
-        label:
-          readOnly: true
-          type: string
-        type:
-          readOnly: true
-          type: string
-        min:
-          readOnly: true
-          type: object
-        avg:
-          readOnly: true
-          type: object
-        decimal:
-          format: int32
-          readOnly: true
-          type: integer
-        useYMax:
-          readOnly: true
-          type: boolean
-    SDT:
-      type: object
-      required:
-      - type
-      properties:
-        endDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
-          readOnly: true
-          type: string
-        timezone:
-          description: The specific timezone for SDT
-          type: string
-          example: America/Los_Angeles
-        sdtType:
-          type: string
-          example: oneTime
-        monthDay:
-          format: int32
-          description: 1 | 2....| 31 The day of the month that the SDT will be active for a monthly SDT
-          type: integer
-          example: 7.0
-        weekOfMonth:
-          description: The weel of the month that the SDT will be active for a monthly SDT
-          type: string
-          example: '1'
-        admin:
-          description: The name of the user that created the SDT
-          readOnly: true
-          type: string
-        endDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will end
-          type: integer
-          example: 1534554000000.0
-        type:
-          description: 'The type resource that this SDT is for: ServiceSDT | CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | DeviceGroupSDT | DeviceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT'
-          type: string
-          example: DeviceGroupSDT
-        isEffective:
-          description: 'true: the SDT is currently actice
-
-            false: the SDT is currently inactive'
-          readOnly: true
-          type: boolean
-        minute:
-          format: int32
-          description: 1 | 2....| 60 The minute of the hour that the SDT should begin for a repeating SDT
-          type: integer
-          example: 6.0
-        duration:
-          format: int32
-          description: The duration of the SDT in minutes
-          type: integer
-          example: 138.0
-        endHour:
-          format: int32
-          description: 1 | 2....| 24 The hour that the SDT ends for a repeating SDT
-          type: integer
-          example: 5.0
-        startDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will start
-          type: integer
-          example: 1534460400000.0
-        hour:
-          format: int32
-          description: 1 | 2....| 24 The hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
-          type: integer
-          example: 3.0
-        startDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
-          readOnly: true
-          type: string
-        weekDay:
-          type: string
-          example: Sunday
-        comment:
-          description: The notes associated with the SDT
-          type: string
-          example: Emergency prod deployment
         id:
-          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          format: int32
+          readOnly: true
+          type: integer
+        type:
           readOnly: true
           type: string
-        endMinute:
+        value:
+          readOnly: true
+          type: string
+    EntityProperty:
+      type: object
+      properties:
+        inheritList:
+          type: array
+          items:
+            $ref: '#/components/schemas/InheritanceProp'
+        name:
+          readOnly: true
+          type: string
+        type:
+          readOnly: true
+          type: string
+        value:
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceAlertSetting:
+      type: object
+      properties:
+        globalAlertExpr:
+          description: The global alert expression for this datapoint
+          readOnly: true
+          type: string
+        alertClearInterval:
           format: int32
-          description: 1 | 2....| 60 The minute of the hour that the SDT ends for a repeating SDT
+          description: The interval of alert clear transition
+          readOnly: true
           type: integer
-          example: 18.0
-      discriminator:
-        propertyName: type
-    PropertyPaginationResponse:
+        disableAlerting:
+          description: Whether or not alerting will be disabled for the datapoint
+          type: boolean
+          example: true
+        alertExprNote:
+          description: The note associated with the current alert threshold settings
+          type: string
+          example: Router 1 Ping Check
+        dataPointDescription:
+          description: The description of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        dataSourceInstanceId:
+          format: int32
+          description: The id of the DataSource instance alert settings apply to
+          readOnly: true
+          type: integer
+        disableDpAlertHostGroups:
+          description: The group full path lists who disable alert for this datapoint on devicegroup level
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        dataPointId:
+          format: int32
+          description: The id of the Datapoint alert settings apply to
+          readOnly: true
+          type: integer
+        deviceGroupId:
+          format: int32
+          description: The ID of the device group
+          readOnly: true
+          type: integer
+        parentDeviceGroupAlertExprList:
+          description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo'
+        alertingDisabledOn:
+          description: The datapoint is effected alert disabled by which group
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: The id of this alert setting
+          readOnly: true
+          type: integer
+        dataSourceInstanceAlias:
+          description: The alias (name) of the DataSource instance the alert settings apply to
+          readOnly: true
+          type: string
+        deviceGroupFullPath:
+          description: The full path of the device group
+          readOnly: true
+          type: string
+        alertExpr:
+          description: The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)
+          type: string
+          example: '>= 70 90 95'
+        alertTransitionInterval:
+          format: int32
+          description: The interval of alert transition
+          readOnly: true
+          type: integer
+    DevicePaginationResponse:
       type: object
       properties:
         total:
@@ -2193,7 +1998,7 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/EntityProperty'
+            $ref: '#/components/schemas/Device'
     Alert:
       type: object
       properties:
@@ -2463,66 +2268,304 @@ components:
           description: The type of LogicModule, e.g. DS (datasource)
           readOnly: true
           type: string
-    DeviceDatasourceInstancePaginationResponse:
+    NetflowPort:
+      x-discriminator-value: port
       type: object
       properties:
-        total:
+        percentUsage:
+          format: double
+          readOnly: true
+          type: number
+        port:
           format: int32
           readOnly: true
           type: integer
-        searchId:
+        dataType:
           readOnly: true
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstance'
-    EntityProperty:
+        usage:
+          format: double
+          readOnly: true
+          type: number
+        description:
+          readOnly: true
+          type: string
+    DeviceDatasourceGraph:
       type: object
       properties:
-        inheritList:
-          type: array
-          items:
-            $ref: '#/components/schemas/InheritanceProp'
+        displayPrio:
+          format: int32
+          readOnly: true
+          type: integer
         name:
-          readOnly: true
-          type: string
-        type:
-          readOnly: true
-          type: string
-        value:
-          readOnly: true
-          type: string
-    UnmonitoredDevicePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnmonitoredDevices'
-    InheritanceProp:
-      type: object
-      properties:
-        fullpath:
           readOnly: true
           type: string
         id:
           format: int32
           readOnly: true
           type: integer
+        title:
+          readOnly: true
+          type: string
+    DeviceDataSource:
+      type: object
+      properties:
+        alertStatus:
+          readOnly: true
+          type: string
+        autoDiscovery:
+          readOnly: true
+          type: boolean
+        dataSourceDisplayName:
+          readOnly: true
+          type: string
+        deviceId:
+          format: int32
+          readOnly: true
+          type: integer
+        deviceName:
+          readOnly: true
+          type: string
+        createdOn:
+          format: int64
+          readOnly: true
+          type: integer
+        collectMethod:
+          type: string
+        dataSourceId:
+          format: int32
+          readOnly: true
+          type: integer
+        graphs:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDatasourceGraph'
+        sdtAt:
+          readOnly: true
+          type: string
+        nextAutoDiscoveryOn:
+          format: int64
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          readOnly: true
+          type: integer
+        alertStatusPriority:
+          format: int32
+          readOnly: true
+          type: integer
+        alertDisableStatus:
+          readOnly: true
+          type: string
+        dataSourceDescription:
+          readOnly: true
+          type: string
+        overviewGraphs:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDatasourceGraph'
+        stopMonitoring:
+          readOnly: true
+          type: boolean
+        assignedOn:
+          format: int64
+          readOnly: true
+          type: integer
+        isMultiple:
+          readOnly: true
+          type: boolean
+        instanceNumber:
+          format: int32
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          readOnly: true
+          type: integer
+        sdtStatus:
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+        deviceDisplayName:
+          readOnly: true
+          type: string
+        monitoringInstanceNumber:
+          format: int32
+          readOnly: true
+          type: integer
+        groupsDisabledThisSource:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TreeNode'
+        groupName:
+          readOnly: true
+          type: string
+        instanceAutoGroupEnabled:
+          readOnly: true
+          type: boolean
+        alertingDisabledOn:
+          readOnly: true
+          $ref: '#/components/schemas/TreeNode'
+        dataSourceType:
+          readOnly: true
+          type: string
+        status:
+          format: int32
+          readOnly: true
+          type: integer
+    SDT:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          type: string
+          example: oneTime
+        monthDay:
+          format: int32
+          description: 1 | 2....| 31 The day of the month that the SDT will be active for a monthly SDT
+          type: integer
+          example: 7.0
+        weekOfMonth:
+          description: The weel of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000.0
         type:
+          description: 'The type resource that this SDT is for: ServiceSDT | CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | DeviceGroupSDT | DeviceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT'
+          type: string
+          example: DeviceGroupSDT
+        isEffective:
+          description: 'true: the SDT is currently actice
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6.0
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138.0
+        endHour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5.0
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000.0
+        hour:
+          format: int32
+          description: 1 | 2....| 24 The hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3.0
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
           readOnly: true
           type: string
-        value:
+        weekDay:
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
           readOnly: true
           type: string
+        endMinute:
+          format: int32
+          description: 1 | 2....| 60 The minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18.0
+      discriminator:
+        propertyName: type
+    EndpointPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetflowEndpoint'
+    DeviceDataSourceSDTHistoryPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDTHistory'
+    DeviceDatasourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSource'
+    DeviceSDTHistoryPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SDTHistory'
     DeviceGroupAlertThresholdInfo:
       type: object
       properties:
@@ -2542,7 +2585,28 @@ components:
         alertExpr:
           readOnly: true
           type: string
-    DeviceDatasourcePaginationResponse:
+    GraphOpsNoteScope:
+      type: object
+      properties:
+        serviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        serviceId:
+          format: int32
+          type: integer
+        type:
+          type: string
+        deviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        deviceId:
+          format: int32
+          type: integer
+    SDTPaginationResponse:
       type: object
       properties:
         total:
@@ -2555,65 +2619,74 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceDataSource'
-    AlertPaginationResponse:
+            $ref: '#/components/schemas/SDT'
+    DeviceDataSourceData:
       type: object
       properties:
-        total:
-          format: int32
+        instances:
           readOnly: true
-          type: integer
-        searchId:
+          additionalProperties:
+            $ref: '#/components/schemas/RawDataValues'
+          type: object
+        dataPoints:
           readOnly: true
-          type: string
-        items:
           type: array
           items:
-            $ref: '#/components/schemas/Alert'
-    EndpointPaginationResponse:
+            type: string
+        nextPageParams:
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    GraphPlotLine:
       type: object
       properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
+        colorName:
           readOnly: true
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetflowEndpoint'
-    NameAndValue:
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The name of a property
-          type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
+        std:
           readOnly: true
           type: object
+        visible:
+          readOnly: true
+          type: boolean
+        color:
+          readOnly: true
+          type: string
+        data:
+          readOnly: true
+          type: array
+          items:
+            type: object
+        max:
+          readOnly: true
+          type: object
+        legend:
+          readOnly: true
+          type: string
+        description:
+          readOnly: true
+          type: string
+        label:
+          readOnly: true
+          type: string
+        type:
+          readOnly: true
+          type: string
+        min:
+          readOnly: true
+          type: object
+        avg:
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          readOnly: true
+          type: integer
+        useYMax:
+          readOnly: true
+          type: boolean
     UnmonitoredDevices:
       type: object
       properties:
@@ -2679,275 +2752,6 @@ components:
         nseScanId:
           readOnly: true
           type: string
-    SDTPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SDT'
-    DeviceDataSourceInstanceAlertSetting:
-      type: object
-      properties:
-        globalAlertExpr:
-          description: The global alert expression for this datapoint
-          readOnly: true
-          type: string
-        alertClearInterval:
-          format: int32
-          description: The interval of alert clear transition
-          readOnly: true
-          type: integer
-        disableAlerting:
-          description: Whether or not alerting will be disabled for the datapoint
-          type: boolean
-          example: true
-        alertExprNote:
-          description: The note associated with the current alert threshold settings
-          type: string
-          example: Router 1 Ping Check
-        dataPointDescription:
-          description: The description of the datapoint the alert settings apply to
-          readOnly: true
-          type: string
-        dataSourceInstanceId:
-          format: int32
-          description: The id of the DataSource instance alert settings apply to
-          readOnly: true
-          type: integer
-        disableDpAlertHostGroups:
-          description: The group full path lists who disable alert for this datapoint on devicegroup level
-          readOnly: true
-          type: string
-        dataPointName:
-          description: The name of the datapoint the alert settings apply to
-          readOnly: true
-          type: string
-        dataPointId:
-          format: int32
-          description: The id of the Datapoint alert settings apply to
-          readOnly: true
-          type: integer
-        deviceGroupId:
-          format: int32
-          description: The ID of the device group
-          readOnly: true
-          type: integer
-        parentDeviceGroupAlertExprList:
-          description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo'
-        alertingDisabledOn:
-          description: The datapoint is effected alert disabled by which group
-          readOnly: true
-          type: string
-        id:
-          format: int32
-          description: The id of this alert setting
-          readOnly: true
-          type: integer
-        dataSourceInstanceAlias:
-          description: The alias (name) of the DataSource instance the alert settings apply to
-          readOnly: true
-          type: string
-        deviceGroupFullPath:
-          description: The full path of the device group
-          readOnly: true
-          type: string
-        alertExpr:
-          description: The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)
-          type: string
-          example: '>= 70 90 95'
-        alertTransitionInterval:
-          format: int32
-          description: The interval of alert transition
-          readOnly: true
-          type: integer
-    SDTHistory:
-      type: object
-      properties:
-        duration:
-          format: int64
-          description: The duration of the SDT, in minutes
-          readOnly: true
-          type: integer
-          example: 456.0
-        itemId:
-          format: int32
-          description: The ID of the resource in SDT, e.g. the group or device in SDT
-          readOnly: true
-          type: integer
-          example: 1.0
-        endEpoch:
-          format: int64
-          description: The end epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475902808000.0
-        admin:
-          description: The user that added the SDT
-          readOnly: true
-          type: string
-          example: sarah@logicmonitor.com
-        comment:
-          description: The comment associated with the SDT
-          readOnly: true
-          type: string
-          example: migrating devices to new network and new IP addresses
-        id:
-          description: The ID of the SDT
-          readOnly: true
-          type: string
-          example: b-nTH4ECTH2rZ-Q548GOKg
-        type:
-          description: The SDT type
-          readOnly: true
-          type: string
-          example: DeviceGroupSDT
-        startEpoch:
-          format: int64
-          description: The start epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475875446000.0
-    DeviceDataSourceData:
-      type: object
-      properties:
-        instances:
-          readOnly: true
-          additionalProperties:
-            $ref: '#/components/schemas/RawDataValues'
-          type: object
-        dataPoints:
-          readOnly: true
-          type: array
-          items:
-            type: string
-        nextPageParams:
-          readOnly: true
-          type: string
-        dataSourceName:
-          readOnly: true
-          type: string
-    FlowRecordPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetFlowRecord'
-    DeviceDatasourceGraph:
-      type: object
-      properties:
-        displayPrio:
-          format: int32
-          readOnly: true
-          type: integer
-        name:
-          readOnly: true
-          type: string
-        id:
-          format: int32
-          readOnly: true
-          type: integer
-        title:
-          readOnly: true
-          type: string
-    RawDataValues:
-      type: object
-      properties:
-        values:
-          readOnly: true
-          type: array
-          items:
-            type: array
-            items:
-              type: object
-        time:
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            type: integer
-        nextPageParams:
-          readOnly: true
-          type: string
-    PortPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetflowPort'
-    NetflowPort:
-      x-discriminator-value: port
-      type: object
-      properties:
-        percentUsage:
-          format: double
-          readOnly: true
-          type: number
-        port:
-          format: int32
-          readOnly: true
-          type: integer
-        dataType:
-          readOnly: true
-          type: string
-        usage:
-          format: double
-          readOnly: true
-          type: number
-        description:
-          readOnly: true
-          type: string
-    DeviceDataSourceSDTHistoryPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SDTHistory'
-    WidgetData:
-      type: object
-      properties:
-        type:
-          readOnly: true
-          type: string
-        title:
-          type: string
-      discriminator:
-        propertyName: type
     GraphPlot:
       allOf:
       - $ref: '#/components/schemas/WidgetData'
@@ -3058,6 +2862,202 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
+    WidgetData:
+      type: object
+      properties:
+        type:
+          readOnly: true
+          type: string
+        title:
+          type: string
+      discriminator:
+        propertyName: type
+    UnmonitoredDevicePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnmonitoredDevices'
+    TreeNode:
+      type: object
+      properties:
+        userPermission:
+          type: string
+        displayName:
+          type: string
+        id:
+          format: int32
+          type: integer
+        type:
+          type: string
+    PortPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetflowPort'
+    NetFlowRecord:
+      x-discriminator-value: flowrecord
+      type: object
+      properties:
+        srcIP:
+          readOnly: true
+          type: string
+        percentUsage:
+          format: double
+          readOnly: true
+          type: number
+        lastEpochInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        ifOut:
+          format: int64
+          readOnly: true
+          type: integer
+        dataType:
+          readOnly: true
+          type: string
+        usage:
+          format: double
+          readOnly: true
+          type: number
+        dstDNS:
+          readOnly: true
+          type: string
+        srcPort:
+          format: int32
+          readOnly: true
+          type: integer
+        firstEpochInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        protocol:
+          readOnly: true
+          type: string
+        dstPort:
+          format: int32
+          readOnly: true
+          type: integer
+        ifIn:
+          format: int64
+          readOnly: true
+          type: integer
+        sourceMBytes:
+          format: double
+          readOnly: true
+          type: number
+        srcDNS:
+          readOnly: true
+          type: string
+        destinationMBytes:
+          format: double
+          readOnly: true
+          type: number
+        dstIP:
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceAlertSettingPaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceAlertSetting'
+    AlertPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    SDTHistory:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456.0
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1.0
+        endEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000.0
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: sarah@logicmonitor.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        startEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000.0
     NetflowEndpoint:
       x-discriminator-value: endpoint
       type: object
@@ -3086,40 +3086,26 @@ components:
         type:
           readOnly: true
           type: string
-    TreeNode:
+    RawDataValues:
       type: object
       properties:
-        userPermission:
-          type: string
-        displayName:
-          type: string
-        id:
-          format: int32
-          type: integer
-        type:
-          type: string
-    GraphOpsNoteScope:
-      type: object
-      properties:
-        serviceGroupIds:
+        values:
+          readOnly: true
           type: array
           items:
-            format: int32
-            type: integer
-        serviceId:
-          format: int32
-          type: integer
-        type:
-          type: string
-        deviceGroupIds:
+            type: array
+            items:
+              type: object
+        time:
+          readOnly: true
           type: array
           items:
-            format: int32
+            format: int64
             type: integer
-        deviceId:
-          format: int32
-          type: integer
-    DevicePaginationResponse:
+        nextPageParams:
+          readOnly: true
+          type: string
+    PropertyPaginationResponse:
       type: object
       properties:
         total:
@@ -3132,271 +3118,113 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/Device'
-    ObjectIdentifier:
+            $ref: '#/components/schemas/EntityProperty'
+    FlowRecordPaginationResponse:
       type: object
       properties:
-        model:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
           type: string
-          enum:
-          - accessLogs
-          - accessGroups
-          - adminNotifications
-          - aggregateSavings
-          - alerts
-          - visualizationAggregateEntry
-          - visualizationAggregateValue
-          - alertDependencyRules
-          - alertRoutings
-          - alertRules
-          - actionRules
-          - alertTuningConfigAncestry
-          - alertTuningConfigs
-          - alertTuningConfigsHistory
-          - alertTuningConfigSlots
-          - alertTuningGraphs
-          - alertsTuningSeries
-          - asnMappings
-          - billingConfigurations
-          - cloudAccounts
-          - cloudResourceProperty
-          - clusterAlertRoutings
-          - clusterAlertTuningConfigs
-          - collectors
-          - collectorEvents
-          - collectorGroups
-          - collectorStatus
-          - collectorUpgradeHistory
-          - collectorUpgradeInfo
-          - configSources
-          - configSourceInstance
-          - configSourceInstanceAlert
-          - collectorLogs
-          - config
-          - configAlert
-          - correlationGraphs
-          - dashboards
-          - datapoints
-          - dataQueries
-          - dataSources
-          - dataSourceInstances
-          - dataSourceInstanceAlertSettings
-          - dataSourceInstanceGroups
-          - datasets
-          - dnsMappings
-          - escalationChains
-          - actionChains
-          - eventSources
-          - integrations
-          - integrationAuditLogs
-          - logSources
-          - exchangeAccessGroups
-          - exchangeActiveDiscoveryFilters
-          - exchangeAppliesToFunctions
-          - exchangeChangelogs
-          - exchangeConfigSources
-          - exchangeConfigSourceConfigChecks
-          - exchangeDataSources
-          - exchangeDataSourceDataPoints
-          - exchangeDataSourceDataPointDisplayStatusNames
-          - exchangeDataSourceGraphs
-          - exchangeDataSourceGraphSeries
-          - exchangeDataSourceGraphVirtualSeries
-          - exchangeDataSourceOverviewGraphs
-          - exchangeDataSourceOverviewGraphSeries
-          - exchangeDataSourceOverviewGraphVirtualSeries
-          - exchangeDiagnosticSources
-          - exchangeEventSources
-          - exchangeEventSourceFilters
-          - exchangeEventSourceLogFiles
-          - exchangeJobMonitors
-          - exchangeLogSources
-          - exchangeLogSourceFilters
-          - exchangeSnmpTrapLogSourceFilters
-          - exchangeLogSourceLogFields
-          - exchangeLogSourceResourceMappings
-          - exchangeLogSourceSensitiveDataMaskingRules
-          - exchangeLogSourceCollectorMappings
-          - exchangeLogicModules
-          - exchangeLogicModulePackages
-          - exchangeLogicModulePermissions
-          - exchangePackagedLogicModules
-          - exchangePropertySources
-          - exchangeRemediationSources
-          - exchangeSNMPSysOIDMaps
-          - exchangeTopologySources
-          - externalResourceIdentifiers
-          - failedDataSourceInfo
-          - filterFieldList
-          - graphs
-          - graphMeta
-          - healthMetrics
-          - hierarchy
-          - hostclusterAlertDefs
-          - auditLogSummaryContext
-          - hostDiagnosticSourceDetails
-          - diagnosticExecutionContext
-          - remediationExecutionContext
-          - latestDiagnosticExecutionResultContext
-          - diagnosticExecutionSearchContext
-          - remediationSourceExecutionSearchContext
-          - diagnosticSourceAssociatedDevices
-          - hostRemediationSourceDetails
-          - hostActionToolDetails
-          - actionToolExecutionContext
-          - actionToolExecutionSearchContext
-          - remediationSourceAssociatedDevices
-          - latestRemediationExecutionResultContext
-          - hostGroups
-          - internalAlertSettings
-          - jobMonitors
-          - jobMonitorExecutions
-          - lmSupportAccessHasConnection
-          - lmSupportAccessState
-          - lmotelCollectors
-          - lmotelCollectorVersions
-          - lmCollectorVersions
-          - logalerts
-          - logicModuleGroups
-          - logpipelinesources
-          - logpipelineprocessors
-          - matchedEvents
-          - metaGroupings
-          - metricsCorrelation
-          - monitoredResources
-          - netscanGroups
-          - netscans
-          - netflow
-          - netflowAlertRule
-          - allLevels
-          - nocWidgets
-          - normalizedProperties
-          - netscanPolicies
-          - netscanExecutions
-          - opsNotes
-          - opsNoteResourceScopes
-          - opsNoteServiceScopes
-          - opsNoteResourceGroupScopes
-          - opsNoteServiceGroupScopes
-          - opsNoteGroupAllScopes
-          - opsNoteTags
-          - orgTreeNodes
-          - portMappings
-          - productIds
-          - properties
-          - propertySources
-          - rawData
-          - recentlyDeletedItems
-          - recipientGroups
-          - cloudConfigIssues
-          - cloudConfigIntegrations
-          - cloudConfigAccounts
-          - cloudHealthEvents
-          - cloudHealthEventDetails
-          - cloudHealthEventAdditionalInfo
-          - cloudRecommendations
-          - cloudRecommendationAdditionalData
-          - recommendationTypes
-          - relationships
-          - reports
-          - reportHistories
-          - reportGroups
-          - resources
-          - resourceDashboards
-          - resourceDataSources
-          - resourceDatapoints
-          - resourceEventSources
-          - resourceConfigSources
-          - ConfigSourcesGoldStandard
-          - ConfigSourceConfiguration
-          - resourceDashboardTemplates
-          - resourceGroups
-          - resourceGroupDataSourceConfigs
-          - resourceGroupEventSourceConfigs
-          - resourceGroupInfoSourceConfigs
-          - resourceJobMonitors
-          - resourceLogPipelineResources
-          - resourceLogSources
-          - sdts
-          - services
-          - serviceCheckpoints
-          - serviceGroups
-          - sharedQueries
-          - siteMonitors
-          - slaWidgets
-          - spanCount
-          - securityRecommendations
-          - subscriptions
-          - topology
-          - topologyMaps
-          - topologyMaps-1
-          - topologyMaps-2
-          - topologyMapsHistogram
-          - topologyMapsGraphs
-          - subEntities
-          - subEntitiesDetails
-          - topologySavedMapsGroupType
-          - topologySavedMapsGroup
-          - topologyManualMapping
-          - topologyManualInterfaceList
-          - traffic
-          - treeNodes
-          - unmonitoredResources
-          - userdata
-          - users
-          - userSettings
-          - websiteCheckpoints
-          - websiteGroups
-          - websites
-          - ServicePreview
-          - BizServiceDatapoint
-          - ServiceTemplateView
-          - ServiceMemberPreview
-          - RestServiceTemplate
-          - ServiceTemplateServiceStats
-          - synthetics
-          - usage
-          - tracesDevicesNamesIds
-          - tracesGraphIds
-          - tracesServices
-          - tracesDeviceDatasources
-          - tracesDeviceDatasourceInstances
-          - tracesNamespaceGraphDetails
-          - tracesResourceNamesIds
-          - tracesTopologyEdgeData
-          - members
-          - apiTokens
-          - roleGroups
-          - roles
-          - userGroups
-          - sharingTokens
-          - scimTokens
-          - syntheticsDSInstanceRawData
-          - syntheticsDSInstanceStepData
-          - syntheticsDSInstanceAlerts
-          - usageDimensions
-          - vizResourceInfo
-          - lmqlResult
-          - lmqlParsed
-          - partitions
-          - cloudRecommendationStatus
-          - recommendationStatusUpdateRequest
-          - websiteDevice
-          - mibUpload
-          - logQueryGroups
-          - logQueryGroupChangelog
-          - logQuery
-          - trackingLogQueries
-          - billingBudgets
-          - trackedQuery
-          - trackedQueryGroups
-          - trackedQueryGroupChangelog
-          - adminName
-          - droppedInstances
-          - dashboardFilterGroups
-          - dashboardFilters
-          - dashboardFilterMappings
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetFlowRecord'
+    NameAndValue_2:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    DeviceEventSource:
+      type: object
+      properties:
+        eventSourceId:
+          format: int32
+          description: event source id
+          readOnly: true
+          type: integer
+        alertStatus:
+          description: alert status
+          readOnly: true
+          type: string
+        stopMonitoring:
+          description: stop monitoring this host event source
+          readOnly: true
+          type: boolean
+        eventSourceName:
+          description: event source name defined where creating a event source
+          readOnly: true
+          type: string
+        disableAlerting:
+          description: stop alerting for this host event source
+          readOnly: true
+          type: boolean
+        eventSourceDescription:
+          description: event source description defined where creating a event source
+          readOnly: true
+          type: string
+        eventType:
+          description: event source collector type
+          readOnly: true
+          type: string
+        deviceId:
+          format: int32
+          description: Id of the Device
+          readOnly: true
+          type: integer
+        sdtStatus:
+          description: 'sdt status, three level sdt status: parent-self-child'
+          readOnly: true
+          type: string
+        deviceDisplayName:
+          description: device display name
+          readOnly: true
+          type: string
+        groupsDisabledThisSource:
+          description: All groups that disable this datasource.
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TreeNode_2'
+        eventSourceGroupName:
+          description: event source group name defined where creating a event source
+          readOnly: true
+          type: string
+        sdtAt:
+          description: sdt on which level, host group or host
+          readOnly: true
+          type: string
+        alertingDisabledOn:
+          description: alerting disabled on which tree node
+          readOnly: true
+          $ref: '#/components/schemas/TreeNode_2'
         id:
+          format: int32
+          description: device event source id
+          readOnly: true
+          type: integer
+        alertStatusPriority:
+          format: int32
+          description: 'the alert status priority, more smaller value more critical '
+          readOnly: true
+          type: integer
+        alertDisableStatus:
+          description: alert disable status
+          readOnly: true
           type: string
     Device_2:
       type: object
@@ -3661,6 +3489,194 @@ components:
           type: boolean
       discriminator:
         propertyName: type
+    InheritanceProp_2:
+      description: The inherit list of the property
+      readOnly: true
+      type: object
+      properties:
+        fullpath:
+          description: The fullpath of the property
+          readOnly: true
+          type: string
+        id:
+          format: int32
+          description: 'Source id for the property. For example: group id or property rule'
+          readOnly: true
+          type: integer
+        type:
+          description: The parent property type from which it is inheriting
+          readOnly: true
+          type: string
+        value:
+          description: The property value for the group
+          readOnly: true
+          type: string
+    EntityProperty_2:
+      type: object
+      properties:
+        inheritList:
+          description: The inherit list of the property
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/InheritanceProp_2'
+        name:
+          description: The name of the property
+          readOnly: true
+          type: string
+        type:
+          description: The type of property. The values can be Inherit|System|Custom
+          readOnly: true
+          type: string
+        value:
+          description: The value of the property
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceAlertSetting_2:
+      type: object
+      properties:
+        globalAlertExpr:
+          description: The global alert expression for this datapoint
+          readOnly: true
+          type: string
+        parentInstanceGroupAlertExpr:
+          description: Instance group alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          $ref: '#/components/schemas/InstanceGroupAlertThresholdInfo'
+        alertForNoData:
+          format: int32
+          description: alert for no data (no alert-1, warning-2, error-3, critical-4)
+          type: integer
+          example: 1
+        postProcessorParam:
+          description: The post processor parameter for complex DataPoint and instance level configCheck threshold.
+          type: string
+        disableAlerting:
+          description: Whether or not alerting will be disabled for the datapoint
+          type: boolean
+          example: true
+        globalAlertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          readOnly: true
+          type: integer
+          example: 0
+        dataPointDescription:
+          description: The description of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        globalEnableAnomalyAlertGeneration:
+          description: The global enable anomaly alert generation
+          readOnly: true
+          type: string
+        enableAnomalyAlertGeneration:
+          description: enable anomaly alert generation
+          readOnly: true
+          type: string
+        disableDpAlertHostGroups:
+          description: The group full path lists who disable alert for this datapoint on devicegroup level
+          readOnly: true
+          type: string
+        dataPointName:
+          description: The name of the datapoint the alert settings apply to
+          readOnly: true
+          type: string
+        dataPointId:
+          format: int32
+          description: The id of the Datapoint alert settings apply to
+          readOnly: true
+          type: integer
+        globalEnableAnomalyAlertSuppression:
+          description: The global enable anomaly alert suppression
+          readOnly: true
+          type: string
+        deviceGroupId:
+          format: int32
+          description: The ID of the device group
+          readOnly: true
+          type: integer
+        id:
+          format: int32
+          description: The id of this alert setting
+          readOnly: true
+          type: integer
+        globalAlertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          readOnly: true
+          type: integer
+          example: 0
+        parentResourceDataSourceAlertExpr:
+          description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          $ref: '#/components/schemas/ResourceDataSourceAlertThresholdInfo'
+        deviceGroupFullPath:
+          description: The full path of the device group
+          readOnly: true
+          type: string
+        alertTransitionInterval:
+          format: int32
+          description: The polling interval of alert transition (0-60)
+          type: integer
+          example: 0
+        globalAlertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint
+          readOnly: true
+          type: integer
+          example: 1
+        enableAnomalyAlertSuppression:
+          description: enable anomaly alert suppression
+          readOnly: true
+          type: string
+        alertClearInterval:
+          format: int32
+          description: The polling interval of alert clear transition (0-60)
+          type: integer
+          example: 0
+        criticalAdAdvSetting:
+          type: string
+        alertExprNote:
+          description: The note associated with the current alert threshold settings
+          type: string
+          example: Router 1 Ping Check
+        adAdvSettingEnabled:
+          type: boolean
+        errorAdAdvSetting:
+          type: string
+        dataSourceInstanceId:
+          format: int32
+          description: The id of the DataSource instance alert settings apply to
+          readOnly: true
+          type: integer
+        warnAdAdvSetting:
+          type: string
+        globalPostProcessorParam:
+          description: The post processor parameters for complex DataPoints and global level configCheck threshold.
+          type: string
+        parentDeviceGroupAlertExprList:
+          description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo_2'
+        alertingDisabledOn:
+          description: The datapoint is effected alert disabled by which group
+          readOnly: true
+          type: string
+        dataSourceInstanceAlias:
+          description: The alias (name) of the DataSource instance the alert settings apply to
+          readOnly: true
+          type: string
+        collectionInterval:
+          format: int64
+          description: Collection Interval
+          readOnly: true
+          type: integer
+        alertExpr:
+          description: The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)
+          type: string
+          example: '>= 70 90 95'
     RestResponseMetaBlock:
       type: object
       properties:
@@ -3684,306 +3700,6 @@ components:
         pageOffsetCount:
           format: int32
           type: integer
-    ResourceDataSourceAlertThresholdInfo:
-      description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
-      readOnly: true
-      type: object
-      properties:
-        enableAnomalyAlertGeneration:
-          description: enable anomaly alert generation
-          readOnly: true
-          type: string
-        alertForNoData:
-          format: byte
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 0-4 (0:unused alert, 1:alert ok, 2:warn alert, 2:error alert, 4:critical alert)
-          type: string
-        enableAnomalyAlertSuppression:
-          description: enable anomaly alert suppression
-          readOnly: true
-          type: string
-        alertClearTransitionInterval:
-          format: byte
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
-          type: string
-        alertEnabled:
-          readOnly: true
-          type: boolean
-        resourceDatasourceId:
-          format: int32
-          readOnly: true
-          type: integer
-        alertExpr:
-          readOnly: true
-          type: string
-        alertTransitionInterval:
-          format: byte
-          description: The count that the alert must exist for this many poll cycles before it will be triggered
-          type: string
-    NetFlowRecord_2:
-      x-discriminator-value: flowrecord
-      type: object
-      properties:
-        srcIP:
-          description: the source ip of flow record
-          readOnly: true
-          type: string
-        percentUsage:
-          format: double
-          description: the percent traffic of the flow record
-          readOnly: true
-          type: number
-        lastEpochInSec:
-          format: int64
-          description: the end time  of this flow record
-          readOnly: true
-          type: integer
-        ifOut:
-          format: int64
-          description: the out interface of this flow record
-          readOnly: true
-          type: integer
-        dataType:
-          readOnly: true
-          type: string
-        usage:
-          format: double
-          description: the total bytes of this flow record (source bytes + destination bytes)
-          readOnly: true
-          type: number
-        srcASN:
-          format: int64
-          description: source autonomous system number
-          readOnly: true
-          type: integer
-        dstDNS:
-          description: the dns name of destination ip
-          readOnly: true
-          type: string
-        srcPort:
-          format: int32
-          description: the source port of the flow record
-          readOnly: true
-          type: integer
-        firstEpochInSec:
-          format: int64
-          description: the start time of this flow record
-          readOnly: true
-          type: integer
-        protocol:
-          description: the protocol name of this flow record
-          readOnly: true
-          type: string
-        dstPort:
-          format: int32
-          description: the destination port
-          readOnly: true
-          type: integer
-        ifIn:
-          format: int64
-          description: the in interface of this flow record
-          readOnly: true
-          type: integer
-        sourceMBytes:
-          format: double
-          description: the source bytes of this flow record
-          readOnly: true
-          type: number
-        srcAsnName:
-          description: the name of src ASN number
-          readOnly: true
-          type: string
-        srcDNS:
-          description: the dns name of source ip
-          readOnly: true
-          type: string
-        destinationMBytes:
-          format: double
-          description: the destination byte of this flow record
-          readOnly: true
-          type: number
-        dstASN:
-          format: int64
-          description: destination autonomous system number
-          readOnly: true
-          type: integer
-        dstIP:
-          description: the destination ip of the flow record
-          readOnly: true
-          type: string
-        destAsnName:
-          description: the name of dest ASN number
-          readOnly: true
-          type: string
-    GraphPlotLine_2:
-      description: The properties of the graph and graph lines
-      readOnly: true
-      type: object
-      properties:
-        colorName:
-          description: The color name
-          readOnly: true
-          type: string
-        std:
-          description: The standard deviation value
-          readOnly: true
-          type: object
-        visible:
-          description: 'true | false
-
-            Specifies whether the graph will be visible or not'
-          readOnly: true
-          type: boolean
-        color:
-          description: The color of the graph
-          readOnly: true
-          type: string
-        data:
-          description: The polled data used to plot the graph
-          readOnly: true
-          type: array
-          items:
-            format: double
-            description: The polled data used to plot the graph
-            readOnly: true
-            type: number
-        max:
-          description: The max value of datapoint or instance
-          readOnly: true
-          type: object
-        legend:
-          description: The legend of the datapoint or instance
-          readOnly: true
-          type: string
-        description:
-          description: The description for the datapoint or instance
-          readOnly: true
-          type: string
-        label:
-          description: The label for the datapoint or instance
-          readOnly: true
-          type: string
-        type:
-          description: 'Specifies how the data of the datapoint or instance will be plotted
-
-            The values can be line | area | stack | column | statusBar'
-          readOnly: true
-          type: string
-        min:
-          description: The min value of the datapoint or instance
-          readOnly: true
-          type: object
-        avg:
-          description: The average value of the datapoint or instance
-          readOnly: true
-          type: object
-        decimal:
-          format: int32
-          description: 'The decimal value
-
-            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
-          readOnly: true
-          type: integer
-        useYMax:
-          description: 'true | false
-
-            Specifies whether to use YMax or not'
-          readOnly: true
-          type: boolean
-    SDT_2:
-      type: object
-      required:
-      - type
-      properties:
-        endDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
-          readOnly: true
-          type: string
-        timezone:
-          description: The specific timezone for SDT
-          type: string
-          example: America/Los_Angeles
-        sdtType:
-          description: The type of sdt. The values can be oneTime|weekly|monthly|daily|monthlyByWeek
-          type: string
-          example: oneTime
-        defaultValue:
-          format: date-time
-          type: string
-        monthDay:
-          description: The values can be -3 | 1 | 2....| 31. Specifies the day(s) of the month that the SDT will be active for a monthly SDT. Use -3 for the last day of the month. Supports comma-separated values (e.g., '1,15,28') when multi-day is enabled.
-          type: string
-          example: '7'
-        weekOfMonth:
-          description: The week of the month that the SDT will be active for a monthly SDT
-          type: string
-          example: '1'
-        admin:
-          description: The name of the user that created the SDT
-          readOnly: true
-          type: string
-        endDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will end
-          type: integer
-          example: 1534554000000
-        type:
-          description: The type of resource that this SDT is for. The values can be CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | ResourceGroupSDT | ResourceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT | DeviceLogPipeLineResourceSDT
-          type: string
-          example: ResourceGroupSDT
-        isEffective:
-          description: 'The values can be true|false, where true: the SDT is currently active
-
-            false: the SDT is currently inactive'
-          readOnly: true
-          type: boolean
-        minute:
-          format: int32
-          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT should begin for a repeating SDT
-          type: integer
-          example: 6
-        duration:
-          format: int32
-          description: The duration of the SDT in minutes
-          type: integer
-          example: 138
-        endHour:
-          format: int32
-          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT ends for a repeating SDT
-          type: integer
-          example: 5
-        startDateTime:
-          format: int64
-          description: The epoch time, in milliseconds, that the SDT will start
-          type: integer
-          example: 1534460400000
-        hour:
-          format: int32
-          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
-          type: integer
-          example: 3
-        startDateTimeOnLocal:
-          description: The date, time and time zone that the SDT will end at
-          readOnly: true
-          type: string
-        weekDay:
-          description: The week day of sdt. For weekly & monthlyByWeek SDT, supports comma-separated values like 'Monday,Friday'. Values can be SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY
-          type: string
-          example: Sunday
-        comment:
-          description: The notes associated with the SDT
-          type: string
-          example: Emergency prod deployment
-        id:
-          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
-          readOnly: true
-          type: string
-        endMinute:
-          format: int32
-          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT ends for a repeating SDT
-          type: integer
-          example: 18
-      discriminator:
-        propertyName: type
     Alert_2:
       type: object
       properties:
@@ -4243,6 +3959,41 @@ components:
           description: The dependency role
           readOnly: true
           type: string
+    ResourceDataSourceAlertThresholdInfo:
+      description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
+      readOnly: true
+      type: object
+      properties:
+        enableAnomalyAlertGeneration:
+          description: enable anomaly alert generation
+          readOnly: true
+          type: string
+        alertForNoData:
+          format: byte
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 0-4 (0:unused alert, 1:alert ok, 2:warn alert, 2:error alert, 4:critical alert)
+          type: string
+        enableAnomalyAlertSuppression:
+          description: enable anomaly alert suppression
+          readOnly: true
+          type: string
+        alertClearTransitionInterval:
+          format: byte
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          type: string
+        alertEnabled:
+          readOnly: true
+          type: boolean
+        resourceDatasourceId:
+          format: int32
+          readOnly: true
+          type: integer
+        alertExpr:
+          readOnly: true
+          type: string
+        alertTransitionInterval:
+          format: byte
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          type: string
     DeviceDataSourceInstance_2:
       type: object
       required:
@@ -4341,420 +4092,6 @@ components:
         dataSourceType:
           description: The type of LogicModule, e.g. DS (datasource)
           readOnly: true
-          type: string
-    AdvancedFieldFilter:
-      type: object
-      properties:
-        fieldName:
-          type: string
-        supportGlob:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: string
-        operator:
-          type: string
-    EntityProperty_2:
-      type: object
-      properties:
-        inheritList:
-          description: The inherit list of the property
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/InheritanceProp_2'
-        name:
-          description: The name of the property
-          readOnly: true
-          type: string
-        type:
-          description: The type of property. The values can be Inherit|System|Custom
-          readOnly: true
-          type: string
-        value:
-          description: The value of the property
-          readOnly: true
-          type: string
-    InheritanceProp_2:
-      description: The inherit list of the property
-      readOnly: true
-      type: object
-      properties:
-        fullpath:
-          description: The fullpath of the property
-          readOnly: true
-          type: string
-        id:
-          format: int32
-          description: 'Source id for the property. For example: group id or property rule'
-          readOnly: true
-          type: integer
-        type:
-          description: The parent property type from which it is inheriting
-          readOnly: true
-          type: string
-        value:
-          description: The property value for the group
-          readOnly: true
-          type: string
-    RestResponse:
-      type: object
-      properties:
-        diagnostics:
-          $ref: '#/components/schemas/ArrayNode'
-        suppressedWarnings:
-          $ref: '#/components/schemas/ArrayNode'
-        preserveInsertionOrder:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/ObjectNode'
-        suppressedErrors:
-          $ref: '#/components/schemas/ArrayNode'
-        successes:
-          $ref: '#/components/schemas/ArrayNode'
-        meta:
-          $ref: '#/components/schemas/RestResponseMetaBlock'
-        warnings:
-          $ref: '#/components/schemas/ArrayNode'
-        errors:
-          $ref: '#/components/schemas/ArrayNode'
-    FieldFilter:
-      type: object
-      properties:
-        fieldName:
-          type: string
-        supportGlob:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: string
-        operator:
-          type: string
-    RestAlertQueryContext:
-      type: object
-      properties:
-        activeOnly:
-          type: boolean
-        pivotType:
-          type: string
-        anomaly:
-          type: string
-        suppressorFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        forServices:
-          type: boolean
-        pivotDimensions:
-          type: array
-          items:
-            type: string
-        refreshActiveAlertCache:
-          type: boolean
-        dependencyRoutingStateFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        excludePhatomFlag:
-          type: boolean
-        pivotDimensionESField:
-          type: array
-          items:
-            type: string
-        dependencyRoleFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        lmconfigEnabled:
-          type: boolean
-        dependencyRoutingStateFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        dependencyRoleFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldFilter'
-        clearedOnly:
-          type: boolean
-        suppressorFiltersV4:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdvancedFieldFilter'
-        alertsById:
-          $ref: '#/components/schemas/AlertsById'
-    DeviceEventSource:
-      type: object
-      properties:
-        eventSourceId:
-          format: int32
-          description: event source id
-          readOnly: true
-          type: integer
-        alertStatus:
-          description: alert status
-          readOnly: true
-          type: string
-        stopMonitoring:
-          description: stop monitoring this host event source
-          readOnly: true
-          type: boolean
-        eventSourceName:
-          description: event source name defined where creating a event source
-          readOnly: true
-          type: string
-        disableAlerting:
-          description: stop alerting for this host event source
-          readOnly: true
-          type: boolean
-        eventSourceDescription:
-          description: event source description defined where creating a event source
-          readOnly: true
-          type: string
-        eventType:
-          description: event source collector type
-          readOnly: true
-          type: string
-        deviceId:
-          format: int32
-          description: Id of the Device
-          readOnly: true
-          type: integer
-        sdtStatus:
-          description: 'sdt status, three level sdt status: parent-self-child'
-          readOnly: true
-          type: string
-        deviceDisplayName:
-          description: device display name
-          readOnly: true
-          type: string
-        groupsDisabledThisSource:
-          description: All groups that disable this datasource.
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/TreeNode_2'
-        eventSourceGroupName:
-          description: event source group name defined where creating a event source
-          readOnly: true
-          type: string
-        sdtAt:
-          description: sdt on which level, host group or host
-          readOnly: true
-          type: string
-        alertingDisabledOn:
-          description: alerting disabled on which tree node
-          readOnly: true
-          $ref: '#/components/schemas/TreeNode_2'
-        id:
-          format: int32
-          description: device event source id
-          readOnly: true
-          type: integer
-        alertStatusPriority:
-          format: int32
-          description: 'the alert status priority, more smaller value more critical '
-          readOnly: true
-          type: integer
-        alertDisableStatus:
-          description: alert disable status
-          readOnly: true
-          type: string
-    JSONObject:
-      description: The alert external ticket urls
-      readOnly: true
-      type: object
-      properties:
-        empty:
-          type: boolean
-    AlertsModelAndId:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        isDeleted:
-          type: boolean
-        displayName:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        description:
-          type: string
-        model:
-          type: string
-        id:
-          type: string
-    DeviceGroupAlertThresholdInfo_2:
-      description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
-      readOnly: true
-      type: object
-      properties:
-        enableAnomalyAlertGeneration:
-          description: enable anomaly alert generation
-          readOnly: true
-          type: string
-        alertForNoData:
-          format: int32
-          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
-          type: integer
-          example: 1
-        userPermission:
-          readOnly: true
-          type: string
-        enableAnomalyAlertSuppression:
-          description: enable anomaly alert suppression
-          readOnly: true
-          type: string
-        groupId:
-          format: int32
-          readOnly: true
-          type: integer
-        alertClearTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
-          type: integer
-          example: 0
-        alertEnabled:
-          readOnly: true
-          type: boolean
-        groupFullPath:
-          readOnly: true
-          type: string
-        alertExpr:
-          readOnly: true
-          type: string
-        alertTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before it will be triggered
-          type: integer
-          example: 0
-    NameAndValue_2:
-      description: The properties associated with the website
-      readOnly: true
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The name of a property
-          type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    ObjectNode:
-      type: object
-    AlertsById:
-      type: object
-      properties:
-        resourceGroups:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        eventSources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        clusterAlertSettings:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        datapoints:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        escalationChains:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        sdts:
-          additionalProperties:
-            $ref: '#/components/schemas/RestSDTV4'
-          type: object
-        alertRules:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        serviceGroups:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        resources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        logpipelinesources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        services:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        dataSourceInstances:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        billingAlerts:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        alerts:
-          additionalProperties:
-            $ref: '#/components/schemas/Alert_2'
-          type: object
-        logalerts:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        batchJobs:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        billingBudgets:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        dataSourceInstanceAlertSettings:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        billingAlertsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        serviceCheckpoints:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        logAlertsMap:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-        dataSources:
-          additionalProperties:
-            $ref: '#/components/schemas/AlertsModelAndId'
-          type: object
-    ModelAndId:
-      description: SDT target
-      readOnly: true
-      type: object
-      properties:
-        displayName:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        model:
-          type: string
-        id:
           type: string
     RestSDTV4:
       type: object
@@ -5128,218 +4465,59 @@ components:
           type: integer
       discriminator:
         propertyName: type
-    DeviceDataSourceInstanceAlertSetting_2:
+    RestAlertQueryContext:
       type: object
       properties:
-        globalAlertExpr:
-          description: The global alert expression for this datapoint
-          readOnly: true
-          type: string
-        parentInstanceGroupAlertExpr:
-          description: Instance group alert expression list base on the priority. The first is the highest priority and effected on this instance
-          readOnly: true
-          $ref: '#/components/schemas/InstanceGroupAlertThresholdInfo'
-        alertForNoData:
-          format: int32
-          description: alert for no data (no alert-1, warning-2, error-3, critical-4)
-          type: integer
-          example: 1
-        postProcessorParam:
-          description: The post processor parameter for complex DataPoint and instance level configCheck threshold.
-          type: string
-        disableAlerting:
-          description: Whether or not alerting will be disabled for the datapoint
+        activeOnly:
           type: boolean
-          example: true
-        globalAlertTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before it will be triggered
-          readOnly: true
-          type: integer
-          example: 0
-        dataPointDescription:
-          description: The description of the datapoint the alert settings apply to
-          readOnly: true
+        pivotType:
           type: string
-        globalEnableAnomalyAlertGeneration:
-          description: The global enable anomaly alert generation
-          readOnly: true
+        anomaly:
           type: string
-        enableAnomalyAlertGeneration:
-          description: enable anomaly alert generation
-          readOnly: true
-          type: string
-        disableDpAlertHostGroups:
-          description: The group full path lists who disable alert for this datapoint on devicegroup level
-          readOnly: true
-          type: string
-        dataPointName:
-          description: The name of the datapoint the alert settings apply to
-          readOnly: true
-          type: string
-        dataPointId:
-          format: int32
-          description: The id of the Datapoint alert settings apply to
-          readOnly: true
-          type: integer
-        globalEnableAnomalyAlertSuppression:
-          description: The global enable anomaly alert suppression
-          readOnly: true
-          type: string
-        deviceGroupId:
-          format: int32
-          description: The ID of the device group
-          readOnly: true
-          type: integer
-        id:
-          format: int32
-          description: The id of this alert setting
-          readOnly: true
-          type: integer
-        globalAlertClearTransitionInterval:
-          format: int32
-          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
-          readOnly: true
-          type: integer
-          example: 0
-        parentResourceDataSourceAlertExpr:
-          description: Resource datasource alert expression list base on the priority. The first is the highest priority and effected on this instance
-          readOnly: true
-          $ref: '#/components/schemas/ResourceDataSourceAlertThresholdInfo'
-        deviceGroupFullPath:
-          description: The full path of the device group
-          readOnly: true
-          type: string
-        alertTransitionInterval:
-          format: int32
-          description: The polling interval of alert transition (0-60)
-          type: integer
-          example: 0
-        globalAlertForNoData:
-          format: int32
-          description: The triggered alert level if we cannot collect data for this datapoint
-          readOnly: true
-          type: integer
-          example: 1
-        enableAnomalyAlertSuppression:
-          description: enable anomaly alert suppression
-          readOnly: true
-          type: string
-        alertClearInterval:
-          format: int32
-          description: The polling interval of alert clear transition (0-60)
-          type: integer
-          example: 0
-        criticalAdAdvSetting:
-          type: string
-        alertExprNote:
-          description: The note associated with the current alert threshold settings
-          type: string
-          example: Router 1 Ping Check
-        adAdvSettingEnabled:
-          type: boolean
-        errorAdAdvSetting:
-          type: string
-        dataSourceInstanceId:
-          format: int32
-          description: The id of the DataSource instance alert settings apply to
-          readOnly: true
-          type: integer
-        warnAdAdvSetting:
-          type: string
-        globalPostProcessorParam:
-          description: The post processor parameters for complex DataPoints and global level configCheck threshold.
-          type: string
-        parentDeviceGroupAlertExprList:
-          description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
-          readOnly: true
+        suppressorFilters:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceGroupAlertThresholdInfo_2'
-        alertingDisabledOn:
-          description: The datapoint is effected alert disabled by which group
-          readOnly: true
-          type: string
-        dataSourceInstanceAlias:
-          description: The alias (name) of the DataSource instance the alert settings apply to
-          readOnly: true
-          type: string
-        collectionInterval:
-          format: int64
-          description: Collection Interval
-          readOnly: true
-          type: integer
-        alertExpr:
-          description: The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)
-          type: string
-          example: '>= 70 90 95'
-    SDTHistory_2:
-      type: object
-      properties:
-        duration:
-          format: int64
-          description: The duration of the SDT, in minutes
-          readOnly: true
-          type: integer
-          example: 456
-        itemId:
-          format: int32
-          description: The ID of the resource in SDT, e.g. the group or device in SDT
-          readOnly: true
-          type: integer
-          example: 1
-        approximateEndEpoch:
-          format: int64
-          description: The end epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475902808000
-        admin:
-          description: The user that added the SDT
-          readOnly: true
-          type: string
-          example: user@domain.com
-        comment:
-          description: The comment associated with the SDT
-          readOnly: true
-          type: string
-          example: migrating devices to new network and new IP addresses
-        id:
-          description: The ID of the SDT
-          readOnly: true
-          type: string
-          example: b-nTH4ECTH2rZ-Q548GOKg
-        type:
-          description: The SDT type
-          readOnly: true
-          type: string
-          example: DeviceGroupSDT
-        approximateStartEpoch:
-          format: int64
-          description: The start epoch for the SDT
-          readOnly: true
-          type: integer
-          example: 1475875446000
-    DeviceDataSourceData_2:
-      type: object
-      properties:
-        instances:
-          readOnly: true
-          additionalProperties:
-            $ref: '#/components/schemas/RawDataValues_2'
-          type: object
-        dataPoints:
-          readOnly: true
+            $ref: '#/components/schemas/FieldFilter'
+        forServices:
+          type: boolean
+        pivotDimensions:
           type: array
           items:
-            readOnly: true
             type: string
-        nextPageParams:
-          readOnly: true
-          type: string
-        dataSourceName:
-          readOnly: true
-          type: string
+        refreshActiveAlertCache:
+          type: boolean
+        dependencyRoutingStateFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        excludePhatomFlag:
+          type: boolean
+        pivotDimensionESField:
+          type: array
+          items:
+            type: string
+        dependencyRoleFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        lmconfigEnabled:
+          type: boolean
+        dependencyRoutingStateFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        dependencyRoleFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldFilter'
+        clearedOnly:
+          type: boolean
+        suppressorFiltersV4:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedFieldFilter'
+        alertsById:
+          $ref: '#/components/schemas/AlertsById'
     DeviceDatasourceGraph_2:
       readOnly: true
       type: object
@@ -5358,6 +4536,128 @@ components:
         title:
           readOnly: true
           type: string
+    RestDeviceEventsourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceEventSource'
+    FieldFilter:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        supportGlob:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: string
+        operator:
+          type: string
+    SDT_2:
+      type: object
+      required:
+      - type
+      properties:
+        endDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        timezone:
+          description: The specific timezone for SDT
+          type: string
+          example: America/Los_Angeles
+        sdtType:
+          description: The type of sdt. The values can be oneTime|weekly|monthly|daily|monthlyByWeek
+          type: string
+          example: oneTime
+        defaultValue:
+          format: date-time
+          type: string
+        monthDay:
+          description: The values can be -3 | 1 | 2....| 31. Specifies the day(s) of the month that the SDT will be active for a monthly SDT. Use -3 for the last day of the month. Supports comma-separated values (e.g., '1,15,28') when multi-day is enabled.
+          type: string
+          example: '7'
+        weekOfMonth:
+          description: The week of the month that the SDT will be active for a monthly SDT
+          type: string
+          example: '1'
+        admin:
+          description: The name of the user that created the SDT
+          readOnly: true
+          type: string
+        endDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will end
+          type: integer
+          example: 1534554000000
+        type:
+          description: The type of resource that this SDT is for. The values can be CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | ResourceGroupSDT | ResourceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT | DeviceLogPipeLineResourceSDT
+          type: string
+          example: ResourceGroupSDT
+        isEffective:
+          description: 'The values can be true|false, where true: the SDT is currently active
+
+            false: the SDT is currently inactive'
+          readOnly: true
+          type: boolean
+        minute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT should begin for a repeating SDT
+          type: integer
+          example: 6
+        duration:
+          format: int32
+          description: The duration of the SDT in minutes
+          type: integer
+          example: 138
+        endHour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 5
+        startDateTime:
+          format: int64
+          description: The epoch time, in milliseconds, that the SDT will start
+          type: integer
+          example: 1534460400000
+        hour:
+          format: int32
+          description: The values can be 1 | 2....| 24. Specifies the hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)
+          type: integer
+          example: 3
+        startDateTimeOnLocal:
+          description: The date, time and time zone that the SDT will end at
+          readOnly: true
+          type: string
+        weekDay:
+          description: The week day of sdt. For weekly & monthlyByWeek SDT, supports comma-separated values like 'Monday,Friday'. Values can be SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY
+          type: string
+          example: Sunday
+        comment:
+          description: The notes associated with the SDT
+          type: string
+          example: Emergency prod deployment
+        id:
+          description: 'The Id of the SDT. This value will be in the following format "XX_##" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type'
+          readOnly: true
+          type: string
+        endMinute:
+          format: int32
+          description: The values can be 1 | 2....| 60. Specifies the minute of the hour that the SDT ends for a repeating SDT
+          type: integer
+          example: 18
+      discriminator:
+        propertyName: type
     InstanceGroupAlertThresholdInfo:
       description: Instance group alert expression list base on the priority. The first is the highest priority and effected on this instance
       readOnly: true
@@ -5399,48 +4699,212 @@ components:
           readOnly: true
           type: integer
           example: 0
-    RawDataValues_2:
+    DeviceGroupAlertThresholdInfo_2:
+      description: Device group alert expression list base on the priority. The first is the highest priority and effected on this instance
       readOnly: true
       type: object
       properties:
-        values:
-          description: Datapoint values 2-D list
-          readOnly: true
-          type: array
-          items:
-            description: Datapoint values 2-D list
-            readOnly: true
-            type: array
-            items:
-              format: double
-              description: Datapoint values 2-D list
-              readOnly: true
-              type: number
-        time:
-          description: Timestamp list
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            description: Timestamp list
-            readOnly: true
-            type: integer
-        nextPageParams:
-          description: The next page parameters
+        enableAnomalyAlertGeneration:
+          description: enable anomaly alert generation
           readOnly: true
           type: string
-    WidgetData_2:
+        alertForNoData:
+          format: int32
+          description: The triggered alert level if we cannot collect data for this datapoint. The values can be 1-4 (1:no alert, 2:warn alert, 3:error alert, 4:critical alert)
+          type: integer
+          example: 1
+        userPermission:
+          readOnly: true
+          type: string
+        enableAnomalyAlertSuppression:
+          description: enable anomaly alert suppression
+          readOnly: true
+          type: string
+        groupId:
+          format: int32
+          readOnly: true
+          type: integer
+        alertClearTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before the alert will be cleared
+          type: integer
+          example: 0
+        alertEnabled:
+          readOnly: true
+          type: boolean
+        groupFullPath:
+          readOnly: true
+          type: string
+        alertExpr:
+          readOnly: true
+          type: string
+        alertTransitionInterval:
+          format: int32
+          description: The count that the alert must exist for this many poll cycles before it will be triggered
+          type: integer
+          example: 0
+    RestResponse:
       type: object
       properties:
+        diagnostics:
+          $ref: '#/components/schemas/ArrayNode'
+        suppressedWarnings:
+          $ref: '#/components/schemas/ArrayNode'
+        preserveInsertionOrder:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ObjectNode'
+        suppressedErrors:
+          $ref: '#/components/schemas/ArrayNode'
+        successes:
+          $ref: '#/components/schemas/ArrayNode'
+        meta:
+          $ref: '#/components/schemas/RestResponseMetaBlock'
+        warnings:
+          $ref: '#/components/schemas/ArrayNode'
+        errors:
+          $ref: '#/components/schemas/ArrayNode'
+    JSONObject:
+      description: The alert external ticket urls
+      readOnly: true
+      type: object
+      properties:
+        empty:
+          type: boolean
+    GraphOpsNoteScope_2:
+      description: 'Scopes: use this field to find match opsnote'
+      readOnly: true
+      type: object
+      properties:
+        serviceGroupIds:
+          description: The service group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The service group Id
+            readOnly: true
+            type: integer
+        serviceId:
+          format: int32
+          description: The service Id
+          readOnly: true
+          type: integer
         type:
-          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
+          description: The values can be device | service | website
           readOnly: true
           type: string
-        title:
-          description: The widget title
+        deviceGroupIds:
+          description: The device group Id
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: The device group Id
+            readOnly: true
+            type: integer
+        deviceId:
+          format: int32
+          description: The device Id
+          readOnly: true
+          type: integer
+    DeviceDataSourceData_2:
+      type: object
+      properties:
+        instances:
+          readOnly: true
+          additionalProperties:
+            $ref: '#/components/schemas/RawDataValues_2'
+          type: object
+        dataPoints:
+          readOnly: true
+          type: array
+          items:
+            readOnly: true
+            type: string
+        nextPageParams:
+          readOnly: true
           type: string
-      discriminator:
-        propertyName: type
+        dataSourceName:
+          readOnly: true
+          type: string
+    GraphPlotLine_2:
+      description: The properties of the graph and graph lines
+      readOnly: true
+      type: object
+      properties:
+        colorName:
+          description: The color name
+          readOnly: true
+          type: string
+        std:
+          description: The standard deviation value
+          readOnly: true
+          type: object
+        visible:
+          description: 'true | false
+
+            Specifies whether the graph will be visible or not'
+          readOnly: true
+          type: boolean
+        color:
+          description: The color of the graph
+          readOnly: true
+          type: string
+        data:
+          description: The polled data used to plot the graph
+          readOnly: true
+          type: array
+          items:
+            format: double
+            description: The polled data used to plot the graph
+            readOnly: true
+            type: number
+        max:
+          description: The max value of datapoint or instance
+          readOnly: true
+          type: object
+        legend:
+          description: The legend of the datapoint or instance
+          readOnly: true
+          type: string
+        description:
+          description: The description for the datapoint or instance
+          readOnly: true
+          type: string
+        label:
+          description: The label for the datapoint or instance
+          readOnly: true
+          type: string
+        type:
+          description: 'Specifies how the data of the datapoint or instance will be plotted
+
+            The values can be line | area | stack | column | statusBar'
+          readOnly: true
+          type: string
+        min:
+          description: The min value of the datapoint or instance
+          readOnly: true
+          type: object
+        avg:
+          description: The average value of the datapoint or instance
+          readOnly: true
+          type: object
+        decimal:
+          format: int32
+          description: 'The decimal value
+
+            The values can be -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8'
+          readOnly: true
+          type: integer
+        useYMax:
+          description: 'true | false
+
+            Specifies whether to use YMax or not'
+          readOnly: true
+          type: boolean
+    ObjectNode:
+      type: object
     GraphPlot_2:
       allOf:
       - $ref: '#/components/schemas/WidgetData_2'
@@ -5588,20 +5052,315 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
-    RestDeviceEventsourcePaginationResponse:
+    WidgetData_2:
       type: object
       properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
+        type:
+          description: The widget data type. The values can be noc|alert|batchjob|gmap|netflow|netflowGroup|bigNumber|serviceNOC|gauge|pieChart|table|deviceNOC|deviceSLA|serviceSLA|dynamicTable|graph|savedMap
           readOnly: true
           type: string
-        items:
+        title:
+          description: The widget title
+          type: string
+      discriminator:
+        propertyName: type
+    ObjectIdentifier:
+      type: object
+      properties:
+        model:
+          type: string
+          enum:
+          - accessLogs
+          - accessGroups
+          - adminNotifications
+          - aggregateSavings
+          - alerts
+          - visualizationAggregateEntry
+          - visualizationAggregateValue
+          - alertDependencyRules
+          - alertRoutings
+          - alertRules
+          - actionRules
+          - alertTuningConfigAncestry
+          - alertTuningConfigs
+          - alertTuningConfigsHistory
+          - alertTuningConfigSlots
+          - alertTuningGraphs
+          - alertsTuningSeries
+          - asnMappings
+          - billingConfigurations
+          - cloudAccounts
+          - cloudResourceProperty
+          - clusterAlertRoutings
+          - clusterAlertTuningConfigs
+          - collectors
+          - collectorEvents
+          - collectorGroups
+          - collectorStatus
+          - collectorUpgradeHistory
+          - collectorUpgradeInfo
+          - configSources
+          - configSourceInstance
+          - configSourceInstanceAlert
+          - collectorLogs
+          - config
+          - configAlert
+          - correlationGraphs
+          - dashboards
+          - datapoints
+          - dataQueries
+          - dataSources
+          - dataSourceInstances
+          - dataSourceInstanceAlertSettings
+          - dataSourceInstanceGroups
+          - datasets
+          - dnsMappings
+          - escalationChains
+          - actionChains
+          - eventSources
+          - integrations
+          - integrationAuditLogs
+          - logSources
+          - exchangeAccessGroups
+          - exchangeActiveDiscoveryFilters
+          - exchangeAppliesToFunctions
+          - exchangeChangelogs
+          - exchangeConfigSources
+          - exchangeConfigSourceConfigChecks
+          - exchangeDataSources
+          - exchangeDataSourceDataPoints
+          - exchangeDataSourceDataPointDisplayStatusNames
+          - exchangeDataSourceGraphs
+          - exchangeDataSourceGraphSeries
+          - exchangeDataSourceGraphVirtualSeries
+          - exchangeDataSourceOverviewGraphs
+          - exchangeDataSourceOverviewGraphSeries
+          - exchangeDataSourceOverviewGraphVirtualSeries
+          - exchangeDiagnosticSources
+          - exchangeEventSources
+          - exchangeEventSourceFilters
+          - exchangeEventSourceLogFiles
+          - exchangeJobMonitors
+          - exchangeLogSources
+          - exchangeLogSourceFilters
+          - exchangeSnmpTrapLogSourceFilters
+          - exchangeLogSourceLogFields
+          - exchangeLogSourceResourceMappings
+          - exchangeLogSourceSensitiveDataMaskingRules
+          - exchangeLogSourceCollectorMappings
+          - exchangeLogicModules
+          - exchangeLogicModulePackages
+          - exchangeLogicModulePermissions
+          - exchangePackagedLogicModules
+          - exchangePropertySources
+          - exchangeRemediationSources
+          - exchangeSNMPSysOIDMaps
+          - exchangeTopologySources
+          - externalResourceIdentifiers
+          - failedDataSourceInfo
+          - filterFieldList
+          - graphs
+          - graphMeta
+          - healthMetrics
+          - hierarchy
+          - hostclusterAlertDefs
+          - auditLogSummaryContext
+          - hostDiagnosticSourceDetails
+          - diagnosticExecutionContext
+          - remediationExecutionContext
+          - latestDiagnosticExecutionResultContext
+          - diagnosticExecutionSearchContext
+          - remediationSourceExecutionSearchContext
+          - diagnosticSourceAssociatedDevices
+          - hostRemediationSourceDetails
+          - hostActionToolDetails
+          - actionToolExecutionContext
+          - actionToolExecutionSearchContext
+          - remediationSourceAssociatedDevices
+          - latestRemediationExecutionResultContext
+          - hostGroups
+          - internalAlertSettings
+          - jobMonitors
+          - jobMonitorExecutions
+          - lmSupportAccessHasConnection
+          - lmSupportAccessState
+          - lmotelCollectors
+          - lmotelCollectorVersions
+          - lmCollectorVersions
+          - logalerts
+          - logicModuleGroups
+          - logpipelinesources
+          - logpipelineprocessors
+          - matchedEvents
+          - metaGroupings
+          - metricsCorrelation
+          - monitoredResources
+          - netscanGroups
+          - netscans
+          - netflow
+          - netflowAlertRule
+          - allLevels
+          - nocWidgets
+          - normalizedProperties
+          - netscanPolicies
+          - netscanExecutions
+          - opsNotes
+          - opsNoteResourceScopes
+          - opsNoteServiceScopes
+          - opsNoteResourceGroupScopes
+          - opsNoteServiceGroupScopes
+          - opsNoteGroupAllScopes
+          - opsNoteTags
+          - orgTreeNodes
+          - portMappings
+          - productIds
+          - properties
+          - propertySources
+          - rawData
+          - recentlyDeletedItems
+          - recipientGroups
+          - cloudConfigIssues
+          - cloudConfigIntegrations
+          - cloudConfigAccounts
+          - cloudHealthEvents
+          - cloudHealthEventDetails
+          - cloudHealthEventAdditionalInfo
+          - cloudRecommendations
+          - cloudRecommendationAdditionalData
+          - recommendationTypes
+          - relationships
+          - reports
+          - reportHistories
+          - reportGroups
+          - resources
+          - resourceDashboards
+          - resourceDataSources
+          - resourceDatapoints
+          - resourceEventSources
+          - resourceConfigSources
+          - ConfigSourcesGoldStandard
+          - ConfigSourceConfiguration
+          - resourceDashboardTemplates
+          - resourceGroups
+          - resourceGroupDataSourceConfigs
+          - resourceGroupEventSourceConfigs
+          - resourceGroupInfoSourceConfigs
+          - resourceJobMonitors
+          - resourceLogPipelineResources
+          - resourceLogSources
+          - sdts
+          - services
+          - serviceCheckpoints
+          - serviceGroups
+          - sharedQueries
+          - siteMonitors
+          - slaWidgets
+          - spanCount
+          - securityRecommendations
+          - subscriptions
+          - topology
+          - topologyMaps
+          - topologyMaps-1
+          - topologyMaps-2
+          - topologyMapsHistogram
+          - topologyMapsGraphs
+          - subEntities
+          - subEntitiesDetails
+          - topologySavedMapsGroupType
+          - topologySavedMapsGroup
+          - topologyManualMapping
+          - topologyManualInterfaceList
+          - traffic
+          - treeNodes
+          - unmonitoredResources
+          - userdata
+          - users
+          - userSettings
+          - websiteCheckpoints
+          - websiteGroups
+          - websites
+          - ServicePreview
+          - BizServiceDatapoint
+          - ServiceTemplateView
+          - ServiceMemberPreview
+          - RestServiceTemplate
+          - ServiceTemplateServiceStats
+          - synthetics
+          - usage
+          - tracesDevicesNamesIds
+          - tracesGraphIds
+          - tracesServices
+          - tracesDeviceDatasources
+          - tracesDeviceDatasourceInstances
+          - tracesNamespaceGraphDetails
+          - tracesResourceNamesIds
+          - tracesTopologyEdgeData
+          - members
+          - apiTokens
+          - roleGroups
+          - roles
+          - userGroups
+          - sharingTokens
+          - scimTokens
+          - syntheticsDSInstanceRawData
+          - syntheticsDSInstanceStepData
+          - syntheticsDSInstanceAlerts
+          - usageDimensions
+          - vizResourceInfo
+          - lmqlResult
+          - lmqlParsed
+          - partitions
+          - cloudRecommendationStatus
+          - recommendationStatusUpdateRequest
+          - websiteDevice
+          - mibUpload
+          - logQueryGroups
+          - logQueryGroupChangelog
+          - logQuery
+          - trackingLogQueries
+          - billingBudgets
+          - trackedQuery
+          - trackedQueryGroups
+          - trackedQueryGroupChangelog
+          - adminName
+          - droppedInstances
+          - dashboardFilterGroups
+          - dashboardFilters
+          - dashboardFilterMappings
+        id:
+          type: string
+    AlertsModelAndId:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        isDeleted:
+          type: boolean
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    AdvancedFieldFilter:
+      type: object
+      properties:
+        fieldName:
+          type: string
+        supportGlob:
+          type: boolean
+        values:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceEventSource'
+            type: string
+        operator:
+          type: string
     TreeNode_2:
       description: alerting disabled on which tree node
       readOnly: true
@@ -5616,43 +5375,284 @@ components:
           type: integer
         type:
           type: string
-    GraphOpsNoteScope_2:
-      description: 'Scopes: use this field to find match opsnote'
+    NetFlowRecord_2:
+      x-discriminator-value: flowrecord
+      type: object
+      properties:
+        srcIP:
+          description: the source ip of flow record
+          readOnly: true
+          type: string
+        percentUsage:
+          format: double
+          description: the percent traffic of the flow record
+          readOnly: true
+          type: number
+        lastEpochInSec:
+          format: int64
+          description: the end time  of this flow record
+          readOnly: true
+          type: integer
+        ifOut:
+          format: int64
+          description: the out interface of this flow record
+          readOnly: true
+          type: integer
+        dataType:
+          readOnly: true
+          type: string
+        usage:
+          format: double
+          description: the total bytes of this flow record (source bytes + destination bytes)
+          readOnly: true
+          type: number
+        srcASN:
+          format: int64
+          description: source autonomous system number
+          readOnly: true
+          type: integer
+        dstDNS:
+          description: the dns name of destination ip
+          readOnly: true
+          type: string
+        srcPort:
+          format: int32
+          description: the source port of the flow record
+          readOnly: true
+          type: integer
+        firstEpochInSec:
+          format: int64
+          description: the start time of this flow record
+          readOnly: true
+          type: integer
+        protocol:
+          description: the protocol name of this flow record
+          readOnly: true
+          type: string
+        dstPort:
+          format: int32
+          description: the destination port
+          readOnly: true
+          type: integer
+        ifIn:
+          format: int64
+          description: the in interface of this flow record
+          readOnly: true
+          type: integer
+        sourceMBytes:
+          format: double
+          description: the source bytes of this flow record
+          readOnly: true
+          type: number
+        srcAsnName:
+          description: the name of src ASN number
+          readOnly: true
+          type: string
+        srcDNS:
+          description: the dns name of source ip
+          readOnly: true
+          type: string
+        destinationMBytes:
+          format: double
+          description: the destination byte of this flow record
+          readOnly: true
+          type: number
+        dstASN:
+          format: int64
+          description: destination autonomous system number
+          readOnly: true
+          type: integer
+        dstIP:
+          description: the destination ip of the flow record
+          readOnly: true
+          type: string
+        destAsnName:
+          description: the name of dest ASN number
+          readOnly: true
+          type: string
+    AlertsById:
+      type: object
+      properties:
+        resourceGroups:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        eventSources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        clusterAlertSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        datapoints:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        escalationChains:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        sdts:
+          additionalProperties:
+            $ref: '#/components/schemas/RestSDTV4'
+          type: object
+        alertRules:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        serviceGroups:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        resources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        logpipelinesources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        services:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSourceInstances:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingAlerts:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        alerts:
+          additionalProperties:
+            $ref: '#/components/schemas/Alert_2'
+          type: object
+        logalerts:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        batchJobs:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingBudgets:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSourceInstanceAlertSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        billingAlertsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        serviceCheckpoints:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        logAlertsMap:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+        dataSources:
+          additionalProperties:
+            $ref: '#/components/schemas/AlertsModelAndId'
+          type: object
+    SDTHistory_2:
+      type: object
+      properties:
+        duration:
+          format: int64
+          description: The duration of the SDT, in minutes
+          readOnly: true
+          type: integer
+          example: 456
+        itemId:
+          format: int32
+          description: The ID of the resource in SDT, e.g. the group or device in SDT
+          readOnly: true
+          type: integer
+          example: 1
+        approximateEndEpoch:
+          format: int64
+          description: The end epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475902808000
+        admin:
+          description: The user that added the SDT
+          readOnly: true
+          type: string
+          example: user@domain.com
+        comment:
+          description: The comment associated with the SDT
+          readOnly: true
+          type: string
+          example: migrating devices to new network and new IP addresses
+        id:
+          description: The ID of the SDT
+          readOnly: true
+          type: string
+          example: b-nTH4ECTH2rZ-Q548GOKg
+        type:
+          description: The SDT type
+          readOnly: true
+          type: string
+          example: DeviceGroupSDT
+        approximateStartEpoch:
+          format: int64
+          description: The start epoch for the SDT
+          readOnly: true
+          type: integer
+          example: 1475875446000
+    ModelAndId:
+      description: SDT target
       readOnly: true
       type: object
       properties:
-        serviceGroupIds:
-          description: The service group Id
+        displayName:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        model:
+          type: string
+        id:
+          type: string
+    RawDataValues_2:
+      readOnly: true
+      type: object
+      properties:
+        values:
+          description: Datapoint values 2-D list
           readOnly: true
           type: array
           items:
-            format: int32
-            description: The service group Id
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
             readOnly: true
             type: integer
-        serviceId:
-          format: int32
-          description: The service Id
-          readOnly: true
-          type: integer
-        type:
-          description: The values can be device | service | website
+        nextPageParams:
+          description: The next page parameters
           readOnly: true
           type: string
-        deviceGroupIds:
-          description: The device group Id
-          readOnly: true
-          type: array
-          items:
-            format: int32
-            description: The device group Id
-            readOnly: true
-            type: integer
-        deviceId:
-          format: int32
-          description: The device Id
-          readOnly: true
-          type: integer
     ArrayNode:
       type: object
   securitySchemes:

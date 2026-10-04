@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-integration-audit-log-pagination-response-schema.json",
+  "title": "IntegrationAuditLogPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-integrationauditlogs-api-openapi.yml#/components/schemas/IntegrationAuditLogPaginationResponse",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/IntegrationAuditLog"
+      }
+    }
+  },
+  "$defs": {
+    "IntegrationAuditLog": {
+      "type": "object",
+      "properties": {
+        "headers": {
+          "description": "HTTP request headers used in alert delivery",
+          "readOnly": true,
+          "type": "string"
+        },
+        "alertType": {
+          "format": "int32",
+          "description": "The type of the alert",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "integrationName": {
+          "description": "The name of integration",
+          "readOnly": true,
+          "type": "string"
+        },
+        "numRetries": {
+          "format": "int32",
+          "description": "The number of times delivery was retried",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "integrationAlertStatus": {
+          "description": "The Integration Alert Status used for delivery",
+          "readOnly": true,
+          "type": "string"
+        },
+        "errorMessage": {
+          "description": "Error message (if any) from ADC",
+          "readOnly": true,
+          "type": "string"
+        },
+        "externalTicketId": {
+          "description": "The parsed External Ticket ID from alert delivery",
+          "readOnly": true,
+          "type": "string"
+        },
+        "payloadFormat": {
+          "description": "The outbound payload format",
+          "readOnly": true,
+          "type": "string"
+        },
+        "url": {
+          "description": "The URL where the alert was delivered to",
+          "readOnly": true,
+          "type": "string"
+        },
+        "happenedOnMs": {
+          "format": "int64",
+          "description": "When the delivery result was saved in LMES",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "integrationType": {
+          "description": "The type of integration",
+          "readOnly": true,
+          "type": "string"
+        },
+        "alertInstanceId": {
+          "description": "The id of the alert instance",
+          "readOnly": true,
+          "type": "string"
+        },
+        "payload": {
+          "description": "The HTTP Request payload",
+          "readOnly": true,
+          "type": "string"
+        },
+        "httpResponseCode": {
+          "format": "int32",
+          "description": "The HTTP Response Code received from 3rd party API",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "id": {
+          "description": "The id of audit log record",
+          "readOnly": true,
+          "type": "string"
+        },
+        "alertId": {
+          "description": "The id of the alert",
+          "readOnly": true,
+          "type": "string"
+        },
+        "httpResponse": {
+          "description": "The HTTP Response Body received after alert delivery",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

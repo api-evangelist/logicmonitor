@@ -388,6 +388,68 @@ components:
           description: Time when access group created
           readOnly: true
           type: integer
+    TopologySourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopologySource'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    ScriptCollectorAttribute:
+      allOf:
+      - $ref: '#/components/schemas/CollectorAttribute'
+      - type: object
+        properties:
+          groovyScript:
+            description: groovy script
+            type: string
+          manualConnections:
+            description: manual
+            type: string
+          scriptType:
+            description: 'script type: embed | file | powershell'
+            type: string
+          windowsScript:
+            description: windows script
+            type: string
+          linuxCmdline:
+            description: linux script command line
+            type: string
+          linuxScript:
+            description: linux script
+            type: string
+          windowsCmdline:
+            description: windows script command line
+            type: string
+          properties:
+            description: property based
+            type: string
+      x-discriminator-value: script
+      description: collector's attributes to collect topologies
+      type: object
     TopologySource:
       type: object
       required:
@@ -477,68 +539,6 @@ components:
         group:
           description: The group the LMModule is in
           type: string
-    TopologySourcePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TopologySource'
-    ScriptCollectorAttribute:
-      allOf:
-      - $ref: '#/components/schemas/CollectorAttribute'
-      - type: object
-        properties:
-          groovyScript:
-            description: groovy script
-            type: string
-          manualConnections:
-            description: manual
-            type: string
-          scriptType:
-            description: 'script type: embed | file | powershell'
-            type: string
-          windowsScript:
-            description: windows script
-            type: string
-          linuxCmdline:
-            description: linux script command line
-            type: string
-          linuxScript:
-            description: linux script
-            type: string
-          windowsCmdline:
-            description: windows script command line
-            type: string
-          properties:
-            description: property based
-            type: string
-      x-discriminator-value: script
-      description: collector's attributes to collect topologies
-      type: object
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
   securitySchemes:
     LMv1:
       in: header

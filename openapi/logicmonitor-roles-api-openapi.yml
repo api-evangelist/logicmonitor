@@ -225,20 +225,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    RolePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Role'
     Privilege:
       type: object
       required:
@@ -261,22 +247,6 @@ components:
         objectType:
           type: string
           example: dashboard group
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
     Role:
       type: object
       required:
@@ -330,6 +300,36 @@ components:
           description: Whether Two-Factor Authentication should be required for the entire account
           readOnly: true
           type: boolean
+    RolePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     Privilege_2:
       description: The account privileges associated with the role. Privileges can be added to a role for each area of your account
       type: object

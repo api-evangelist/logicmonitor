@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-log-pipeline-processor-v3-schema.json",
+  "title": "RestLogPipelineProcessorV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-logalerts-api-openapi.yml#/components/schemas/RestLogPipelineProcessorV3",
+  "type": "object",
+  "properties": {
+    "severity": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "error",
+        "warning",
+        "null"
+      ]
+    },
+    "alertQuery": {
+      "type": "string"
+    },
+    "alertType": {
+      "type": "string"
+    },
+    "logMetadataFields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "clear": {
+      "$ref": "#/$defs/ClearConfig"
+    },
+    "logNotes": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "grouping": {
+      "$ref": "#/$defs/GroupingConfig"
+    },
+    "pipelineId": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "id": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "window": {
+      "$ref": "#/$defs/WindowConfig"
+    }
+  },
+  "$defs": {
+    "ClearConfig": {
+      "type": "object",
+      "properties": {
+        "autoClearAfter": {
+          "type": "string"
+        },
+        "clearQuery": {
+          "type": "string"
+        },
+        "groupingEntities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "autoClearOnAck": {
+          "type": "boolean"
+        }
+      }
+    },
+    "GroupingConfig": {
+      "type": "object",
+      "properties": {
+        "alertEntities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "WindowConfig": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "string"
+        },
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

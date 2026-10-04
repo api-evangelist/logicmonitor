@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-data-source-instance-alert-setting-schema.json",
+  "title": "DeviceDataSourceInstanceAlertSetting",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-thresholds-api-openapi.yml#/components/schemas/DeviceDataSourceInstanceAlertSetting",
+  "type": "object",
+  "properties": {
+    "globalAlertExpr": {
+      "description": "The global alert expression for this datapoint",
+      "readOnly": true,
+      "type": "string"
+    },
+    "alertClearInterval": {
+      "format": "int32",
+      "description": "The interval of alert clear transition",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "disableAlerting": {
+      "description": "Whether or not alerting will be disabled for the datapoint",
+      "type": "boolean"
+    },
+    "alertExprNote": {
+      "description": "The note associated with the current alert threshold settings",
+      "type": "string"
+    },
+    "dataPointDescription": {
+      "description": "The description of the datapoint the alert settings apply to",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataSourceInstanceId": {
+      "format": "int32",
+      "description": "The id of the DataSource instance alert settings apply to",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "disableDpAlertHostGroups": {
+      "description": "The group full path lists who disable alert for this datapoint on devicegroup level",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataPointName": {
+      "description": "The name of the datapoint the alert settings apply to",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataPointId": {
+      "format": "int32",
+      "description": "The id of the Datapoint alert settings apply to",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "deviceGroupId": {
+      "format": "int32",
+      "description": "The ID of the device group",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "parentDeviceGroupAlertExprList": {
+      "description": "Device group alert expression list base on the priority. The first is the highest priority and effected on this instance",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceGroupAlertThresholdInfo"
+      }
+    },
+    "alertingDisabledOn": {
+      "description": "The datapoint is effected alert disabled by which group",
+      "readOnly": true,
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The id of this alert setting",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "dataSourceInstanceAlias": {
+      "description": "The alias (name) of the DataSource instance the alert settings apply to",
+      "readOnly": true,
+      "type": "string"
+    },
+    "deviceGroupFullPath": {
+      "description": "The full path of the device group",
+      "readOnly": true,
+      "type": "string"
+    },
+    "alertExpr": {
+      "description": "The thresholds that should be associated with the datapoint. Note that you need to have a space between the operator and each threshold (e.g. > 1 2 3)",
+      "type": "string"
+    },
+    "alertTransitionInterval": {
+      "format": "int32",
+      "description": "The interval of alert transition",
+      "readOnly": true,
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "DeviceGroupAlertThresholdInfo": {
+      "type": "object",
+      "properties": {
+        "userPermission": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "groupId": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "alertEnabled": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "groupFullPath": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "alertExpr": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

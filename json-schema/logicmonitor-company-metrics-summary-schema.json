@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-company-metrics-summary-schema.json",
+  "title": "CompanyMetricsSummary",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-metrics-api-openapi.yml#/components/schemas/CompanyMetricsSummary",
+  "type": "object",
+  "properties": {
+    "numberOfOpenAlerts": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numOfTerminatedAzureDevices": {
+      "format": "int32",
+      "description": "Number of terminated Azure resources",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numOfStoppedGcpDevices": {
+      "format": "int32",
+      "description": "Number of stopped GCP resources not monitored with a local Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfUserRoles": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numOfAWSDevices": {
+      "format": "int32",
+      "description": "Number of AWS resources not monitored with a local Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "destroyOnLocal": {
+      "type": "string"
+    },
+    "numOfSavedMaps": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "zuoraInvoiceDetails": {
+      "$ref": "#/$defs/JSONObject"
+    },
+    "hostGroupsInfo": {
+      "$ref": "#/$defs/JSONObject"
+    },
+    "numberOfKubernetesDevices": {
+      "format": "int32",
+      "description": "Number of monitored Kubernetes Nodes, Pods, and Services",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfAllowedDTConfigs": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "destroyAccount": {
+      "type": "boolean"
+    },
+    "numOfAzureDevices": {
+      "format": "int32",
+      "description": "Number of Azure resources not monitored with a local Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numOfTerminatedGcpCloudDevices": {
+      "format": "int32",
+      "description": "Number of terminated GCP resources",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfLightDevices": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberOfRootCauseAnalysisRules": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberOfDevices": {
+      "format": "int32",
+      "description": "Sum of numOfStandardDevices, numOfCombinedAWSDevices, numOfCombinedAzureDevices, and numOfCombinedGCPDevices",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfPreviousDayAlerts": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberOfWidgets": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberOfAlertRules": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numOfStoppedAzureDevices": {
+      "format": "int32",
+      "description": "Number of stopped Azure resources",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numOfServices": {
+      "format": "int32",
+      "description": "Number of services (created via LM Service Insight)",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "parentBilling": {
+      "type": "string"
+    },
+    "numberOfStandardDevices": {
+      "format": "int32",
+      "description": "Number of standard devices",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfDashboards": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numOfCombinedGcpDevices": {
+      "format": "int32",
+      "description": "Number of GCP resources monitored with a local Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numOfGcpDevices": {
+      "format": "int32",
+      "description": "Number of GCP resources",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfDynamicThresholds": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "timestampWindowOfApiUsersInSec": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "zuora": {
+      "$ref": "#/$defs/JSONObject"
+    },
+    "numberOfDatasourceInstances": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "numOfCombinedAzureDevices": {
+      "format": "int32",
+      "description": "Number of Azure resources monitored with a local Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfApiUsers": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberOfDataPoints": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "numOfTerminatedAWSDevices": {
+      "format": "int32",
+      "description": "Number of terminated AWS resources",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfComplexDataPoints": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "numberOfInstancesPerDS": {
+      "$ref": "#/$defs/JSONObject"
+    },
+    "numberOfSessionUsers": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numOfStoppedAWSDevices": {
+      "format": "int32",
+      "description": "Number of stopped AWS resources",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numOfConfigSourceDevices": {
+      "format": "int32",
+      "description": "Number of devices with active ConfigSources",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numOfWebsites": {
+      "format": "int32",
+      "description": "Number of websites",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "numberOfReportsInLast24Hrs": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "numOfCombinedAWSDevices": {
+      "format": "int32",
+      "description": "Number of AWS resources monitored with a local Collector",
+      "readOnly": true,
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "JSONObject": {
+      "description": "The alert external ticket urls",
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

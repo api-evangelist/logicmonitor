@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-data-source-instance-schema.json",
+  "title": "DeviceDataSourceInstance",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-datasource-instances-api-openapi.yml#/components/schemas/DeviceDataSourceInstance",
+  "type": "object",
+  "required": [
+    "displayName",
+    "wildValue"
+  ],
+  "properties": {
+    "isUNCInstance": {
+      "description": "Whether or not UNC Monitoring enabled for device",
+      "type": "boolean"
+    },
+    "stopMonitoring": {
+      "description": "Whether or not monitoring is disabled for the instance",
+      "type": "boolean"
+    },
+    "deviceDataSourceId": {
+      "format": "int32",
+      "description": "The id of the unique device-datasource the instance is associated with",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "displayName": {
+      "description": "The instance alias. This is the descriptive name of the instance, and should be unique for the device/datasource combination",
+      "type": "string"
+    },
+    "wildValue2": {
+      "description": "Only used for two dimensional active discovery. When used, during Active Discovery runs, the token ##WILDVALUE## is replaces with the value of ALIAS and the token ##WILDVALUE2## is replaced with the value of the second part alias. This value must be unique for the device/datasource/WILDVALUE combination",
+      "type": "string"
+    },
+    "groupId": {
+      "format": "int32",
+      "description": "The id of the instance group associated with the datasource instance",
+      "type": "integer"
+    },
+    "description": {
+      "description": "The description of the datasource instance",
+      "type": "string"
+    },
+    "disableAlerting": {
+      "description": "Whether or not alerting is disabled for the instance",
+      "type": "boolean"
+    },
+    "deviceId": {
+      "format": "int32",
+      "description": "The id of the device the datasource instance is associated with",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "deviceDisplayName": {
+      "description": "The display name of the device the datasource instance is associated with",
+      "readOnly": true,
+      "type": "string"
+    },
+    "systemProperties": {
+      "description": "Any instance level system properties assigned to the instance",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NameAndValue"
+      }
+    },
+    "autoProperties": {
+      "description": "Any instance level auto properties assigned to the instance",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NameAndValue"
+      }
+    },
+    "dataSourceId": {
+      "format": "int32",
+      "description": "The id of the datasource definition that the instance represents",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "groupName": {
+      "description": "The name of the instance group associated with the datasource instance",
+      "readOnly": true,
+      "type": "string"
+    },
+    "customProperties": {
+      "description": "Any instance level properties assigned to the instance",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NameAndValue"
+      }
+    },
+    "lockDescription": {
+      "description": "Whether or not Active Discovery is enabled, and thus whether or not the instance description is editable",
+      "type": "boolean"
+    },
+    "name": {
+      "description": "The name of the datasource instance, in the format of: datasourceName-instanceAlias",
+      "readOnly": true,
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The Id of the datasource instance",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "wildValue": {
+      "description": "The variable part of the instance, used to query data from a device. For example, variable part of the SNMP OID tree. This value must be unique for the device/datasource combination, unless two-dimensional active discovery is used",
+      "type": "string"
+    },
+    "dataSourceType": {
+      "description": "The type of LogicModule, e.g. DS (datasource)",
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "NameAndValue": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name of a property",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of a property",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

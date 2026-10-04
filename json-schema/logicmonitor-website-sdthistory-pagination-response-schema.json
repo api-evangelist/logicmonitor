@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-website-sdthistory-pagination-response-schema.json",
+  "title": "WebsiteSDTHistoryPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-websites-api-openapi.yml#/components/schemas/WebsiteSDTHistoryPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SDTHistory"
+      }
+    }
+  },
+  "$defs": {
+    "SDTHistory": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "format": "int64",
+          "description": "The duration of the SDT, in minutes",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "itemId": {
+          "format": "int32",
+          "description": "The ID of the resource in SDT, e.g. the group or device in SDT",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "endEpoch": {
+          "format": "int64",
+          "description": "The end epoch for the SDT",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "admin": {
+          "description": "The user that added the SDT",
+          "readOnly": true,
+          "type": "string"
+        },
+        "comment": {
+          "description": "The comment associated with the SDT",
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "description": "The ID of the SDT",
+          "readOnly": true,
+          "type": "string"
+        },
+        "type": {
+          "description": "The SDT type",
+          "readOnly": true,
+          "type": "string"
+        },
+        "startEpoch": {
+          "format": "int64",
+          "description": "The start epoch for the SDT",
+          "readOnly": true,
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

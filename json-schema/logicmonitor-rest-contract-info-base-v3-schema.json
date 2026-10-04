@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-contract-info-base-v3-schema.json",
+  "title": "RestContractInfoBaseV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-usage-api-v3-api-openapi.yml#/components/schemas/RestContractInfoBaseV3",
+  "type": "object",
+  "properties": {
+    "childProducts": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RestUsageContractInfoV4"
+      }
+    },
+    "product": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "subscriptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Subscriptions"
+      }
+    },
+    "aggregationType": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "feature": {
+      "type": "string"
+    },
+    "roundingRequired": {
+      "type": "boolean"
+    },
+    "unpaid": {
+      "type": "boolean"
+    },
+    "nestedProducts": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RestUsageContractInfoV4"
+      }
+    },
+    "category": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "RestUsageContractInfoV4": {
+      "type": "object",
+      "properties": {
+        "childProducts": {
+          "x-omitempty": {
+            "x-omitempty": "true"
+          },
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RestUsageContractInfoV4"
+          }
+        },
+        "product": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subscriptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Subscriptions"
+          }
+        },
+        "aggregationType": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "feature": {
+          "type": "string"
+        },
+        "roundingRequired": {
+          "type": "boolean"
+        },
+        "unpaid": {
+          "type": "boolean"
+        },
+        "category": {
+          "type": "string"
+        }
+      }
+    },
+    "Subscriptions": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "format": "double",
+          "type": "number"
+        },
+        "feature": {
+          "type": "string"
+        },
+        "retentionDays": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sku": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

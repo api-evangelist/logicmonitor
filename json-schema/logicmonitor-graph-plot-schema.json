@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-graph-plot-schema.json",
+  "title": "GraphPlot",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-data-api-openapi.yml#/components/schemas/GraphPlot",
+  "allOf": [
+    {
+      "$ref": "#/$defs/WidgetData"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "missinglines": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeScale": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "instances": {
+          "uniqueItems": true,
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "timestamps": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "minValue": {
+          "readOnly": true,
+          "type": "object"
+        },
+        "startTime": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "rigid": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "lines": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphPlotLine"
+          }
+        },
+        "height": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "endTZOffset": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "base1024": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "dsName": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "maxValue": {
+          "readOnly": true,
+          "type": "object"
+        },
+        "displayPrio": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "timeZoneId": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "timeZone": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "startTZOffset": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "xAxisName": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "width": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "verticalLabel": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "step": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "endTime": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "scopes": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphOpsNoteScope"
+          }
+        },
+        "base": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "exportFileName": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  ],
+  "x-discriminator-value": "graph",
+  "$defs": {
+    "GraphOpsNoteScope": {
+      "type": "object",
+      "properties": {
+        "serviceGroupIds": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "serviceId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "deviceGroupIds": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "deviceId": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "GraphPlotLine": {
+      "type": "object",
+      "properties": {
+        "colorName": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "std": {
+          "readOnly": true,
+          "type": "object"
+        },
+        "visible": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "color": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "data": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "max": {
+          "readOnly": true,
+          "type": "object"
+        },
+        "legend": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "description": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "label": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "min": {
+          "readOnly": true,
+          "type": "object"
+        },
+        "avg": {
+          "readOnly": true,
+          "type": "object"
+        },
+        "decimal": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "useYMax": {
+          "readOnly": true,
+          "type": "boolean"
+        }
+      }
+    },
+    "WidgetData": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

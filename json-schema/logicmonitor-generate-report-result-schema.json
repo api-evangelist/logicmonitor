@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-generate-report-result-schema.json",
+  "title": "GenerateReportResult",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-report-api-openapi.yml#/components/schemas/GenerateReportResult",
+  "type": "object",
+  "required": [
+    "reportId",
+    "taskId"
+  ],
+  "properties": {
+    "reportId": {
+      "format": "int32",
+      "description": "The id of the report",
+      "type": "integer"
+    },
+    "taskId": {
+      "format": "int64",
+      "description": "The task id of the generating process",
+      "type": "integer"
+    },
+    "resulturl": {
+      "description": "The url of the generated report",
+      "readOnly": true,
+      "type": "string"
+    }
+  }
+}

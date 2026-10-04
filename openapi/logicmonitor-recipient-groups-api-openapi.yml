@@ -220,6 +220,28 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    RecipientGroup:
+      type: object
+      required:
+      - groupName
+      properties:
+        groupName:
+          description: The name of the recipient group
+          type: string
+          example: Tier 1 Helpdesk
+        recipients:
+          description: The recipients in the group
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
+        description:
+          description: The description of the recipient group
+          type: string
+          example: Tier 1 Helpdesk
+        id:
+          format: int32
+          readOnly: true
+          type: integer
     Recipient:
       type: object
       required:
@@ -254,28 +276,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RecipientGroup'
-    RecipientGroup:
-      type: object
-      required:
-      - groupName
-      properties:
-        groupName:
-          description: The name of the recipient group
-          type: string
-          example: Tier 1 Helpdesk
-        recipients:
-          description: The recipients in the group
-          type: array
-          items:
-            $ref: '#/components/schemas/Recipient'
-        description:
-          description: The description of the recipient group
-          type: string
-          example: Tier 1 Helpdesk
-        id:
-          format: int32
-          readOnly: true
-          type: integer
     ErrorResponse:
       type: object
       properties:

@@ -1,0 +1,884 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-diagnostic-source-v4-schema.json",
+  "title": "RestDiagnosticSourceV4",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-diagnosticsources-api-openapi.yml#/components/schemas/RestDiagnosticSourceV4",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": [
+        "REGISTRY",
+        "LOCAL"
+      ]
+    },
+    "replacementLineageName": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "DATASOURCE",
+        "EVENTSOURCE",
+        "CONFIGSOURCE",
+        "PROPERTYSOURCE",
+        "DIAGNOSTICSOURCE",
+        "REMEDIATIONSOURCE",
+        "TOPOLOGYSOURCE",
+        "JOBMONITOR",
+        "APPLIESTO_FUNCTION",
+        "SNMP_SYSOID_MAP",
+        "LOGSOURCE"
+      ]
+    },
+    "lineageId": {
+      "type": "string"
+    },
+    "originVersion": {
+      "type": "string"
+    },
+    "isTargetLastPublishedPrivate": {
+      "type": "boolean"
+    },
+    "model": {
+      "type": "string",
+      "enum": [
+        "accessLogs",
+        "accessGroups",
+        "adminNotifications",
+        "aggregateSavings",
+        "alerts",
+        "visualizationAggregateEntry",
+        "visualizationAggregateValue",
+        "alertDependencyRules",
+        "alertRoutings",
+        "alertRules",
+        "actionRules",
+        "alertTuningConfigAncestry",
+        "alertTuningConfigs",
+        "alertTuningConfigsHistory",
+        "alertTuningConfigSlots",
+        "alertTuningGraphs",
+        "alertsTuningSeries",
+        "asnMappings",
+        "billingConfigurations",
+        "cloudAccounts",
+        "cloudResourceProperty",
+        "clusterAlertRoutings",
+        "clusterAlertTuningConfigs",
+        "collectors",
+        "collectorEvents",
+        "collectorGroups",
+        "collectorStatus",
+        "collectorUpgradeHistory",
+        "collectorUpgradeInfo",
+        "configSources",
+        "configSourceInstance",
+        "configSourceInstanceAlert",
+        "collectorLogs",
+        "config",
+        "configAlert",
+        "correlationGraphs",
+        "dashboards",
+        "datapoints",
+        "dataQueries",
+        "dataSources",
+        "dataSourceInstances",
+        "dataSourceInstanceAlertSettings",
+        "dataSourceInstanceGroups",
+        "datasets",
+        "dnsMappings",
+        "escalationChains",
+        "actionChains",
+        "eventSources",
+        "integrations",
+        "integrationAuditLogs",
+        "logSources",
+        "exchangeAccessGroups",
+        "exchangeActiveDiscoveryFilters",
+        "exchangeAppliesToFunctions",
+        "exchangeChangelogs",
+        "exchangeConfigSources",
+        "exchangeConfigSourceConfigChecks",
+        "exchangeDataSources",
+        "exchangeDataSourceDataPoints",
+        "exchangeDataSourceDataPointDisplayStatusNames",
+        "exchangeDataSourceGraphs",
+        "exchangeDataSourceGraphSeries",
+        "exchangeDataSourceGraphVirtualSeries",
+        "exchangeDataSourceOverviewGraphs",
+        "exchangeDataSourceOverviewGraphSeries",
+        "exchangeDataSourceOverviewGraphVirtualSeries",
+        "exchangeDiagnosticSources",
+        "exchangeEventSources",
+        "exchangeEventSourceFilters",
+        "exchangeEventSourceLogFiles",
+        "exchangeJobMonitors",
+        "exchangeLogSources",
+        "exchangeLogSourceFilters",
+        "exchangeSnmpTrapLogSourceFilters",
+        "exchangeLogSourceLogFields",
+        "exchangeLogSourceResourceMappings",
+        "exchangeLogSourceSensitiveDataMaskingRules",
+        "exchangeLogSourceCollectorMappings",
+        "exchangeLogicModules",
+        "exchangeLogicModulePackages",
+        "exchangeLogicModulePermissions",
+        "exchangePackagedLogicModules",
+        "exchangePropertySources",
+        "exchangeRemediationSources",
+        "exchangeSNMPSysOIDMaps",
+        "exchangeTopologySources",
+        "externalResourceIdentifiers",
+        "failedDataSourceInfo",
+        "filterFieldList",
+        "graphs",
+        "graphMeta",
+        "healthMetrics",
+        "hierarchy",
+        "hostclusterAlertDefs",
+        "auditLogSummaryContext",
+        "hostDiagnosticSourceDetails",
+        "diagnosticExecutionContext",
+        "remediationExecutionContext",
+        "latestDiagnosticExecutionResultContext",
+        "diagnosticExecutionSearchContext",
+        "remediationSourceExecutionSearchContext",
+        "diagnosticSourceAssociatedDevices",
+        "hostRemediationSourceDetails",
+        "hostActionToolDetails",
+        "actionToolExecutionContext",
+        "actionToolExecutionSearchContext",
+        "remediationSourceAssociatedDevices",
+        "latestRemediationExecutionResultContext",
+        "hostGroups",
+        "internalAlertSettings",
+        "jobMonitors",
+        "jobMonitorExecutions",
+        "lmSupportAccessHasConnection",
+        "lmSupportAccessState",
+        "lmotelCollectors",
+        "lmotelCollectorVersions",
+        "lmCollectorVersions",
+        "logalerts",
+        "logicModuleGroups",
+        "logpipelinesources",
+        "logpipelineprocessors",
+        "matchedEvents",
+        "metaGroupings",
+        "metricsCorrelation",
+        "monitoredResources",
+        "netscanGroups",
+        "netscans",
+        "netflow",
+        "netflowAlertRule",
+        "allLevels",
+        "nocWidgets",
+        "normalizedProperties",
+        "netscanPolicies",
+        "netscanExecutions",
+        "opsNotes",
+        "opsNoteResourceScopes",
+        "opsNoteServiceScopes",
+        "opsNoteResourceGroupScopes",
+        "opsNoteServiceGroupScopes",
+        "opsNoteGroupAllScopes",
+        "opsNoteTags",
+        "orgTreeNodes",
+        "portMappings",
+        "productIds",
+        "properties",
+        "propertySources",
+        "rawData",
+        "recentlyDeletedItems",
+        "recipientGroups",
+        "cloudConfigIssues",
+        "cloudConfigIntegrations",
+        "cloudConfigAccounts",
+        "cloudHealthEvents",
+        "cloudHealthEventDetails",
+        "cloudHealthEventAdditionalInfo",
+        "cloudRecommendations",
+        "cloudRecommendationAdditionalData",
+        "recommendationTypes",
+        "relationships",
+        "reports",
+        "reportHistories",
+        "reportGroups",
+        "resources",
+        "resourceDashboards",
+        "resourceDataSources",
+        "resourceDatapoints",
+        "resourceEventSources",
+        "resourceConfigSources",
+        "ConfigSourcesGoldStandard",
+        "ConfigSourceConfiguration",
+        "resourceDashboardTemplates",
+        "resourceGroups",
+        "resourceGroupDataSourceConfigs",
+        "resourceGroupEventSourceConfigs",
+        "resourceGroupInfoSourceConfigs",
+        "resourceJobMonitors",
+        "resourceLogPipelineResources",
+        "resourceLogSources",
+        "sdts",
+        "services",
+        "serviceCheckpoints",
+        "serviceGroups",
+        "sharedQueries",
+        "siteMonitors",
+        "slaWidgets",
+        "spanCount",
+        "securityRecommendations",
+        "subscriptions",
+        "topology",
+        "topologyMaps",
+        "topologyMaps-1",
+        "topologyMaps-2",
+        "topologyMapsHistogram",
+        "topologyMapsGraphs",
+        "subEntities",
+        "subEntitiesDetails",
+        "topologySavedMapsGroupType",
+        "topologySavedMapsGroup",
+        "topologyManualMapping",
+        "topologyManualInterfaceList",
+        "traffic",
+        "treeNodes",
+        "unmonitoredResources",
+        "userdata",
+        "users",
+        "userSettings",
+        "websiteCheckpoints",
+        "websiteGroups",
+        "websites",
+        "ServicePreview",
+        "BizServiceDatapoint",
+        "ServiceTemplateView",
+        "ServiceMemberPreview",
+        "RestServiceTemplate",
+        "ServiceTemplateServiceStats",
+        "synthetics",
+        "usage",
+        "tracesDevicesNamesIds",
+        "tracesGraphIds",
+        "tracesServices",
+        "tracesDeviceDatasources",
+        "tracesDeviceDatasourceInstances",
+        "tracesNamespaceGraphDetails",
+        "tracesResourceNamesIds",
+        "tracesTopologyEdgeData",
+        "members",
+        "apiTokens",
+        "roleGroups",
+        "roles",
+        "userGroups",
+        "sharingTokens",
+        "scimTokens",
+        "syntheticsDSInstanceRawData",
+        "syntheticsDSInstanceStepData",
+        "syntheticsDSInstanceAlerts",
+        "usageDimensions",
+        "vizResourceInfo",
+        "lmqlResult",
+        "lmqlParsed",
+        "partitions",
+        "cloudRecommendationStatus",
+        "recommendationStatusUpdateRequest",
+        "websiteDevice",
+        "mibUpload",
+        "logQueryGroups",
+        "logQueryGroupChangelog",
+        "logQuery",
+        "trackingLogQueries",
+        "billingBudgets",
+        "trackedQuery",
+        "trackedQueryGroups",
+        "trackedQueryGroupChangelog",
+        "adminName",
+        "droppedInstances",
+        "dashboardFilterGroups",
+        "dashboardFilters",
+        "dashboardFilterMappings"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "filterExchangeAccessGroupsIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "items": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    "appliesToScript": {
+      "type": "string"
+    },
+    "authorUsername": {
+      "type": "string"
+    },
+    "upgradeableRegistryId": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "script": {
+      "$ref": "#/$defs/RestScriptV4"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "installedLocalId": {
+      "type": "string"
+    },
+    "targetLineageId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "authorCompanyUUID": {
+      "type": "string"
+    },
+    "originStatus": {
+      "type": "string",
+      "enum": [
+        "CORE",
+        "LM_ENDORSED",
+        "COMMUNITY",
+        "BETA",
+        "DEPRECATED",
+        "SECURITY_REVIEW"
+      ]
+    },
+    "locator": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CORE",
+        "LM_ENDORSED",
+        "COMMUNITY",
+        "BETA",
+        "DEPRECATED",
+        "SECURITY_REVIEW"
+      ]
+    },
+    "targetLastPublishedLocator": {
+      "type": "string"
+    },
+    "commitMessage": {
+      "type": "string"
+    },
+    "originPublishedAtMS": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "targetLastPublishedVersion": {
+      "type": "string"
+    },
+    "exchangeAccessGroupsIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ModelAndId"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "originRegistryIdByInstalledLocalIdMap": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "isPrivate": {
+      "type": "boolean"
+    },
+    "localModulesIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ModelAndId"
+      }
+    },
+    "targetLastPublishedStatus": {
+      "type": "string",
+      "enum": [
+        "CORE",
+        "LM_ENDORSED",
+        "COMMUNITY",
+        "BETA",
+        "DEPRECATED",
+        "SECURITY_REVIEW"
+      ]
+    },
+    "isChangedFromTargetLastPublished": {
+      "type": "boolean"
+    },
+    "exchangeChangelogsIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ModelAndId"
+      }
+    },
+    "isLatest": {
+      "type": "boolean"
+    },
+    "installedOriginRegistryId": {
+      "type": "string"
+    },
+    "originRegistryId": {
+      "type": "string"
+    },
+    "replacementLineageId": {
+      "type": "string"
+    },
+    "checksum": {
+      "type": "string"
+    },
+    "installationStatuses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "NEW",
+          "UPGRADED",
+          "AUDITED",
+          "OUTDATED",
+          "INSTALLED",
+          "CUSTOMIZED",
+          "CONFLICT",
+          "PARTIALLY_INSTALLED",
+          "IS_INSTALLED",
+          "IS_CUSTOMIZED",
+          "CAN_INSTALL",
+          "CAN_UPGRADE",
+          "CAN_SKIP",
+          "CAN_DOWNGRADE"
+        ]
+      }
+    },
+    "associatedCounts": {
+      "$ref": "#/$defs/LogicModuleAssociationCounts"
+    },
+    "createdAtMS": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "originAuthorNamespace": {
+      "type": "string"
+    },
+    "technicalNotes": {
+      "type": "string"
+    },
+    "originLocator": {
+      "type": "string"
+    },
+    "exchangeChangelogs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RestChangelogV4"
+      }
+    },
+    "originLineageId": {
+      "type": "string"
+    },
+    "isLatestAvailable": {
+      "type": "boolean"
+    },
+    "updatedAtMS": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "authorPortalName": {
+      "type": "string"
+    },
+    "targetLastPublishedAtMS": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "isInUse": {
+      "type": "boolean"
+    },
+    "originName": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "LogicModuleAssociationCounts": {
+      "type": "object",
+      "properties": {
+        "inUse": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ModelAndId": {
+      "description": "SDT target",
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "RestChangelogV4": {
+      "type": "object",
+      "properties": {
+        "comments": {
+          "type": "string"
+        },
+        "updatedAtMS": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "model": {
+          "type": "string",
+          "enum": [
+            "accessLogs",
+            "accessGroups",
+            "adminNotifications",
+            "aggregateSavings",
+            "alerts",
+            "visualizationAggregateEntry",
+            "visualizationAggregateValue",
+            "alertDependencyRules",
+            "alertRoutings",
+            "alertRules",
+            "actionRules",
+            "alertTuningConfigAncestry",
+            "alertTuningConfigs",
+            "alertTuningConfigsHistory",
+            "alertTuningConfigSlots",
+            "alertTuningGraphs",
+            "alertsTuningSeries",
+            "asnMappings",
+            "billingConfigurations",
+            "cloudAccounts",
+            "cloudResourceProperty",
+            "clusterAlertRoutings",
+            "clusterAlertTuningConfigs",
+            "collectors",
+            "collectorEvents",
+            "collectorGroups",
+            "collectorStatus",
+            "collectorUpgradeHistory",
+            "collectorUpgradeInfo",
+            "configSources",
+            "configSourceInstance",
+            "configSourceInstanceAlert",
+            "collectorLogs",
+            "config",
+            "configAlert",
+            "correlationGraphs",
+            "dashboards",
+            "datapoints",
+            "dataQueries",
+            "dataSources",
+            "dataSourceInstances",
+            "dataSourceInstanceAlertSettings",
+            "dataSourceInstanceGroups",
+            "datasets",
+            "dnsMappings",
+            "escalationChains",
+            "actionChains",
+            "eventSources",
+            "integrations",
+            "integrationAuditLogs",
+            "logSources",
+            "exchangeAccessGroups",
+            "exchangeActiveDiscoveryFilters",
+            "exchangeAppliesToFunctions",
+            "exchangeChangelogs",
+            "exchangeConfigSources",
+            "exchangeConfigSourceConfigChecks",
+            "exchangeDataSources",
+            "exchangeDataSourceDataPoints",
+            "exchangeDataSourceDataPointDisplayStatusNames",
+            "exchangeDataSourceGraphs",
+            "exchangeDataSourceGraphSeries",
+            "exchangeDataSourceGraphVirtualSeries",
+            "exchangeDataSourceOverviewGraphs",
+            "exchangeDataSourceOverviewGraphSeries",
+            "exchangeDataSourceOverviewGraphVirtualSeries",
+            "exchangeDiagnosticSources",
+            "exchangeEventSources",
+            "exchangeEventSourceFilters",
+            "exchangeEventSourceLogFiles",
+            "exchangeJobMonitors",
+            "exchangeLogSources",
+            "exchangeLogSourceFilters",
+            "exchangeSnmpTrapLogSourceFilters",
+            "exchangeLogSourceLogFields",
+            "exchangeLogSourceResourceMappings",
+            "exchangeLogSourceSensitiveDataMaskingRules",
+            "exchangeLogSourceCollectorMappings",
+            "exchangeLogicModules",
+            "exchangeLogicModulePackages",
+            "exchangeLogicModulePermissions",
+            "exchangePackagedLogicModules",
+            "exchangePropertySources",
+            "exchangeRemediationSources",
+            "exchangeSNMPSysOIDMaps",
+            "exchangeTopologySources",
+            "externalResourceIdentifiers",
+            "failedDataSourceInfo",
+            "filterFieldList",
+            "graphs",
+            "graphMeta",
+            "healthMetrics",
+            "hierarchy",
+            "hostclusterAlertDefs",
+            "auditLogSummaryContext",
+            "hostDiagnosticSourceDetails",
+            "diagnosticExecutionContext",
+            "remediationExecutionContext",
+            "latestDiagnosticExecutionResultContext",
+            "diagnosticExecutionSearchContext",
+            "remediationSourceExecutionSearchContext",
+            "diagnosticSourceAssociatedDevices",
+            "hostRemediationSourceDetails",
+            "hostActionToolDetails",
+            "actionToolExecutionContext",
+            "actionToolExecutionSearchContext",
+            "remediationSourceAssociatedDevices",
+            "latestRemediationExecutionResultContext",
+            "hostGroups",
+            "internalAlertSettings",
+            "jobMonitors",
+            "jobMonitorExecutions",
+            "lmSupportAccessHasConnection",
+            "lmSupportAccessState",
+            "lmotelCollectors",
+            "lmotelCollectorVersions",
+            "lmCollectorVersions",
+            "logalerts",
+            "logicModuleGroups",
+            "logpipelinesources",
+            "logpipelineprocessors",
+            "matchedEvents",
+            "metaGroupings",
+            "metricsCorrelation",
+            "monitoredResources",
+            "netscanGroups",
+            "netscans",
+            "netflow",
+            "netflowAlertRule",
+            "allLevels",
+            "nocWidgets",
+            "normalizedProperties",
+            "netscanPolicies",
+            "netscanExecutions",
+            "opsNotes",
+            "opsNoteResourceScopes",
+            "opsNoteServiceScopes",
+            "opsNoteResourceGroupScopes",
+            "opsNoteServiceGroupScopes",
+            "opsNoteGroupAllScopes",
+            "opsNoteTags",
+            "orgTreeNodes",
+            "portMappings",
+            "productIds",
+            "properties",
+            "propertySources",
+            "rawData",
+            "recentlyDeletedItems",
+            "recipientGroups",
+            "cloudConfigIssues",
+            "cloudConfigIntegrations",
+            "cloudConfigAccounts",
+            "cloudHealthEvents",
+            "cloudHealthEventDetails",
+            "cloudHealthEventAdditionalInfo",
+            "cloudRecommendations",
+            "cloudRecommendationAdditionalData",
+            "recommendationTypes",
+            "relationships",
+            "reports",
+            "reportHistories",
+            "reportGroups",
+            "resources",
+            "resourceDashboards",
+            "resourceDataSources",
+            "resourceDatapoints",
+            "resourceEventSources",
+            "resourceConfigSources",
+            "ConfigSourcesGoldStandard",
+            "ConfigSourceConfiguration",
+            "resourceDashboardTemplates",
+            "resourceGroups",
+            "resourceGroupDataSourceConfigs",
+            "resourceGroupEventSourceConfigs",
+            "resourceGroupInfoSourceConfigs",
+            "resourceJobMonitors",
+            "resourceLogPipelineResources",
+            "resourceLogSources",
+            "sdts",
+            "services",
+            "serviceCheckpoints",
+            "serviceGroups",
+            "sharedQueries",
+            "siteMonitors",
+            "slaWidgets",
+            "spanCount",
+            "securityRecommendations",
+            "subscriptions",
+            "topology",
+            "topologyMaps",
+            "topologyMaps-1",
+            "topologyMaps-2",
+            "topologyMapsHistogram",
+            "topologyMapsGraphs",
+            "subEntities",
+            "subEntitiesDetails",
+            "topologySavedMapsGroupType",
+            "topologySavedMapsGroup",
+            "topologyManualMapping",
+            "topologyManualInterfaceList",
+            "traffic",
+            "treeNodes",
+            "unmonitoredResources",
+            "userdata",
+            "users",
+            "userSettings",
+            "websiteCheckpoints",
+            "websiteGroups",
+            "websites",
+            "ServicePreview",
+            "BizServiceDatapoint",
+            "ServiceTemplateView",
+            "ServiceMemberPreview",
+            "RestServiceTemplate",
+            "ServiceTemplateServiceStats",
+            "synthetics",
+            "usage",
+            "tracesDevicesNamesIds",
+            "tracesGraphIds",
+            "tracesServices",
+            "tracesDeviceDatasources",
+            "tracesDeviceDatasourceInstances",
+            "tracesNamespaceGraphDetails",
+            "tracesResourceNamesIds",
+            "tracesTopologyEdgeData",
+            "members",
+            "apiTokens",
+            "roleGroups",
+            "roles",
+            "userGroups",
+            "sharingTokens",
+            "scimTokens",
+            "syntheticsDSInstanceRawData",
+            "syntheticsDSInstanceStepData",
+            "syntheticsDSInstanceAlerts",
+            "usageDimensions",
+            "vizResourceInfo",
+            "lmqlResult",
+            "lmqlParsed",
+            "partitions",
+            "cloudRecommendationStatus",
+            "recommendationStatusUpdateRequest",
+            "websiteDevice",
+            "mibUpload",
+            "logQueryGroups",
+            "logQueryGroupChangelog",
+            "logQuery",
+            "trackingLogQueries",
+            "billingBudgets",
+            "trackedQuery",
+            "trackedQueryGroups",
+            "trackedQueryGroupChangelog",
+            "adminName",
+            "droppedInstances",
+            "dashboardFilterGroups",
+            "dashboardFilters",
+            "dashboardFilterMappings"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "addressIP": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "RestScriptV4": {
+      "type": "object",
+      "properties": {
+        "powershellScript": {
+          "type": "string"
+        },
+        "linuxScriptFilename": {
+          "type": "string"
+        },
+        "windowsUploadScriptContent": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "linuxUploadScriptContent": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "groovyScript": {
+          "type": "string"
+        },
+        "windowsScriptFilename": {
+          "type": "string"
+        },
+        "linuxArguments": {
+          "type": "string"
+        },
+        "windowsArguments": {
+          "type": "string"
+        },
+        "windowsUploadScriptBinaryContentChecksum": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "INVALID",
+            "GROOVY",
+            "POWERSHELL",
+            "UPLOADED_FILE",
+            "PROPERTY"
+          ]
+        },
+        "linuxUploadScriptBinaryContentChecksum": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

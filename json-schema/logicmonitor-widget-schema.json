@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-widget-schema.json",
+  "title": "Widget",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-widgets-api-openapi.yml#/components/schemas/Widget",
+  "type": "object",
+  "required": [
+    "dashboardId",
+    "name",
+    "type"
+  ],
+  "properties": {
+    "lastUpdatedBy": {
+      "description": "The user that last updated the widget",
+      "readOnly": true,
+      "type": "string"
+    },
+    "userPermission": {
+      "description": "The permission level of the user who last modified the widget",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dashboardId": {
+      "format": "int32",
+      "description": "The id of the dashboard the widget belongs to",
+      "type": "integer"
+    },
+    "name": {
+      "description": "The name of the widget",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the widget",
+      "type": "string"
+    },
+    "lastUpdatedOn": {
+      "format": "int64",
+      "description": "The time that corresponds to when the widget was last updated, in epoch format",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "theme": {
+      "description": "The color scheme of the widget. Options are: borderPurple | borderGray | borderBlue | solidPurple | solidGray | solidBlue | simplePurple | simpleBlue | simpleGray | newBorderGray | newBorderBlue | newBorderDarkBlue | newSolidGray | newSolidBlue | newSolidDarkBlue | newSimpleGray | newSimpleBlue |newSimpleDarkBlue",
+      "type": "string"
+    },
+    "interval": {
+      "format": "int32",
+      "description": "The refresh interval of the widget, in minutes",
+      "type": "integer"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The Id of the widget",
+      "type": "integer"
+    },
+    "type": {
+      "description": "alert | batchjob | flash | gmap | ngraph | ograph | cgraph | sgraph | netflowgraph | groupNetflowGraph | netflow | groupNetflow | html | bigNumber | gauge | pieChart | table | dynamicTable | deviceSLA | text | statsd | deviceStatus | serviceAlert | noc | websiteOverview | websiteOverallStatus | websiteIndividualStatus | websiteSLA",
+      "type": "string"
+    },
+    "timescale": {
+      "description": "The default timescale of the widget",
+      "type": "string"
+    }
+  }
+}

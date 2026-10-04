@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-data-source-instance-config-schema.json",
+  "title": "DeviceDataSourceInstanceConfig",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-data-api-openapi.yml#/components/schemas/DeviceDataSourceInstanceConfig",
+  "type": "object",
+  "properties": {
+    "instanceName": {
+      "type": "string"
+    },
+    "deviceDataSourceId": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "configStatus": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "version": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "deviceId": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "deltaConfig": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceDataSourceInstanceConfigDiff"
+      }
+    },
+    "deviceDisplayName": {
+      "type": "string"
+    },
+    "dataSourceName": {
+      "type": "string"
+    },
+    "alerts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceDataSourceInstanceConfigAlert"
+      }
+    },
+    "dataSourceId": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "instanceId": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "configErrMsg": {
+      "type": "string"
+    },
+    "changeStatus": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "pollTimestamp": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "config": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "DeviceDataSourceInstanceConfigAlert": {
+      "type": "object",
+      "properties": {
+        "alertLevel": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "alertId": {
+          "type": "string"
+        },
+        "alertSummary": {
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "DeviceDataSourceInstanceConfigDiff": {
+      "type": "object",
+      "properties": {
+        "rowNo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

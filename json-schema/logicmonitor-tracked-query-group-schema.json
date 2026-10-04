@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-tracked-query-group-schema.json",
+  "title": "TrackedQueryGroup",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-trackquerygroup-api-openapi.yml#/components/schemas/TrackedQueryGroup",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "description": "Name of the tracked query group",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the tracked query group",
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The ID of the tracked query group",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "trackedQuery": {
+      "description": "List of tracked queries under this group",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Tracking_Log_Query"
+      }
+    },
+    "ownerId": {
+      "format": "int32",
+      "description": "Owner of the tracked query group",
+      "type": "integer"
+    },
+    "parentId": {
+      "format": "int32",
+      "description": "Parent ID of the tracked query group",
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "Tracking_Log_Query": {
+      "description": "List of tracked queries under this group",
+      "readOnly": true,
+      "type": "object",
+      "required": [
+        "label",
+        "query",
+        "trackedQueryUuid",
+        "version"
+      ],
+      "properties": {
+        "partitions": {
+          "description": "partitions associated with the query",
+          "type": "array",
+          "items": {
+            "description": "partitions associated with the query",
+            "type": "string"
+          }
+        },
+        "isPaused": {
+          "description": "flag stating paused status of tracked query",
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "query": {
+          "description": "query for log filter",
+          "type": "string"
+        },
+        "groupId": {
+          "format": "int32",
+          "description": "Group ID associated with the tracked query. Defaults to 'ungrouped' if not provided.",
+          "type": "integer"
+        },
+        "createEpoch": {
+          "format": "int64",
+          "description": "epoch of creation date",
+          "type": "integer"
+        },
+        "lastUpdateEpoch": {
+          "format": "int64",
+          "description": "epoch of last update date",
+          "type": "integer"
+        },
+        "label": {
+          "description": "label for log filter",
+          "type": "string"
+        },
+        "version": {
+          "description": "query grammar version",
+          "type": "string"
+        },
+        "aggregate": {
+          "type": "boolean"
+        },
+        "groupName": {
+          "description": "Group name associated with the tracked query",
+          "readOnly": true,
+          "type": "string"
+        },
+        "trackedQueryUuid": {
+          "description": "tracked query uuid for log filter",
+          "type": "string"
+        },
+        "adminId": {
+          "format": "int32",
+          "description": "admin id",
+          "type": "integer"
+        },
+        "id": {
+          "format": "int64",
+          "description": "id of record",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-pagination-schema.json",
+  "title": "Pagination",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-logpartitions-api-openapi.yml#/components/schemas/Pagination",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "searchId": {
+      "type": "string"
+    },
+    "isMin": {
+      "type": "boolean"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

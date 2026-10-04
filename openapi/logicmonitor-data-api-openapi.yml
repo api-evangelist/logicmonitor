@@ -624,6 +624,62 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    WebsiteCheckpointRawData:
+      type: object
+      properties:
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+    DeviceInstanceData:
+      type: object
+      properties:
+        instanceId:
+          readOnly: true
+          type: string
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        errMsg:
+          readOnly: true
+          type: string
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    DeviceInstances:
+      type: object
+      required:
+      - instanceIds
+      properties:
+        instanceIds:
+          description: the ids of the instances, separated by commas
+          type: string
+          example: 1,2,3,4,5
     ErrorResponse:
       type: object
       properties:
@@ -640,52 +696,27 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    DeviceDataSourceInstanceConfig:
+    GraphOpsNoteScope:
       type: object
       properties:
-        instanceName:
+        serviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
+        serviceId:
+          format: int32
+          type: integer
+        type:
           type: string
-        deviceDataSourceId:
-          format: int32
-          type: integer
-        configStatus:
-          format: int32
-          type: integer
-        version:
-          format: int64
-          type: integer
+        deviceGroupIds:
+          type: array
+          items:
+            format: int32
+            type: integer
         deviceId:
           format: int32
           type: integer
-        deltaConfig:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff'
-        deviceDisplayName:
-          type: string
-        dataSourceName:
-          type: string
-        alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert'
-        dataSourceId:
-          format: int32
-          type: integer
-        instanceId:
-          format: int32
-          type: integer
-        configErrMsg:
-          type: string
-        changeStatus:
-          type: string
-        id:
-          type: string
-        pollTimestamp:
-          format: int64
-          type: integer
-        config:
-          type: string
     GraphPlot:
       allOf:
       - $ref: '#/components/schemas/WidgetData'
@@ -796,29 +827,99 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
-    DeviceInstances:
+    DeviceDataSourceInstanceConfig:
       type: object
-      required:
-      - instanceIds
       properties:
-        instanceIds:
-          description: the ids of the instances, separated by commas
+        instanceName:
           type: string
-          example: 1,2,3,4,5
-    DeviceInstanceDataPaginationResponse:
-      type: object
-      properties:
-        total:
+        deviceDataSourceId:
           format: int32
-          readOnly: true
           type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
+        configStatus:
+          format: int32
+          type: integer
+        version:
+          format: int64
+          type: integer
+        deviceId:
+          format: int32
+          type: integer
+        deltaConfig:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceInstanceData'
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff'
+        deviceDisplayName:
+          type: string
+        dataSourceName:
+          type: string
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert'
+        dataSourceId:
+          format: int32
+          type: integer
+        instanceId:
+          format: int32
+          type: integer
+        configErrMsg:
+          type: string
+        changeStatus:
+          type: string
+        id:
+          type: string
+        pollTimestamp:
+          format: int64
+          type: integer
+        config:
+          type: string
+    DeviceDataSourceInstanceConfigDiff:
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          type: integer
+        type:
+          type: string
+        content:
+          type: string
+    DeviceDataSourceInstanceData:
+      type: object
+      properties:
+        values:
+          readOnly: true
+          type: array
+          items:
+            type: array
+            items:
+              type: object
+        time:
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            type: integer
+        nextPageParams:
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigAlert:
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          type: integer
+        id:
+          type: string
+        alertId:
+          type: string
+        alertSummary:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
     GraphPlotLine:
       type: object
       properties:
@@ -867,121 +968,20 @@ components:
         useYMax:
           readOnly: true
           type: boolean
-    DeviceDataSourceInstanceData:
+    DeviceInstanceDataPaginationResponse:
       type: object
       properties:
-        values:
-          readOnly: true
-          type: array
-          items:
-            type: array
-            items:
-              type: object
-        time:
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            type: integer
-        nextPageParams:
-          readOnly: true
-          type: string
-        dataSourceName:
-          readOnly: true
-          type: string
-    GraphOpsNoteScope:
-      type: object
-      properties:
-        serviceGroupIds:
-          type: array
-          items:
-            format: int32
-            type: integer
-        serviceId:
+        total:
           format: int32
+          readOnly: true
           type: integer
-        type:
+        searchId:
+          readOnly: true
           type: string
-        deviceGroupIds:
+        items:
           type: array
           items:
-            format: int32
-            type: integer
-        deviceId:
-          format: int32
-          type: integer
-    DeviceDataSourceInstanceConfigAlert:
-      type: object
-      properties:
-        alertLevel:
-          format: int32
-          type: integer
-        id:
-          type: string
-        alertId:
-          type: string
-        alertSummary:
-          type: string
-        timestamp:
-          format: int64
-          type: integer
-    WebsiteCheckpointRawData:
-      type: object
-      properties:
-        values:
-          readOnly: true
-          type: array
-          items:
-            type: array
-            items:
-              type: object
-        time:
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            type: integer
-        nextPageParams:
-          readOnly: true
-          type: string
-    DeviceDataSourceInstanceConfigDiff:
-      type: object
-      properties:
-        rowNo:
-          format: int32
-          type: integer
-        type:
-          type: string
-        content:
-          type: string
-    DeviceInstanceData:
-      type: object
-      properties:
-        instanceId:
-          readOnly: true
-          type: string
-        values:
-          readOnly: true
-          type: array
-          items:
-            type: array
-            items:
-              type: object
-        errMsg:
-          readOnly: true
-          type: string
-        time:
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            type: integer
-        nextPageParams:
-          readOnly: true
-          type: string
-        dataSourceName:
-          readOnly: true
-          type: string
+            $ref: '#/components/schemas/DeviceInstanceData'
     WidgetData:
       type: object
       properties:
@@ -992,97 +992,110 @@ components:
           type: string
       discriminator:
         propertyName: type
-    DeviceDataSourceInstanceConfig_2:
+    WebsiteCheckpointRawData_2:
       type: object
       properties:
-        instanceName:
-          description: Device datasource instance name
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
           readOnly: true
           type: string
-        deviceDataSourceId:
-          format: int32
-          description: Device datasource id
+    DeviceInstanceData_2:
+      type: object
+      properties:
+        instanceId:
           readOnly: true
-          type: integer
-        excludeLines:
-          description: advanceDiffChecker
+          type: string
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        errMsg:
+          readOnly: true
+          type: string
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+        dataSourceName:
+          readOnly: true
+          type: string
+    GraphOpsNoteScope_2:
+      description: 'Scopes: use this field to find match opsnote'
+      readOnly: true
+      type: object
+      properties:
+        serviceGroupIds:
+          description: The service group Id
           readOnly: true
           type: array
           items:
             format: int32
-            description: advanceDiffChecker
+            description: The service group Id
             readOnly: true
             type: integer
-        configStatus:
+        serviceId:
           format: int32
-          description: Configuration file collect status
+          description: The service Id
           readOnly: true
           type: integer
-        comparedWith:
-          description: Version compared with and found difference
+        type:
+          description: The values can be device | service | website
           readOnly: true
           type: string
-        version:
-          format: int64
-          description: Config version
+        deviceGroupIds:
+          description: The device group Id
           readOnly: true
-          type: integer
+          type: array
+          items:
+            format: int32
+            description: The device group Id
+            readOnly: true
+            type: integer
         deviceId:
           format: int32
-          description: Device id
+          description: The device Id
           readOnly: true
           type: integer
-        deltaConfig:
-          description: Configuration file diff
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff_2'
-        deviceDisplayName:
-          description: Device display name
-          readOnly: true
-          type: string
-        dataSourceName:
-          description: Datasource name
-          readOnly: true
-          type: string
-        alerts:
-          description: Alerts associated to this configuration file
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert_2'
-        dataSourceId:
-          format: int32
-          description: Configsource id
-          readOnly: true
-          type: integer
-        instanceId:
-          format: int32
-          description: Device datasource instance id
-          readOnly: true
-          type: integer
-        configErrMsg:
-          description: Configuration file collect error message
-          readOnly: true
-          type: string
-        changeStatus:
-          description: 'Configuration file change status, if the first configuration then it is Added, else Changed, values can be : Add|Change '
-          readOnly: true
-          type: string
-        id:
-          description: The id of the datasource
-          readOnly: true
-          type: string
-        pollTimestamp:
-          format: int64
-          description: Datasource poll timestamp in milliseconds
-          readOnly: true
-          type: integer
-        config:
-          description: Configuration file content
-          readOnly: true
-          type: string
     GraphPlot_2:
       allOf:
       - $ref: '#/components/schemas/WidgetData_2'
@@ -1230,6 +1243,175 @@ components:
             readOnly: true
             type: string
       x-discriminator-value: graph
+    DeviceDataSourceInstanceConfig_2:
+      type: object
+      properties:
+        instanceName:
+          description: Device datasource instance name
+          readOnly: true
+          type: string
+        deviceDataSourceId:
+          format: int32
+          description: Device datasource id
+          readOnly: true
+          type: integer
+        excludeLines:
+          description: advanceDiffChecker
+          readOnly: true
+          type: array
+          items:
+            format: int32
+            description: advanceDiffChecker
+            readOnly: true
+            type: integer
+        configStatus:
+          format: int32
+          description: Configuration file collect status
+          readOnly: true
+          type: integer
+        comparedWith:
+          description: Version compared with and found difference
+          readOnly: true
+          type: string
+        version:
+          format: int64
+          description: Config version
+          readOnly: true
+          type: integer
+        deviceId:
+          format: int32
+          description: Device id
+          readOnly: true
+          type: integer
+        deltaConfig:
+          description: Configuration file diff
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigDiff_2'
+        deviceDisplayName:
+          description: Device display name
+          readOnly: true
+          type: string
+        dataSourceName:
+          description: Datasource name
+          readOnly: true
+          type: string
+        alerts:
+          description: Alerts associated to this configuration file
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceDataSourceInstanceConfigAlert_2'
+        dataSourceId:
+          format: int32
+          description: Configsource id
+          readOnly: true
+          type: integer
+        instanceId:
+          format: int32
+          description: Device datasource instance id
+          readOnly: true
+          type: integer
+        configErrMsg:
+          description: Configuration file collect error message
+          readOnly: true
+          type: string
+        changeStatus:
+          description: 'Configuration file change status, if the first configuration then it is Added, else Changed, values can be : Add|Change '
+          readOnly: true
+          type: string
+        id:
+          description: The id of the datasource
+          readOnly: true
+          type: string
+        pollTimestamp:
+          format: int64
+          description: Datasource poll timestamp in milliseconds
+          readOnly: true
+          type: integer
+        config:
+          description: Configuration file content
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigDiff_2:
+      description: Configuration file diff
+      readOnly: true
+      type: object
+      properties:
+        rowNo:
+          format: int32
+          description: Diff row number
+          readOnly: true
+          type: integer
+        type:
+          description: 'Diff type. The values can be : add|remove'
+          readOnly: true
+          type: string
+        content:
+          description: Configuration content
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceData_2:
+      type: object
+      properties:
+        values:
+          description: Datapoint values 2-D list
+          readOnly: true
+          type: array
+          items:
+            description: Datapoint values 2-D list
+            readOnly: true
+            type: array
+            items:
+              format: double
+              description: Datapoint values 2-D list
+              readOnly: true
+              type: number
+        time:
+          description: Timestamp list
+          readOnly: true
+          type: array
+          items:
+            format: int64
+            description: Timestamp list
+            readOnly: true
+            type: integer
+        nextPageParams:
+          description: The next page parameters
+          readOnly: true
+          type: string
+        dataSourceName:
+          description: Datasource name
+          readOnly: true
+          type: string
+    DeviceDataSourceInstanceConfigAlert_2:
+      description: Alerts associated to this configuration file
+      readOnly: true
+      type: object
+      properties:
+        alertLevel:
+          format: int32
+          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
+          readOnly: true
+          type: integer
+        id:
+          description: Alert id
+          readOnly: true
+          type: string
+        alertId:
+          description: Alert internal id
+          readOnly: true
+          type: string
+        alertSummary:
+          description: Summary of this config source alert
+          readOnly: true
+          type: string
+        timestamp:
+          format: int64
+          description: Timestamp of alert start or clear
+          readOnly: true
+          type: integer
     GraphPlotLine_2:
       description: The properties of the graph and graph lines
       readOnly: true
@@ -1305,188 +1487,6 @@ components:
             Specifies whether to use YMax or not'
           readOnly: true
           type: boolean
-    DeviceDataSourceInstanceData_2:
-      type: object
-      properties:
-        values:
-          description: Datapoint values 2-D list
-          readOnly: true
-          type: array
-          items:
-            description: Datapoint values 2-D list
-            readOnly: true
-            type: array
-            items:
-              format: double
-              description: Datapoint values 2-D list
-              readOnly: true
-              type: number
-        time:
-          description: Timestamp list
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            description: Timestamp list
-            readOnly: true
-            type: integer
-        nextPageParams:
-          description: The next page parameters
-          readOnly: true
-          type: string
-        dataSourceName:
-          description: Datasource name
-          readOnly: true
-          type: string
-    GraphOpsNoteScope_2:
-      description: 'Scopes: use this field to find match opsnote'
-      readOnly: true
-      type: object
-      properties:
-        serviceGroupIds:
-          description: The service group Id
-          readOnly: true
-          type: array
-          items:
-            format: int32
-            description: The service group Id
-            readOnly: true
-            type: integer
-        serviceId:
-          format: int32
-          description: The service Id
-          readOnly: true
-          type: integer
-        type:
-          description: The values can be device | service | website
-          readOnly: true
-          type: string
-        deviceGroupIds:
-          description: The device group Id
-          readOnly: true
-          type: array
-          items:
-            format: int32
-            description: The device group Id
-            readOnly: true
-            type: integer
-        deviceId:
-          format: int32
-          description: The device Id
-          readOnly: true
-          type: integer
-    DeviceDataSourceInstanceConfigAlert_2:
-      description: Alerts associated to this configuration file
-      readOnly: true
-      type: object
-      properties:
-        alertLevel:
-          format: int32
-          description: Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert
-          readOnly: true
-          type: integer
-        id:
-          description: Alert id
-          readOnly: true
-          type: string
-        alertId:
-          description: Alert internal id
-          readOnly: true
-          type: string
-        alertSummary:
-          description: Summary of this config source alert
-          readOnly: true
-          type: string
-        timestamp:
-          format: int64
-          description: Timestamp of alert start or clear
-          readOnly: true
-          type: integer
-    WebsiteCheckpointRawData_2:
-      type: object
-      properties:
-        values:
-          description: Datapoint values 2-D list
-          readOnly: true
-          type: array
-          items:
-            description: Datapoint values 2-D list
-            readOnly: true
-            type: array
-            items:
-              format: double
-              description: Datapoint values 2-D list
-              readOnly: true
-              type: number
-        time:
-          description: Timestamp list
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            description: Timestamp list
-            readOnly: true
-            type: integer
-        nextPageParams:
-          description: The next page parameters
-          readOnly: true
-          type: string
-    DeviceDataSourceInstanceConfigDiff_2:
-      description: Configuration file diff
-      readOnly: true
-      type: object
-      properties:
-        rowNo:
-          format: int32
-          description: Diff row number
-          readOnly: true
-          type: integer
-        type:
-          description: 'Diff type. The values can be : add|remove'
-          readOnly: true
-          type: string
-        content:
-          description: Configuration content
-          readOnly: true
-          type: string
-    DeviceInstanceData_2:
-      type: object
-      properties:
-        instanceId:
-          readOnly: true
-          type: string
-        values:
-          description: Datapoint values 2-D list
-          readOnly: true
-          type: array
-          items:
-            description: Datapoint values 2-D list
-            readOnly: true
-            type: array
-            items:
-              format: double
-              description: Datapoint values 2-D list
-              readOnly: true
-              type: number
-        errMsg:
-          readOnly: true
-          type: string
-        time:
-          description: Timestamp list
-          readOnly: true
-          type: array
-          items:
-            format: int64
-            description: Timestamp list
-            readOnly: true
-            type: integer
-        nextPageParams:
-          description: The next page parameters
-          readOnly: true
-          type: string
-        dataSourceName:
-          readOnly: true
-          type: string
     WidgetData_2:
       type: object
       properties:

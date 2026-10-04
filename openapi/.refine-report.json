@@ -111,6 +111,7 @@
     "apis.yml register: written (+5 apis, 59 total)"
   ],
   "skipped": [
+    "logicmonitor.json: parse error ScannerError: while scanning for the next token",
     "_original/logicmonitor-rest-api-v3-swagger_2.json: archived document superseded by a larger archived document",
     "_original/logicmonitor-rest-api-v2-swagger_2.json: archived document superseded by a larger archived document",
     "logicmonitor-access-group-api-openapi.yml: previously refined output, superseded by openapi/_original/",

@@ -42,13 +42,6 @@ paths:
       - IntegrationAuditLogs
 components:
   schemas:
-    IntegrationAuditLogPaginationResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationAuditLog'
     IntegrationAuditLog:
       type: object
       properties:
@@ -124,6 +117,13 @@ components:
           description: The HTTP Response Body received after alert delivery
           readOnly: true
           type: string
+    IntegrationAuditLogPaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationAuditLog'
     ErrorResponse:
       type: object
       properties:

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-action-rule-schema.json",
+  "title": "ActionRule",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-action-rules-api-openapi.yml#/components/schemas/ActionRule",
+  "type": "object",
+  "required": [
+    "actionChainId",
+    "deviceGroups",
+    "levelStr",
+    "name"
+  ],
+  "properties": {
+    "datapoint": {
+      "description": "The datapoint for which the action rule is configured to match",
+      "type": "string"
+    },
+    "instance": {
+      "description": "The instance for which the action rule is configured to match",
+      "type": "string"
+    },
+    "devices": {
+      "uniqueItems": true,
+      "description": "The devices for which the action rule is configured to match",
+      "type": "array",
+      "items": {
+        "description": "The devices for which the action rule is configured to match",
+        "type": "string"
+      }
+    },
+    "datasource": {
+      "description": "The datasource for which the action rule is configured to match",
+      "type": "string"
+    },
+    "resourceProperties": {
+      "description": "The resource property filters list",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RestDeviceProperty"
+      }
+    },
+    "name": {
+      "description": "The name of the action rule",
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The Id of the action rule",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "levelStr": {
+      "description": "The severity levels for which the action rule is configured to match.",
+      "type": "string"
+    },
+    "deviceGroups": {
+      "uniqueItems": true,
+      "description": "The device groups for which the action rule is configured to match",
+      "type": "array",
+      "items": {
+        "description": "The device groups for which the action rule is configured to match",
+        "type": "string"
+      }
+    },
+    "actionChainId": {
+      "format": "int32",
+      "description": "The action chain id for the action rule",
+      "type": "integer"
+    },
+    "actionChain": {
+      "description": "The action chain summary for the action rule",
+      "readOnly": false,
+      "$ref": "#/$defs/ActionChainSummary"
+    },
+    "enabled": {
+      "description": "Whether action Rule is enabled or not",
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "ActionChainSummary": {
+      "description": "The action chain summary for the action rule",
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "RestDeviceProperty": {
+      "description": "The resource property filters list",
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The resource property name",
+          "type": "string"
+        },
+        "value": {
+          "description": "The resource property value",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

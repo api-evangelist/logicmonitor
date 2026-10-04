@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-collector-log-file-v3-schema.json",
+  "title": "RestCollectorLogFileV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorLogFileV3",
+  "type": "object",
+  "properties": {
+    "fileName": {
+      "type": "string"
+    },
+    "size": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "uploaded": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "lastModified": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "lastModifiedOnOnLocal": {
+      "type": "string"
+    }
+  }
+}

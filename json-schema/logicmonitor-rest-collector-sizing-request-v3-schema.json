@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-collector-sizing-request-v3-schema.json",
+  "title": "RestCollectorSizingRequestV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorSizingRequestV3",
+  "type": "object",
+  "properties": {
+    "traps": {
+      "additionalProperties": {
+        "$ref": "#/$defs/LogSourceCount"
+      },
+      "type": "object"
+    },
+    "netflow": {
+      "additionalProperties": {
+        "$ref": "#/$defs/NetFlowSourceCount"
+      },
+      "type": "object"
+    },
+    "devices": {
+      "additionalProperties": {
+        "$ref": "#/$defs/DeviceCount"
+      },
+      "type": "object"
+    },
+    "options": {
+      "$ref": "#/$defs/SizingOptions"
+    },
+    "logs": {
+      "additionalProperties": {
+        "$ref": "#/$defs/LogSourceCount"
+      },
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "DeviceCount": {
+      "type": "object",
+      "properties": {
+        "instances": {
+          "format": "int32",
+          "maximum": 100000,
+          "type": "integer",
+          "minimum": 1
+        },
+        "count": {
+          "format": "int32",
+          "maximum": 1000000,
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "LogSourceCount": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "format": "int32",
+          "maximum": 1000000,
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "NetFlowSourceCount": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "format": "int32",
+          "maximum": 1000000,
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "SizingOptions": {
+      "type": "object",
+      "properties": {
+        "maxLoadPercent": {
+          "format": "int32",
+          "maximum": 100,
+          "type": "integer",
+          "minimum": 1
+        },
+        "pollingFailover": {
+          "type": "boolean"
+        },
+        "logsFailover": {
+          "type": "boolean"
+        },
+        "forcedSize": {
+          "type": "string"
+        },
+        "netflowFailover": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

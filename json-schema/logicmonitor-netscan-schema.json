@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-netscan-schema.json",
+  "title": "Netscan",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-netscans-api-openapi.yml#/components/schemas/Netscan",
+  "type": "object",
+  "required": [
+    "collector",
+    "duplicate",
+    "method",
+    "name"
+  ],
+  "properties": {
+    "creator": {
+      "description": "The user that created the policy",
+      "type": "string"
+    },
+    "collectorGroupName": {
+      "description": "The name of the group of the Collector associated with this Netscan",
+      "type": "string"
+    },
+    "method": {
+      "description": "The method that should be used to discover devices. Options are nmap (ICMP Ping), nec2 (EC2), and script",
+      "type": "string"
+    },
+    "collectorGroup": {
+      "format": "int32",
+      "description": "The ID of the group of the Collector associated with this Netscan",
+      "type": "integer"
+    },
+    "description": {
+      "description": "The description of the Netscan Policy",
+      "type": "string"
+    },
+    "nextStart": {
+      "description": "The date and time of the next start time of the scan - displayed as manual if the scan does not run on a schedule",
+      "type": "string"
+    },
+    "duplicate": {
+      "description": "Information that determines how duplicate discovered devices should be handled",
+      "$ref": "#/$defs/ExcludeDuplicateIps"
+    },
+    "version": {
+      "format": "int32",
+      "description": "The Id of the device",
+      "type": "integer"
+    },
+    "collector": {
+      "format": "int32",
+      "description": "The ID of the Collector associated with this Netscan",
+      "type": "integer"
+    },
+    "ignoreSystemIPsDuplicates": {
+      "description": "Ignore system.ips when checking for duplicate resources",
+      "type": "boolean"
+    },
+    "schedule": {
+      "description": "Information related to the recurring execution schedule for the Netscan Policy",
+      "$ref": "#/$defs/RestSchedule"
+    },
+    "collectorDescription": {
+      "description": "The description of the Collector associated with this Netscan",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the Netscan Policy",
+      "type": "string"
+    },
+    "nextStartEpoch": {
+      "format": "int64",
+      "description": "The epoch of the next start time of the scan - displayed as 0 if the scan does not run on a schedule",
+      "type": "integer"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The ID of the Netscan Policy",
+      "type": "integer"
+    },
+    "nsgId": {
+      "format": "int32",
+      "description": "The ID of the group the policy belongs to",
+      "type": "integer"
+    },
+    "group": {
+      "description": "The group the Netscan policy should belong to",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "ExcludeDuplicateIps": {
+      "type": "object",
+      "properties": {
+        "collectors": {
+          "description": "The collectors for which monitored devices should be used to identify and exclude duplicate IPs, if duplicate type is 4",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groups": {
+          "description": "The groups for which devices should be used to identify and exclude duplicate IPs, if duplicate type is 3",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "format": "int32",
+          "description": "What types of duplicate IPs should be excluded. Options are 1 (matching any monitored devices), 2 (matching devices already discovered by this scan), 3 (matching devices in these groups), and 4 (matching devices assigned to these collectors)",
+          "type": "integer"
+        }
+      }
+    },
+    "RestSchedule": {
+      "type": "object",
+      "properties": {
+        "cron": {
+          "description": "The cron schedule for when the scan should be run",
+          "type": "string"
+        },
+        "recipients": {
+          "description": "The recipients that should receive the notification of the scan finish",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timezone": {
+          "description": "The timezone for the schedule",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of schedule. Possible values are manual (no schedule), hourly, daily, weekly, monthly",
+          "type": "string"
+        },
+        "notify": {
+          "description": "Whether or not an email should be sent when the scan finishes",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

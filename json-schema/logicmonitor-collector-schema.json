@@ -1,0 +1,478 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-collector-schema.json",
+  "title": "Collector",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/Collector",
+  "type": "object",
+  "properties": {
+    "userChangeOn": {
+      "format": "int64",
+      "description": "The last time the Collector was updated, in epoch format",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "confVersion": {
+      "description": "The version of the agent.conf configuration file",
+      "readOnly": true,
+      "type": "string"
+    },
+    "updatedOnLocal": {
+      "description": "The time that the Collector was last updated, in local time format",
+      "readOnly": true,
+      "type": "string"
+    },
+    "hostname": {
+      "description": "The hostname of the device the Collector is installed on",
+      "readOnly": true,
+      "type": "string"
+    },
+    "numberOfInstances": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The id of the Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "ea": {
+      "description": "Whether the collector is in EA version",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "watchdogUpdatedOnLocal": {
+      "description": "The time that the Collector Watchdog was last updated, in local time format",
+      "readOnly": true,
+      "type": "string"
+    },
+    "hasFailOverDevice": {
+      "description": "Whether the collector has failover devices",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "collectorGroupName": {
+      "description": "The name of the group the Collector is in",
+      "readOnly": true,
+      "type": "string"
+    },
+    "netscanVersion": {
+      "description": "The Netscan version associated with the Collector",
+      "readOnly": true,
+      "type": "string"
+    },
+    "inSDT": {
+      "description": "The SDT status of the collector",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "updatedOn": {
+      "format": "int64",
+      "description": "The time that the Collector was last updated, in epoch format",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "automaticUpgradeInfo": {
+      "description": "The details of the Collector's automatic upgrade schedule, if one exists",
+      "$ref": "#/$defs/AutomaticUpgradeInfo"
+    },
+    "numberOfHosts": {
+      "format": "int32",
+      "description": "The number of devices monitored by the Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "collectorConf": {
+      "description": "The Collector's configuration file",
+      "readOnly": true,
+      "type": "string"
+    },
+    "sbproxyConf": {
+      "description": "The Proxy's configuration",
+      "readOnly": true,
+      "type": "string"
+    },
+    "userVisibleWebsitesNum": {
+      "format": "int32",
+      "description": "The number of websites monitored by the Collector and visible to the user that made the query",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "lastSentNotificationOnLocal": {
+      "description": "The time that a notification was last sent for this Collector, in local time format",
+      "readOnly": true,
+      "type": "string"
+    },
+    "customProperties": {
+      "description": "The custom properties defined for the Collector",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NameAndValue"
+      }
+    },
+    "predefinedConfig": {
+      "description": "Collector configurations",
+      "readOnly": true,
+      "type": "object"
+    },
+    "onetimeUpgradeInfo": {
+      "description": "The details of the Collector's one time upgrade, if one has been scheduled",
+      "$ref": "#/$defs/OnetimeUpgradeInfo"
+    },
+    "wrapperConf": {
+      "description": "The java service wrapper's configuration",
+      "readOnly": true,
+      "type": "string"
+    },
+    "clearSent": {
+      "description": "Whether or not an alert clear notifcation has been sent for this Collector",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "status": {
+      "format": "int32",
+      "description": "The registration status of the Collector. Acceptable values are: 0= unregistered, 1= registered, 2= stopped, 3= suspended",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "backupAgentId": {
+      "format": "int32",
+      "description": "The Id of the backup Collector assigned to the Collector",
+      "type": "integer"
+    },
+    "specifiedCollectorDeviceGroupId": {
+      "format": "int32",
+      "description": "The device group id when create a new collector device",
+      "type": "integer"
+    },
+    "escalatingChainId": {
+      "format": "int32",
+      "description": "The Id of the escalation chain associated with this Collector",
+      "type": "integer"
+    },
+    "collectorSize": {
+      "description": "The size of the collector",
+      "readOnly": true,
+      "type": "string"
+    },
+    "ackedOnLocal": {
+      "description": "The time that the Collector was acknowledged (if it is in alert), in local time format",
+      "readOnly": true,
+      "type": "string"
+    },
+    "watchdogConf": {
+      "description": "The Watchdog's configuration",
+      "readOnly": true,
+      "type": "string"
+    },
+    "description": {
+      "description": "The Collector's description",
+      "type": "string"
+    },
+    "createdOn": {
+      "format": "int64",
+      "description": "The time that the Collector was created, in epoch format",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "platform": {
+      "description": "The OS of the Collector device (e.g. Linux, Windows)",
+      "readOnly": true,
+      "type": "string"
+    },
+    "isDown": {
+      "description": "Whether or not the Collector is currently down",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "userVisibleHostsNum": {
+      "format": "int32",
+      "description": "The number of devices monitored by the Collector and visible to the user that made the query",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "canDowngrade": {
+      "description": "Whether the collector can be downgraded to a lower version",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "ackComment": {
+      "description": "The comment associated with the Collector acknowledgement (if it is in alert and acknowledged)",
+      "readOnly": true,
+      "type": "string"
+    },
+    "nextUpgradeInfo": {
+      "description": "The details of the Collector's next upgrade, if one has been scheduled",
+      "readOnly": true,
+      "$ref": "#/$defs/NextUpgradeInfo"
+    },
+    "suppressAlertClear": {
+      "description": "Whether alert clear notifications are suppressed for the Collector",
+      "type": "boolean"
+    },
+    "nextRecipient": {
+      "format": "int32",
+      "description": "The Id of the next recipient to which alert notifications will be sent",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "ackedOn": {
+      "format": "int64",
+      "description": "The epoch at which the Collector was acknowledged (if it is in alert)",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "userChangeOnLocal": {
+      "description": "The last time the Collector was updated, in the account time zone",
+      "readOnly": true,
+      "type": "string"
+    },
+    "numberOfWebsites": {
+      "format": "int32",
+      "description": "The number of websites monitored by the Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "collectorDeviceId": {
+      "format": "int32",
+      "description": "The device id of the collector device",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "ackedBy": {
+      "description": "The user that acknowledged the Collector (if it is in alert)",
+      "readOnly": true,
+      "type": "string"
+    },
+    "userPermission": {
+      "description": "The permission level of the user that made the API request to get Collector information",
+      "readOnly": true,
+      "type": "string"
+    },
+    "needAutoCreateCollectorDevice": {
+      "description": "Whether to create a collector device when instance collector, the default value is true",
+      "type": "boolean"
+    },
+    "watchdogUpdatedOn": {
+      "format": "int64",
+      "description": "The time that the Watchdog Services was last updated, in epoch format",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "canDowngradeReason": {
+      "description": "The reason why the collector can be downgraded",
+      "readOnly": true,
+      "type": "string"
+    },
+    "lastSentNotificationOn": {
+      "format": "int64",
+      "description": "The time, in epoch format, that a notification was last sent for the Collector",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "acked": {
+      "description": "Whether or not the Collector is currently acknowledged",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "onetimeDowngradeInfo": {
+      "description": "The details of the Collector's automatic downgrade schedule, if one exists",
+      "$ref": "#/$defs/OnetimeUpgradeInfo"
+    },
+    "websiteConf": {
+      "description": "Whether or not the device the Collector is installed on is enabled for fail over",
+      "readOnly": true,
+      "type": "string"
+    },
+    "upTime": {
+      "format": "int64",
+      "description": "The time the Collector has been up, in seconds",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "build": {
+      "description": "The Collector version",
+      "readOnly": true,
+      "type": "string"
+    },
+    "previousVersion": {
+      "description": "The previous version of the collector, used for downgrading",
+      "readOnly": true,
+      "type": "string"
+    },
+    "collectorGroupId": {
+      "format": "int32",
+      "description": "The Id of the group the Collector is in",
+      "type": "integer"
+    },
+    "createdOnLocal": {
+      "description": "The time that the Collector was created, in local time format",
+      "readOnly": true,
+      "type": "string"
+    },
+    "enableFailBack": {
+      "description": "Whether or not automatic failback is enabled for the Collector, the default value is true",
+      "type": "boolean"
+    },
+    "resendIval": {
+      "format": "int32",
+      "description": "The interval, in minutes, after which alert notifications for the Collector will be resent",
+      "type": "integer"
+    },
+    "arch": {
+      "description": "The collector architecture (Windows | Linux platform followed by 32 | 64 bit)",
+      "readOnly": true,
+      "type": "string"
+    },
+    "enableFailOverOnCollectorDevice": {
+      "description": "Whether or not the device the Collector is installed on is enabled for fail over",
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "AutomaticUpgradeInfo": {
+      "type": "object",
+      "required": [
+        "dayOfWeek",
+        "hour",
+        "minute",
+        "occurrence",
+        "version"
+      ],
+      "properties": {
+        "dayOfWeek": {
+          "type": "string"
+        },
+        "hour": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "createdBy": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "level": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "occurrence": {
+          "type": "string"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "minute": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "NameAndValue": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name of a property",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of a property",
+          "type": "string"
+        }
+      }
+    },
+    "NextUpgradeInfo": {
+      "type": "object",
+      "properties": {
+        "upgradeTime": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "stable": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "majorVersion": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "minorVersion": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "mandatory": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "upgradeTimeEpoch": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        }
+      }
+    },
+    "OnetimeUpgradeInfo": {
+      "type": "object",
+      "required": [
+        "majorVersion",
+        "minorVersion",
+        "startEpoch"
+      ],
+      "properties": {
+        "createdBy": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "level": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "endEpoch": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "majorVersion": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minorVersion": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "startEpoch": {
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-collector-sizing-response-v3-schema.json",
+  "title": "RestCollectorSizingResponseV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorSizingResponseV3",
+  "type": "object",
+  "properties": {
+    "summary": {
+      "$ref": "#/$defs/SizingSummary"
+    },
+    "netflow": {
+      "$ref": "#/$defs/CollectorRecommendation"
+    },
+    "polling": {
+      "$ref": "#/$defs/CollectorRecommendation"
+    },
+    "logs": {
+      "$ref": "#/$defs/CollectorRecommendation"
+    }
+  },
+  "$defs": {
+    "CollectorRecommendation": {
+      "type": "object",
+      "properties": {
+        "utilizationPercent": {
+          "format": "double",
+          "type": "number"
+        },
+        "size": {
+          "type": "string"
+        },
+        "count": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalLoad": {
+          "format": "double",
+          "type": "number"
+        },
+        "maxCapacity": {
+          "format": "double",
+          "type": "number"
+        },
+        "failoverEnabled": {
+          "type": "boolean"
+        },
+        "perCollectorLoad": {
+          "format": "double",
+          "type": "number"
+        },
+        "workloadType": {
+          "type": "string"
+        }
+      }
+    },
+    "SizingSummary": {
+      "type": "object",
+      "properties": {
+        "totalCollectors": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "largestSize": {
+          "type": "string"
+        },
+        "activeWorkloads": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "configurationUsed": {
+          "additionalProperties": {
+            "type": "object"
+          },
+          "type": "object"
+        }
+      }
+    }
+  }
+}

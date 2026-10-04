@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-generate-report-request-schema.json",
+  "title": "GenerateReportRequest",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-report-api-openapi.yml#/components/schemas/GenerateReportRequest",
+  "type": "object",
+  "properties": {
+    "withAdminId": {
+      "format": "int32",
+      "description": "Generate the report with the admin. 0 mean current user",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "reportId": {
+      "format": "int32",
+      "description": "The id of the report to run",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "receiveEmails": {
+      "description": "The email addresses that LogicMonitor should send the report to, separated by commas",
+      "type": "string"
+    }
+  }
+}

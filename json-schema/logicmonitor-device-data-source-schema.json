@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-data-source-schema.json",
+  "title": "DeviceDataSource",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-devices-api-openapi.yml#/components/schemas/DeviceDataSource",
+  "type": "object",
+  "properties": {
+    "alertStatus": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "autoDiscovery": {
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "dataSourceDisplayName": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "deviceId": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "deviceName": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "createdOn": {
+      "format": "int64",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "collectMethod": {
+      "type": "string"
+    },
+    "dataSourceId": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "graphs": {
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceDatasourceGraph"
+      }
+    },
+    "sdtAt": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "nextAutoDiscoveryOn": {
+      "format": "int64",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "id": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "alertStatusPriority": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "alertDisableStatus": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataSourceDescription": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "overviewGraphs": {
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceDatasourceGraph"
+      }
+    },
+    "stopMonitoring": {
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "assignedOn": {
+      "format": "int64",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "isMultiple": {
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "instanceNumber": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "updatedOn": {
+      "format": "int64",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "sdtStatus": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataSourceName": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "deviceDisplayName": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "monitoringInstanceNumber": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "groupsDisabledThisSource": {
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TreeNode"
+      }
+    },
+    "groupName": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "instanceAutoGroupEnabled": {
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "alertingDisabledOn": {
+      "readOnly": true,
+      "$ref": "#/$defs/TreeNode"
+    },
+    "dataSourceType": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "status": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "DeviceDatasourceGraph": {
+      "type": "object",
+      "properties": {
+        "displayPrio": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "title": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "TreeNode": {
+      "type": "object",
+      "properties": {
+        "userPermission": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

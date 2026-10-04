@@ -1,0 +1,160 @@
+generated: '2026-10-04'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 11
+  own: 9
+  other_domain: 0
+  platform: 2
+  roles:
+  - api
+  - community
+  - other
+  - source
+  - status
+  - support
+  - website
+hosts:
+- host: academy.logicmonitor.com
+  found_by:
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: logicmonitor.com
+  role: other
+  relation: own
+- host: api.logicmonitor.com
+  found_by:
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: logicmonitor.com
+  role: api
+  relation: own
+- host: community.logicmonitor.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - Community
+  serves: []
+  registrable_domain: logicmonitor.com
+  role: community
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - License
+  - GitHubOrganization
+  serves:
+  - docs
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: lp.logicmonitor.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: logicmonitor.com
+  role: other
+  relation: own
+- host: status.logicmonitor.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: logicmonitor.com
+  role: status
+  relation: own
+- host: support.logicmonitor.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: logicmonitor.com
+  role: support
+  relation: own
+- host: trust.logicmonitor.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: logicmonitor.com
+  role: other
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.logicmonitor.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Deprecation
+  - Security
+  - Newsroom
+  - Leadership
+  - Website
+  - Documentation
+  - DeveloperPortal
+  - APIReference
+  - GettingStarted
+  - Support
+  - Blog
+  - Integrations
+  - Pricing
+  - SignUp
+  - TermsOfService
+  - PrivacyPolicy
+  serves:
+  - docs
+  - cdn
+  - hosting
+  vendor: cloudflare
+  registrable_domain: logicmonitor.com
+  role: website
+  relation: own
+- host: '{account}.logicmonitor.com'
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: logicmonitor.com
+  role: other
+  relation: own

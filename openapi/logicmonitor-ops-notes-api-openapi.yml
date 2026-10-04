@@ -222,49 +222,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    OpsNotePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpsNote'
-    OpsNoteScope:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          example: device
-      discriminator:
-        propertyName: type
-    OpsNoteTagBase:
-      type: object
-      required:
-      - name
-      properties:
-        updateOnInSec:
-          format: int64
-          readOnly: true
-          type: integer
-        createdOnInSec:
-          format: int64
-          readOnly: true
-          type: integer
-        name:
-          description: release
-          type: string
-        id:
-          readOnly: true
-          type: string
     OpsNote:
       type: object
       required:
@@ -313,8 +270,40 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    OpsNoteScope_2:
-      description: The scopes associated with the note. Each scope has a type of device, service, deviceGroup or serviceGroup. A note with no scope will show up for everything in the account
+    OpsNoteTagBase:
+      type: object
+      required:
+      - name
+      properties:
+        updateOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        createdOnInSec:
+          format: int64
+          readOnly: true
+          type: integer
+        name:
+          description: release
+          type: string
+        id:
+          readOnly: true
+          type: string
+    OpsNotePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpsNote'
+    OpsNoteScope:
       type: object
       required:
       - type
@@ -344,6 +333,17 @@ components:
         id:
           readOnly: true
           type: string
+    OpsNoteScope_2:
+      description: The scopes associated with the note. Each scope has a type of device, service, deviceGroup or serviceGroup. A note with no scope will show up for everything in the account
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          example: device
+      discriminator:
+        propertyName: type
   securitySchemes:
     LMv1:
       in: header

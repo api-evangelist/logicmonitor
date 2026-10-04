@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-map-module-v3-schema.json",
+  "title": "RestMapModuleV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-access-group-api-openapi.yml#/components/schemas/RestMapModuleV3",
+  "type": "object",
+  "required": [
+    "mappingDetails"
+  ],
+  "properties": {
+    "success": {
+      "uniqueItems": true,
+      "description": "The Module Id's mapped successfully",
+      "type": "array",
+      "items": {
+        "format": "int32",
+        "description": "The Module Id's mapped successfully",
+        "type": "integer"
+      }
+    },
+    "failure": {
+      "uniqueItems": true,
+      "description": "The Module Id's not mapped successfully",
+      "type": "array",
+      "items": {
+        "description": "The Module Id's not mapped successfully",
+        "type": "string"
+      }
+    },
+    "mappingDetails": {
+      "description": "Can provide module id, module type and access group for mapping",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/MapModuleToAccessGroup"
+      }
+    }
+  },
+  "$defs": {
+    "MapModuleToAccessGroup": {
+      "description": "Can provide module id, module type and access group for mapping",
+      "type": "object",
+      "required": [
+        "accessgroups",
+        "moduleid",
+        "moduletype"
+      ],
+      "properties": {
+        "accessgroups": {
+          "uniqueItems": true,
+          "description": "Id's of the access group",
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "description": "Id's of the access group",
+            "type": "integer"
+          }
+        },
+        "moduletype": {
+          "description": "Type of module",
+          "type": "string"
+        },
+        "moduleid": {
+          "format": "int32",
+          "description": "Id of the logic module",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

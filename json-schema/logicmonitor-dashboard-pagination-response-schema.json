@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-dashboard-pagination-response-schema.json",
+  "title": "DashboardPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-dashboards-api-openapi.yml#/components/schemas/DashboardPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Dashboard"
+      }
+    }
+  },
+  "$defs": {
+    "Dashboard": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "owner": {
+          "description": "This field will be empty unless the dashboard is a private dashboard, in which case the owner will be listed",
+          "type": "string"
+        },
+        "template": {
+          "description": "The template which is used for import dashboard",
+          "type": "object"
+        },
+        "userPermission": {
+          "description": "The permission of the user that made the API call",
+          "readOnly": true,
+          "type": "string"
+        },
+        "groupId": {
+          "format": "int32",
+          "description": "The id of the group the dashboard belongs to",
+          "type": "integer"
+        },
+        "fullName": {
+          "description": "Full name of the dashboard, including group path",
+          "readOnly": true,
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the dashboard",
+          "type": "string"
+        },
+        "sharable": {
+          "description": "Whether or not the dashboard is sharable. This value will always be true unless the dashboard is a private dashboard",
+          "type": "boolean"
+        },
+        "widgetsConfig": {
+          "description": "Information about widget configuration used by the UI",
+          "type": "object"
+        },
+        "groupName": {
+          "description": "The name of group where created dashboard will reside",
+          "type": "string"
+        },
+        "widgetTokens": {
+          "description": "If useDynamicWidget=true, this field must at least contain tokens defaultDeviceGroup and defaultServiceGroup",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WidgetToken"
+          }
+        },
+        "name": {
+          "description": "The name of the dashboard",
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The Id of the dashboard",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "groupFullPath": {
+          "description": "The full path (excluding root group) of the group the dashboard belongs to",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "WidgetToken": {
+      "type": "object",
+      "properties": {
+        "inheritList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WidgetTokenInheritance"
+          }
+        },
+        "name": {
+          "description": "This is the name of the parent group of devices, if there is one established",
+          "type": "string"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "value": {
+          "description": "this is the name of the child group of devices, if there is one",
+          "type": "string"
+        }
+      }
+    },
+    "WidgetTokenInheritance": {
+      "type": "object",
+      "properties": {
+        "fullpath": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "value": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-alert-rule-pagination-response-schema.json",
+  "title": "AlertRulePaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-alert-rules-api-openapi.yml#/components/schemas/AlertRulePaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AlertRule"
+      }
+    }
+  },
+  "$defs": {
+    "AlertRule": {
+      "type": "object",
+      "required": [
+        "escalatingChainId",
+        "name",
+        "priority"
+      ],
+      "properties": {
+        "datapoint": {
+          "description": "The datapoint the alert rule is configured to match",
+          "type": "string"
+        },
+        "instance": {
+          "description": "The instance the alert rule is configured to match",
+          "type": "string"
+        },
+        "devices": {
+          "uniqueItems": true,
+          "description": "The device names and service names the alert rule is configured to match",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "escalatingChainId": {
+          "format": "int32",
+          "description": "The id of the escalation chain associated with the alert rule",
+          "type": "integer"
+        },
+        "priority": {
+          "format": "int32",
+          "description": "The priority associated with the alert rule",
+          "type": "integer"
+        },
+        "suppressAlertAckSdt": {
+          "description": "Whether or not status notifications for acknowledgements and SDTs should be sent to the alert rule",
+          "type": "boolean"
+        },
+        "datasource": {
+          "description": "The datasource the alert rule is configured to match",
+          "type": "string"
+        },
+        "suppressAlertClear": {
+          "description": "Whether or not alert clear notifications should be sent to the alert rule",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "The name of the alert rule",
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The Id of the alert rule",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "levelStr": {
+          "description": "The alert severity levels the alert rule is configured to match. Acceptable values are: All, Warn, Error, Critical",
+          "type": "string"
+        },
+        "deviceGroups": {
+          "uniqueItems": true,
+          "description": "The device groups and service groups the alert rule is configured to match",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "escalatingChain": {
+          "description": "The escalation chain associated with the alert rule",
+          "readOnly": true,
+          "type": "object"
+        },
+        "escalationInterval": {
+          "format": "int32",
+          "description": "The escalation interval associated with the alert rule, in minutes",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

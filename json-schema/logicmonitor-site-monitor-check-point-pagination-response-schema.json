@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-site-monitor-check-point-pagination-response-schema.json",
+  "title": "SiteMonitorCheckPointPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-websites-api-openapi.yml#/components/schemas/SiteMonitorCheckPointPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SiteMonitorCheckpoint"
+      }
+    }
+  },
+  "$defs": {
+    "SiteMonitorCheckpoint": {
+      "type": "object",
+      "required": [
+        "description"
+      ],
+      "properties": {
+        "geoInfo": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "displayPrio": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "isEnabledInRoot": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

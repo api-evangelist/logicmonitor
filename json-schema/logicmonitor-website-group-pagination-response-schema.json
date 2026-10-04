@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-website-group-pagination-response-schema.json",
+  "title": "WebsiteGroupPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-website-groups-api-openapi.yml#/components/schemas/WebsiteGroupPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/WebsiteGroup"
+      }
+    }
+  },
+  "$defs": {
+    "NameAndValue": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name of a property",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of a property",
+          "type": "string"
+        }
+      }
+    },
+    "WebsiteCollectorInfo": {
+      "type": "object",
+      "properties": {
+        "hostname": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "collectorGroupName": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "collectorGroupId": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "description": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "status": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "WebsiteGroup": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "fullPath": {
+          "description": "The full path of the group",
+          "readOnly": true,
+          "type": "string"
+        },
+        "stopMonitoring": {
+          "description": "true: monitoring is disabled for the websites in the group\nfalse: monitoring is enabled for the websites in the group\nIf stopMonitoring=true, then alerting will also by default be disabled for the websites in the group",
+          "type": "boolean"
+        },
+        "userPermission": {
+          "description": "The permission level of the user that made the API request. Acceptable values are: write, read, ack",
+          "readOnly": true,
+          "type": "string"
+        },
+        "testLocation": {
+          "$ref": "#/$defs/WebsiteLocation"
+        },
+        "hasWebsitesDisabled": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "description": {
+          "description": "The description of the group",
+          "type": "string"
+        },
+        "disableAlerting": {
+          "description": "true: alerting is disabled for the websites in the group\nfalse: alerting is enabled for the websites in the group\nIf stopMonitoring=true, then alerting will also by default be disabled for the websites in the group",
+          "type": "boolean"
+        },
+        "parentId": {
+          "format": "int32",
+          "description": "The Id of the parent group. If parentId=1 then the group exists under the root  group",
+          "type": "integer"
+        },
+        "numOfDirectWebsites": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "name": {
+          "description": "The name of the group",
+          "type": "string"
+        },
+        "numOfDirectSubGroups": {
+          "format": "int32",
+          "description": "The number of direct website groups in this group (exlcuding those in subgroups)",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The Id of the group",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "numOfWebsites": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NameAndValue"
+          }
+        }
+      }
+    },
+    "WebsiteLocation": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean"
+        },
+        "collectorIds": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "collectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WebsiteCollectorInfo"
+          }
+        },
+        "smgIds": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

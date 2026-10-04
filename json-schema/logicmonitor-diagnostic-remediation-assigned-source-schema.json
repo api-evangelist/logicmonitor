@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-diagnostic-remediation-assigned-source-schema.json",
+  "title": "DiagnosticRemediationAssignedSource",
+  "description": "Diagnostic or remediation exchange module metadata assigned to a host or scoped to alert executions.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-automated-diagnostic-remediation-api-openapi.yml#/components/schemas/DiagnosticRemediationAssignedSource",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "Module name.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Module description.",
+      "type": "string"
+    },
+    "appliesTo": {
+      "description": "Applies-to script for the module.",
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "Exchange module definition id.",
+      "type": "integer"
+    },
+    "type": {
+      "description": "Module kind: diagnostic or remediation.",
+      "type": "string",
+      "enum": [
+        "diagnosticsource",
+        "remediationsource"
+      ]
+    },
+    "group": {
+      "description": "Module group.",
+      "type": "string"
+    }
+  }
+}

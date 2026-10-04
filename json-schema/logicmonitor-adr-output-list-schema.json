@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-adr-output-list-schema.json",
+  "title": "AdrOutputList",
+  "description": "List of diagnostic and remediation execution results (ADR).",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-automated-diagnostic-remediation-api-openapi.yml#/components/schemas/AdrOutputList",
+  "type": "object",
+  "properties": {
+    "cursor": {
+      "description": "Next page cursor for diagnostic results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is diagnostic. Not set when moduleType is both.",
+      "type": "string"
+    },
+    "total": {
+      "format": "int32",
+      "description": "Number of items returned",
+      "type": "integer"
+    },
+    "sort": {
+      "description": "Sort applied to history results (echo of request, e.g. -startTime).",
+      "type": "string"
+    },
+    "items": {
+      "description": "Matched ADR execution result rows",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AdrOutput"
+      }
+    },
+    "remediationCursor": {
+      "description": "Next page cursor for remediation results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is remediation.",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "AdrOutput": {
+      "description": "Diagnostic Source or Remediation Source execution result (output and metadata).",
+      "type": "object",
+      "properties": {
+        "executedBy": {
+          "description": "User or principal that triggered the execution (when available)",
+          "type": "string"
+        },
+        "remediationSourceId": {
+          "format": "int32",
+          "description": "Remediation Source module id when sourceType is remediationSource",
+          "type": "integer"
+        },
+        "executionStatus": {
+          "description": "Execution status name (enum string from collector pipeline)",
+          "type": "string"
+        },
+        "moduleName": {
+          "description": "Logic module display name",
+          "type": "string"
+        },
+        "hostId": {
+          "format": "int32",
+          "description": "Device (resource) id",
+          "type": "integer"
+        },
+        "triggeredType": {
+          "description": "How the execution was triggered (e.g. manual, automatic)",
+          "type": "string"
+        },
+        "output": {
+          "description": "Script output / message captured for this execution",
+          "type": "string"
+        },
+        "executionId": {
+          "format": "int64",
+          "description": "LogicModule execution id",
+          "type": "integer"
+        },
+        "sourceType": {
+          "description": "Row kind: diagnosticSource or remediationSource (exact values as in the JSON response).",
+          "type": "string"
+        },
+        "diagnosticSourceId": {
+          "format": "int32",
+          "description": "Diagnostic Source module id when sourceType is diagnosticSource",
+          "type": "integer"
+        },
+        "startTime": {
+          "format": "int64",
+          "description": "Execution start time in epoch seconds (UTC), when available",
+          "type": "integer"
+        },
+        "alertId": {
+          "description": "Alert id when the execution was tied to an alert (may be empty).",
+          "type": "string"
+        },
+        "endTime": {
+          "format": "int64",
+          "description": "Execution end or log timestamp in epoch seconds (UTC), when available",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -151,6 +151,15 @@ paths:
       - Cost Optimization Recommendations
 components:
   schemas:
+    RestCloudRecommendationCategoryV3:
+      type: object
+      properties:
+        name:
+          description: Name of the recommendation category
+          type: string
+        description:
+          description: Description of the recommendation category
+          type: string
     RestCloudRecommendationV3:
       type: object
       properties:
@@ -206,15 +215,6 @@ components:
           type: string
         id:
           description: Unique identifier for the recommendation, including the recommendation category
-          type: string
-    RestCloudRecommendationCategoryV3:
-      type: object
-      properties:
-        name:
-          description: Name of the recommendation category
-          type: string
-        description:
-          description: Description of the recommendation category
           type: string
     ErrorResponse:
       type: object

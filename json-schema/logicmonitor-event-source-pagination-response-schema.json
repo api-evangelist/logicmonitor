@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-event-source-pagination-response-schema.json",
+  "title": "EventSourcePaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-event-sources-api-openapi.yml#/components/schemas/EventSourcePaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EventSource"
+      }
+    }
+  },
+  "$defs": {
+    "EventSource": {
+      "type": "object",
+      "required": [
+        "alertEffectiveIval",
+        "id",
+        "name"
+      ],
+      "properties": {
+        "suppressDuplicatesES": {
+          "description": "Whether or not duplicate alerts should be suppressed at eventsource level",
+          "type": "boolean"
+        },
+        "alertSubjectTemplate": {
+          "description": "The alert message subject for the EventSource",
+          "type": "string"
+        },
+        "alertLevel": {
+          "description": "The default alert level: warn | error |critical",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description for the LMModule",
+          "type": "string"
+        },
+        "appliesTo": {
+          "description": "The Applies To for the LMModule",
+          "type": "string"
+        },
+        "technology": {
+          "description": "The Technical Notes for the LMModule",
+          "type": "string"
+        },
+        "filters": {
+          "description": "The filters for the EventSource",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RestEventSourceFilter"
+          }
+        },
+        "version": {
+          "format": "int64",
+          "description": "The epoch time of the last update to the EventSource",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "collector": {
+          "description": "The EventSource type: logfile | snmptrap | syslog | wineventlog | scriptevent",
+          "type": "string"
+        },
+        "tags": {
+          "description": "The Tags for the LMModule",
+          "type": "string"
+        },
+        "alertBodyTemplate": {
+          "description": "The alert message body for the EventSource",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the EventSource",
+          "type": "string"
+        },
+        "clearAfterAck": {
+          "description": "Whether or not the alert should clear after acknowledgement",
+          "type": "boolean"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The ID of the LMModule",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "alertEffectiveIval": {
+          "format": "int32",
+          "description": "The time in minutes after which the alert should clear",
+          "type": "integer"
+        },
+        "group": {
+          "description": "The group the LMModule is in",
+          "type": "string"
+        }
+      }
+    },
+    "RestEventSourceFilter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

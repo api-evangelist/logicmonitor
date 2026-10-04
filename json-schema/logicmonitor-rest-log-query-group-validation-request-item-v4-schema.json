@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-log-query-group-validation-request-item-v4-schema.json",
+  "title": "RestLogQueryGroupValidationRequestItemV4",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-logquerygroups-api-openapi.yml#/components/schemas/RestLogQueryGroupValidationRequestItemV4",
+  "type": "object",
+  "properties": {
+    "logQuery": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RestLogQueryValidationRequestItemV4"
+      }
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "AggregateColumn": {
+      "type": "object",
+      "properties": {
+        "columnSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "column": {
+          "type": "string"
+        }
+      }
+    },
+    "AggregateConfig": {
+      "type": "object",
+      "properties": {
+        "chartMetadata": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AggregateColumn"
+          }
+        },
+        "donut": {
+          "type": "string"
+        },
+        "chartType": {
+          "type": "string"
+        },
+        "sortBy": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "FieldPanelItem": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "columnSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "isVisible": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RestLogQueryValidationRequestItemV4": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "string"
+        },
+        "partitions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "query": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "viewConfig": {
+          "$ref": "#/$defs/View_Config"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "View_Config": {
+      "type": "object",
+      "properties": {
+        "aggregateConfig": {
+          "description": "aggregate chart configuration",
+          "readOnly": false,
+          "$ref": "#/$defs/AggregateConfig"
+        },
+        "fieldPanel": {
+          "description": "field panel configuration",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldPanelItem"
+          }
+        }
+      }
+    }
+  }
+}

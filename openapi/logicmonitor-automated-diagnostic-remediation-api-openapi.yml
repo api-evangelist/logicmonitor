@@ -139,33 +139,6 @@ paths:
       - Automated Diagnostic & Remediation
 components:
   schemas:
-    DiagnosticRemediationAssignedSource:
-      description: Diagnostic or remediation exchange module metadata assigned to a host or scoped to alert executions.
-      type: object
-      properties:
-        name:
-          description: Module name.
-          type: string
-        description:
-          description: Module description.
-          type: string
-        appliesTo:
-          description: Applies-to script for the module.
-          type: string
-        id:
-          format: int32
-          description: Exchange module definition id.
-          type: integer
-          example: 12
-        type:
-          description: 'Module kind: diagnostic or remediation.'
-          type: string
-          enum:
-          - diagnosticsource
-          - remediationsource
-        group:
-          description: Module group.
-          type: string
     AdrOutput:
       description: Diagnostic Source or Remediation Source execution result (output and metadata).
       type: object
@@ -236,6 +209,33 @@ components:
             $ref: '#/components/schemas/AdrOutput'
         remediationCursor:
           description: 'Next page cursor for remediation results (v4 logs meta.cursor): device history when start/end set; or alert latest-executions when moduleType is remediation.'
+          type: string
+    DiagnosticRemediationAssignedSource:
+      description: Diagnostic or remediation exchange module metadata assigned to a host or scoped to alert executions.
+      type: object
+      properties:
+        name:
+          description: Module name.
+          type: string
+        description:
+          description: Module description.
+          type: string
+        appliesTo:
+          description: Applies-to script for the module.
+          type: string
+        id:
+          format: int32
+          description: Exchange module definition id.
+          type: integer
+          example: 12
+        type:
+          description: 'Module kind: diagnostic or remediation.'
+          type: string
+          enum:
+          - diagnosticsource
+          - remediationsource
+        group:
+          description: Module group.
           type: string
     ErrorResponse:
       type: object

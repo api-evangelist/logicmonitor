@@ -97,6 +97,20 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
+    AccessLogPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
     AuditLog:
       type: object
       properties:
@@ -125,20 +139,6 @@ components:
           description: "The username associated with the user that performed the action recorded in the access log entry\t"
           readOnly: true
           type: string
-    AccessLogPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
     ErrorResponse:
       type: object
       properties:

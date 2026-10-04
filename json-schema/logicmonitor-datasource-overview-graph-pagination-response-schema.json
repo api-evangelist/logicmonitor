@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-datasource-overview-graph-pagination-response-schema.json",
+  "title": "DatasourceOverviewGraphPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-data-sources-api-openapi.yml#/components/schemas/DatasourceOverviewGraphPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataSourceOverviewGraph"
+      }
+    }
+  },
+  "$defs": {
+    "DataSourceOverviewGraph": {
+      "type": "object",
+      "properties": {
+        "base1024": {
+          "type": "boolean"
+        },
+        "timeScale": {
+          "type": "string"
+        },
+        "maxValue": {
+          "type": "object"
+        },
+        "displayPrio": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "aggregated": {
+          "type": "boolean"
+        },
+        "title": {
+          "type": "string"
+        },
+        "virtualDataPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphVirtualDataPoint"
+          }
+        },
+        "minValue": {
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "width": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "dataPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OverviewGraphDataPoint"
+          }
+        },
+        "verticalLabel": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "rigid": {
+          "type": "boolean"
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphLine"
+          }
+        },
+        "height": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "GraphLine": {
+      "type": "object",
+      "properties": {
+        "colorName": {
+          "type": "string"
+        },
+        "dataPointName": {
+          "type": "string"
+        },
+        "dataPointId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "legend": {
+          "type": "string"
+        },
+        "isVirtualDataPoint": {
+          "type": "boolean"
+        },
+        "type": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "GraphVirtualDataPoint": {
+      "type": "object",
+      "properties": {
+        "rpn": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "OverviewGraphDataPoint": {
+      "type": "object",
+      "properties": {
+        "aggregateMethod": {
+          "type": "string"
+        },
+        "dataPointName": {
+          "type": "string"
+        },
+        "dataPointId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "consolidateFunc": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

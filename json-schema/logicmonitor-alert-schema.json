@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-alert-schema.json",
+  "title": "Alert",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/Alert",
+  "type": "object",
+  "properties": {
+    "resourceId": {
+      "format": "int32",
+      "description": "The device specific LogicModule Id",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "instanceName": {
+      "description": "The name of the instance in alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "monitorObjectId": {
+      "format": "int32",
+      "description": "The id of the object that the alert is associated with",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "endEpoch": {
+      "format": "int64",
+      "description": "The time (in epoch format) that the alert ended",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "rule": {
+      "description": "The rule the alert matches",
+      "readOnly": true,
+      "type": "string"
+    },
+    "threshold": {
+      "description": "The threshold associated with the object in alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "type": {
+      "description": "The type of alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "startEpoch": {
+      "format": "int64",
+      "description": "The time (in epoch format) that the alert started",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "enableAnomalyAlertGeneration": {
+      "type": "string"
+    },
+    "internalId": {
+      "description": "The internal id for the alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "ackComment": {
+      "description": "The comment submitted with the acknowledgement",
+      "readOnly": true,
+      "type": "string"
+    },
+    "monitorObjectName": {
+      "description": "The name of the object that the alert is associated with",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataPointName": {
+      "description": "The name of the datapoint in alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "instanceId": {
+      "format": "int32",
+      "description": "The id of the instance in alert",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "dataPointId": {
+      "format": "int32",
+      "description": "The id of the datapoint in alert",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "nextRecipient": {
+      "format": "int32",
+      "description": "The next recipient in the escalation chain for this alert",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "id": {
+      "description": "The alert id",
+      "readOnly": true,
+      "type": "string"
+    },
+    "detailMessage": {
+      "description": "The alert message, if needMessage=true is included in the query parameters",
+      "readOnly": true,
+      "type": "object"
+    },
+    "ruleId": {
+      "format": "int32",
+      "description": "The id of the rule the alert matches",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "alertValue": {
+      "description": "The value that triggered the alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "ackedBy": {
+      "description": "The user that acknowledged the alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "severity": {
+      "format": "int32",
+      "description": "The alert severity, where 2=warning, 3=error and 4=critical",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "sdted": {
+      "description": "Whether or not the alert was triggered during an SDT",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "ackedEpoch": {
+      "format": "int64",
+      "description": "The time (in epoch format) that the alert was acknowledged",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "chain": {
+      "description": "The escalation chain the alert was routed to",
+      "readOnly": true,
+      "type": "string"
+    },
+    "SDT": {
+      "description": "The active SDT, if one exists",
+      "readOnly": true,
+      "type": "object"
+    },
+    "subChainId": {
+      "format": "int32",
+      "description": "The id of the sub time based chain",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "enableAnomalyAlertSuppression": {
+      "type": "string"
+    },
+    "receivedList": {
+      "description": "The recipients that have received the alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "serviceMembers": {
+      "description": "Service member name and value",
+      "readOnly": true,
+      "type": "object"
+    },
+    "monitorObjectType": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "customColumns": {
+      "description": "The property or token values that should display with the alert details. Note that if referencing tokens, you'll need to URL encode the # symbol.",
+      "readOnly": true,
+      "type": "object"
+    },
+    "acked": {
+      "description": "Whether or not the alert has been acknowledged",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "resourceTemplateType": {
+      "description": "The type of the logicmodule in alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "clearValue": {
+      "description": "The value that cleared the alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "instanceDescription": {
+      "description": "The description of the instance in alert",
+      "readOnly": true,
+      "type": "string"
+    },
+    "monitorObjectGroups": {
+      "description": "Information about the groups the object is a member of",
+      "readOnly": true,
+      "type": "object"
+    },
+    "chainId": {
+      "format": "int32",
+      "description": "The id of the escalation chain the alert was routed to",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "resourceTemplateId": {
+      "format": "int32",
+      "description": "The id of the datasource in alert",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "cleared": {
+      "description": "Whether or not the alert has cleared",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "resourceTemplateName": {
+      "description": "The name of the datasource in alert",
+      "readOnly": true,
+      "type": "string"
+    }
+  }
+}

@@ -62,20 +62,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    CollectorVersionPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectorVersion'
     CollectorVersion:
       type: object
       properties:
@@ -110,6 +96,20 @@ components:
           description: True if collector is a required release
           readOnly: true
           type: boolean
+    CollectorVersionPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectorVersion'
     ErrorResponse:
       type: object
       properties:

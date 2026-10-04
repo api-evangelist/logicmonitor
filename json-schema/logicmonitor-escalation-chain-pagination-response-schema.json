@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-escalation-chain-pagination-response-schema.json",
+  "title": "EscalationChainPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-escalation-chains-api-openapi.yml#/components/schemas/EscalationChainPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EscalatingChain"
+      }
+    }
+  },
+  "$defs": {
+    "Chain": {
+      "type": "object",
+      "required": [
+        "stages",
+        "type"
+      ],
+      "properties": {
+        "period": {
+          "$ref": "#/$defs/Period"
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/Recipient"
+            }
+          }
+        },
+        "type": {
+          "description": "single",
+          "type": "string"
+        }
+      }
+    },
+    "EscalatingChain": {
+      "type": "object",
+      "required": [
+        "destinations",
+        "name"
+      ],
+      "properties": {
+        "inAlerting": {
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "throttlingAlerts": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "enableThrottling": {
+          "type": "boolean"
+        },
+        "destinations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Chain"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "ccDestinations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Recipient"
+          }
+        },
+        "throttlingPeriod": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "Period": {
+      "type": "object",
+      "required": [
+        "endMinutes",
+        "startMinutes",
+        "timezone",
+        "weekDays"
+      ],
+      "properties": {
+        "weekDays": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "startMinutes": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "endMinutes": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "Recipient": {
+      "type": "object",
+      "required": [
+        "method",
+        "type"
+      ],
+      "properties": {
+        "method": {
+          "description": "Admin | Arbitrary, where Admin = a user, and Arbitrary = an arbitrary email",
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        },
+        "type": {
+          "description": "email | sms | voice, where type must be email if method = arbitrary",
+          "type": "string"
+        },
+        "addr": {
+          "description": "the user name if method = admin, or the email address if method = arbitrary",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

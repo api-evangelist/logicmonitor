@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-report-group-schema.json",
+  "title": "ReportGroup",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-report-groups-api-openapi.yml#/components/schemas/ReportGroup",
+  "type": "object",
+  "properties": {
+    "matchedReportCount": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "userPermission": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "reportsCount": {
+      "format": "int32",
+      "type": "integer"
+    }
+  }
+}

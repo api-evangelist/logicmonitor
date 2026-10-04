@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-log-partition-schema.json",
+  "title": "LogPartition",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-logpartitions-api-openapi.yml#/components/schemas/LogPartition",
+  "type": "object",
+  "required": [
+    "active",
+    "name"
+  ],
+  "properties": {
+    "parent": {
+      "format": "int32",
+      "description": "Parent Partition Id",
+      "type": "integer"
+    },
+    "userPermission": {
+      "description": "Partition user permission",
+      "readOnly": true,
+      "type": "string"
+    },
+    "criteria": {
+      "description": "Partition Criteria",
+      "type": "string"
+    },
+    "description": {
+      "description": "Partition description",
+      "type": "string"
+    },
+    "active": {
+      "description": "Partition active state",
+      "type": "boolean"
+    },
+    "pausedAt": {
+      "format": "int64",
+      "description": "Epoch time when partition was paused",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "priority": {
+      "format": "int32",
+      "description": "Partition Priority",
+      "type": "integer"
+    },
+    "activeContract": {
+      "description": "Active contract",
+      "readOnly": false,
+      "$ref": "#/$defs/LogPartitionContract"
+    },
+    "name": {
+      "description": "Partition Name",
+      "type": "string"
+    },
+    "previousContract": {
+      "description": "Previous (expired) contract",
+      "readOnly": true,
+      "$ref": "#/$defs/LogPartitionContract"
+    },
+    "id": {
+      "description": "Partition Id",
+      "readOnly": true,
+      "type": "string"
+    },
+    "fullname": {
+      "description": "Partition Fullname",
+      "readOnly": true,
+      "type": "string"
+    },
+    "futureContract": {
+      "description": "Future contract",
+      "readOnly": false,
+      "$ref": "#/$defs/LogPartitionContract"
+    },
+    "tenant": {
+      "description": "Tenant Name",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "LogPartitionContract": {
+      "description": "Future contract",
+      "type": "object",
+      "properties": {
+        "fromEpoch": {
+          "format": "int64",
+          "description": "Contract start time in epoch seconds",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "contractIntervalHours": {
+          "format": "int32",
+          "description": "Contract interval in hours: 0 = monthly (1st of next month), 24 = daily, 168 = weekly (next Monday), or custom hours",
+          "type": "integer"
+        },
+        "toEpoch": {
+          "format": "int64",
+          "description": "Contract end time in epoch seconds",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "limitReachedAt": {
+          "format": "int64",
+          "description": "Timestamp when usage limit was reached",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "usageLimit": {
+          "description": "Usage limit",
+          "type": "string"
+        },
+        "autoRestartOnRenewal": {
+          "description": "Auto restart ingestion on renewal",
+          "type": "boolean"
+        },
+        "id": {
+          "format": "int32",
+          "description": "Contract Id",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "state": {
+          "description": "Contract state (active, future, expired)",
+          "readOnly": true,
+          "type": "string"
+        },
+        "sku": {
+          "description": "Subscription SKU",
+          "type": "string"
+        },
+        "retention": {
+          "format": "int32",
+          "description": "Retention period in days",
+          "type": "integer"
+        },
+        "stopIngestionOnLimit": {
+          "description": "Stop ingestion when limit exceeded",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

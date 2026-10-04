@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-access-log-pagination-response-schema.json",
+  "title": "AccessLogPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-audit-logs-api-openapi.yml#/components/schemas/AccessLogPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AuditLog"
+      }
+    }
+  },
+  "$defs": {
+    "AuditLog": {
+      "type": "object",
+      "properties": {
+        "happenedOnLocal": {
+          "description": "The date and time that the action recorded in the access log entry occured",
+          "readOnly": true,
+          "type": "string"
+        },
+        "ip": {
+          "description": "The IP address that the action was performed from",
+          "readOnly": true,
+          "type": "string"
+        },
+        "happenedOn": {
+          "format": "int64",
+          "description": "The time, in epoch seconds, that the action recorded in the access log entry occurred",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "description": {
+          "description": "The description of the action recorded in the access log entry",
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "description": "The Id of the access log entry",
+          "readOnly": true,
+          "type": "string"
+        },
+        "username": {
+          "description": "The username associated with the user that performed the action recorded in the access log entry\t",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

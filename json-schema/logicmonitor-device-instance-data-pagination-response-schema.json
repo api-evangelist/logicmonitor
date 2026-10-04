@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-instance-data-pagination-response-schema.json",
+  "title": "DeviceInstanceDataPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-data-api-openapi.yml#/components/schemas/DeviceInstanceDataPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceInstanceData"
+      }
+    }
+  },
+  "$defs": {
+    "DeviceInstanceData": {
+      "type": "object",
+      "properties": {
+        "instanceId": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "values": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "errMsg": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "time": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "nextPageParams": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "dataSourceName": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

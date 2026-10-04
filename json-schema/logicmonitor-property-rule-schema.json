@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-property-rule-schema.json",
+  "title": "PropertyRule",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-propertysource-api-openapi.yml#/components/schemas/PropertyRule",
+  "type": "object",
+  "properties": {
+    "scheduleOption": {
+      "description": "The property rule schedule option. The values can be onAP|onAPpropertyChanges",
+      "readOnly": true,
+      "type": "string"
+    },
+    "groovyScript": {
+      "description": "groovy script",
+      "type": "string"
+    },
+    "accessGroups": {
+      "description": "Access group Details in response",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AccessGroup"
+      }
+    },
+    "description": {
+      "description": "The property rule description",
+      "readOnly": true,
+      "type": "string"
+    },
+    "appliesTo": {
+      "description": "The property rule applies to",
+      "readOnly": true,
+      "type": "string"
+    },
+    "linuxCmdline": {
+      "description": "external linux script args",
+      "type": "string"
+    },
+    "lineageId": {
+      "description": "LM module lineageId",
+      "readOnly": true,
+      "type": "string"
+    },
+    "originRegistryId": {
+      "description": "The Registry ID of the Exchange Integration this module is based from, including this field will set this as the module's import base and mark the ID's version as audited",
+      "readOnly": true,
+      "type": "string"
+    },
+    "checksum": {
+      "description": "LM module checksum",
+      "readOnly": true,
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "accessGroupIds": {
+      "uniqueItems": true,
+      "description": "The Access Groups Id's",
+      "type": "array",
+      "items": {
+        "format": "int32",
+        "description": "The Access Groups Id's",
+        "type": "integer"
+      }
+    },
+    "group": {
+      "description": "The property rule group name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "windowsScript": {
+      "description": "external windows script name",
+      "type": "string"
+    },
+    "dataType": {
+      "format": "int32",
+      "description": "The data type of property source, default is 0. The values can be\n\n0: property source\n\n1: raw ERI\n\n ",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "technology": {
+      "description": "The technology notes",
+      "readOnly": true,
+      "type": "string"
+    },
+    "params": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PropertyRuleParam"
+      }
+    },
+    "version": {
+      "format": "int64",
+      "description": "The property rule version",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "windowsCmdline": {
+      "description": "external windows script args",
+      "type": "string"
+    },
+    "tags": {
+      "description": "The property rule tags",
+      "readOnly": true,
+      "type": "string"
+    },
+    "auditVersion": {
+      "format": "int64",
+      "description": "The property rule auditVersion",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "installationMetadata": {
+      "description": "The local module's IntegrationMetadata, readable for troubleshooting purposes",
+      "readOnly": true,
+      "$ref": "#/$defs/IntegrationMetadata"
+    },
+    "scriptType": {
+      "description": "script type: embed | powershell | external",
+      "type": "string"
+    },
+    "name": {
+      "description": "The property rule name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "interval": {
+      "format": "int32",
+      "description": "The collect interval of raw ERI",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "isInUse": {
+      "description": "Whether the PropertySource is currently in use",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "linuxScript": {
+      "description": "external linux script name",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "AccessGroup": {
+      "description": "Module's access groups",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "createdBy": {
+          "description": "User who created access group",
+          "readOnly": true,
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the access group",
+          "type": "string"
+        },
+        "tenantId": {
+          "description": "Tenancy details",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description about access group",
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The id of the access group",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "updatedOn": {
+          "format": "int64",
+          "description": "Time when access group updated",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "createdOn": {
+          "format": "int64",
+          "description": "Time when access group created",
+          "readOnly": true,
+          "type": "integer"
+        }
+      }
+    },
+    "IntegrationMetadata": {
+      "description": "The local module's IntegrationMetadata, readable for troubleshooting purposes",
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "targetLastPublishedId": {
+          "description": "Specifies the target last published Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "targetLastPublishedChecksum": {
+          "description": "The metadata checksum for the target last published LMModule content",
+          "readOnly": true,
+          "type": "string"
+        },
+        "targetLastPublishedVersion": {
+          "description": "Specifies the target last published version",
+          "readOnly": true,
+          "type": "string"
+        },
+        "originChecksum": {
+          "description": "The metadata checksum for the LMModule content",
+          "readOnly": true,
+          "type": "string"
+        },
+        "originAuthorNamespace": {
+          "description": "Specifies the origin Author companies namespace",
+          "readOnly": true,
+          "type": "string"
+        },
+        "originLocator": {
+          "description": "Specifies the origin version locator",
+          "readOnly": true,
+          "type": "string"
+        },
+        "isChangedFromOrigin": {
+          "description": "Specifies if the Applies To function is changed from origin or not",
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "auditedRegistryId": {
+          "description": "Specifies the audited registry Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "targetLineageId": {
+          "description": "Specifies the target lineage Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "logicModuleType": {
+          "description": "The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps\nThe type of LogicModule",
+          "readOnly": true,
+          "type": "string",
+          "enum": [
+            "DATASOURCE",
+            "EVENTSOURCE",
+            "CONFIGSOURCE",
+            "PROPERTYSOURCE",
+            "DIAGNOSTICSOURCE",
+            "REMEDIATIONSOURCE",
+            "TOPOLOGYSOURCE",
+            "JOBMONITOR",
+            "APPLIESTO_FUNCTION",
+            "SNMP_SYSOID_MAP",
+            "LOGSOURCE"
+          ]
+        },
+        "isChangedFromTargetLastPublished": {
+          "description": "Specifies if the Applies To function is changed from target last published or not",
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "originLineageId": {
+          "description": "The origin lineage Id of the LMmodule",
+          "readOnly": true,
+          "type": "string"
+        },
+        "originAuthorCompanyUUID": {
+          "description": "Specifies the origin Author companies unique Id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "localModuleId": {
+          "format": "int32",
+          "description": "The LocalModule Id",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "originRegistryId": {
+          "description": "The Registry ID of the Exchange Integration this module is based from",
+          "readOnly": true,
+          "type": "string"
+        },
+        "originVersion": {
+          "description": "Specifies the origin version",
+          "readOnly": true,
+          "type": "string"
+        },
+        "auditedVersion": {
+          "description": "Specifies the audited registry version",
+          "readOnly": true,
+          "type": "string"
+        },
+        "originName": {
+          "description": "Specifies the origin module name",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "PropertyRuleParam": {
+      "type": "object",
+      "properties": {
+        "propertyRuleId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

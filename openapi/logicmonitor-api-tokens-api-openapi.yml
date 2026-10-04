@@ -282,20 +282,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    ApiTokenPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/APIToken'
     APIToken:
       type: object
       properties:
@@ -351,6 +337,20 @@ components:
           description: 1 | 2 - Whether or not the API Tokens are enabled, where 2 = enabled
           type: integer
           example: 2.0
+    ApiTokenPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/APIToken'
     ErrorResponse:
       type: object
       properties:

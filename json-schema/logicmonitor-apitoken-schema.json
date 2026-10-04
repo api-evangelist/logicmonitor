@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-apitoken-schema.json",
+  "title": "APIToken",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-api-tokens-api-openapi.yml#/components/schemas/APIToken",
+  "type": "object",
+  "properties": {
+    "accessId": {
+      "description": "The access Id associated with the API Tokens",
+      "readOnly": true,
+      "type": "string"
+    },
+    "adminName": {
+      "description": "The name of the user associated with the API Tokens",
+      "readOnly": true,
+      "type": "string"
+    },
+    "note": {
+      "description": "The note associated with the API Tokens",
+      "type": "string"
+    },
+    "lastUsedOn": {
+      "format": "int64",
+      "description": "The epoch at which the API Tokens were last used",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "accessKey": {
+      "description": "The secret key associated with the API Tokens",
+      "readOnly": true,
+      "type": "string"
+    },
+    "createdBy": {
+      "description": "The user who is the API Tokens created by",
+      "readOnly": true,
+      "type": "string"
+    },
+    "roles": {
+      "uniqueItems": true,
+      "description": "The roles assigned to the user that is associated with the API Tokens",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "adminId": {
+      "format": "int32",
+      "description": "The id of the user associated with the API Tokens",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The id of the API Token",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "createdOn": {
+      "format": "int64",
+      "description": "The epoch at which the API Tokens were created",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "status": {
+      "format": "int32",
+      "description": "1 | 2 - Whether or not the API Tokens are enabled, where 2 = enabled",
+      "type": "integer"
+    }
+  }
+}

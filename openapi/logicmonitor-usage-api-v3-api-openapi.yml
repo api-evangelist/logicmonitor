@@ -127,6 +127,40 @@ components:
           type: integer
         sku:
           type: string
+    RestUsageContractInfoV4:
+      type: object
+      properties:
+        childProducts:
+          x-omitempty:
+            x-omitempty: 'true'
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RestUsageContractInfoV4'
+        product:
+          type: string
+        unit:
+          type: array
+          items:
+            type: string
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriptions'
+        aggregationType:
+          type: string
+        quantity:
+          type: array
+          items:
+            type: number
+        feature:
+          type: string
+        roundingRequired:
+          type: boolean
+        unpaid:
+          type: boolean
+        category:
+          type: string
     RestContractInfoBaseV3:
       type: object
       properties:
@@ -162,40 +196,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RestUsageContractInfoV4'
-        category:
-          type: string
-    RestUsageContractInfoV4:
-      type: object
-      properties:
-        childProducts:
-          x-omitempty:
-            x-omitempty: 'true'
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/RestUsageContractInfoV4'
-        product:
-          type: string
-        unit:
-          type: array
-          items:
-            type: string
-        subscriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscriptions'
-        aggregationType:
-          type: string
-        quantity:
-          type: array
-          items:
-            type: number
-        feature:
-          type: string
-        roundingRequired:
-          type: boolean
-        unpaid:
-          type: boolean
         category:
           type: string
     ErrorResponse:

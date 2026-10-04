@@ -195,36 +195,6 @@ paths:
               $ref: '#/components/schemas/TrackedQueryGroup'
 components:
   schemas:
-    TrackedQueryGroup:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          description: Name of the tracked query group
-          type: string
-        description:
-          description: Description of the tracked query group
-          type: string
-        id:
-          format: int32
-          description: The ID of the tracked query group
-          readOnly: true
-          type: integer
-        trackedQuery:
-          description: List of tracked queries under this group
-          readOnly: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Tracking_Log_Query'
-        ownerId:
-          format: int32
-          description: Owner of the tracked query group
-          type: integer
-        parentId:
-          format: int32
-          description: Parent ID of the tracked query group
-          type: integer
     Tracking_Log_Query:
       description: List of tracked queries under this group
       readOnly: true
@@ -297,6 +267,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TrackedQueryGroup'
+    TrackedQueryGroup:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          description: Name of the tracked query group
+          type: string
+        description:
+          description: Description of the tracked query group
+          type: string
+        id:
+          format: int32
+          description: The ID of the tracked query group
+          readOnly: true
+          type: integer
+        trackedQuery:
+          description: List of tracked queries under this group
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Tracking_Log_Query'
+        ownerId:
+          format: int32
+          description: Owner of the tracked query group
+          type: integer
+        parentId:
+          format: int32
+          description: Parent ID of the tracked query group
+          type: integer
     ErrorResponse:
       type: object
       properties:

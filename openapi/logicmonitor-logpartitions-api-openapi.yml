@@ -262,6 +262,78 @@ paths:
       - LogPartitions
 components:
   schemas:
+    LogPartitionContract:
+      description: Future contract
+      type: object
+      properties:
+        fromEpoch:
+          format: int64
+          description: Contract start time in epoch seconds
+          readOnly: true
+          type: integer
+          example: 1640995200
+        contractIntervalHours:
+          format: int32
+          description: 'Contract interval in hours: 0 = monthly (1st of next month), 24 = daily, 168 = weekly (next Monday), or custom hours'
+          type: integer
+          example: 0
+        toEpoch:
+          format: int64
+          description: Contract end time in epoch seconds
+          readOnly: true
+          type: integer
+          example: 1672531200
+        limitReachedAt:
+          format: int64
+          description: Timestamp when usage limit was reached
+          readOnly: true
+          type: integer
+        usageLimit:
+          description: Usage limit
+          type: string
+          example: 100GB
+        autoRestartOnRenewal:
+          description: Auto restart ingestion on renewal
+          type: boolean
+          example: true
+        id:
+          format: int32
+          description: Contract Id
+          readOnly: true
+          type: integer
+          example: 1
+        state:
+          description: Contract state (active, future, expired)
+          readOnly: true
+          type: string
+          example: active
+        sku:
+          description: Subscription SKU
+          type: string
+          example: LOG_BASIC
+        retention:
+          format: int32
+          description: Retention period in days
+          type: integer
+          example: 30
+        stopIngestionOnLimit:
+          description: Stop ingestion when limit exceeded
+          type: boolean
+          example: true
+    Pagination:
+      type: object
+      properties:
+        total:
+          format: int32
+          type: integer
+        searchId:
+          type: string
+        isMin:
+          type: boolean
+        items:
+          type: array
+          items:
+            type: object
     LogPartition:
       type: object
       required:
@@ -328,20 +400,6 @@ components:
           description: Tenant Name
           type: string
           example: tenant
-    Pagination:
-      type: object
-      properties:
-        total:
-          format: int32
-          type: integer
-        searchId:
-          type: string
-        isMin:
-          type: boolean
-        items:
-          type: array
-          items:
-            type: object
     ErrorResponse:
       type: object
       properties:
@@ -358,64 +416,6 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    LogPartitionContract:
-      description: Future contract
-      type: object
-      properties:
-        fromEpoch:
-          format: int64
-          description: Contract start time in epoch seconds
-          readOnly: true
-          type: integer
-          example: 1640995200
-        contractIntervalHours:
-          format: int32
-          description: 'Contract interval in hours: 0 = monthly (1st of next month), 24 = daily, 168 = weekly (next Monday), or custom hours'
-          type: integer
-          example: 0
-        toEpoch:
-          format: int64
-          description: Contract end time in epoch seconds
-          readOnly: true
-          type: integer
-          example: 1672531200
-        limitReachedAt:
-          format: int64
-          description: Timestamp when usage limit was reached
-          readOnly: true
-          type: integer
-        usageLimit:
-          description: Usage limit
-          type: string
-          example: 100GB
-        autoRestartOnRenewal:
-          description: Auto restart ingestion on renewal
-          type: boolean
-          example: true
-        id:
-          format: int32
-          description: Contract Id
-          readOnly: true
-          type: integer
-          example: 1
-        state:
-          description: Contract state (active, future, expired)
-          readOnly: true
-          type: string
-          example: active
-        sku:
-          description: Subscription SKU
-          type: string
-          example: LOG_BASIC
-        retention:
-          format: int32
-          description: Retention period in days
-          type: integer
-          example: 30
-        stopIngestionOnLimit:
-          description: Stop ingestion when limit exceeded
-          type: boolean
-          example: true
   securitySchemes:
     LMv1:
       in: header

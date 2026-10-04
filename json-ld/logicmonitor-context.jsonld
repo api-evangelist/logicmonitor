@@ -1,0 +1,2141 @@
+{
+  "@context": {
+    "@vocab": "https://logicmonitor.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "logicmonitor": "https://logicmonitor.com/schema#",
+    "AccessGroup": "logicmonitor:AccessGroup",
+    "createdBy": {
+      "@id": "logicmonitor:createdBy",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "logicmonitor:name",
+      "@type": "xsd:string"
+    },
+    "tenantId": {
+      "@id": "logicmonitor:tenantId",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "logicmonitor:description",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "logicmonitor:id",
+      "@type": "xsd:integer"
+    },
+    "updatedOn": {
+      "@id": "logicmonitor:updatedOn",
+      "@type": "xsd:integer"
+    },
+    "createdOn": {
+      "@id": "logicmonitor:createdOn",
+      "@type": "xsd:integer"
+    },
+    "MapModuleToAccessGroup": "logicmonitor:MapModuleToAccessGroup",
+    "accessgroups": {
+      "@id": "logicmonitor:accessgroups",
+      "@container": "@list"
+    },
+    "moduletype": {
+      "@id": "logicmonitor:moduletype",
+      "@type": "xsd:string"
+    },
+    "moduleid": {
+      "@id": "logicmonitor:moduleid",
+      "@type": "xsd:integer"
+    },
+    "RestMapModuleV3": "logicmonitor:RestMapModuleV3",
+    "success": {
+      "@id": "logicmonitor:success",
+      "@container": "@list"
+    },
+    "failure": {
+      "@id": "logicmonitor:failure",
+      "@container": "@list"
+    },
+    "mappingDetails": {
+      "@id": "logicmonitor:mappingDetails",
+      "@container": "@list"
+    },
+    "ErrorResponse": "logicmonitor:ErrorResponse",
+    "errorMessage": {
+      "@id": "logicmonitor:errorMessage",
+      "@type": "xsd:string"
+    },
+    "errorCode": {
+      "@id": "logicmonitor:errorCode",
+      "@type": "xsd:integer"
+    },
+    "errorDetail": {
+      "@id": "logicmonitor:errorDetail"
+    },
+    "AccessGroupPaginationResponse": "logicmonitor:AccessGroupPaginationResponse",
+    "items": {
+      "@id": "logicmonitor:items",
+      "@container": "@list"
+    },
+    "ActionChainPaginationResponse": "logicmonitor:ActionChainPaginationResponse",
+    "ActionChain": "logicmonitor:ActionChain",
+    "stages": {
+      "@id": "logicmonitor:stages",
+      "@container": "@list"
+    },
+    "Stage": "logicmonitor:Stage",
+    "type": {
+      "@id": "logicmonitor:type",
+      "@type": "xsd:string"
+    },
+    "ActionRulePaginationResponse": "logicmonitor:ActionRulePaginationResponse",
+    "ActionRuleStatus": "logicmonitor:ActionRuleStatus",
+    "enabled": {
+      "@id": "logicmonitor:enabled",
+      "@type": "xsd:boolean"
+    },
+    "ActionChainSummary": "logicmonitor:ActionChainSummary",
+    "RestDeviceProperty": "logicmonitor:RestDeviceProperty",
+    "value": {
+      "@id": "logicmonitor:value",
+      "@type": "xsd:string"
+    },
+    "ActionRule": "logicmonitor:ActionRule",
+    "datapoint": {
+      "@id": "logicmonitor:datapoint",
+      "@type": "xsd:string"
+    },
+    "instance": {
+      "@id": "logicmonitor:instance",
+      "@type": "xsd:string"
+    },
+    "devices": {
+      "@id": "logicmonitor:devices",
+      "@container": "@list"
+    },
+    "datasource": {
+      "@id": "logicmonitor:datasource",
+      "@type": "xsd:string"
+    },
+    "resourceProperties": {
+      "@id": "logicmonitor:resourceProperties",
+      "@container": "@list"
+    },
+    "levelStr": {
+      "@id": "logicmonitor:levelStr",
+      "@type": "xsd:string"
+    },
+    "deviceGroups": {
+      "@id": "logicmonitor:deviceGroups",
+      "@container": "@list"
+    },
+    "actionChainId": {
+      "@id": "logicmonitor:actionChainId",
+      "@type": "xsd:integer"
+    },
+    "actionChain": {
+      "@id": "logicmonitor:actionChain",
+      "@type": "@id"
+    },
+    "AlertRule": "logicmonitor:AlertRule",
+    "escalatingChainId": {
+      "@id": "logicmonitor:escalatingChainId",
+      "@type": "xsd:integer"
+    },
+    "priority": {
+      "@id": "logicmonitor:priority",
+      "@type": "xsd:integer"
+    },
+    "suppressAlertAckSdt": {
+      "@id": "logicmonitor:suppressAlertAckSdt",
+      "@type": "xsd:boolean"
+    },
+    "suppressAlertClear": {
+      "@id": "logicmonitor:suppressAlertClear",
+      "@type": "xsd:boolean"
+    },
+    "escalatingChain": {
+      "@id": "logicmonitor:escalatingChain"
+    },
+    "escalationInterval": {
+      "@id": "logicmonitor:escalationInterval",
+      "@type": "xsd:integer"
+    },
+    "AlertRulePaginationResponse": "logicmonitor:AlertRulePaginationResponse",
+    "total": {
+      "@id": "logicmonitor:total",
+      "@type": "xsd:integer"
+    },
+    "searchId": {
+      "@id": "logicmonitor:searchId",
+      "@type": "xsd:string"
+    },
+    "AlertRule_2": "logicmonitor:AlertRule_2",
+    "sendAnomalySuppressedAlert": {
+      "@id": "logicmonitor:sendAnomalySuppressedAlert",
+      "@type": "xsd:boolean"
+    },
+    "DeviceProperty": "logicmonitor:DeviceProperty",
+    "AlertPaginationResponse": "logicmonitor:AlertPaginationResponse",
+    "AlertAck": "logicmonitor:AlertAck",
+    "ackComment": {
+      "@id": "logicmonitor:ackComment",
+      "@type": "xsd:string"
+    },
+    "Alert": "logicmonitor:Alert",
+    "resourceId": {
+      "@id": "logicmonitor:resourceId",
+      "@type": "xsd:integer"
+    },
+    "instanceName": {
+      "@id": "logicmonitor:instanceName",
+      "@type": "xsd:string"
+    },
+    "monitorObjectId": {
+      "@id": "logicmonitor:monitorObjectId",
+      "@type": "xsd:integer"
+    },
+    "endEpoch": {
+      "@id": "logicmonitor:endEpoch",
+      "@type": "xsd:integer"
+    },
+    "rule": {
+      "@id": "logicmonitor:rule",
+      "@type": "xsd:string"
+    },
+    "threshold": {
+      "@id": "logicmonitor:threshold",
+      "@type": "xsd:string"
+    },
+    "startEpoch": {
+      "@id": "logicmonitor:startEpoch",
+      "@type": "xsd:integer"
+    },
+    "enableAnomalyAlertGeneration": {
+      "@id": "logicmonitor:enableAnomalyAlertGeneration",
+      "@type": "xsd:string"
+    },
+    "internalId": {
+      "@id": "logicmonitor:internalId",
+      "@type": "xsd:string"
+    },
+    "monitorObjectName": {
+      "@id": "logicmonitor:monitorObjectName",
+      "@type": "xsd:string"
+    },
+    "dataPointName": {
+      "@id": "logicmonitor:dataPointName",
+      "@type": "xsd:string"
+    },
+    "instanceId": {
+      "@id": "logicmonitor:instanceId",
+      "@type": "xsd:integer"
+    },
+    "dataPointId": {
+      "@id": "logicmonitor:dataPointId",
+      "@type": "xsd:integer"
+    },
+    "nextRecipient": {
+      "@id": "logicmonitor:nextRecipient",
+      "@type": "xsd:integer"
+    },
+    "detailMessage": {
+      "@id": "logicmonitor:detailMessage"
+    },
+    "ruleId": {
+      "@id": "logicmonitor:ruleId",
+      "@type": "xsd:integer"
+    },
+    "alertValue": {
+      "@id": "logicmonitor:alertValue",
+      "@type": "xsd:string"
+    },
+    "ackedBy": {
+      "@id": "logicmonitor:ackedBy",
+      "@type": "xsd:string"
+    },
+    "severity": {
+      "@id": "logicmonitor:severity",
+      "@type": "xsd:integer"
+    },
+    "sdted": {
+      "@id": "logicmonitor:sdted",
+      "@type": "xsd:boolean"
+    },
+    "ackedEpoch": {
+      "@id": "logicmonitor:ackedEpoch",
+      "@type": "xsd:integer"
+    },
+    "chain": {
+      "@id": "logicmonitor:chain",
+      "@type": "xsd:string"
+    },
+    "SDT": {
+      "@id": "logicmonitor:SDT"
+    },
+    "subChainId": {
+      "@id": "logicmonitor:subChainId",
+      "@type": "xsd:integer"
+    },
+    "enableAnomalyAlertSuppression": {
+      "@id": "logicmonitor:enableAnomalyAlertSuppression",
+      "@type": "xsd:string"
+    },
+    "receivedList": {
+      "@id": "logicmonitor:receivedList",
+      "@type": "xsd:string"
+    },
+    "serviceMembers": {
+      "@id": "logicmonitor:serviceMembers"
+    },
+    "monitorObjectType": {
+      "@id": "logicmonitor:monitorObjectType",
+      "@type": "xsd:string"
+    },
+    "customColumns": {
+      "@id": "logicmonitor:customColumns"
+    },
+    "acked": {
+      "@id": "logicmonitor:acked",
+      "@type": "xsd:boolean"
+    },
+    "resourceTemplateType": {
+      "@id": "logicmonitor:resourceTemplateType",
+      "@type": "xsd:string"
+    },
+    "clearValue": {
+      "@id": "logicmonitor:clearValue",
+      "@type": "xsd:string"
+    },
+    "instanceDescription": {
+      "@id": "logicmonitor:instanceDescription",
+      "@type": "xsd:string"
+    },
+    "monitorObjectGroups": {
+      "@id": "logicmonitor:monitorObjectGroups"
+    },
+    "chainId": {
+      "@id": "logicmonitor:chainId",
+      "@type": "xsd:integer"
+    },
+    "resourceTemplateId": {
+      "@id": "logicmonitor:resourceTemplateId",
+      "@type": "xsd:integer"
+    },
+    "cleared": {
+      "@id": "logicmonitor:cleared",
+      "@type": "xsd:boolean"
+    },
+    "resourceTemplateName": {
+      "@id": "logicmonitor:resourceTemplateName",
+      "@type": "xsd:string"
+    },
+    "ObjectIdentifier": "logicmonitor:ObjectIdentifier",
+    "model": {
+      "@id": "logicmonitor:model",
+      "@type": "xsd:string"
+    },
+    "AdvancedFieldFilter": "logicmonitor:AdvancedFieldFilter",
+    "fieldName": {
+      "@id": "logicmonitor:fieldName",
+      "@type": "xsd:string"
+    },
+    "supportGlob": {
+      "@id": "logicmonitor:supportGlob",
+      "@type": "xsd:boolean"
+    },
+    "values": {
+      "@id": "logicmonitor:values",
+      "@container": "@list"
+    },
+    "operator": {
+      "@id": "logicmonitor:operator",
+      "@type": "xsd:string"
+    },
+    "AlertsById": "logicmonitor:AlertsById",
+    "resourceGroups": {
+      "@id": "logicmonitor:resourceGroups"
+    },
+    "eventSources": {
+      "@id": "logicmonitor:eventSources"
+    },
+    "clusterAlertSettings": {
+      "@id": "logicmonitor:clusterAlertSettings"
+    },
+    "datapoints": {
+      "@id": "logicmonitor:datapoints"
+    },
+    "escalationChains": {
+      "@id": "logicmonitor:escalationChains"
+    },
+    "sdts": {
+      "@id": "logicmonitor:sdts"
+    },
+    "alertRules": {
+      "@id": "logicmonitor:alertRules"
+    },
+    "serviceGroups": {
+      "@id": "logicmonitor:serviceGroups"
+    },
+    "resources": {
+      "@id": "logicmonitor:resources"
+    },
+    "logpipelinesources": {
+      "@id": "logicmonitor:logpipelinesources"
+    },
+    "services": {
+      "@id": "logicmonitor:services"
+    },
+    "dataSourceInstances": {
+      "@id": "logicmonitor:dataSourceInstances"
+    },
+    "billingAlerts": {
+      "@id": "logicmonitor:billingAlerts"
+    },
+    "alerts": {
+      "@id": "logicmonitor:alerts"
+    },
+    "logalerts": {
+      "@id": "logicmonitor:logalerts"
+    },
+    "batchJobs": {
+      "@id": "logicmonitor:batchJobs"
+    },
+    "billingBudgets": {
+      "@id": "logicmonitor:billingBudgets"
+    },
+    "dataSourceInstanceAlertSettings": {
+      "@id": "logicmonitor:dataSourceInstanceAlertSettings"
+    },
+    "billingAlertsMap": {
+      "@id": "logicmonitor:billingAlertsMap"
+    },
+    "serviceCheckpoints": {
+      "@id": "logicmonitor:serviceCheckpoints"
+    },
+    "logAlertsMap": {
+      "@id": "logicmonitor:logAlertsMap"
+    },
+    "dataSources": {
+      "@id": "logicmonitor:dataSources"
+    },
+    "ModelAndId": "logicmonitor:ModelAndId",
+    "displayName": {
+      "@id": "logicmonitor:displayName",
+      "@type": "xsd:string"
+    },
+    "namespace": {
+      "@id": "logicmonitor:namespace",
+      "@type": "xsd:string"
+    },
+    "RestResponseMetaBlock": "logicmonitor:RestResponseMetaBlock",
+    "filteredCount": {
+      "@id": "logicmonitor:filteredCount",
+      "@type": "xsd:integer"
+    },
+    "isTotalCountExhaustive": {
+      "@id": "logicmonitor:isTotalCountExhaustive",
+      "@type": "xsd:boolean"
+    },
+    "fromPagingResponseInfo": {
+      "@id": "logicmonitor:fromPagingResponseInfo",
+      "@type": "@id"
+    },
+    "fromSortInfo": {
+      "@id": "logicmonitor:fromSortInfo",
+      "@type": "@id"
+    },
+    "perPageCount": {
+      "@id": "logicmonitor:perPageCount",
+      "@type": "xsd:integer"
+    },
+    "sort": {
+      "@id": "logicmonitor:sort",
+      "@type": "xsd:string"
+    },
+    "totalCount": {
+      "@id": "logicmonitor:totalCount",
+      "@type": "xsd:integer"
+    },
+    "pageOffsetCount": {
+      "@id": "logicmonitor:pageOffsetCount",
+      "@type": "xsd:integer"
+    },
+    "RestSDTV4": "logicmonitor:RestSDTV4",
+    "notes": {
+      "@id": "logicmonitor:notes",
+      "@type": "xsd:string"
+    },
+    "timezone": {
+      "@id": "logicmonitor:timezone",
+      "@type": "xsd:string"
+    },
+    "defaultValue": {
+      "@id": "logicmonitor:defaultValue",
+      "@type": "xsd:dateTime"
+    },
+    "monthDay": {
+      "@id": "logicmonitor:monthDay",
+      "@type": "xsd:string"
+    },
+    "duration": {
+      "@id": "logicmonitor:duration",
+      "@type": "xsd:integer"
+    },
+    "dataSourceId": {
+      "@id": "logicmonitor:dataSourceId",
+      "@type": "xsd:integer"
+    },
+    "hour": {
+      "@id": "logicmonitor:hour",
+      "@type": "xsd:integer"
+    },
+    "weekDay": {
+      "@id": "logicmonitor:weekDay",
+      "@type": "xsd:string"
+    },
+    "endedAtMS": {
+      "@id": "logicmonitor:endedAtMS",
+      "@type": "xsd:integer"
+    },
+    "resourceGroupId": {
+      "@id": "logicmonitor:resourceGroupId",
+      "@type": "xsd:integer"
+    },
+    "endMinute": {
+      "@id": "logicmonitor:endMinute",
+      "@type": "xsd:integer"
+    },
+    "identifier": {
+      "@id": "logicmonitor:identifier",
+      "@type": "@id"
+    },
+    "targetId": {
+      "@id": "logicmonitor:targetId",
+      "@type": "@id"
+    },
+    "deviceDataSourceId": {
+      "@id": "logicmonitor:deviceDataSourceId",
+      "@type": "xsd:integer"
+    },
+    "weekOfMonth": {
+      "@id": "logicmonitor:weekOfMonth",
+      "@type": "xsd:string"
+    },
+    "intoRestResponse": {
+      "@id": "logicmonitor:intoRestResponse",
+      "@type": "@id"
+    },
+    "websiteGroupId": {
+      "@id": "logicmonitor:websiteGroupId",
+      "@type": "xsd:integer"
+    },
+    "isEffective": {
+      "@id": "logicmonitor:isEffective",
+      "@type": "xsd:boolean"
+    },
+    "minute": {
+      "@id": "logicmonitor:minute",
+      "@type": "xsd:integer"
+    },
+    "recurrence": {
+      "@id": "logicmonitor:recurrence",
+      "@type": "xsd:string"
+    },
+    "endHour": {
+      "@id": "logicmonitor:endHour",
+      "@type": "xsd:integer"
+    },
+    "relatedIntoRestResponse": {
+      "@id": "logicmonitor:relatedIntoRestResponse",
+      "@type": "@id"
+    },
+    "startedAtMS": {
+      "@id": "logicmonitor:startedAtMS",
+      "@type": "xsd:integer"
+    },
+    "RestResponse": "logicmonitor:RestResponse",
+    "diagnostics": {
+      "@id": "logicmonitor:diagnostics",
+      "@type": "@id"
+    },
+    "suppressedWarnings": {
+      "@id": "logicmonitor:suppressedWarnings",
+      "@type": "@id"
+    },
+    "preserveInsertionOrder": {
+      "@id": "logicmonitor:preserveInsertionOrder",
+      "@type": "xsd:boolean"
+    },
+    "data": {
+      "@id": "logicmonitor:data",
+      "@type": "@id"
+    },
+    "suppressedErrors": {
+      "@id": "logicmonitor:suppressedErrors",
+      "@type": "@id"
+    },
+    "successes": {
+      "@id": "logicmonitor:successes",
+      "@type": "@id"
+    },
+    "meta": {
+      "@id": "logicmonitor:meta",
+      "@type": "@id"
+    },
+    "warnings": {
+      "@id": "logicmonitor:warnings",
+      "@type": "@id"
+    },
+    "errors": {
+      "@id": "logicmonitor:errors",
+      "@type": "@id"
+    },
+    "FieldFilter": "logicmonitor:FieldFilter",
+    "RestAlertQueryContext": "logicmonitor:RestAlertQueryContext",
+    "activeOnly": {
+      "@id": "logicmonitor:activeOnly",
+      "@type": "xsd:boolean"
+    },
+    "pivotType": {
+      "@id": "logicmonitor:pivotType",
+      "@type": "xsd:string"
+    },
+    "anomaly": {
+      "@id": "logicmonitor:anomaly",
+      "@type": "xsd:string"
+    },
+    "suppressorFilters": {
+      "@id": "logicmonitor:suppressorFilters",
+      "@container": "@list"
+    },
+    "forServices": {
+      "@id": "logicmonitor:forServices",
+      "@type": "xsd:boolean"
+    },
+    "pivotDimensions": {
+      "@id": "logicmonitor:pivotDimensions",
+      "@container": "@list"
+    },
+    "refreshActiveAlertCache": {
+      "@id": "logicmonitor:refreshActiveAlertCache",
+      "@type": "xsd:boolean"
+    },
+    "dependencyRoutingStateFilters": {
+      "@id": "logicmonitor:dependencyRoutingStateFilters",
+      "@container": "@list"
+    },
+    "excludePhatomFlag": {
+      "@id": "logicmonitor:excludePhatomFlag",
+      "@type": "xsd:boolean"
+    },
+    "pivotDimensionESField": {
+      "@id": "logicmonitor:pivotDimensionESField",
+      "@container": "@list"
+    },
+    "dependencyRoleFiltersV4": {
+      "@id": "logicmonitor:dependencyRoleFiltersV4",
+      "@container": "@list"
+    },
+    "lmconfigEnabled": {
+      "@id": "logicmonitor:lmconfigEnabled",
+      "@type": "xsd:boolean"
+    },
+    "dependencyRoutingStateFiltersV4": {
+      "@id": "logicmonitor:dependencyRoutingStateFiltersV4",
+      "@container": "@list"
+    },
+    "dependencyRoleFilters": {
+      "@id": "logicmonitor:dependencyRoleFilters",
+      "@container": "@list"
+    },
+    "clearedOnly": {
+      "@id": "logicmonitor:clearedOnly",
+      "@type": "xsd:boolean"
+    },
+    "suppressorFiltersV4": {
+      "@id": "logicmonitor:suppressorFiltersV4",
+      "@container": "@list"
+    },
+    "alertsById": {
+      "@id": "logicmonitor:alertsById",
+      "@type": "@id"
+    },
+    "JSONObject": "logicmonitor:JSONObject",
+    "empty": {
+      "@id": "logicmonitor:empty",
+      "@type": "xsd:boolean"
+    },
+    "AlertListPaginationResponse": "logicmonitor:AlertListPaginationResponse",
+    "AlertsModelAndId": "logicmonitor:AlertsModelAndId",
+    "deleted": {
+      "@id": "logicmonitor:deleted",
+      "@type": "xsd:boolean"
+    },
+    "isDeleted": {
+      "@id": "logicmonitor:isDeleted",
+      "@type": "xsd:boolean"
+    },
+    "AlertResponse": "logicmonitor:AlertResponse",
+    "sdtIds": {
+      "@id": "logicmonitor:sdtIds",
+      "@type": "xsd:string"
+    },
+    "suppressor": {
+      "@id": "logicmonitor:suppressor",
+      "@type": "xsd:string"
+    },
+    "context": {
+      "@id": "logicmonitor:context",
+      "@type": "@id"
+    },
+    "alertExternalTicketUrl": {
+      "@id": "logicmonitor:alertExternalTicketUrl",
+      "@type": "@id"
+    },
+    "tenant": {
+      "@id": "logicmonitor:tenant",
+      "@type": "xsd:string"
+    },
+    "lastUpdatedOnEpoch": {
+      "@id": "logicmonitor:lastUpdatedOnEpoch",
+      "@type": "xsd:integer"
+    },
+    "adAlertDesc": {
+      "@id": "logicmonitor:adAlertDesc",
+      "@type": "xsd:string"
+    },
+    "alertTriggerValue": {
+      "@id": "logicmonitor:alertTriggerValue",
+      "@type": "xsd:string"
+    },
+    "alertGroupEntityValue": {
+      "@id": "logicmonitor:alertGroupEntityValue",
+      "@type": "xsd:string"
+    },
+    "suppressDesc": {
+      "@id": "logicmonitor:suppressDesc",
+      "@type": "xsd:string"
+    },
+    "logPartition": {
+      "@id": "logicmonitor:logPartition",
+      "@type": "xsd:string"
+    },
+    "clearExpr": {
+      "@id": "logicmonitor:clearExpr",
+      "@type": "xsd:string"
+    },
+    "adAlert": {
+      "@id": "logicmonitor:adAlert",
+      "@type": "xsd:boolean"
+    },
+    "alertQuery": {
+      "@id": "logicmonitor:alertQuery",
+      "@type": "xsd:string"
+    },
+    "logMetaData": {
+      "@id": "logicmonitor:logMetaData",
+      "@type": "xsd:string"
+    },
+    "sessionId": {
+      "@id": "logicmonitor:sessionId",
+      "@type": "xsd:integer"
+    },
+    "dependencyRoutingState": {
+      "@id": "logicmonitor:dependencyRoutingState",
+      "@type": "xsd:string"
+    },
+    "dependencyRole": {
+      "@id": "logicmonitor:dependencyRole",
+      "@type": "xsd:string"
+    },
+    "Alert_2": "logicmonitor:Alert_2",
+    "ApiTokenPaginationResponse": "logicmonitor:ApiTokenPaginationResponse",
+    "APIToken": "logicmonitor:APIToken",
+    "accessId": {
+      "@id": "logicmonitor:accessId",
+      "@type": "xsd:string"
+    },
+    "adminName": {
+      "@id": "logicmonitor:adminName",
+      "@type": "xsd:string"
+    },
+    "note": {
+      "@id": "logicmonitor:note",
+      "@type": "xsd:string"
+    },
+    "lastUsedOn": {
+      "@id": "logicmonitor:lastUsedOn",
+      "@type": "xsd:integer"
+    },
+    "accessKey": {
+      "@id": "logicmonitor:accessKey",
+      "@type": "xsd:string"
+    },
+    "roles": {
+      "@id": "logicmonitor:roles",
+      "@container": "@list"
+    },
+    "adminId": {
+      "@id": "logicmonitor:adminId",
+      "@type": "xsd:integer"
+    },
+    "status": {
+      "@id": "logicmonitor:status",
+      "@type": "xsd:integer"
+    },
+    "APIToken_2": "logicmonitor:APIToken_2",
+    "userPermission": {
+      "@id": "logicmonitor:userPermission",
+      "@type": "xsd:string"
+    },
+    "lastAuthIp": {
+      "@id": "logicmonitor:lastAuthIp",
+      "@type": "xsd:string"
+    },
+    "ApiPerfMetrics": "logicmonitor:ApiPerfMetrics",
+    "summary": {
+      "@id": "logicmonitor:summary",
+      "@type": "xsd:string"
+    },
+    "totalWaitingRequests": {
+      "@id": "logicmonitor:totalWaitingRequests",
+      "@type": "xsd:integer"
+    },
+    "totNanoTime": {
+      "@id": "logicmonitor:totNanoTime",
+      "@type": "xsd:integer"
+    },
+    "totalProcessedRequests": {
+      "@id": "logicmonitor:totalProcessedRequests",
+      "@type": "xsd:integer"
+    },
+    "totalRequests": {
+      "@id": "logicmonitor:totalRequests",
+      "@type": "xsd:integer"
+    },
+    "api": {
+      "@id": "logicmonitor:api",
+      "@type": "xsd:string"
+    },
+    "maxNanoTime": {
+      "@id": "logicmonitor:maxNanoTime",
+      "@type": "xsd:integer"
+    },
+    "tags": {
+      "@id": "logicmonitor:tags",
+      "@container": "@list"
+    },
+    "ApiPerfMetrics_2": "logicmonitor:ApiPerfMetrics_2",
+    "totalRejectedGetAPICount": {
+      "@id": "logicmonitor:totalRejectedGetAPICount",
+      "@type": "xsd:integer"
+    },
+    "totalRejectedModAPICount": {
+      "@id": "logicmonitor:totalRejectedModAPICount",
+      "@type": "xsd:integer"
+    },
+    "AppliesToFunction": "logicmonitor:AppliesToFunction",
+    "code": {
+      "@id": "logicmonitor:code",
+      "@type": "xsd:string"
+    },
+    "RestAppliesToFunctionPaginationResponse": "logicmonitor:RestAppliesToFunctionPaginationResponse",
+    "IntegrationMetadata": "logicmonitor:IntegrationMetadata",
+    "targetLastPublishedId": {
+      "@id": "logicmonitor:targetLastPublishedId",
+      "@type": "xsd:string"
+    },
+    "targetLastPublishedChecksum": {
+      "@id": "logicmonitor:targetLastPublishedChecksum",
+      "@type": "xsd:string"
+    },
+    "targetLastPublishedVersion": {
+      "@id": "logicmonitor:targetLastPublishedVersion",
+      "@type": "xsd:string"
+    },
+    "originChecksum": {
+      "@id": "logicmonitor:originChecksum",
+      "@type": "xsd:string"
+    },
+    "originAuthorNamespace": {
+      "@id": "logicmonitor:originAuthorNamespace",
+      "@type": "xsd:string"
+    },
+    "originLocator": {
+      "@id": "logicmonitor:originLocator",
+      "@type": "xsd:string"
+    },
+    "isChangedFromOrigin": {
+      "@id": "logicmonitor:isChangedFromOrigin",
+      "@type": "xsd:boolean"
+    },
+    "auditedRegistryId": {
+      "@id": "logicmonitor:auditedRegistryId",
+      "@type": "xsd:string"
+    },
+    "targetLineageId": {
+      "@id": "logicmonitor:targetLineageId",
+      "@type": "xsd:string"
+    },
+    "logicModuleType": {
+      "@id": "logicmonitor:logicModuleType",
+      "@type": "xsd:string"
+    },
+    "isChangedFromTargetLastPublished": {
+      "@id": "logicmonitor:isChangedFromTargetLastPublished",
+      "@type": "xsd:boolean"
+    },
+    "originLineageId": {
+      "@id": "logicmonitor:originLineageId",
+      "@type": "xsd:string"
+    },
+    "originAuthorCompanyUUID": {
+      "@id": "logicmonitor:originAuthorCompanyUUID",
+      "@type": "xsd:string"
+    },
+    "localModuleId": {
+      "@id": "logicmonitor:localModuleId",
+      "@type": "xsd:integer"
+    },
+    "originRegistryId": {
+      "@id": "logicmonitor:originRegistryId",
+      "@type": "xsd:string"
+    },
+    "originVersion": {
+      "@id": "logicmonitor:originVersion",
+      "@type": "xsd:string"
+    },
+    "auditedVersion": {
+      "@id": "logicmonitor:auditedVersion",
+      "@type": "xsd:string"
+    },
+    "originName": {
+      "@id": "logicmonitor:originName",
+      "@type": "xsd:string"
+    },
+    "AppliesToFunction_2": "logicmonitor:AppliesToFunction_2",
+    "installationMetadata": {
+      "@id": "logicmonitor:installationMetadata",
+      "@type": "@id"
+    },
+    "accessGroups": {
+      "@id": "logicmonitor:accessGroups",
+      "@container": "@list"
+    },
+    "checksum": {
+      "@id": "logicmonitor:checksum",
+      "@type": "xsd:string"
+    },
+    "accessGroupIds": {
+      "@id": "logicmonitor:accessGroupIds",
+      "@container": "@list"
+    },
+    "isInUse": {
+      "@id": "logicmonitor:isInUse",
+      "@type": "xsd:boolean"
+    },
+    "lineageId": {
+      "@id": "logicmonitor:lineageId",
+      "@type": "xsd:string"
+    },
+    "AuditLog": "logicmonitor:AuditLog",
+    "happenedOnLocal": {
+      "@id": "logicmonitor:happenedOnLocal",
+      "@type": "xsd:string"
+    },
+    "ip": {
+      "@id": "logicmonitor:ip",
+      "@type": "xsd:string"
+    },
+    "happenedOn": {
+      "@id": "logicmonitor:happenedOn",
+      "@type": "xsd:integer"
+    },
+    "username": {
+      "@id": "logicmonitor:username",
+      "@type": "xsd:string"
+    },
+    "AccessLogPaginationResponse": "logicmonitor:AccessLogPaginationResponse",
+    "AuditLog_2": "logicmonitor:AuditLog_2",
+    "DiagnosticRemediationAssignedSource": "logicmonitor:DiagnosticRemediationAssignedSource",
+    "appliesTo": {
+      "@id": "logicmonitor:appliesTo",
+      "@type": "xsd:string"
+    },
+    "group": {
+      "@id": "logicmonitor:group",
+      "@type": "xsd:string"
+    },
+    "AdrOutput": "logicmonitor:AdrOutput",
+    "executedBy": {
+      "@id": "logicmonitor:executedBy",
+      "@type": "xsd:string"
+    },
+    "remediationSourceId": {
+      "@id": "logicmonitor:remediationSourceId",
+      "@type": "xsd:integer"
+    },
+    "executionStatus": {
+      "@id": "logicmonitor:executionStatus",
+      "@type": "xsd:string"
+    },
+    "moduleName": {
+      "@id": "logicmonitor:moduleName",
+      "@type": "xsd:string"
+    },
+    "hostId": {
+      "@id": "logicmonitor:hostId",
+      "@type": "xsd:integer"
+    },
+    "triggeredType": {
+      "@id": "logicmonitor:triggeredType",
+      "@type": "xsd:string"
+    },
+    "output": {
+      "@id": "logicmonitor:output",
+      "@type": "xsd:string"
+    },
+    "executionId": {
+      "@id": "logicmonitor:executionId",
+      "@type": "xsd:integer"
+    },
+    "sourceType": {
+      "@id": "logicmonitor:sourceType",
+      "@type": "xsd:string"
+    },
+    "diagnosticSourceId": {
+      "@id": "logicmonitor:diagnosticSourceId",
+      "@type": "xsd:integer"
+    },
+    "startTime": {
+      "@id": "logicmonitor:startTime",
+      "@type": "xsd:integer"
+    },
+    "alertId": {
+      "@id": "logicmonitor:alertId",
+      "@type": "xsd:string"
+    },
+    "endTime": {
+      "@id": "logicmonitor:endTime",
+      "@type": "xsd:integer"
+    },
+    "AdrOutputList": "logicmonitor:AdrOutputList",
+    "cursor": {
+      "@id": "logicmonitor:cursor",
+      "@type": "xsd:string"
+    },
+    "remediationCursor": {
+      "@id": "logicmonitor:remediationCursor",
+      "@type": "xsd:string"
+    },
+    "CollectorGroupPaginationResponse": "logicmonitor:CollectorGroupPaginationResponse",
+    "NameAndValue": "logicmonitor:NameAndValue",
+    "CollectorGroup": "logicmonitor:CollectorGroup",
+    "autoBalance": {
+      "@id": "logicmonitor:autoBalance",
+      "@type": "xsd:string"
+    },
+    "customProperties": {
+      "@id": "logicmonitor:customProperties",
+      "@container": "@list"
+    },
+    "numOfCollectors": {
+      "@id": "logicmonitor:numOfCollectors",
+      "@type": "xsd:integer"
+    },
+    "autoBalanceInstanceCountThreshold": {
+      "@id": "logicmonitor:autoBalanceInstanceCountThreshold",
+      "@type": "xsd:integer"
+    },
+    "autoBalanceStrategy": {
+      "@id": "logicmonitor:autoBalanceStrategy",
+      "@type": "xsd:string"
+    },
+    "createOn": {
+      "@id": "logicmonitor:createOn",
+      "@type": "xsd:integer"
+    },
+    "AutomaticUpgradeInfo": "logicmonitor:AutomaticUpgradeInfo",
+    "dayOfWeek": {
+      "@id": "logicmonitor:dayOfWeek",
+      "@type": "xsd:string"
+    },
+    "level": {
+      "@id": "logicmonitor:level",
+      "@type": "xsd:string"
+    },
+    "occurrence": {
+      "@id": "logicmonitor:occurrence",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "logicmonitor:version",
+      "@type": "xsd:string"
+    },
+    "CollectorBase": "logicmonitor:CollectorBase",
+    "userChangeOn": {
+      "@id": "logicmonitor:userChangeOn",
+      "@type": "xsd:integer"
+    },
+    "confVersion": {
+      "@id": "logicmonitor:confVersion",
+      "@type": "xsd:string"
+    },
+    "downloadUrl": {
+      "@id": "logicmonitor:downloadUrl",
+      "@type": "xsd:string"
+    },
+    "updatedOnLocal": {
+      "@id": "logicmonitor:updatedOnLocal",
+      "@type": "xsd:string"
+    },
+    "collectorType": {
+      "@id": "logicmonitor:collectorType",
+      "@type": "xsd:string"
+    },
+    "encodedConfigData": {
+      "@id": "logicmonitor:encodedConfigData",
+      "@type": "xsd:string"
+    },
+    "hostname": {
+      "@id": "logicmonitor:hostname",
+      "@type": "xsd:string"
+    },
+    "numberOfInstances": {
+      "@id": "logicmonitor:numberOfInstances",
+      "@type": "xsd:integer"
+    },
+    "archType": {
+      "@id": "logicmonitor:archType",
+      "@type": "xsd:string"
+    },
+    "ea": {
+      "@id": "logicmonitor:ea",
+      "@type": "xsd:boolean"
+    },
+    "watchdogUpdatedOnLocal": {
+      "@id": "logicmonitor:watchdogUpdatedOnLocal",
+      "@type": "xsd:string"
+    },
+    "hasFailOverDevice": {
+      "@id": "logicmonitor:hasFailOverDevice",
+      "@type": "xsd:boolean"
+    },
+    "collectorGroupName": {
+      "@id": "logicmonitor:collectorGroupName",
+      "@type": "xsd:string"
+    },
+    "netscanVersion": {
+      "@id": "logicmonitor:netscanVersion",
+      "@type": "xsd:string"
+    },
+    "inSDT": {
+      "@id": "logicmonitor:inSDT",
+      "@type": "xsd:boolean"
+    },
+    "isEncoded": {
+      "@id": "logicmonitor:isEncoded",
+      "@type": "xsd:boolean"
+    },
+    "format": {
+      "@id": "logicmonitor:format",
+      "@type": "xsd:string"
+    },
+    "automaticUpgradeInfo": {
+      "@id": "logicmonitor:automaticUpgradeInfo",
+      "@type": "@id"
+    },
+    "numberOfHosts": {
+      "@id": "logicmonitor:numberOfHosts",
+      "@type": "xsd:integer"
+    },
+    "collectorList": {
+      "@id": "logicmonitor:collectorList",
+      "@type": "xsd:string"
+    },
+    "collectorConf": {
+      "@id": "logicmonitor:collectorConf",
+      "@type": "xsd:string"
+    },
+    "sbproxyConf": {
+      "@id": "logicmonitor:sbproxyConf",
+      "@type": "xsd:string"
+    },
+    "agentConfFields": {
+      "@id": "logicmonitor:agentConfFields"
+    },
+    "lastSentNotificationOnLocal": {
+      "@id": "logicmonitor:lastSentNotificationOnLocal",
+      "@type": "xsd:string"
+    },
+    "predefinedConfig": {
+      "@id": "logicmonitor:predefinedConfig"
+    },
+    "calculatedThreshold": {
+      "@id": "logicmonitor:calculatedThreshold",
+      "@type": "xsd:decimal"
+    },
+    "onetimeUpgradeInfo": {
+      "@id": "logicmonitor:onetimeUpgradeInfo",
+      "@type": "@id"
+    },
+    "wrapperConf": {
+      "@id": "logicmonitor:wrapperConf",
+      "@type": "xsd:string"
+    },
+    "clearSent": {
+      "@id": "logicmonitor:clearSent",
+      "@type": "xsd:boolean"
+    },
+    "isLmlogsSyslogEnabled": {
+      "@id": "logicmonitor:isLmlogsSyslogEnabled",
+      "@type": "xsd:boolean"
+    },
+    "backupAgentId": {
+      "@id": "logicmonitor:backupAgentId",
+      "@type": "xsd:integer"
+    },
+    "isAdminAccount": {
+      "@id": "logicmonitor:isAdminAccount",
+      "@type": "xsd:boolean"
+    },
+    "specifiedCollectorDeviceGroupId": {
+      "@id": "logicmonitor:specifiedCollectorDeviceGroupId",
+      "@type": "xsd:integer"
+    },
+    "collectorSize": {
+      "@id": "logicmonitor:collectorSize",
+      "@type": "xsd:string"
+    },
+    "ackedOnLocal": {
+      "@id": "logicmonitor:ackedOnLocal",
+      "@type": "xsd:string"
+    },
+    "watchdogConf": {
+      "@id": "logicmonitor:watchdogConf",
+      "@type": "xsd:string"
+    },
+    "platform": {
+      "@id": "logicmonitor:platform",
+      "@type": "xsd:string"
+    },
+    "isDown": {
+      "@id": "logicmonitor:isDown",
+      "@type": "xsd:boolean"
+    },
+    "userVisibleHostsNum": {
+      "@id": "logicmonitor:userVisibleHostsNum",
+      "@type": "xsd:integer"
+    },
+    "canDowngrade": {
+      "@id": "logicmonitor:canDowngrade",
+      "@type": "xsd:boolean"
+    },
+    "nextUpgradeInfo": {
+      "@id": "logicmonitor:nextUpgradeInfo",
+      "@type": "@id"
+    },
+    "enableLMLogs": {
+      "@id": "logicmonitor:enableLMLogs",
+      "@type": "xsd:boolean"
+    },
+    "ackedOn": {
+      "@id": "logicmonitor:ackedOn",
+      "@type": "xsd:integer"
+    },
+    "userChangeOnLocal": {
+      "@id": "logicmonitor:userChangeOnLocal",
+      "@type": "xsd:string"
+    },
+    "collectorDeviceId": {
+      "@id": "logicmonitor:collectorDeviceId",
+      "@type": "xsd:integer"
+    },
+    "needAutoCreateCollectorDevice": {
+      "@id": "logicmonitor:needAutoCreateCollectorDevice",
+      "@type": "xsd:boolean"
+    },
+    "watchdogUpdatedOn": {
+      "@id": "logicmonitor:watchdogUpdatedOn",
+      "@type": "xsd:integer"
+    },
+    "canDowngradeReason": {
+      "@id": "logicmonitor:canDowngradeReason",
+      "@type": "xsd:string"
+    },
+    "lastSentNotificationOn": {
+      "@id": "logicmonitor:lastSentNotificationOn",
+      "@type": "xsd:integer"
+    },
+    "syntheticsEnabled": {
+      "@id": "logicmonitor:syntheticsEnabled",
+      "@type": "xsd:boolean"
+    },
+    "onetimeDowngradeInfo": {
+      "@id": "logicmonitor:onetimeDowngradeInfo",
+      "@type": "@id"
+    },
+    "copyUrl": {
+      "@id": "logicmonitor:copyUrl",
+      "@type": "xsd:string"
+    },
+    "errorMsg": {
+      "@id": "logicmonitor:errorMsg",
+      "@type": "xsd:string"
+    },
+    "upTime": {
+      "@id": "logicmonitor:upTime",
+      "@type": "xsd:integer"
+    },
+    "otelVersion": {
+      "@id": "logicmonitor:otelVersion",
+      "@type": "xsd:string"
+    },
+    "numberOfSDTs": {
+      "@id": "logicmonitor:numberOfSDTs",
+      "@type": "xsd:integer"
+    },
+    "bearerToken": {
+      "@id": "logicmonitor:bearerToken",
+      "@type": "xsd:string"
+    },
+    "build": {
+      "@id": "logicmonitor:build",
+      "@type": "xsd:string"
+    },
+    "previousVersion": {
+      "@id": "logicmonitor:previousVersion",
+      "@type": "xsd:string"
+    },
+    "collectorGroupId": {
+      "@id": "logicmonitor:collectorGroupId",
+      "@type": "xsd:integer"
+    },
+    "createdOnLocal": {
+      "@id": "logicmonitor:createdOnLocal",
+      "@type": "xsd:string"
+    },
+    "enableFailBack": {
+      "@id": "logicmonitor:enableFailBack",
+      "@type": "xsd:boolean"
+    },
+    "resendIval": {
+      "@id": "logicmonitor:resendIval",
+      "@type": "xsd:integer"
+    },
+    "arch": {
+      "@id": "logicmonitor:arch",
+      "@type": "xsd:string"
+    },
+    "otelId": {
+      "@id": "logicmonitor:otelId",
+      "@type": "xsd:string"
+    },
+    "enableFailOverOnCollectorDevice": {
+      "@id": "logicmonitor:enableFailOverOnCollectorDevice",
+      "@type": "xsd:boolean"
+    },
+    "config": {
+      "@id": "logicmonitor:config",
+      "@type": "xsd:string"
+    },
+    "RestHighestPriorityCollectorStatus": "logicmonitor:RestHighestPriorityCollectorStatus",
+    "CollectorPaginationResponse": "logicmonitor:CollectorPaginationResponse",
+    "OnetimeUpgradeInfo": "logicmonitor:OnetimeUpgradeInfo",
+    "majorVersion": {
+      "@id": "logicmonitor:majorVersion",
+      "@type": "xsd:integer"
+    },
+    "minorVersion": {
+      "@id": "logicmonitor:minorVersion",
+      "@type": "xsd:integer"
+    },
+    "NextUpgradeInfo": "logicmonitor:NextUpgradeInfo",
+    "upgradeTime": {
+      "@id": "logicmonitor:upgradeTime",
+      "@type": "xsd:string"
+    },
+    "stable": {
+      "@id": "logicmonitor:stable",
+      "@type": "xsd:boolean"
+    },
+    "mandatory": {
+      "@id": "logicmonitor:mandatory",
+      "@type": "xsd:boolean"
+    },
+    "upgradeTimeEpoch": {
+      "@id": "logicmonitor:upgradeTimeEpoch",
+      "@type": "xsd:integer"
+    },
+    "CollectorGroup_2": "logicmonitor:CollectorGroup_2",
+    "propertyForBalancingLastUpdatedOn": {
+      "@id": "logicmonitor:propertyForBalancingLastUpdatedOn",
+      "@type": "xsd:integer"
+    },
+    "highestPriorityCollectorStatus": {
+      "@id": "logicmonitor:highestPriorityCollectorStatus",
+      "@type": "@id"
+    },
+    "propertyForBalancingUpdateLockedUptoMS": {
+      "@id": "logicmonitor:propertyForBalancingUpdateLockedUptoMS",
+      "@type": "xsd:integer"
+    },
+    "numOfHosts": {
+      "@id": "logicmonitor:numOfHosts",
+      "@type": "xsd:integer"
+    },
+    "numOfInstances": {
+      "@id": "logicmonitor:numOfInstances",
+      "@type": "xsd:integer"
+    },
+    "calThreshold": {
+      "@id": "logicmonitor:calThreshold",
+      "@type": "xsd:integer"
+    },
+    "mismatchVersion": {
+      "@id": "logicmonitor:mismatchVersion",
+      "@type": "xsd:boolean"
+    },
+    "propertyForBalancing": {
+      "@id": "logicmonitor:propertyForBalancing",
+      "@type": "xsd:string"
+    },
+    "RestDowngradeInfoOnetime": "logicmonitor:RestDowngradeInfoOnetime",
+    "NameAndValue_2": "logicmonitor:NameAndValue_2",
+    "AckCollectorDown": "logicmonitor:AckCollectorDown",
+    "comment": {
+      "@id": "logicmonitor:comment",
+      "@type": "xsd:string"
+    },
+    "Collector": "logicmonitor:Collector",
+    "userVisibleWebsitesNum": {
+      "@id": "logicmonitor:userVisibleWebsitesNum",
+      "@type": "xsd:integer"
+    },
+    "numberOfWebsites": {
+      "@id": "logicmonitor:numberOfWebsites",
+      "@type": "xsd:integer"
+    },
+    "websiteConf": {
+      "@id": "logicmonitor:websiteConf",
+      "@type": "xsd:string"
+    },
+    "RestCollectorDownloadTokenV3": "logicmonitor:RestCollectorDownloadTokenV3",
+    "token": {
+      "@id": "logicmonitor:token",
+      "@type": "xsd:string"
+    },
+    "RestCollectorEventV3": "logicmonitor:RestCollectorEventV3",
+    "collectorPlatform": {
+      "@id": "logicmonitor:collectorPlatform",
+      "@type": "xsd:string"
+    },
+    "eventMsg": {
+      "@id": "logicmonitor:eventMsg",
+      "@type": "xsd:string"
+    },
+    "collectorDescription": {
+      "@id": "logicmonitor:collectorDescription",
+      "@type": "xsd:string"
+    },
+    "reportedOn": {
+      "@id": "logicmonitor:reportedOn",
+      "@type": "xsd:integer"
+    },
+    "reportDateOnLocal": {
+      "@id": "logicmonitor:reportDateOnLocal",
+      "@type": "xsd:string"
+    },
+    "collectorId": {
+      "@id": "logicmonitor:collectorId",
+      "@type": "xsd:integer"
+    },
+    "eCode": {
+      "@id": "logicmonitor:eCode",
+      "@type": "xsd:integer"
+    },
+    "collectorBuild": {
+      "@id": "logicmonitor:collectorBuild",
+      "@type": "xsd:string"
+    },
+    "OnetimeUpgradeInfo_2": "logicmonitor:OnetimeUpgradeInfo_2",
+    "CollectorLogFilePaginationResponse": "logicmonitor:CollectorLogFilePaginationResponse",
+    "RestRestartCollectorV3": "logicmonitor:RestRestartCollectorV3",
+    "RestCollectorStatusV3": "logicmonitor:RestCollectorStatusV3",
+    "lastTriggeredMills": {
+      "@id": "logicmonitor:lastTriggeredMills",
+      "@type": "xsd:integer"
+    },
+    "totalScriptCount": {
+      "@id": "logicmonitor:totalScriptCount",
+      "@type": "xsd:integer"
+    },
+    "lastUpdateMills": {
+      "@id": "logicmonitor:lastUpdateMills",
+      "@type": "xsd:integer"
+    },
+    "aborted": {
+      "@id": "logicmonitor:aborted",
+      "@type": "xsd:boolean"
+    },
+    "finished": {
+      "@id": "logicmonitor:finished",
+      "@type": "xsd:boolean"
+    },
+    "checkPoints": {
+      "@id": "logicmonitor:checkPoints",
+      "@type": "@id"
+    },
+    "finishedScriptCount": {
+      "@id": "logicmonitor:finishedScriptCount",
+      "@type": "xsd:integer"
+    },
+    "skippedScriptCount": {
+      "@id": "logicmonitor:skippedScriptCount",
+      "@type": "xsd:integer"
+    },
+    "JSONArray": "logicmonitor:JSONArray",
+    "RestCollectorLogFileV3": "logicmonitor:RestCollectorLogFileV3",
+    "fileName": {
+      "@id": "logicmonitor:fileName",
+      "@type": "xsd:string"
+    },
+    "size": {
+      "@id": "logicmonitor:size",
+      "@type": "xsd:integer"
+    },
+    "uploaded": {
+      "@id": "logicmonitor:uploaded",
+      "@type": "xsd:integer"
+    },
+    "lastModified": {
+      "@id": "logicmonitor:lastModified",
+      "@type": "xsd:integer"
+    },
+    "lastModifiedOnOnLocal": {
+      "@id": "logicmonitor:lastModifiedOnOnLocal",
+      "@type": "xsd:string"
+    },
+    "NextUpgradeInfo_2": "logicmonitor:NextUpgradeInfo_2",
+    "DeviceCount": "logicmonitor:DeviceCount",
+    "instances": {
+      "@id": "logicmonitor:instances",
+      "@type": "xsd:integer"
+    },
+    "count": {
+      "@id": "logicmonitor:count",
+      "@type": "xsd:integer"
+    },
+    "CollectorBase_2": "logicmonitor:CollectorBase_2",
+    "RestCollectorSizingResponseV3": "logicmonitor:RestCollectorSizingResponseV3",
+    "netflow": {
+      "@id": "logicmonitor:netflow",
+      "@type": "@id"
+    },
+    "polling": {
+      "@id": "logicmonitor:polling",
+      "@type": "@id"
+    },
+    "logs": {
+      "@id": "logicmonitor:logs",
+      "@type": "@id"
+    },
+    "NetFlowSourceCount": "logicmonitor:NetFlowSourceCount",
+    "CollectorRecommendation": "logicmonitor:CollectorRecommendation",
+    "utilizationPercent": {
+      "@id": "logicmonitor:utilizationPercent",
+      "@type": "xsd:decimal"
+    },
+    "totalLoad": {
+      "@id": "logicmonitor:totalLoad",
+      "@type": "xsd:decimal"
+    },
+    "maxCapacity": {
+      "@id": "logicmonitor:maxCapacity",
+      "@type": "xsd:decimal"
+    },
+    "failoverEnabled": {
+      "@id": "logicmonitor:failoverEnabled",
+      "@type": "xsd:boolean"
+    },
+    "perCollectorLoad": {
+      "@id": "logicmonitor:perCollectorLoad",
+      "@type": "xsd:decimal"
+    },
+    "workloadType": {
+      "@id": "logicmonitor:workloadType",
+      "@type": "xsd:string"
+    },
+    "AutomaticUpgradeInfo_2": "logicmonitor:AutomaticUpgradeInfo_2",
+    "LogSourceCount": "logicmonitor:LogSourceCount",
+    "SizingOptions": "logicmonitor:SizingOptions",
+    "maxLoadPercent": {
+      "@id": "logicmonitor:maxLoadPercent",
+      "@type": "xsd:integer"
+    },
+    "pollingFailover": {
+      "@id": "logicmonitor:pollingFailover",
+      "@type": "xsd:boolean"
+    },
+    "logsFailover": {
+      "@id": "logicmonitor:logsFailover",
+      "@type": "xsd:boolean"
+    },
+    "forcedSize": {
+      "@id": "logicmonitor:forcedSize",
+      "@type": "xsd:string"
+    },
+    "netflowFailover": {
+      "@id": "logicmonitor:netflowFailover",
+      "@type": "xsd:boolean"
+    },
+    "RestCollectorUpgradeHistoryV3": "logicmonitor:RestCollectorUpgradeHistoryV3",
+    "newVersion": {
+      "@id": "logicmonitor:newVersion",
+      "@type": "xsd:string"
+    },
+    "Collector_2": "logicmonitor:Collector_2",
+    "RestCollectorSizingRequestV3": "logicmonitor:RestCollectorSizingRequestV3",
+    "traps": {
+      "@id": "logicmonitor:traps"
+    },
+    "options": {
+      "@id": "logicmonitor:options",
+      "@type": "@id"
+    },
+    "RestAgentLogLevelV3": "logicmonitor:RestAgentLogLevelV3",
+    "component": {
+      "@id": "logicmonitor:component",
+      "@type": "xsd:string"
+    },
+    "logLevel": {
+      "@id": "logicmonitor:logLevel",
+      "@type": "xsd:string"
+    },
+    "CollectorUpgradeHistoryPaginationResponse": "logicmonitor:CollectorUpgradeHistoryPaginationResponse",
+    "SizingSummary": "logicmonitor:SizingSummary",
+    "totalCollectors": {
+      "@id": "logicmonitor:totalCollectors",
+      "@type": "xsd:integer"
+    },
+    "largestSize": {
+      "@id": "logicmonitor:largestSize",
+      "@type": "xsd:string"
+    },
+    "activeWorkloads": {
+      "@id": "logicmonitor:activeWorkloads",
+      "@container": "@list"
+    },
+    "configurationUsed": {
+      "@id": "logicmonitor:configurationUsed"
+    },
+    "CollectorVersionPaginationResponse": "logicmonitor:CollectorVersionPaginationResponse",
+    "CollectorVersion": "logicmonitor:CollectorVersion",
+    "releaseEpoch": {
+      "@id": "logicmonitor:releaseEpoch",
+      "@type": "xsd:integer"
+    },
+    "has32bitWindows": {
+      "@id": "logicmonitor:has32bitWindows",
+      "@type": "xsd:boolean"
+    },
+    "has32bitLinux": {
+      "@id": "logicmonitor:has32bitLinux",
+      "@type": "xsd:boolean"
+    },
+    "CollectorVersion_2": "logicmonitor:CollectorVersion_2",
+    "patch": {
+      "@id": "logicmonitor:patch",
+      "@type": "xsd:boolean"
+    },
+    "feature": {
+      "@id": "logicmonitor:feature",
+      "@type": "xsd:boolean"
+    },
+    "UpdateReason": "logicmonitor:UpdateReason",
+    "timeEpoch": {
+      "@id": "logicmonitor:timeEpoch",
+      "@type": "xsd:integer"
+    },
+    "clientIp": {
+      "@id": "logicmonitor:clientIp",
+      "@type": "xsd:string"
+    },
+    "updateReason": {
+      "@id": "logicmonitor:updateReason",
+      "@type": "xsd:string"
+    },
+    "timeStr": {
+      "@id": "logicmonitor:timeStr",
+      "@type": "xsd:string"
+    },
+    "userName": {
+      "@id": "logicmonitor:userName",
+      "@type": "xsd:string"
+    },
+    "AutoDiscoveryConfiguration": "logicmonitor:AutoDiscoveryConfiguration",
+    "persistentInstance": {
+      "@id": "logicmonitor:persistentInstance",
+      "@type": "xsd:boolean"
+    },
+    "scheduleInterval": {
+      "@id": "logicmonitor:scheduleInterval",
+      "@type": "xsd:integer"
+    },
+    "deleteInactiveInstance": {
+      "@id": "logicmonitor:deleteInactiveInstance",
+      "@type": "xsd:boolean"
+    },
+    "method": {
+      "@id": "logicmonitor:method",
+      "@type": "@id"
+    },
+    "instanceAutoGroupMethod": {
+      "@id": "logicmonitor:instanceAutoGroupMethod",
+      "@type": "xsd:string"
+    },
+    "instanceAutoGroupMethodParams": {
+      "@id": "logicmonitor:instanceAutoGroupMethodParams",
+      "@type": "xsd:string"
+    },
+    "filters": {
+      "@id": "logicmonitor:filters",
+      "@container": "@list"
+    },
+    "disableInstance": {
+      "@id": "logicmonitor:disableInstance",
+      "@type": "xsd:boolean"
+    },
+    "showDeletedInstanceDays": {
+      "@id": "logicmonitor:showDeletedInstanceDays",
+      "@type": "xsd:integer"
+    },
+    "AutoDiscoveryFilter": "logicmonitor:AutoDiscoveryFilter",
+    "attribute": {
+      "@id": "logicmonitor:attribute",
+      "@type": "xsd:string"
+    },
+    "operation": {
+      "@id": "logicmonitor:operation",
+      "@type": "xsd:string"
+    },
+    "ConfigsourcePaginationResponse": "logicmonitor:ConfigsourcePaginationResponse",
+    "CollectorAttribute": "logicmonitor:CollectorAttribute",
+    "StatusDisplayName": "logicmonitor:StatusDisplayName",
+    "statusDisplayName": {
+      "@id": "logicmonitor:statusDisplayName",
+      "@type": "xsd:string"
+    },
+    "metricValue": {
+      "@id": "logicmonitor:metricValue",
+      "@type": "xsd:string"
+    },
+    "datapointId": {
+      "@id": "logicmonitor:datapointId",
+      "@type": "xsd:integer"
+    },
+    "ConfigSourceUpdateReasonsPaginationResponse": "logicmonitor:ConfigSourceUpdateReasonsPaginationResponse",
+    "DataSource": "logicmonitor:DataSource",
+    "eriDiscoveryConfig": {
+      "@id": "logicmonitor:eriDiscoveryConfig",
+      "@type": "@id"
+    },
+    "collectMethod": {
+      "@id": "logicmonitor:collectMethod",
+      "@type": "xsd:string"
+    },
+    "dataPoints": {
+      "@id": "logicmonitor:dataPoints",
+      "@container": "@list"
+    },
+    "collectorAttribute": {
+      "@id": "logicmonitor:collectorAttribute",
+      "@type": "@id"
+    },
+    "autoDiscoveryConfig": {
+      "@id": "logicmonitor:autoDiscoveryConfig",
+      "@type": "@id"
+    },
+    "adParameters": {
+      "@id": "logicmonitor:adParameters",
+      "@type": "@id"
+    },
+    "payloadVersion": {
+      "@id": "logicmonitor:payloadVersion",
+      "@type": "xsd:integer"
+    },
+    "useWildValueAsUUID": {
+      "@id": "logicmonitor:useWildValueAsUUID",
+      "@type": "xsd:boolean"
+    },
+    "enableAutoDiscovery": {
+      "@id": "logicmonitor:enableAutoDiscovery",
+      "@type": "xsd:boolean"
+    },
+    "technology": {
+      "@id": "logicmonitor:technology",
+      "@type": "xsd:string"
+    },
+    "auditVersion": {
+      "@id": "logicmonitor:auditVersion",
+      "@type": "xsd:integer"
+    },
+    "hasMultiInstances": {
+      "@id": "logicmonitor:hasMultiInstances",
+      "@type": "xsd:boolean"
+    },
+    "eriDiscoveryInterval": {
+      "@id": "logicmonitor:eriDiscoveryInterval",
+      "@type": "xsd:integer"
+    },
+    "enableEriDiscovery": {
+      "@id": "logicmonitor:enableEriDiscovery",
+      "@type": "xsd:boolean"
+    },
+    "collectInterval": {
+      "@id": "logicmonitor:collectInterval",
+      "@type": "xsd:integer"
+    },
+    "ConfigCheck": "logicmonitor:ConfigCheck",
+    "ackClearAlert": {
+      "@id": "logicmonitor:ackClearAlert",
+      "@type": "xsd:boolean"
+    },
+    "originId": {
+      "@id": "logicmonitor:originId",
+      "@type": "xsd:string"
+    },
+    "alertLevel": {
+      "@id": "logicmonitor:alertLevel",
+      "@type": "xsd:integer"
+    },
+    "configSourceId": {
+      "@id": "logicmonitor:configSourceId",
+      "@type": "xsd:integer"
+    },
+    "alertEffectiveIval": {
+      "@id": "logicmonitor:alertEffectiveIval",
+      "@type": "xsd:integer"
+    },
+    "script": {
+      "@id": "logicmonitor:script",
+      "@type": "@id"
+    },
+    "alertTransitionInterval": {
+      "@id": "logicmonitor:alertTransitionInterval",
+      "@type": "xsd:integer"
+    },
+    "ConfigSource": "logicmonitor:ConfigSource",
+    "configChecks": {
+      "@id": "logicmonitor:configChecks",
+      "@container": "@list"
+    },
+    "timestampFormat": {
+      "@id": "logicmonitor:timestampFormat",
+      "@type": "xsd:string"
+    },
+    "fileFormat": {
+      "@id": "logicmonitor:fileFormat",
+      "@type": "xsd:string"
+    },
+    "AutoDiscoveryMethod": "logicmonitor:AutoDiscoveryMethod",
+    "ScriptERIDiscoveryAttributeV3": "logicmonitor:ScriptERIDiscoveryAttributeV3",
+    "winScript": {
+      "@id": "logicmonitor:winScript",
+      "@type": "xsd:string"
+    },
+    "groovyScript": {
+      "@id": "logicmonitor:groovyScript",
+      "@type": "xsd:string"
+    },
+    "linuxCmdline": {
+      "@id": "logicmonitor:linuxCmdline",
+      "@type": "xsd:string"
+    },
+    "linuxScript": {
+      "@id": "logicmonitor:linuxScript",
+      "@type": "xsd:string"
+    },
+    "winCmdline": {
+      "@id": "logicmonitor:winCmdline",
+      "@type": "xsd:string"
+    },
+    "DataPoint": "logicmonitor:DataPoint",
+    "alertForNoData": {
+      "@id": "logicmonitor:alertForNoData",
+      "@type": "xsd:integer"
+    },
+    "postProcessorMethod": {
+      "@id": "logicmonitor:postProcessorMethod",
+      "@type": "xsd:string"
+    },
+    "postProcessorParam": {
+      "@id": "logicmonitor:postProcessorParam",
+      "@type": "xsd:string"
+    },
+    "maxDigits": {
+      "@id": "logicmonitor:maxDigits",
+      "@type": "xsd:integer"
+    },
+    "rawDataFieldName": {
+      "@id": "logicmonitor:rawDataFieldName",
+      "@type": "xsd:string"
+    },
+    "alertClearTransitionInterval": {
+      "@id": "logicmonitor:alertClearTransitionInterval",
+      "@type": "xsd:integer"
+    },
+    "userParam3": {
+      "@id": "logicmonitor:userParam3",
+      "@type": "xsd:string"
+    },
+    "userParam2": {
+      "@id": "logicmonitor:userParam2",
+      "@type": "xsd:string"
+    },
+    "minValue": {
+      "@id": "logicmonitor:minValue",
+      "@type": "xsd:string"
+    },
+    "alertBody": {
+      "@id": "logicmonitor:alertBody",
+      "@type": "xsd:string"
+    },
+    "userParam1": {
+      "@id": "logicmonitor:userParam1",
+      "@type": "xsd:string"
+    },
+    "alertSubject": {
+      "@id": "logicmonitor:alertSubject",
+      "@type": "xsd:string"
+    },
+    "maxValue": {
+      "@id": "logicmonitor:maxValue",
+      "@type": "xsd:string"
+    },
+    "dataType": {
+      "@id": "logicmonitor:dataType",
+      "@type": "xsd:integer"
+    },
+    "criticalAdAdvSetting": {
+      "@id": "logicmonitor:criticalAdAdvSetting",
+      "@type": "xsd:string"
+    },
+    "alertExprNote": {
+      "@id": "logicmonitor:alertExprNote",
+      "@type": "xsd:string"
+    },
+    "adAdvSettingEnabled": {
+      "@id": "logicmonitor:adAdvSettingEnabled",
+      "@type": "xsd:boolean"
+    },
+    "errorAdAdvSetting": {
+      "@id": "logicmonitor:errorAdAdvSetting",
+      "@type": "xsd:string"
+    },
+    "warnAdAdvSetting": {
+      "@id": "logicmonitor:warnAdAdvSetting",
+      "@type": "xsd:string"
+    },
+    "statusDisplayNames": {
+      "@id": "logicmonitor:statusDisplayNames",
+      "@container": "@list"
+    },
+    "alertExpr": {
+      "@id": "logicmonitor:alertExpr",
+      "@type": "xsd:string"
+    },
+    "RestCloudRecommendationV3": "logicmonitor:RestCloudRecommendationV3",
+    "resourceDisplayName": {
+      "@id": "logicmonitor:resourceDisplayName",
+      "@type": "xsd:string"
+    },
+    "providerConsoleUrl": {
+      "@id": "logicmonitor:providerConsoleUrl",
+      "@type": "xsd:string"
+    },
+    "annualSavings": {
+      "@id": "logicmonitor:annualSavings",
+      "@type": "xsd:decimal"
+    },
+    "recommendationCategory": {
+      "@id": "logicmonitor:recommendationCategory",
+      "@type": "xsd:string"
+    },
+    "createdAtMS": {
+      "@id": "logicmonitor:createdAtMS",
+      "@type": "xsd:integer"
+    },
+    "criteria": {
+      "@id": "logicmonitor:criteria",
+      "@type": "xsd:string"
+    },
+    "cloudAccountId": {
+      "@id": "logicmonitor:cloudAccountId",
+      "@type": "xsd:string"
+    },
+    "deviceSubtype": {
+      "@id": "logicmonitor:deviceSubtype",
+      "@type": "xsd:string"
+    },
+    "recommendation": {
+      "@id": "logicmonitor:recommendation",
+      "@type": "xsd:string"
+    },
+    "recommendationId": {
+      "@id": "logicmonitor:recommendationId",
+      "@type": "xsd:integer"
+    },
+    "recommendationStatus": {
+      "@id": "logicmonitor:recommendationStatus",
+      "@type": "xsd:string"
+    },
+    "updatedAtMS": {
+      "@id": "logicmonitor:updatedAtMS",
+      "@type": "xsd:integer"
+    },
+    "cloudProvider": {
+      "@id": "logicmonitor:cloudProvider",
+      "@type": "xsd:string"
+    },
+    "cloudServiceType": {
+      "@id": "logicmonitor:cloudServiceType",
+      "@type": "xsd:string"
+    },
+    "RestCloudRecommendationCategoryV3": "logicmonitor:RestCloudRecommendationCategoryV3",
+    "DashboardGroupPaginationResponse": "logicmonitor:DashboardGroupPaginationResponse",
+    "WidgetTokenInheritance": "logicmonitor:WidgetTokenInheritance",
+    "fullpath": {
+      "@id": "logicmonitor:fullpath",
+      "@type": "xsd:string"
+    },
+    "WidgetToken": "logicmonitor:WidgetToken",
+    "inheritList": {
+      "@id": "logicmonitor:inheritList",
+      "@container": "@list"
+    },
+    "DashboardData": "logicmonitor:DashboardData",
+    "sharable": {
+      "@id": "logicmonitor:sharable",
+      "@type": "xsd:boolean"
+    },
+    "DashboardGroup": "logicmonitor:DashboardGroup",
+    "template": {
+      "@id": "logicmonitor:template"
+    },
+    "fullPath": {
+      "@id": "logicmonitor:fullPath",
+      "@type": "xsd:string"
+    },
+    "widgetTokens": {
+      "@id": "logicmonitor:widgetTokens",
+      "@container": "@list"
+    },
+    "numOfDirectSubGroups": {
+      "@id": "logicmonitor:numOfDirectSubGroups",
+      "@type": "xsd:integer"
+    },
+    "numOfDashboards": {
+      "@id": "logicmonitor:numOfDashboards",
+      "@type": "xsd:integer"
+    },
+    "dashboards": {
+      "@id": "logicmonitor:dashboards",
+      "@container": "@list"
+    },
+    "parentId": {
+      "@id": "logicmonitor:parentId",
+      "@type": "xsd:integer"
+    },
+    "numOfDirectDashboards": {
+      "@id": "logicmonitor:numOfDirectDashboards",
+      "@type": "xsd:integer"
+    },
+    "RestDashboardGroupAsyncCloneResponse": "logicmonitor:RestDashboardGroupAsyncCloneResponse",
+    "jobId": {
+      "@id": "logicmonitor:jobId",
+      "@type": "xsd:integer"
+    },
+    "WidgetTokenInheritance_2": "logicmonitor:WidgetTokenInheritance_2",
+    "WidgetToken_2": "logicmonitor:WidgetToken_2",
+    "DashboardData_2": "logicmonitor:DashboardData_2",
+    "DashboardGroup_2": "logicmonitor:DashboardGroup_2",
+    "DashboardPaginationResponse": "logicmonitor:DashboardPaginationResponse",
+    "Widget": "logicmonitor:Widget",
+    "lastUpdatedBy": {
+      "@id": "logicmonitor:lastUpdatedBy",
+      "@type": "xsd:string"
+    },
+    "dashboardId": {
+      "@id": "logicmonitor:dashboardId",
+      "@type": "xsd:integer"
+    },
+    "lastUpdatedOn": {
+      "@id": "logicmonitor:lastUpdatedOn",
+      "@type": "xsd:integer"
+    },
+    "theme": {
+      "@id": "logicmonitor:theme",
+      "@type": "xsd:string"
+    },
+    "interval": {
+      "@id": "logicmonitor:interval",
+      "@type": "xsd:integer"
+    },
+    "timescale": {
+      "@id": "logicmonitor:timescale",
+      "@type": "xsd:string"
+    },
+    "WidgetPaginationResponse": "logicmonitor:WidgetPaginationResponse",
+    "Dashboard": "logicmonitor:Dashboard",
+    "owner": {
+      "@id": "logicmonitor:owner",
+      "@type": "xsd:string"
+    },
+    "groupId": {
+      "@id": "logicmonitor:groupId",
+      "@type": "xsd:integer"
+    },
+    "fullName": {
+      "@id": "logicmonitor:fullName",
+      "@type": "xsd:string"
+    },
+    "widgetsConfig": {
+      "@id": "logicmonitor:widgetsConfig"
+    },
+    "groupName": {
+      "@id": "logicmonitor:groupName",
+      "@type": "xsd:string"
+    },
+    "groupFullPath": {
+      "@id": "logicmonitor:groupFullPath",
+      "@type": "xsd:string"
+    },
+    "Widget_2": "logicmonitor:Widget_2",
+    "supportCustomProperty": {
+      "@id": "logicmonitor:supportCustomProperty",
+      "@type": "xsd:boolean"
+    },
+    "isSupportCustomProperty": {
+      "@id": "logicmonitor:isSupportCustomProperty",
+      "@type": "xsd:boolean"
+    },
+    "RestDefaultDashboardFilters": "logicmonitor:RestDefaultDashboardFilters",
+    "defaultDashboardFilterDetails": {
+      "@id": "logicmonitor:defaultDashboardFilterDetails",
+      "@container": "@list"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "LogicMonitor API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects LogicMonitor's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-04) from openapi/logicmonitor-access-group-api-openapi.yml, openapi/logicmonitor-action-chains-api-openapi.yml, openapi/logicmonitor-action-rules-api-openapi.yml.",
+  "dcterms:created": "2026-10-04",
+  "dcterms:source": [
+    "openapi/logicmonitor-access-group-api-openapi.yml",
+    "openapi/logicmonitor-action-chains-api-openapi.yml",
+    "openapi/logicmonitor-action-rules-api-openapi.yml",
+    "openapi/logicmonitor-alert-rules-api-openapi.yml",
+    "openapi/logicmonitor-alerts-api-openapi.yml"
+  ]
+}

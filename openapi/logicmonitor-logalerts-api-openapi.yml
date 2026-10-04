@@ -247,6 +247,41 @@ paths:
               $ref: '#/components/schemas/DisableProcessorPayload'
 components:
   schemas:
+    PipelineProcessorPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestLogPipelineProcessorV3'
+    WindowConfig:
+      type: object
+      properties:
+        duration:
+          type: string
+        count:
+          format: int32
+          type: integer
+    ClearConfig:
+      type: object
+      properties:
+        autoClearAfter:
+          type: string
+        clearQuery:
+          type: string
+        groupingEntities:
+          type: array
+          items:
+            type: string
+        autoClearOnAck:
+          type: boolean
     RestLogPipelineProcessorV3:
       type: object
       properties:
@@ -285,53 +320,6 @@ components:
           type: integer
         window:
           $ref: '#/components/schemas/WindowConfig'
-    ClearConfig:
-      type: object
-      properties:
-        autoClearAfter:
-          type: string
-        clearQuery:
-          type: string
-        groupingEntities:
-          type: array
-          items:
-            type: string
-        autoClearOnAck:
-          type: boolean
-    GroupingConfig:
-      type: object
-      properties:
-        alertEntities:
-          type: array
-          items:
-            type: string
-    WindowConfig:
-      type: object
-      properties:
-        duration:
-          type: string
-        count:
-          format: int32
-          type: integer
-    PipelineProcessorPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestLogPipelineProcessorV3'
-    DisableProcessorPayload:
-      type: object
-      properties:
-        value:
-          type: boolean
     ErrorResponse:
       type: object
       properties:
@@ -348,6 +336,18 @@ components:
           description: The error detail
           readOnly: true
           type: object
+    DisableProcessorPayload:
+      type: object
+      properties:
+        value:
+          type: boolean
+    GroupingConfig:
+      type: object
+      properties:
+        alertEntities:
+          type: array
+          items:
+            type: string
   securitySchemes:
     LMv1:
       in: header

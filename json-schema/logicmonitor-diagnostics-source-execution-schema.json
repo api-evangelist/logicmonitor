@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-diagnostics-source-execution-schema.json",
+  "title": "DiagnosticsSourceExecution",
+  "description": "Represents a diagnostic execution for a host in the LogicMonitor system.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-diagnosticsources-api-openapi.yml#/components/schemas/DiagnosticsSourceExecution",
+  "type": "object",
+  "required": [
+    "diagnosticId",
+    "executionStatus",
+    "hostDiagnosticSourceId",
+    "hostId",
+    "triggerType"
+  ],
+  "properties": {
+    "output": {
+      "description": "Script output when includeOutput is true and execution has completed",
+      "readOnly": true,
+      "type": "string"
+    },
+    "executionId": {
+      "description": "execution Id ",
+      "readOnly": true,
+      "type": "string"
+    },
+    "diagnosticId": {
+      "format": "int32",
+      "description": "The diagnostic module id",
+      "type": "integer"
+    },
+    "executionStatus": {
+      "description": "The diagnostic module id",
+      "readOnly": true,
+      "type": "string"
+    },
+    "hostId": {
+      "format": "int32",
+      "description": "The host id",
+      "type": "integer"
+    },
+    "alertId": {
+      "description": "The alert id",
+      "type": "string"
+    },
+    "triggerType": {
+      "description": "type of trigger",
+      "readOnly": true,
+      "type": "string"
+    },
+    "hostDiagnosticSourceId": {
+      "format": "int32",
+      "description": "The diagnostic module id",
+      "type": "integer"
+    },
+    "includeOutput": {
+      "description": "When true, the API waits for execution to finish and returns script output in the response",
+      "type": "boolean"
+    }
+  }
+}

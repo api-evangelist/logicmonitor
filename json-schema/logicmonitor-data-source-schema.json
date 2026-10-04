@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-data-source-schema.json",
+  "title": "DataSource",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-data-sources-api-openapi.yml#/components/schemas/DataSource",
+  "type": "object",
+  "required": [
+    "collectInterval",
+    "collectMethod",
+    "collectorAttribute",
+    "id",
+    "name"
+  ],
+  "properties": {
+    "collectorAttribute": {
+      "$ref": "#/$defs/CollectorAttribute"
+    },
+    "autoDiscoveryConfig": {
+      "$ref": "#/$defs/AutoDiscoveryConfiguration"
+    },
+    "eriDiscoveryConfig": {
+      "$ref": "#/$defs/ScriptERIDiscoveryAttributeV2"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "description": {
+      "description": "The description for the LMModule",
+      "type": "string"
+    },
+    "appliesTo": {
+      "description": "The Applies To for the LMModule",
+      "type": "string"
+    },
+    "enableAutoDiscovery": {
+      "type": "boolean"
+    },
+    "technology": {
+      "description": "The Technical Notes for the LMModule",
+      "type": "string"
+    },
+    "version": {
+      "format": "int64",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "tags": {
+      "description": "The Tags for the LMModule",
+      "type": "string"
+    },
+    "auditVersion": {
+      "format": "int64",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "hasMultiInstances": {
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "collectMethod": {
+      "type": "string"
+    },
+    "eriDiscoveryInterval": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "enableEriDiscovery": {
+      "type": "boolean"
+    },
+    "collectInterval": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "dataPoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataPoint"
+      }
+    },
+    "id": {
+      "format": "int32",
+      "description": "The ID of the LMModule",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "group": {
+      "description": "The group the LMModule is in",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "AutoDiscoveryConfiguration": {
+      "type": "object",
+      "required": [
+        "method"
+      ],
+      "properties": {
+        "persistentInstance": {
+          "type": "boolean"
+        },
+        "scheduleInterval": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "deleteInactiveInstance": {
+          "type": "boolean"
+        },
+        "method": {
+          "$ref": "#/$defs/AutoDiscoveryMethod"
+        },
+        "instanceAutoGroupMethod": {
+          "type": "string"
+        },
+        "instanceAutoGroupMethodParams": {
+          "type": "string"
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AutoDiscoveryFilter"
+          }
+        },
+        "disableInstance": {
+          "type": "boolean"
+        },
+        "dataSourceName": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "AutoDiscoveryFilter": {
+      "type": "object",
+      "required": [
+        "attribute",
+        "operation"
+      ],
+      "properties": {
+        "comment": {
+          "type": "string"
+        },
+        "attribute": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "AutoDiscoveryMethod": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "CollectorAttribute": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DataPoint": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "alertForNoData": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "maxValue": {
+          "type": "string"
+        },
+        "dataType": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "postProcessorMethod": {
+          "type": "string"
+        },
+        "postProcessorParam": {
+          "type": "string"
+        },
+        "maxDigits": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "rawDataFieldName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "alertClearTransitionInterval": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "userParam3": {
+          "type": "string"
+        },
+        "userParam2": {
+          "type": "string"
+        },
+        "type": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "alertExprNote": {
+          "type": "string"
+        },
+        "dataSourceId": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "minValue": {
+          "type": "string"
+        },
+        "alertBody": {
+          "type": "string"
+        },
+        "userParam1": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alertSubject": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "alertTransitionInterval": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "alertExpr": {
+          "type": "string"
+        }
+      }
+    },
+    "ScriptERIDiscoveryAttributeV2": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "winScript": {
+          "type": "string"
+        },
+        "groovyScript": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "linuxCmdline": {
+          "type": "string"
+        },
+        "linuxScript": {
+          "type": "string"
+        },
+        "winCmdline": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

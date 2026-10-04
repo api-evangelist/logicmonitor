@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-action-chain-schema.json",
+  "title": "ActionChain",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-action-chains-api-openapi.yml#/components/schemas/ActionChain",
+  "type": "object",
+  "required": [
+    "name",
+    "stages"
+  ],
+  "properties": {
+    "name": {
+      "description": "The action chain name",
+      "type": "string"
+    },
+    "stages": {
+      "description": "The list of stages in the action chain",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Stage"
+      }
+    },
+    "description": {
+      "description": "The action chain description",
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The Id of the action chain",
+      "readOnly": true,
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "Stage": {
+      "description": "A stage in the action chain",
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "description": "The action source name ",
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The source ID",
+          "type": "integer"
+        },
+        "type": {
+          "description": "The type of the action source",
+          "type": "string",
+          "enum": [
+            "diagnosticSource",
+            "remediationSource"
+          ]
+        }
+      }
+    }
+  }
+}

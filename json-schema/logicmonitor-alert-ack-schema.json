@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-alert-ack-schema.json",
+  "title": "AlertAck",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AlertAck",
+  "type": "object",
+  "required": [
+    "ackComment"
+  ],
+  "properties": {
+    "ackComment": {
+      "description": "your comment on the alert",
+      "type": "string"
+    }
+  }
+}

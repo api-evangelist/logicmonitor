@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-group-schema.json",
+  "title": "DeviceGroup",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-device-groups-api-openapi.yml#/components/schemas/DeviceGroup",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "fullPath": {
+      "description": "The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'",
+      "readOnly": true,
+      "type": "string"
+    },
+    "groupType": {
+      "description": "The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)",
+      "type": "string"
+    },
+    "numOfAWSDevices": {
+      "format": "int64",
+      "description": "The number of AWS devices that belong to this device group (includes AWS devices in sub groups)",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "description": {
+      "description": "The description of the device group",
+      "type": "string"
+    },
+    "appliesTo": {
+      "description": "The Applies to custom query for this group (only for dynamic groups)",
+      "type": "string"
+    },
+    "gcpTestResultCode": {
+      "format": "int32",
+      "description": "The Status code result returned by the transaction that tests the GCP credentials associated with the GCP group",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "disableAlerting": {
+      "description": "Indicates whether alerting is disabled (true) or enabled (false) for this device group",
+      "type": "boolean"
+    },
+    "awsRegionsInfo": {
+      "description": "The number of instances in each AWS region (only applies to AWS groups)",
+      "readOnly": true,
+      "type": "string"
+    },
+    "createdOn": {
+      "format": "int64",
+      "description": "The time, in epoch seconds format, that the device group was created",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "hasNetflowEnabledDevices": {
+      "description": "Whether if any Netflow enabled devices in this device group",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "numOfAzureDevices": {
+      "format": "int64",
+      "description": "The number of Azure devices that belong to this device group (includes Azure devices in sub groups)",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "defaultCollectorDescription": {
+      "description": "The description of the default collector assigned to the device group",
+      "readOnly": true,
+      "type": "string"
+    },
+    "defaultCollectorId": {
+      "format": "int32",
+      "description": "The Id of the default collector assigned to the device group",
+      "type": "integer"
+    },
+    "awsTestResult": {
+      "description": "The String result returned by the transaction that tests the AWS credentials associated with the AWS group",
+      "readOnly": true,
+      "$ref": "#/$defs/AwsAccountTestResult"
+    },
+    "extra": {
+      "description": "The extra setting for cloud group",
+      "type": "object"
+    },
+    "numOfDirectSubGroups": {
+      "format": "int64",
+      "description": "The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "subGroups": {
+      "description": "The child device groups within this device group",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceGroupData"
+      }
+    },
+    "numOfDirectDevices": {
+      "format": "int64",
+      "description": "The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The id of the device group",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "enableNetflow": {
+      "description": "Indicates whether Netflow is enabled (true) or disabled (false) for the device group, the default value is true",
+      "type": "boolean"
+    },
+    "azureTestResultCode": {
+      "format": "int32",
+      "description": "The Status code result returned by the transaction that tests the Azure credentials associated with the Azure group",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "effectiveAlertEnabled": {
+      "description": "Whether or not alerting is effectively disabled for this device group (alerting may be disabled at a higher level, e.g. parent group)",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "userPermission": {
+      "description": "The permissions for the device group that are granted to the user that made this API request",
+      "readOnly": true,
+      "type": "string"
+    },
+    "gcpRegionsInfo": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "groupStatus": {
+      "description": "normal | dead \nThe status of this device group, where possible statuses are normal and dead. A group with a status of dead may indicate that one or more devices are dead within the group",
+      "readOnly": true,
+      "type": "string"
+    },
+    "numOfGcpDevices": {
+      "format": "int64",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "azureTestResult": {
+      "description": "The String result returned by the transaction that tests the Azure credentials associated with the Azure group",
+      "readOnly": true,
+      "$ref": "#/$defs/AzureAccountTestResult"
+    },
+    "parentId": {
+      "format": "int32",
+      "description": "The id of the parent group for this device group (the root device group has an Id of 1)",
+      "type": "integer"
+    },
+    "awsTestResultCode": {
+      "format": "int32",
+      "description": "The Status code result returned by the transaction that tests the AWS credentials associated with the AWS group",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "customProperties": {
+      "description": "The properties associated with this device group",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NameAndValue"
+      }
+    },
+    "numOfHosts": {
+      "format": "int64",
+      "description": "The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "name": {
+      "description": "The name of the device group",
+      "type": "string"
+    },
+    "gcpTestResult": {
+      "description": "The result returned by the transaction that tests the GCP credentials associated with the GCP group",
+      "readOnly": true,
+      "$ref": "#/$defs/GcpAccountTestResult"
+    },
+    "azureRegionsInfo": {
+      "description": "The number of instances in each Azure region (only applies to Azure groups)",
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "AwsAccountTestResult": {
+      "type": "object",
+      "properties": {
+        "noPermissionServices": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "detailLink": {
+          "type": "string"
+        },
+        "nonPermissionErrors": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AzureAccountTestResult": {
+      "type": "object",
+      "properties": {
+        "noPermissionServices": {
+          "readOnly": true,
+          "type": "object"
+        },
+        "detailLink": {
+          "readOnly": true,
+          "type": "object"
+        }
+      }
+    },
+    "DeviceGroupData": {
+      "type": "object",
+      "properties": {
+        "fullPath": {
+          "description": "The full path of the device group (i.e. if the group 'Dev' is under a parent group named 'Production', the fullPath would be 'Production/Dev'",
+          "readOnly": true,
+          "type": "string"
+        },
+        "groupType": {
+          "description": "The type of device group: normal and dynamic device groups will have groupType=Normal, and AWS groups will have a groupType value of AWS/SERVICE (e.g. AWS/S3)",
+          "readOnly": true,
+          "type": "string"
+        },
+        "userPermission": {
+          "description": "The permissions for the device group that are granted to the user that made this API request",
+          "readOnly": true,
+          "type": "string"
+        },
+        "gcpRegionsInfo": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the device group",
+          "readOnly": true,
+          "type": "string"
+        },
+        "appliesTo": {
+          "description": "The Applies to custom query for this group (only for dynamic groups)",
+          "readOnly": true,
+          "type": "string"
+        },
+        "awsRegionsInfo": {
+          "description": "The number of instances in each AWS region (only applies to AWS groups)",
+          "readOnly": true,
+          "type": "string"
+        },
+        "numOfHosts": {
+          "format": "int32",
+          "description": "The number of total devices, including both AWS and normal devices, that belong to this device group (includes normal devices in sub groups)",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "name": {
+          "description": "The name of the device group",
+          "readOnly": true,
+          "type": "string"
+        },
+        "numOfDirectSubGroups": {
+          "format": "int64",
+          "description": "The number of sub-groups that belong only to this device group (doesn't include groups under sub-groups)",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "numOfDirectDevices": {
+          "format": "int64",
+          "description": "The number of AWS and normal devices that belong only to this device group (doesn't include devices in sub-groups)",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The id of the device group",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "azureRegionsInfo": {
+          "description": "The number of instances in each Azure region (only applies to Azure groups)",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "GcpAccountTestResult": {
+      "type": "object",
+      "properties": {
+        "noPermissionServices": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "detailLink": {
+          "type": "string"
+        },
+        "nonPermissionErrors": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "NameAndValue": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name of a property",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of a property",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -262,27 +262,36 @@ components:
           description: the user name if method = admin, or the email address if method = arbitrary
           type: string
           example: john.doe@logicmonitor.com
-    Period:
+    EscalationChainPaginationResponse:
       type: object
-      required:
-      - endMinutes
-      - startMinutes
-      - timezone
-      - weekDays
       properties:
-        weekDays:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
           type: array
           items:
-            format: int32
-            type: integer
-        timezone:
+            $ref: '#/components/schemas/EscalatingChain'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
           type: string
-        startMinutes:
+        errorCode:
           format: int32
+          description: The error code
+          readOnly: true
           type: integer
-        endMinutes:
-          format: int32
-          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     EscalatingChain:
       type: object
       required:
@@ -321,36 +330,27 @@ components:
           format: int32
           type: integer
           example: 30.0
-    ErrorResponse:
+    Period:
       type: object
+      required:
+      - endMinutes
+      - startMinutes
+      - timezone
+      - weekDays
       properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    EscalationChainPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
+        weekDays:
           type: array
           items:
-            $ref: '#/components/schemas/EscalatingChain'
+            format: int32
+            type: integer
+        timezone:
+          type: string
+        startMinutes:
+          format: int32
+          type: integer
+        endMinutes:
+          format: int32
+          type: integer
     Chain_2:
       description: The chain destinations
       type: object
@@ -395,35 +395,6 @@ components:
           description: "The recipient address. \nThe value will be user name if method = admin, or the email address if method = arbitrary"
           type: string
           example: user@domain.com
-    Period_2:
-      description: 'If type is timebased then effective time when recipient receive notification.
-
-        '
-      type: object
-      required:
-      - endMinutes
-      - startMinutes
-      - timezone
-      - weekDays
-      properties:
-        weekDays:
-          description: The list of week day of this period
-          type: array
-          items:
-            format: int32
-            description: The list of week day of this period
-            type: integer
-        timezone:
-          description: The timezone for this period
-          type: string
-        startMinutes:
-          format: int32
-          description: The start minute of this period
-          type: integer
-        endMinutes:
-          format: int32
-          description: The end minute of this period
-          type: integer
     EscalatingChain_2:
       type: object
       required:
@@ -471,6 +442,35 @@ components:
           description: The throttle period
           type: integer
           example: 30
+    Period_2:
+      description: 'If type is timebased then effective time when recipient receive notification.
+
+        '
+      type: object
+      required:
+      - endMinutes
+      - startMinutes
+      - timezone
+      - weekDays
+      properties:
+        weekDays:
+          description: The list of week day of this period
+          type: array
+          items:
+            format: int32
+            description: The list of week day of this period
+            type: integer
+        timezone:
+          description: The timezone for this period
+          type: string
+        startMinutes:
+          format: int32
+          description: The start minute of this period
+          type: integer
+        endMinutes:
+          format: int32
+          description: The end minute of this period
+          type: integer
   securitySchemes:
     LMv1:
       in: header

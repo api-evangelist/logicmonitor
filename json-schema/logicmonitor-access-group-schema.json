@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-access-group-schema.json",
+  "title": "AccessGroup",
+  "description": "Module's access groups",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-access-group-api-openapi.yml#/components/schemas/AccessGroup",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "createdBy": {
+      "description": "User who created access group",
+      "readOnly": true,
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the access group",
+      "type": "string"
+    },
+    "tenantId": {
+      "description": "Tenancy details",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description about access group",
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The id of the access group",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "updatedOn": {
+      "format": "int64",
+      "description": "Time when access group updated",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "createdOn": {
+      "format": "int64",
+      "description": "Time when access group created",
+      "readOnly": true,
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-website-schema.json",
+  "title": "Website",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-websites-api-openapi.yml#/components/schemas/Website",
+  "type": "object",
+  "required": [
+    "name",
+    "testLocation",
+    "type"
+  ],
+  "properties": {
+    "template": {
+      "description": "The website template",
+      "type": "object"
+    },
+    "testLocation": {
+      "description": "The locations from which the website is monitored. If the website is internal, this field should include Collectors. If Non-Internal, possible test locations are:\n1 : US - LA\n2 : US - DC\n3 : US - SF\n4 : Europe - Dublin\n5 : Asia - Singapore\n6 : Australia - Sydney\ntestLocation:\"{all:true}\" indicates that the service will be monitored from all checkpoint locations\ntestLocation:\"{smgIds:[1,2,3]}\" indicates that the service will be monitored from checkpoint locations 1, 2 and 3\ntestLocation:\"{collectorIds:[85,90]}\" indicates that the service will be monitored by Collectors 85 and 90",
+      "$ref": "#/$defs/WebsiteLocation"
+    },
+    "groupId": {
+      "format": "int32",
+      "description": "The id of the group the website is in",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "overallAlertLevel": {
+      "description": "warn | error | critical\nThe level of alert to trigger if the website fails the number of checks specified by transition from the test locations specified by globalSmAlertCond",
+      "type": "string"
+    },
+    "pollingInterval": {
+      "format": "int32",
+      "description": "1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10\nThe polling interval for the website, in units of minutes. This value indicates how often the website is checked. The minimum is 1 minute, and the maximum is 10 minutes",
+      "type": "integer"
+    },
+    "description": {
+      "description": "The description of the website",
+      "type": "string"
+    },
+    "disableAlerting": {
+      "description": "true: alerting is disabled for the website\nfalse: alerting is enabled for the website\nIf stopMonitoring=true, then alerting will also by default be disabled for the website",
+      "type": "boolean"
+    },
+    "type": {
+      "description": "The type of the website. Acceptable values are: pingcheck, webcheck",
+      "type": "string"
+    },
+    "lastUpdated": {
+      "format": "int64",
+      "description": "The time (in epoch format) that the website was updated",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "stopMonitoringByFolder": {
+      "description": "true: monitoring is disabled for all services in the website's folder\nfalse: monitoring is not disabled for all services in website's folder",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The id of the website",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "stopMonitoring": {
+      "description": "true: monitoring is disabled for the website\nfalse: monitoring is enabled for the website\nIf stopMonitoring=true, then alerting will also by default be disabled for the website",
+      "type": "boolean"
+    },
+    "userPermission": {
+      "description": "write | read | ack. The permission level of the user that made the API request",
+      "type": "string"
+    },
+    "individualSmAlertEnable": {
+      "description": "true: an alert will be triggered if a check fails from an individual test location\nfalse: an alert will not be triggered if a check fails from an individual test location",
+      "type": "boolean"
+    },
+    "checkpoints": {
+      "description": "The checkpoints from the which the website is monitored. This object should reference each location specified in testLocation in addition to an 'Overall' checkpoint",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/WebsiteCheckPoint"
+      }
+    },
+    "steps": {
+      "description": "Required for type=webcheck , An object comprising one or more steps, see the table below for the properties included in each step",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/WebCheckStep"
+      }
+    },
+    "transition": {
+      "format": "int32",
+      "description": "1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 30 | 60\nThe number of checks that must fail before an alert is triggered",
+      "type": "integer"
+    },
+    "globalSmAlertCond": {
+      "format": "int32",
+      "description": "The number of test locations that checks must fail at to trigger an alert, where the alert triggered will be consistent with the value of overallAlertLevel. Possible values and corresponding number of Site Monitor locations are\n0 : all\n1 : half\n2 : more than one\n3 : any",
+      "type": "integer"
+    },
+    "isInternal": {
+      "description": "Whether or not the website is internal",
+      "type": "boolean"
+    },
+    "collectors": {
+      "description": "The collectors that are monitoring the website, if the website is internal",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/WebsiteCollectorInfo"
+      }
+    },
+    "domain": {
+      "description": "Required for type=webcheck , The domain of the service. This is the base URL of the service",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the website",
+      "type": "string"
+    },
+    "useDefaultLocationSetting": {
+      "description": "true: The checkpoint locations configured in the website Default Settings will be used\nfalse: The checkpoint locations specified in the testLocation will be used",
+      "type": "boolean"
+    },
+    "useDefaultAlertSetting": {
+      "description": "true: The alert settings configured in the website Default Settings will be used\nfalse: Service Default Settings will not be used, and you will need to specify individualSMAlertEnable, individualAlertLevel, globalSmAlertConf, overallAlertLevel and pollingInterval",
+      "type": "boolean"
+    },
+    "individualAlertLevel": {
+      "description": "warn | error | critical\nThe level of alert to trigger if the website fails a check from an individual test location",
+      "type": "string"
+    },
+    "properties": {
+      "description": "The properties associated with the website",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NameAndValue"
+      }
+    },
+    "status": {
+      "description": "Whether is the website dead (the collector is down) or not",
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "Authentication": {
+      "type": "object",
+      "required": [
+        "password",
+        "type",
+        "userName"
+      ],
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        }
+      }
+    },
+    "NameAndValue": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name of a property",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of a property",
+          "type": "string"
+        }
+      }
+    },
+    "WebCheckStep": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "respType": {
+          "type": "string"
+        },
+        "HTTPHeaders": {
+          "type": "string"
+        },
+        "auth": {
+          "$ref": "#/$defs/Authentication"
+        },
+        "matchType": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "timeout": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "useDefaultRoot": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        },
+        "HTTPMethod": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "HTTPVersion": {
+          "type": "string"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "respScript": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "invertMatch": {
+          "type": "boolean"
+        },
+        "reqScript": {
+          "type": "string"
+        },
+        "HTTPBody": {
+          "type": "string"
+        },
+        "followRedirection": {
+          "type": "boolean"
+        },
+        "postDataEditType": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "requireAuth": {
+          "type": "boolean"
+        },
+        "reqType": {
+          "type": "string"
+        },
+        "fullpageLoad": {
+          "type": "boolean"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      }
+    },
+    "WebsiteCheckPoint": {
+      "type": "object",
+      "properties": {
+        "geoInfo": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "smgId": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        }
+      }
+    },
+    "WebsiteCollectorInfo": {
+      "type": "object",
+      "properties": {
+        "hostname": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "collectorGroupName": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "collectorGroupId": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "description": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "status": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "WebsiteLocation": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "boolean"
+        },
+        "collectorIds": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "collectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WebsiteCollectorInfo"
+          }
+        },
+        "smgIds": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

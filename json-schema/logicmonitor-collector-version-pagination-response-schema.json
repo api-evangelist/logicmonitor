@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-collector-version-pagination-response-schema.json",
+  "title": "CollectorVersionPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-collectorversions-api-openapi.yml#/components/schemas/CollectorVersionPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CollectorVersion"
+      }
+    }
+  },
+  "$defs": {
+    "CollectorVersion": {
+      "type": "object",
+      "properties": {
+        "stable": {
+          "description": "False for early release. True for general release",
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "releaseEpoch": {
+          "format": "int64",
+          "description": "Release Epoch for official releases",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "has32bitWindows": {
+          "description": "True if Windows collector available",
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "has32bitLinux": {
+          "description": "True if Linux collector available",
+          "readOnly": true,
+          "type": "boolean"
+        },
+        "majorVersion": {
+          "format": "int32",
+          "description": "The collector major version",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "minorVersion": {
+          "format": "int32",
+          "description": "The collector minor version",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "mandatory": {
+          "description": "True if collector is a required release",
+          "readOnly": true,
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

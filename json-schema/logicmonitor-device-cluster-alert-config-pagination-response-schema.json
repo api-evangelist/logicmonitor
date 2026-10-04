@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-cluster-alert-config-pagination-response-schema.json",
+  "title": "DeviceClusterAlertConfigPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-thresholds-api-openapi.yml#/components/schemas/DeviceClusterAlertConfigPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceClusterAlertConfig"
+      }
+    }
+  },
+  "$defs": {
+    "DeviceClusterAlertConfig": {
+      "type": "object",
+      "properties": {
+        "countBy": {
+          "description": "host | instance - Whether the cluster alert is based on an alert count across devices or instances",
+          "type": "string"
+        },
+        "dataPointName": {
+          "description": "The name of the dataPoint you want to base the cluster alert on",
+          "readOnly": true,
+          "type": "string"
+        },
+        "dataSourceId": {
+          "format": "int32",
+          "description": "The id of the dataSource you want to base the cluster alert on",
+          "type": "integer"
+        },
+        "dataPointId": {
+          "format": "int32",
+          "description": "The id of the dataPoint you want to base the cluster alert on",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "minAlertLevel": {
+          "format": "int32",
+          "description": "The alert level that must be present for the devices or instances to trigger the cluster alert. Acceptable values are: 2, 3, 4",
+          "type": "integer"
+        },
+        "dataSourceDisplayName": {
+          "description": "The display name of the dataSource you want to base the cluster alert on",
+          "type": "string"
+        },
+        "disableAlerting": {
+          "description": "Whether or not alerting will be disabled",
+          "type": "boolean"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The id of the cluster alert configuration",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "suppressIndAlert": {
+          "description": "Whether or not alerting will be suppressed for individual alerts, the default value is true",
+          "type": "boolean"
+        },
+        "thresholdType": {
+          "description": "whether the alert expression should be evaluated as a total number of devices or instances (absolute) or as a percentage of devices or instances (percentage). Acceptable values are: absolute, percentage",
+          "type": "string"
+        },
+        "dataPointDescription": {
+          "description": "The description of the dataPoint you want to base the cluster alert on",
+          "readOnly": true,
+          "type": "string"
+        },
+        "alertExpr": {
+          "description": "The expression that indicates the number of objects (devices or instances) that need to be in alert to trigger the cluster alert. E.g. > 5",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

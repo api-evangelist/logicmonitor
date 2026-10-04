@@ -300,42 +300,24 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    ReportRecipient:
+    GenerateReportResult:
       type: object
       required:
-      - addr
-      - type
+      - reportId
+      - taskId
       properties:
-        additionInfo:
-          description: If the type is admin and the method is email, the field should indicate the actual email address of the admin
-          readOnly: true
-          type: string
-        method:
-          description: This should always be email
-          type: string
-          example: email
-        type:
-          description: 'Where admin refers to a user in the account and arbitrary refers to an email address not associated with a user account.Acceptable values are: admin, arbitrary'
-          type: string
-          example: admin
-        addr:
-          description: This should be a username if type=admin, or an email address if type=arbitrary
-          type: string
-          example: sarah
-    ReportPaginationResponse:
-      type: object
-      properties:
-        total:
+        reportId:
           format: int32
-          readOnly: true
+          description: The id of the report
           type: integer
-        searchId:
+        taskId:
+          format: int64
+          description: The task id of the generating process
+          type: integer
+        resulturl:
+          description: The url of the generated report
           readOnly: true
           type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportBase'
     ReportBase:
       type: object
       required:
@@ -437,24 +419,36 @@ components:
           example: America/Los_Angeles
       discriminator:
         propertyName: type
-    GenerateReportResult:
+    ErrorResponse:
       type: object
-      required:
-      - reportId
-      - taskId
       properties:
-        reportId:
-          format: int32
-          description: The id of the report
-          type: integer
-        taskId:
-          format: int64
-          description: The task id of the generating process
-          type: integer
-        resulturl:
-          description: The url of the generated report
+        errorMessage:
+          description: The error message
           readOnly: true
           type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
+    ReportPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportBase'
     GenerateReportRequest:
       type: object
       properties:
@@ -473,24 +467,7 @@ components:
           description: The email addresses that LogicMonitor should send the report to, separated by commas
           type: string
           example: bob@logicmonitor.com
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    ReportRecipient_2:
-      description: If the report is configured to be delivered via email, this object provides the recipients that the report will be delivered to
+    ReportRecipient:
       type: object
       required:
       - addr
@@ -501,11 +478,11 @@ components:
           readOnly: true
           type: string
         method:
-          description: Specifies the method to get the report. This should always be email
+          description: This should always be email
           type: string
           example: email
         type:
-          description: Specifies the recipient type. The values can be admin|arbitrary|group, where admin refers to a user in the account and arbitrary refers to an email address not associated with a user account.
+          description: 'Where admin refers to a user in the account and arbitrary refers to an email address not associated with a user account.Acceptable values are: admin, arbitrary'
           type: string
           example: admin
         addr:
@@ -630,6 +607,29 @@ components:
           description: The email addresses that LogicMonitor should send the report to, separated by commas. If set to null, the report will be generated immediately and the response will contain the report file URLOtherwise, the report will be generated in the background and delivered to the specified email addresses
           type: string
           example: user@domain.com
+    ReportRecipient_2:
+      description: If the report is configured to be delivered via email, this object provides the recipients that the report will be delivered to
+      type: object
+      required:
+      - addr
+      - type
+      properties:
+        additionInfo:
+          description: If the type is admin and the method is email, the field should indicate the actual email address of the admin
+          readOnly: true
+          type: string
+        method:
+          description: Specifies the method to get the report. This should always be email
+          type: string
+          example: email
+        type:
+          description: Specifies the recipient type. The values can be admin|arbitrary|group, where admin refers to a user in the account and arbitrary refers to an email address not associated with a user account.
+          type: string
+          example: admin
+        addr:
+          description: This should be a username if type=admin, or an email address if type=arbitrary
+          type: string
+          example: sarah
   securitySchemes:
     LMv1:
       in: header

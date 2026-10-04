@@ -1,0 +1,440 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/logicmonitor-access-group-api-openapi.yml
+- openapi/logicmonitor-action-chains-api-openapi.yml
+- openapi/logicmonitor-action-rules-api-openapi.yml
+- openapi/logicmonitor-alert-rules-api-openapi.yml
+- openapi/logicmonitor-alerts-api-openapi.yml
+vocabulary:
+  name: LogicMonitor Domain Vocabulary
+  description: 'Terms declared by LogicMonitor''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-04'
+  terms:
+  - term: AccessGroup
+    definition: Module's access groups
+    tags:
+    - Object
+    source: openapi/logicmonitor-access-group-api-openapi.yml#/components/schemas/AccessGroup
+  - term: MapModuleToAccessGroup
+    definition: Can provide module id, module type and access group for mapping
+    tags:
+    - Object
+    source: openapi/logicmonitor-access-group-api-openapi.yml#/components/schemas/MapModuleToAccessGroup
+  - term: RestMapModuleV3
+    definition: 'Object declared by the contract with fields: success, failure, mappingDetails.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-access-group-api-openapi.yml#/components/schemas/RestMapModuleV3
+  - term: ErrorResponse
+    definition: 'Object declared by the contract with fields: errorMessage, errorCode, errorDetail.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-access-group-api-openapi.yml#/components/schemas/ErrorResponse
+  - term: AccessGroupPaginationResponse
+    definition: 'Object declared by the contract with fields: items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-access-group-api-openapi.yml#/components/schemas/AccessGroupPaginationResponse
+  - term: ActionChainPaginationResponse
+    definition: 'Object declared by the contract with fields: items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-chains-api-openapi.yml#/components/schemas/ActionChainPaginationResponse
+  - term: ActionChain
+    definition: 'Object declared by the contract with fields: name, stages, description, id.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-chains-api-openapi.yml#/components/schemas/ActionChain
+  - term: Stage
+    definition: A stage in the action chain
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-chains-api-openapi.yml#/components/schemas/Stage
+  - term: ActionRulePaginationResponse
+    definition: 'Object declared by the contract with fields: items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-rules-api-openapi.yml#/components/schemas/ActionRulePaginationResponse
+  - term: ActionRuleStatus
+    definition: Action Rule Status
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-rules-api-openapi.yml#/components/schemas/ActionRuleStatus
+  - term: ActionChainSummary
+    definition: The action chain summary for the action rule
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-rules-api-openapi.yml#/components/schemas/ActionChainSummary
+  - term: RestDeviceProperty
+    definition: The resource property filters list
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-rules-api-openapi.yml#/components/schemas/RestDeviceProperty
+  - term: ActionRule
+    definition: 'Object declared by the contract with fields: datapoint, instance, devices, datasource, resourceProperties, name, id, levelStr,
+      deviceGroups, actionChainId, actionChain, enabled.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-action-rules-api-openapi.yml#/components/schemas/ActionRule
+  - term: AlertRule
+    definition: 'Object declared by the contract with fields: datapoint, instance, devices, escalatingChainId, priority, suppressAlertAckSdt,
+      datasource, suppressAlertClear, name, id, levelStr, deviceGroups. (2 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alert-rules-api-openapi.yml#/components/schemas/AlertRule
+  - term: AlertRulePaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alert-rules-api-openapi.yml#/components/schemas/AlertRulePaginationResponse
+  - term: AlertRule_2
+    definition: 'Object declared by the contract with fields: datapoint, instance, devices, escalatingChainId, resourceProperties, sendAnomalySuppressedAlert,
+      priority, suppressAlertAckSdt, datasource, suppressAlertClear, name, id. (4 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alert-rules-api-openapi.yml#/components/schemas/AlertRule_2
+  - term: DeviceProperty
+    definition: The resource property filters list
+    tags:
+    - Object
+    source: openapi/logicmonitor-alert-rules-api-openapi.yml#/components/schemas/DeviceProperty
+  - term: AlertPaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AlertPaginationResponse
+  - term: AlertAck
+    definition: 'Object declared by the contract with fields: ackComment.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AlertAck
+  - term: Alert
+    definition: 'Object declared by the contract with fields: resourceId, instanceName, monitorObjectId, endEpoch, rule, threshold, type, startEpoch,
+      enableAnomalyAlertGeneration, internalId, ackComment, monitorObjectName. (29 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/Alert
+  - term: ObjectIdentifier
+    definition: 'Object declared by the contract with fields: model, id.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/ObjectIdentifier
+  - term: AdvancedFieldFilter
+    definition: 'Object declared by the contract with fields: fieldName, supportGlob, values, operator.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AdvancedFieldFilter
+  - term: AlertsById
+    definition: 'Object declared by the contract with fields: resourceGroups, eventSources, clusterAlertSettings, datapoints, escalationChains,
+      sdts, alertRules, serviceGroups, resources, logpipelinesources, services, dataSourceInstances. (10 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AlertsById
+  - term: ModelAndId
+    definition: SDT target
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/ModelAndId
+  - term: RestResponseMetaBlock
+    definition: 'Object declared by the contract with fields: filteredCount, isTotalCountExhaustive, fromPagingResponseInfo, fromSortInfo, perPageCount,
+      sort, totalCount, pageOffsetCount.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/RestResponseMetaBlock
+  - term: RestSDTV4
+    definition: 'Object declared by the contract with fields: notes, timezone, defaultValue, monthDay, type, duration, dataSourceId, hour, weekDay,
+      endedAtMS, resourceGroupId, model. (15 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/RestSDTV4
+  - term: RestResponse
+    definition: 'Object declared by the contract with fields: diagnostics, suppressedWarnings, preserveInsertionOrder, data, suppressedErrors,
+      successes, meta, warnings, errors.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/RestResponse
+  - term: FieldFilter
+    definition: 'Object declared by the contract with fields: fieldName, supportGlob, values, operator.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/FieldFilter
+  - term: RestAlertQueryContext
+    definition: 'Object declared by the contract with fields: activeOnly, pivotType, anomaly, suppressorFilters, forServices, pivotDimensions,
+      refreshActiveAlertCache, dependencyRoutingStateFilters, excludePhatomFlag, pivotDimensionESField, dependencyRoleFiltersV4, lmconfigEnabled.
+      (5 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/RestAlertQueryContext
+  - term: JSONObject
+    definition: The alert external ticket urls
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/JSONObject
+  - term: AlertListPaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AlertListPaginationResponse
+  - term: AlertsModelAndId
+    definition: 'Object declared by the contract with fields: deleted, isDeleted, displayName, name, namespace, description, model, id.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AlertsModelAndId
+  - term: AlertResponse
+    definition: 'Object declared by the contract with fields: sdtIds, resourceId, endEpoch, threshold, type, startEpoch, enableAnomalyAlertGeneration,
+      internalId, monitorObjectName, dataPointName, dataPointId, suppressor. (45 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/AlertResponse
+  - term: Alert_2
+    definition: 'Object declared by the contract with fields: sdtIds, resourceId, endEpoch, threshold, type, startEpoch, enableAnomalyAlertGeneration,
+      internalId, monitorObjectName, dataPointName, dataPointId, suppressor. (46 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-alerts-api-openapi.yml#/components/schemas/Alert_2
+  - term: ApiTokenPaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-api-tokens-api-openapi.yml#/components/schemas/ApiTokenPaginationResponse
+  - term: APIToken
+    definition: 'Object declared by the contract with fields: accessId, adminName, note, lastUsedOn, accessKey, createdBy, roles, adminId, id,
+      createdOn, status.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-api-tokens-api-openapi.yml#/components/schemas/APIToken
+  - term: APIToken_2
+    definition: Any API Tokens associated with the user
+    tags:
+    - Object
+    source: openapi/logicmonitor-api-tokens-api-openapi.yml#/components/schemas/APIToken_2
+  - term: ApiPerfMetrics
+    definition: 'Object declared by the contract with fields: summary, totalWaitingRequests, totNanoTime, totalProcessedRequests, totalRequests,
+      api, maxNanoTime, tags.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-apiperfstats-api-openapi.yml#/components/schemas/ApiPerfMetrics
+  - term: ApiPerfMetrics_2
+    definition: 'Object declared by the contract with fields: summary, totalWaitingRequests, totalRejectedGetAPICount, totalRejectedModAPICount,
+      totNanoTime, totalProcessedRequests, totalRequests, api, maxNanoTime, tags.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-apiperfstats-api-openapi.yml#/components/schemas/ApiPerfMetrics_2
+  - term: AppliesToFunction
+    definition: 'Object declared by the contract with fields: code, name, description, id.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-appliestofunctions-api-openapi.yml#/components/schemas/AppliesToFunction
+  - term: RestAppliesToFunctionPaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-appliestofunctions-api-openapi.yml#/components/schemas/RestAppliesToFunctionPaginationResponse
+  - term: IntegrationMetadata
+    definition: The local module's IntegrationMetadata, readable for troubleshooting purposes
+    tags:
+    - Object
+    source: openapi/logicmonitor-appliestofunctions-api-openapi.yml#/components/schemas/IntegrationMetadata
+  - term: AppliesToFunction_2
+    definition: 'Object declared by the contract with fields: installationMetadata, code, accessGroups, originRegistryId, name, checksum, description,
+      id, accessGroupIds, isInUse, lineageId.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-appliestofunctions-api-openapi.yml#/components/schemas/AppliesToFunction_2
+  - term: AuditLog
+    definition: 'Object declared by the contract with fields: happenedOnLocal, ip, happenedOn, description, id, username.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-audit-logs-api-openapi.yml#/components/schemas/AuditLog
+  - term: AccessLogPaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-audit-logs-api-openapi.yml#/components/schemas/AccessLogPaginationResponse
+  - term: AuditLog_2
+    definition: 'Object declared by the contract with fields: happenedOnLocal, ip, happenedOn, description, id, username.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-audit-logs-api-openapi.yml#/components/schemas/AuditLog_2
+  - term: DiagnosticRemediationAssignedSource
+    definition: Diagnostic or remediation exchange module metadata assigned to a host or scoped to alert executions.
+    tags:
+    - Object
+    source: openapi/logicmonitor-automated-diagnostic-remediation-api-openapi.yml#/components/schemas/DiagnosticRemediationAssignedSource
+  - term: AdrOutput
+    definition: Diagnostic Source or Remediation Source execution result (output and metadata).
+    tags:
+    - Object
+    source: openapi/logicmonitor-automated-diagnostic-remediation-api-openapi.yml#/components/schemas/AdrOutput
+  - term: AdrOutputList
+    definition: List of diagnostic and remediation execution results (ADR).
+    tags:
+    - Object
+    source: openapi/logicmonitor-automated-diagnostic-remediation-api-openapi.yml#/components/schemas/AdrOutputList
+  - term: CollectorGroupPaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/CollectorGroupPaginationResponse
+  - term: NameAndValue
+    definition: 'Object declared by the contract with fields: name, value.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/NameAndValue
+  - term: CollectorGroup
+    definition: 'Object declared by the contract with fields: autoBalance, customProperties, userPermission, numOfCollectors, name, autoBalanceInstanceCountThreshold,
+      autoBalanceStrategy, description, createOn, id.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/CollectorGroup
+  - term: AutomaticUpgradeInfo
+    definition: The details of the Collector's automatic upgrade schedule, if one exists
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/AutomaticUpgradeInfo
+  - term: CollectorBase
+    definition: 'Object declared by the contract with fields: userChangeOn, confVersion, downloadUrl, updatedOnLocal, collectorType, encodedConfigData,
+      hostname, numberOfInstances, archType, id, ea, watchdogUpdatedOnLocal. (68 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/CollectorBase
+  - term: RestHighestPriorityCollectorStatus
+    definition: The status of the highest priority sub collector
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/RestHighestPriorityCollectorStatus
+  - term: CollectorPaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/CollectorPaginationResponse
+  - term: OnetimeUpgradeInfo
+    definition: The details of the Collector's one time upgrade, if one has been scheduled
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/OnetimeUpgradeInfo
+  - term: NextUpgradeInfo
+    definition: The details of the Collector's next upgrade, if one has been scheduled
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/NextUpgradeInfo
+  - term: CollectorGroup_2
+    definition: 'Object declared by the contract with fields: userPermission, numOfCollectors, propertyForBalancingLastUpdatedOn, autoBalanceInstanceCountThreshold,
+      description, highestPriorityCollectorStatus, platform, autoBalance, customProperties, propertyForBalancingUpdateLockedUptoMS, numOfHosts,
+      numOfInstances. (7 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/CollectorGroup_2
+  - term: RestDowngradeInfoOnetime
+    definition: The details of the Collector's automatic downgrade schedule, if one exists
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/RestDowngradeInfoOnetime
+  - term: NameAndValue_2
+    definition: The properties associated with the website
+    tags:
+    - Object
+    source: openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/NameAndValue_2
+  - term: AckCollectorDown
+    definition: 'Object declared by the contract with fields: comment.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/AckCollectorDown
+  - term: Collector
+    definition: 'Object declared by the contract with fields: userChangeOn, confVersion, updatedOnLocal, hostname, numberOfInstances, id, ea,
+      watchdogUpdatedOnLocal, hasFailOverDevice, collectorGroupName, netscanVersion, inSDT. (51 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/Collector
+  - term: RestCollectorDownloadTokenV3
+    definition: 'Object declared by the contract with fields: token.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorDownloadTokenV3
+  - term: RestCollectorEventV3
+    definition: 'Object declared by the contract with fields: collectorPlatform, eventMsg, collectorDescription, reportedOn, reportDateOnLocal,
+      collectorId, id, eCode, collectorBuild.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorEventV3
+  - term: OnetimeUpgradeInfo_2
+    definition: The details of the Collector's one time upgrade, if one has been scheduled
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/OnetimeUpgradeInfo_2
+  - term: CollectorLogFilePaginationResponse
+    definition: 'Object declared by the contract with fields: total, searchId, items.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/CollectorLogFilePaginationResponse
+  - term: RestRestartCollectorV3
+    definition: 'Object declared by the contract with fields: collectorConf, sbproxyConf, collectorSize, wrapperConf, watchdogConf, websiteConf.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestRestartCollectorV3
+  - term: RestCollectorStatusV3
+    definition: 'Object declared by the contract with fields: lastTriggeredMills, totalScriptCount, lastUpdateMills, aborted, finished, checkPoints,
+      finishedScriptCount, skippedScriptCount.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorStatusV3
+  - term: JSONArray
+    definition: 'Object declared by the contract with fields: empty.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/JSONArray
+  - term: RestCollectorLogFileV3
+    definition: 'Object declared by the contract with fields: fileName, size, uploaded, lastModified, lastModifiedOnOnLocal.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorLogFileV3
+  - term: NextUpgradeInfo_2
+    definition: The details of the Collector's next upgrade, if one has been scheduled
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/NextUpgradeInfo_2
+  - term: DeviceCount
+    definition: 'Object declared by the contract with fields: instances, count.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/DeviceCount
+  - term: CollectorBase_2
+    definition: 'Object declared by the contract with fields: userChangeOn, confVersion, downloadUrl, updatedOnLocal, collectorType, encodedConfigData,
+      hostname, numberOfInstances, archType, id, ea, watchdogUpdatedOnLocal. (68 more)'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/CollectorBase_2
+  - term: RestCollectorSizingResponseV3
+    definition: 'Object declared by the contract with fields: summary, netflow, polling, logs.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorSizingResponseV3
+  - term: NetFlowSourceCount
+    definition: 'Object declared by the contract with fields: count.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/NetFlowSourceCount
+  - term: CollectorRecommendation
+    definition: 'Object declared by the contract with fields: utilizationPercent, size, count, totalLoad, maxCapacity, failoverEnabled, perCollectorLoad,
+      workloadType.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/CollectorRecommendation
+  - term: AutomaticUpgradeInfo_2
+    definition: The details of the Collector's automatic upgrade schedule, if one exists
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/AutomaticUpgradeInfo_2
+  - term: LogSourceCount
+    definition: 'Object declared by the contract with fields: count.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/LogSourceCount
+  - term: SizingOptions
+    definition: 'Object declared by the contract with fields: maxLoadPercent, pollingFailover, logsFailover, forcedSize, netflowFailover.'
+    tags:
+    - Object
+    source: openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/SizingOptions

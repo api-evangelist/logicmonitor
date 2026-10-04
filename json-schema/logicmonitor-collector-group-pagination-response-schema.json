@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-collector-group-pagination-response-schema.json",
+  "title": "CollectorGroupPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-collector-groups-api-openapi.yml#/components/schemas/CollectorGroupPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CollectorGroup"
+      }
+    }
+  },
+  "$defs": {
+    "CollectorGroup": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "autoBalance": {
+          "description": "if the collector is autoBalance set as true or false",
+          "type": "string"
+        },
+        "customProperties": {
+          "description": "The custom properties defined for the Collector group",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NameAndValue"
+          }
+        },
+        "userPermission": {
+          "description": "The permission level of the user that made the API request",
+          "readOnly": true,
+          "type": "string"
+        },
+        "numOfCollectors": {
+          "format": "int32",
+          "description": "The number of Collectors that belong to the group",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "name": {
+          "description": "The name of the Collector Group",
+          "type": "string"
+        },
+        "autoBalanceInstanceCountThreshold": {
+          "format": "int32",
+          "description": "threshold for instance count strategy to check if a collector has high load",
+          "type": "integer"
+        },
+        "autoBalanceStrategy": {
+          "description": "the auto balance strategy ",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the Collector Group",
+          "type": "string"
+        },
+        "createOn": {
+          "format": "int64",
+          "description": "The time at which the group was created, in epoch format",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "id": {
+          "format": "int32",
+          "description": "The id of the Collector Group",
+          "readOnly": true,
+          "type": "integer"
+        }
+      }
+    },
+    "NameAndValue": {
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name of a property",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of a property",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

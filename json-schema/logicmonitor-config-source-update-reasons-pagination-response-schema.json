@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-config-source-update-reasons-pagination-response-schema.json",
+  "title": "ConfigSourceUpdateReasonsPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-configsources-api-openapi.yml#/components/schemas/ConfigSourceUpdateReasonsPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/UpdateReason"
+      }
+    }
+  },
+  "$defs": {
+    "UpdateReason": {
+      "type": "object",
+      "properties": {
+        "timeEpoch": {
+          "format": "int64",
+          "description": "Update date epoch",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "clientIp": {
+          "description": "Client IP from which this update has been made",
+          "readOnly": true,
+          "type": "string"
+        },
+        "updateReason": {
+          "description": "Update reason",
+          "type": "string"
+        },
+        "timeStr": {
+          "description": "Update date in form 'YYYY-MM-DD HH:MM:SS'",
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "description": "ID of update reason",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "userName": {
+          "description": "User who made this update",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-response-schema.json",
+  "title": "RestResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-device-groups-api-openapi.yml#/components/schemas/RestResponse",
+  "type": "object",
+  "properties": {
+    "diagnostics": {
+      "$ref": "#/$defs/ArrayNode"
+    },
+    "suppressedWarnings": {
+      "$ref": "#/$defs/ArrayNode"
+    },
+    "preserveInsertionOrder": {
+      "type": "boolean"
+    },
+    "data": {
+      "$ref": "#/$defs/ObjectNode"
+    },
+    "suppressedErrors": {
+      "$ref": "#/$defs/ArrayNode"
+    },
+    "successes": {
+      "$ref": "#/$defs/ArrayNode"
+    },
+    "meta": {
+      "$ref": "#/$defs/RestResponseMetaBlock"
+    },
+    "warnings": {
+      "$ref": "#/$defs/ArrayNode"
+    },
+    "errors": {
+      "$ref": "#/$defs/ArrayNode"
+    }
+  },
+  "$defs": {
+    "ArrayNode": {
+      "type": "object"
+    },
+    "ObjectNode": {
+      "type": "object"
+    },
+    "RestResponseMetaBlock": {
+      "type": "object",
+      "properties": {
+        "filteredCount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "isTotalCountExhaustive": {
+          "type": "boolean"
+        },
+        "fromPagingResponseInfo": {
+          "$ref": "#/$defs/RestResponseMetaBlock"
+        },
+        "fromSortInfo": {
+          "$ref": "#/$defs/RestResponseMetaBlock"
+        },
+        "perPageCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sort": {
+          "type": "string"
+        },
+        "totalCount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "pageOffsetCount": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

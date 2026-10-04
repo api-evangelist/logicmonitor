@@ -205,6 +205,20 @@ paths:
       - LogAlertGroups
 components:
   schemas:
+    PipelinePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestLogPipelineV3'
     RestLogPipelineV3:
       type: object
       required:
@@ -228,20 +242,6 @@ components:
         id:
           description: Unique identifier of the log pipeline
           type: string
-    PipelinePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestLogPipelineV3'
     ErrorResponse:
       type: object
       properties:

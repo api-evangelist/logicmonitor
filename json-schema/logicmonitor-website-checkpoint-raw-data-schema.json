@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-website-checkpoint-raw-data-schema.json",
+  "title": "WebsiteCheckpointRawData",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-data-api-openapi.yml#/components/schemas/WebsiteCheckpointRawData",
+  "type": "object",
+  "properties": {
+    "values": {
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "time": {
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    "nextPageParams": {
+      "readOnly": true,
+      "type": "string"
+    }
+  }
+}

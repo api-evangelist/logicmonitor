@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-sdt-schema.json",
+  "title": "SDT",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-sdts-api-openapi.yml#/components/schemas/SDT",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "endDateTimeOnLocal": {
+      "description": "The date, time and time zone that the SDT will end at",
+      "readOnly": true,
+      "type": "string"
+    },
+    "timezone": {
+      "description": "The specific timezone for SDT",
+      "type": "string"
+    },
+    "sdtType": {
+      "type": "string"
+    },
+    "monthDay": {
+      "format": "int32",
+      "description": "1 | 2....| 31 The day of the month that the SDT will be active for a monthly SDT",
+      "type": "integer"
+    },
+    "weekOfMonth": {
+      "description": "The weel of the month that the SDT will be active for a monthly SDT",
+      "type": "string"
+    },
+    "admin": {
+      "description": "The name of the user that created the SDT",
+      "readOnly": true,
+      "type": "string"
+    },
+    "endDateTime": {
+      "format": "int64",
+      "description": "The epoch time, in milliseconds, that the SDT will end",
+      "type": "integer"
+    },
+    "type": {
+      "description": "The type resource that this SDT is for: ServiceSDT | CollectorSDT | DeviceDataSourceInstanceSDT | DeviceBatchJobSDT | DeviceClusterAlertDefSDT | DeviceDataSourceInstanceGroupSDT | DeviceDataSourceSDT | DeviceEventSourceSDT | DeviceGroupSDT | DeviceSDT | WebsiteCheckpointSDT | WebsiteGroupSDT | WebsiteSDT",
+      "type": "string"
+    },
+    "isEffective": {
+      "description": "true: the SDT is currently actice\nfalse: the SDT is currently inactive",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "minute": {
+      "format": "int32",
+      "description": "1 | 2....| 60 The minute of the hour that the SDT should begin for a repeating SDT",
+      "type": "integer"
+    },
+    "duration": {
+      "format": "int32",
+      "description": "The duration of the SDT in minutes",
+      "type": "integer"
+    },
+    "endHour": {
+      "format": "int32",
+      "description": "1 | 2....| 24 The hour that the SDT ends for a repeating SDT",
+      "type": "integer"
+    },
+    "startDateTime": {
+      "format": "int64",
+      "description": "The epoch time, in milliseconds, that the SDT will start",
+      "type": "integer"
+    },
+    "hour": {
+      "format": "int32",
+      "description": "1 | 2....| 24 The hour that the SDT will start for a repeating SDT (daily, weekly, or monthly)",
+      "type": "integer"
+    },
+    "startDateTimeOnLocal": {
+      "description": "The date, time and time zone that the SDT will end at",
+      "readOnly": true,
+      "type": "string"
+    },
+    "weekDay": {
+      "type": "string"
+    },
+    "comment": {
+      "description": "The notes associated with the SDT",
+      "type": "string"
+    },
+    "id": {
+      "description": "The Id of the SDT. This value will be in the following format \"XX_##\" where XX will refer to the type of SDT and ## will refer to the number of SDTs of that type",
+      "readOnly": true,
+      "type": "string"
+    },
+    "endMinute": {
+      "format": "int32",
+      "description": "1 | 2....| 60 The minute of the hour that the SDT ends for a repeating SDT",
+      "type": "integer"
+    }
+  }
+}

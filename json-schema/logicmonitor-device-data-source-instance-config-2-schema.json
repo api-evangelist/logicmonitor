@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-data-source-instance-config-2-schema.json",
+  "title": "DeviceDataSourceInstanceConfig_2",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-datasource-instances-api-openapi.yml#/components/schemas/DeviceDataSourceInstanceConfig_2",
+  "type": "object",
+  "properties": {
+    "instanceName": {
+      "description": "Device datasource instance name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "deviceDataSourceId": {
+      "format": "int32",
+      "description": "Device datasource id",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "excludeLines": {
+      "description": "advanceDiffChecker",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "format": "int32",
+        "description": "advanceDiffChecker",
+        "readOnly": true,
+        "type": "integer"
+      }
+    },
+    "configStatus": {
+      "format": "int32",
+      "description": "Configuration file collect status",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "comparedWith": {
+      "description": "Version compared with and found difference",
+      "readOnly": true,
+      "type": "string"
+    },
+    "version": {
+      "format": "int64",
+      "description": "Config version",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "deviceId": {
+      "format": "int32",
+      "description": "Device id",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "deltaConfig": {
+      "description": "Configuration file diff",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceDataSourceInstanceConfigDiff_2"
+      }
+    },
+    "deviceDisplayName": {
+      "description": "Device display name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataSourceName": {
+      "description": "Datasource name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "alerts": {
+      "description": "Alerts associated to this configuration file",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DeviceDataSourceInstanceConfigAlert_2"
+      }
+    },
+    "dataSourceId": {
+      "format": "int32",
+      "description": "Configsource id",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "instanceId": {
+      "format": "int32",
+      "description": "Device datasource instance id",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "configErrMsg": {
+      "description": "Configuration file collect error message",
+      "readOnly": true,
+      "type": "string"
+    },
+    "changeStatus": {
+      "description": "Configuration file change status, if the first configuration then it is Added, else Changed, values can be : Add|Change ",
+      "readOnly": true,
+      "type": "string"
+    },
+    "id": {
+      "description": "The id of the datasource",
+      "readOnly": true,
+      "type": "string"
+    },
+    "pollTimestamp": {
+      "format": "int64",
+      "description": "Datasource poll timestamp in milliseconds",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "config": {
+      "description": "Configuration file content",
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "DeviceDataSourceInstanceConfigAlert_2": {
+      "description": "Alerts associated to this configuration file",
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "alertLevel": {
+          "format": "int32",
+          "description": "Alert level, 0 - alert is cleared, 2 - warn alert, 3 - error alert, 4 - critical alert",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "id": {
+          "description": "Alert id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "alertId": {
+          "description": "Alert internal id",
+          "readOnly": true,
+          "type": "string"
+        },
+        "alertSummary": {
+          "description": "Summary of this config source alert",
+          "readOnly": true,
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "int64",
+          "description": "Timestamp of alert start or clear",
+          "readOnly": true,
+          "type": "integer"
+        }
+      }
+    },
+    "DeviceDataSourceInstanceConfigDiff_2": {
+      "description": "Configuration file diff",
+      "readOnly": true,
+      "type": "object",
+      "properties": {
+        "rowNo": {
+          "format": "int32",
+          "description": "Diff row number",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "type": {
+          "description": "Diff type. The values can be : add|remove",
+          "readOnly": true,
+          "type": "string"
+        },
+        "content": {
+          "description": "Configuration content",
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

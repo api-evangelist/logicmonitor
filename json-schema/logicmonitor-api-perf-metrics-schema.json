@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-api-perf-metrics-schema.json",
+  "title": "ApiPerfMetrics",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-apiperfstats-api-openapi.yml#/components/schemas/ApiPerfMetrics",
+  "type": "object",
+  "properties": {
+    "summary": {
+      "description": "api's summary defined in swagger.json",
+      "readOnly": true,
+      "type": "string"
+    },
+    "totalWaitingRequests": {
+      "format": "int64",
+      "description": "total waiting requests",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "totNanoTime": {
+      "format": "int64",
+      "description": "total time taken to process requests",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "totalProcessedRequests": {
+      "format": "int64",
+      "description": "total processed requests",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "totalRequests": {
+      "format": "int64",
+      "description": "total requests",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "api": {
+      "description": "api name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "maxNanoTime": {
+      "format": "int64",
+      "description": "Max time taken to process a request",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "tags": {
+      "description": "api tags",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

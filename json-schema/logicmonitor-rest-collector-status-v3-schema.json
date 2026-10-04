@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-collector-status-v3-schema.json",
+  "title": "RestCollectorStatusV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-collectors-api-openapi.yml#/components/schemas/RestCollectorStatusV3",
+  "type": "object",
+  "properties": {
+    "lastTriggeredMills": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "totalScriptCount": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "lastUpdateMills": {
+      "format": "int64",
+      "type": "integer"
+    },
+    "aborted": {
+      "type": "boolean"
+    },
+    "finished": {
+      "type": "boolean"
+    },
+    "checkPoints": {
+      "$ref": "#/$defs/JSONArray"
+    },
+    "finishedScriptCount": {
+      "format": "int32",
+      "type": "integer"
+    },
+    "skippedScriptCount": {
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "$defs": {
+    "JSONArray": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -70,54 +70,6 @@ paths:
       - Delta
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
-    NameAndValue:
-      description: The properties associated with the website
-      readOnly: true
-      type: object
-      required:
-      - name
-      - value
-      properties:
-        name:
-          description: The name of a property
-          type: string
-          example: addr
-        value:
-          description: The value of a property
-          type: string
-          example: 127.0.0.1
-    DeviceDeltaPaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        deltaId:
-          type: string
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestDeviceDeltaV3'
     RestDeviceDeltaV3:
       type: object
       required:
@@ -384,6 +336,54 @@ components:
         containsMultiValue:
           description: request contains multi value field
           type: boolean
+    DeviceDeltaPaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        deltaId:
+          type: string
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestDeviceDeltaV3'
+    NameAndValue:
+      description: The properties associated with the website
+      readOnly: true
+      type: object
+      required:
+      - name
+      - value
+      properties:
+        name:
+          description: The name of a property
+          type: string
+          example: addr
+        value:
+          description: The value of a property
+          type: string
+          example: 127.0.0.1
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
   securitySchemes:
     LMv1:
       in: header

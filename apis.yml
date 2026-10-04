@@ -1,15 +1,12 @@
 aid: logicmonitor
 name: LogicMonitor
-description: >-
-  LogicMonitor is an AI-powered hybrid observability and AIOps platform that monitors infrastructure,
-  cloud and multi-cloud estates, containers, networks, databases, storage, logs, traces, websites and
-  internet performance from a single SaaS portal, with an agentic AIOps layer (Edwin AI) for event
-  correlation and governed remediation. Everything the portal does is addressable through the LogicMonitor
-  REST API v3 — a published Swagger 2.0 contract of 220 paths and 403 operations covering devices, device
-  groups, collectors, alerts, scheduled downtime, dashboards, websites, reports, log pipelines, cost
-  optimization and user administration, with per-operation x-minimum-permissions metadata. First-party
-  Python, Go, PowerShell and Terraform tooling wraps it, and telemetry can be pushed in over OpenTelemetry
-  OTLP, OpenMetrics/Prometheus exposition, and the Push Metrics and LM Logs ingestion APIs.
+description: LogicMonitor is an AI-powered hybrid observability and AIOps platform that monitors infrastructure, cloud and multi-cloud estates,
+  containers, networks, databases, storage, logs, traces, websites and internet performance from a single SaaS portal, with an agentic AIOps layer
+  (Edwin AI) for event correlation and governed remediation. Everything the portal does is addressable through the LogicMonitor REST API v3 —
+  a published Swagger 2.0 contract of 220 paths and 403 operations covering devices, device groups, collectors, alerts, scheduled downtime, dashboards,
+  websites, reports, log pipelines, cost optimization and user administration, with per-operation x-minimum-permissions metadata. First-party
+  Python, Go, PowerShell and Terraform tooling wraps it, and telemetry can be pushed in over OpenTelemetry OTLP, OpenMetrics/Prometheus exposition,
+  and the Push Metrics and LM Logs ingestion APIs.
 type: Index
 deliveryModel:
   model: saas
@@ -36,23 +33,118 @@ accessModel:
   generated: '2026-08-29'
   method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/logicmonitor.png
+website: https://www.logicmonitor.com
 tags:
-  - AIOps
-  - Monitoring
-  - Observability
-  - Infrastructure
-  - Log Management
-  - Network Monitoring
-  - Cloud Monitoring
-  - Alerting
-  - Synthetic Monitoring
-  - OpenTelemetry
-  - ITOps
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/logicmonitor/refs/heads/main/apis.yml
+- AIOps
+- Monitoring
+- Observability
+- Infrastructure
+- Log Management
+- Network Monitoring
+- Cloud Monitoring
+- Alerting
+- Synthetic Monitoring
+- OpenTelemetry
+- ITOps
+url: https://raw.githubusercontent.com/api-evangelist/logicmonitor/refs/heads/main/apis.yml
 created: '2026-03-27'
 modified: '2026-08-29'
 specificationVersion: '0.23'
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+common:
+- type: AgenticAccess
+  url: agentic-access/logicmonitor-agentic-access.yml
+- type: FinOps
+  url: finops/logicmonitor-finops.yml
+- type: Spectral
+  url: rules/logicmonitor-rules.yml
+- type: JSONLD
+  url: json-ld/logicmonitor-context.jsonld
+- type: Vocabulary
+  url: vocabulary/logicmonitor-vocabulary.yml
+- type: OAuthScopes
+  url: scopes/logicmonitor-scopes.yml
+- type: Deprecation
+  url: https://www.logicmonitor.com/support/migration-from-logicmonitor-rest-api-v1-to-api-v3
+- type: Hosts
+  url: hosts/logicmonitor-hosts.yml
+- type: Vendors
+  url: vendors/logicmonitor-vendors.yml
+- type: Security
+  url: https://www.logicmonitor.com/security
+- type: Newsroom
+  url: https://www.logicmonitor.com/press
+- type: Leadership
+  url: https://www.logicmonitor.com/leadership
+- type: Overlay
+  url: overlays/logicmonitor-rest-api-v3-overlay.yaml
+- type: License
+  name: MPL-2.0
+  url: https://github.com/logicmonitor/logicmonitor-api-mcp/blob/main/LICENSE
+- type: Website
+  url: https://www.logicmonitor.com
+- type: Documentation
+  url: https://www.logicmonitor.com/support
+- type: DeveloperPortal
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/
+- type: APIReference
+  url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
+- type: GettingStarted
+  url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+- type: Support
+  url: https://www.logicmonitor.com/support
+- type: Community
+  url: https://community.logicmonitor.com/
+- type: Blog
+  url: https://www.logicmonitor.com/blog
+- type: GitHubOrganization
+  url: https://github.com/logicmonitor
+- type: LinkedIn
+  url: https://www.linkedin.com/company/logicmonitor
+- type: Integrations
+  url: https://www.logicmonitor.com/integrations
+- type: Pricing
+  url: https://www.logicmonitor.com/pricing
+- type: SignUp
+  url: https://www.logicmonitor.com/signup
+- type: TermsOfService
+  url: https://www.logicmonitor.com/legal/terms-of-use
+- type: PrivacyPolicy
+  url: https://www.logicmonitor.com/legal/privacy-policy
+- type: StatusPage
+  url: https://status.logicmonitor.com/
+- type: ChangeLog
+  url: changelog/logicmonitor-changelog.yml
+- type: Lifecycle
+  url: lifecycle/logicmonitor-lifecycle.yml
+- type: Plans
+  url: plans/logicmonitor-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/logicmonitor-rate-limits.yml
+- type: Packages
+  url: packages/logicmonitor-packages.yml
+- type: SDKs
+  url: packages/logicmonitor-packages.yml
+- type: CLI
+  url: cli/logicmonitor-cli.yml
+- type: Conformance
+  url: conformance/logicmonitor-conformance.yml
+- type: Compliance
+  url: security/logicmonitor-trust-center.yml
+- type: TrustCenter
+  url: security/logicmonitor-trust-center.yml
+- type: DomainSecurity
+  url: security/logicmonitor-domain-security.yml
+- type: Authentication
+  url: authentication/logicmonitor-authentication.yml
+- type: LLMsTxt
+  url: llms/logicmonitor-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/logicmonitor-webhooks.yml
 apis:
 - aid: logicmonitor:logicmonitor-mcp
   name: LogicMonitor MCP Server
@@ -103,6 +195,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-access-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-map-module-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-access-group-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-action-chains-api
   name: LogicMonitor Action Chains API
   description: The Action Chains API from LogicMonitor — 2 operation(s) for action chains.
@@ -132,6 +230,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-action-chain-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-action-chain-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-action-rules-api
   name: LogicMonitor Action Rules API
   description: The Action Rules API from LogicMonitor — 3 operation(s) for action rules.
@@ -161,6 +263,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-action-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-action-rule-status-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-action-rule-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-alert-rules-api
   name: LogicMonitor Alert Rules API
   description: The Alert Rules API from LogicMonitor — 2 operation(s) for alert rules.
@@ -190,6 +298,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-alert-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-alert-rule-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-alerts-api
   name: LogicMonitor Alerts API
   description: The Alerts API from LogicMonitor — 5 operation(s) for alerts.
@@ -219,6 +331,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-alert-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-alert-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-alert-ack-schema.json
 - aid: logicmonitor:logicmonitor-api-tokens-api
   name: LogicMonitor API Tokens API
   description: The API Tokens API from LogicMonitor — 3 operation(s) for api tokens.
@@ -248,6 +366,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-apitoken-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-api-token-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-apiperfstats-api
   name: LogicMonitor API Perf Stats API
   description: The ApiPerfStats API from LogicMonitor — 1 operation(s) for apiperfstats.
@@ -277,6 +399,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-api-perf-metrics-schema.json
 - aid: logicmonitor:logicmonitor-appliestofunctions-api
   name: LogicMonitor Applies To Functions API
   description: The AppliesToFunctions API from LogicMonitor — 3 operation(s) for appliestofunctions.
@@ -306,6 +430,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-applies-to-function-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-applies-to-function-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-applies-to-function-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-audit-logs-api
   name: LogicMonitor Audit Logs API
   description: The Audit Logs API from LogicMonitor — 2 operation(s) for audit logs.
@@ -335,6 +465,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-audit-log-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-access-log-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-automated-diagnostic-remediation-api
   name: LogicMonitor Automated Diagnostic & Remediation API
   description: >-
@@ -366,6 +500,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-adr-output-list-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-diagnostic-remediation-assigned-source-schema.json
 - aid: logicmonitor:logicmonitor-collector-groups-api
   name: LogicMonitor Collector Groups API
   description: The Collector Groups API from LogicMonitor — 3 operation(s) for collector groups.
@@ -395,6 +533,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-collector-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-collector-group-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-collector-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-collectors-api
   name: LogicMonitor Collectors API
   description: The Collectors API from LogicMonitor — 15 operation(s) for collectors.
@@ -424,6 +568,18 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-collector-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-collector-sizing-request-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-collector-status-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-collector-event-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-collector-sizing-response-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-collector-log-file-v3-schema.json
 - aid: logicmonitor:logicmonitor-collectorversions-api
   name: LogicMonitor Collector Versions API
   description: The CollectorVersions API from LogicMonitor — 1 operation(s) for collectorversions.
@@ -453,6 +609,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-collector-version-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-configsources-api
   name: LogicMonitor Config Sources API
   description: The ConfigSources API from LogicMonitor — 5 operation(s) for configsources.
@@ -482,6 +640,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-config-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-config-source-update-reasons-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-configsource-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-cost-optimization-recommendations-api
   name: LogicMonitor Cost Optimization Recommendations API
   description: >-
@@ -513,6 +677,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-cloud-recommendation-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-cloud-recommendation-category-v3-schema.json
 - aid: logicmonitor:logicmonitor-dashboard-groups-api
   name: LogicMonitor Dashboard Groups API
   description: The Dashboard Groups API from LogicMonitor — 3 operation(s) for dashboard groups.
@@ -542,6 +710,14 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-dashboard-group-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-dashboard-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-dashboard-group-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-dashboard-group-async-clone-response-schema.json
 - aid: logicmonitor:logicmonitor-dashboards-api
   name: LogicMonitor Dashboards API
   description: The Dashboards API from LogicMonitor — 3 operation(s) for dashboards.
@@ -571,6 +747,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-dashboard-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-dashboard-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-widget-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-data-api
   name: LogicMonitor Data API
   description: The Data API from LogicMonitor — 9 operation(s) for data.
@@ -600,6 +782,18 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-graph-plot-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-instance-config-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-instance-data-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-checkpoint-raw-data-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-instance-data-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-instances-schema.json
 - aid: logicmonitor:logicmonitor-datasource-instances-api
   name: LogicMonitor Datasource Instances API
   description: >-
@@ -630,6 +824,18 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-graph-plot-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-instance-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-instance-config-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-device-instance-group-alert-config-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-instance-data-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-instance-group-schema.json
 - aid: logicmonitor:logicmonitor-debug-api
   name: LogicMonitor Debug API
   description: The Debug API from LogicMonitor — 2 operation(s) for debug.
@@ -659,6 +865,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-debug-schema.json
 - aid: logicmonitor:logicmonitor-delta-api
   name: LogicMonitor Delta API
   description: The Delta API from LogicMonitor — 2 operation(s) for delta.
@@ -688,6 +896,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-delta-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-device-groups-api
   name: LogicMonitor Device Groups API
   description: The Device Groups API from LogicMonitor — 19 operation(s) for device groups.
@@ -717,6 +927,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-group-data-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-response-schema.json
 - aid: logicmonitor:logicmonitor-devices-api
   name: LogicMonitor Devices API
   description: The Devices API from LogicMonitor — 20 operation(s) for devices.
@@ -746,6 +962,18 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-graph-plot-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-data-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-entity-property-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-datasource-instance-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-diagnosticsources-api
   name: LogicMonitor Diagnostic Sources API
   description: The DiagnosticSources API from LogicMonitor — 4 operation(s) for diagnosticsources.
@@ -775,6 +1003,14 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-diagnostic-source-v4-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-diagnostics-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-diagnostics-source-execution-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-diagnosticsource-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-dns-mapping-api
   name: LogicMonitor DNS Mapping API
   description: The DNS Mapping API from LogicMonitor — 1 operation(s) for dns mapping.
@@ -804,6 +1040,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-dnsmapping-v3-schema.json
 - aid: logicmonitor:logicmonitor-dnsmappings-api
   name: LogicMonitor DNS Mappings API
   description: The DNSMappings API from LogicMonitor — 1 operation(s) for dnsmappings.
@@ -862,6 +1100,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-escalating-chain-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-escalation-chain-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-integrationauditlogs-api
   name: LogicMonitor Integration Audit Logs API
   description: >-
@@ -892,6 +1134,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-integration-audit-log-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-jobmonitor-api
   name: LogicMonitor Job Monitor API
   description: The JobMonitor API from LogicMonitor — 4 operation(s) for jobmonitor.
@@ -921,6 +1165,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-batch-job-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-batch-job-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-logalertgroups-api
   name: LogicMonitor Log Alert Groups API
   description: The LogAlertGroups API from LogicMonitor — 2 operation(s) for logalertgroups.
@@ -950,6 +1198,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-log-pipeline-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-pipeline-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-logalerts-api
   name: LogicMonitor Log Alerts API
   description: The LogAlerts API from LogicMonitor — 3 operation(s) for logalerts.
@@ -979,6 +1231,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-log-pipeline-processor-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-pipeline-processor-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-disable-processor-payload-schema.json
 - aid: logicmonitor:logicmonitor-logicmodules-api
   name: LogicMonitor Logic Modules API
   description: The LogicModules API from LogicMonitor — 1 operation(s) for logicmodules.
@@ -1008,6 +1266,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-response-schema.json
 - aid: logicmonitor:logicmonitor-logpartitions-api
   name: LogicMonitor Log Partitions API
   description: The LogPartitions API from LogicMonitor — 4 operation(s) for logpartitions.
@@ -1037,6 +1297,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-partition-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-pagination-schema.json
 - aid: logicmonitor:logicmonitor-logquerygroups-api
   name: LogicMonitor Log Query Groups API
   description: The LogQueryGroups API from LogicMonitor — 6 operation(s) for logquerygroups.
@@ -1066,6 +1330,14 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-query-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-log-query-group-import-result-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-query-group-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-log-query-group-validation-request-item-v4-schema.json
 - aid: logicmonitor:logicmonitor-metrics-api
   name: LogicMonitor Metrics API
   description: The Metrics API from LogicMonitor — 2 operation(s) for metrics.
@@ -1095,6 +1367,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-company-metrics-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-usage-schema.json
 - aid: logicmonitor:logicmonitor-netscans-api
   name: LogicMonitor Netscans API
   description: The Netscans API from LogicMonitor — 2 operation(s) for netscans.
@@ -1124,6 +1400,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-netscan-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-netscan-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-oid-api
   name: LogicMonitor OID API
   description: The OID API from LogicMonitor — 3 operation(s) for oid.
@@ -1153,6 +1433,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-oid-v3-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-oid-source-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-ops-notes-api
   name: LogicMonitor Ops Notes API
   description: The Ops Notes API from LogicMonitor — 2 operation(s) for ops notes.
@@ -1182,6 +1466,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-ops-note-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-ops-note-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-propertysource-api
   name: LogicMonitor Property Source API
   description: The PropertySource API from LogicMonitor — 3 operation(s) for propertysource.
@@ -1211,6 +1499,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-property-rule-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-property-rule-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-recipient-groups-api
   name: LogicMonitor Recipient Groups API
   description: The Recipient Groups API from LogicMonitor — 2 operation(s) for recipient groups.
@@ -1240,6 +1532,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-recipient-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-recipient-group-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-remediationsources-api
   name: LogicMonitor Remediation Sources API
   description: The RemediationSources API from LogicMonitor — 3 operation(s) for remediationsources.
@@ -1269,6 +1565,12 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-remediation-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-remediation-source-execution-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-remediation-source-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-report-api
   name: LogicMonitor Report API
   description: The Report API from LogicMonitor — 4 operation(s) for report.
@@ -1298,6 +1600,14 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-report-base-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-generate-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-generate-report-result-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-report-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-report-groups-api
   name: LogicMonitor Report Groups API
   description: The Report Groups API from LogicMonitor — 2 operation(s) for report groups.
@@ -1327,6 +1637,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-report-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-report-group-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-roles-api
   name: LogicMonitor Roles API
   description: The Roles API from LogicMonitor — 2 operation(s) for roles.
@@ -1356,6 +1670,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-role-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-role-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-sdts-api
   name: LogicMonitor SD Ts API
   description: The SDTs API from LogicMonitor — 2 operation(s) for sdts.
@@ -1385,6 +1703,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-sdt-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-sdtpagination-response-schema.json
 - aid: logicmonitor:logicmonitor-thresholds-api
   name: LogicMonitor Thresholds API
   description: The Thresholds API from LogicMonitor — 5 operation(s) for thresholds.
@@ -1414,6 +1736,17 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-instance-alert-setting-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-cluster-alert-config-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-cluster-alert-config-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-group-data-source-alert-config-schema.json
+  - type: JSONSchema
+    url: >-
+      json-schema/logicmonitor-device-data-source-instance-alert-setting-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-topologysource-api
   name: LogicMonitor Topology Source API
   description: The TopologySource API from LogicMonitor — 3 operation(s) for topologysource.
@@ -1443,6 +1776,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-topology-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-topology-source-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-trackquerygroup-api
   name: LogicMonitor Track Query Group API
   description: The TrackQueryGroup API from LogicMonitor — 2 operation(s) for trackquerygroup.
@@ -1472,6 +1809,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-tracked-query-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-track-query-group-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-usage-api-v3-api
   name: LogicMonitor Usage API V3 API
   description: The Usage API V3 API from LogicMonitor — 2 operation(s) for usage api v3.
@@ -1501,6 +1842,8 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-contract-info-base-v3-schema.json
 - aid: logicmonitor:logicmonitor-users-api
   name: LogicMonitor Users API
   description: The Users API from LogicMonitor — 2 operation(s) for users.
@@ -1532,6 +1875,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-admin-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-admin-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-website-groups-api
   name: LogicMonitor Website Groups API
   description: The Website Groups API from LogicMonitor — 5 operation(s) for website groups.
@@ -1561,6 +1908,16 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-group-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-group-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-group-sdthistory-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-sdtpagination-response-schema.json
 - aid: logicmonitor:logicmonitor-websites-api
   name: LogicMonitor Websites API
   description: The Websites API from LogicMonitor — 9 operation(s) for websites.
@@ -1590,6 +1947,18 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-graph-plot-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-checkpoint-raw-data-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-site-monitor-check-point-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-property-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-website-sdthistory-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-widgets-api
   name: LogicMonitor Widgets API
   description: The Widgets API from LogicMonitor — 2 operation(s) for widgets.
@@ -1619,6 +1988,10 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-widget-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-widget-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-batch-jobs-api
   name: LogicMonitor Batch Jobs API
   description: The Batch Jobs API from LogicMonitor — 1 operation(s) for batch jobs.
@@ -1648,6 +2021,28 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-overview-graph-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-associated-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-datasource-overview-graph-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-update-reasons-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-user-customized-data-v3-schema.json
 - aid: logicmonitor:logicmonitor-data-sources-api
   name: LogicMonitor Data Sources API
   description: The Data Sources API from LogicMonitor — 8 operation(s) for data sources.
@@ -1677,6 +2072,28 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-overview-graph-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-associated-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-datasource-overview-graph-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-update-reasons-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-user-customized-data-v3-schema.json
 - aid: logicmonitor:logicmonitor-event-sources-api
   name: LogicMonitor Event Sources API
   description: The Event Sources API from LogicMonitor — 4 operation(s) for event sources.
@@ -1706,6 +2123,28 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-overview-graph-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-associated-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-datasource-overview-graph-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-update-reasons-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-user-customized-data-v3-schema.json
 - aid: logicmonitor:logicmonitor-log-sources-api
   name: LogicMonitor Log Sources API
   description: The Log Sources API from LogicMonitor — 3 operation(s) for log sources.
@@ -1735,6 +2174,28 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-overview-graph-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-associated-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-datasource-overview-graph-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-update-reasons-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-user-customized-data-v3-schema.json
 - aid: logicmonitor:logicmonitor-user-data-api
   name: LogicMonitor User Data API
   description: The User Data API from LogicMonitor — 1 operation(s) for user data.
@@ -1764,84 +2225,36 @@ apis:
     url: rate-limits/logicmonitor-rate-limits.yml
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
-common:
-  - type: Overlay
-    url: overlays/logicmonitor-rest-api-v3-overlay.yaml
-  - type: License
-    name: MPL-2.0
-    url: https://github.com/logicmonitor/logicmonitor-api-mcp/blob/main/LICENSE
-  - type: Website
-    url: https://www.logicmonitor.com
-  - type: Documentation
-    url: https://www.logicmonitor.com/support
-  - type: DeveloperPortal
-    url: https://www.logicmonitor.com/support/rest-api-developers-guide/
-  - type: APIReference
-    url: https://www.logicmonitor.com/support/rest-api-v3-swagger-documentation
-  - type: GettingStarted
-    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
-  - type: Support
-    url: https://www.logicmonitor.com/support
-  - type: Community
-    url: https://community.logicmonitor.com/
-  - type: Blog
-    url: https://www.logicmonitor.com/blog
-  - type: GitHubOrganization
-    url: https://github.com/logicmonitor
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/logicmonitor
-  - type: Integrations
-    url: https://www.logicmonitor.com/integrations
-  - type: Pricing
-    url: https://www.logicmonitor.com/pricing
-  - type: SignUp
-    url: https://www.logicmonitor.com/signup
-  - type: TermsOfService
-    url: https://www.logicmonitor.com/legal/terms-of-use
-  - type: PrivacyPolicy
-    url: https://www.logicmonitor.com/legal/privacy-policy
-  - type: StatusPage
-    url: https://status.logicmonitor.com/
-  - type: ChangeLog
-    url: changelog/logicmonitor-changelog.yml
-  - type: Lifecycle
-    url: lifecycle/logicmonitor-lifecycle.yml
-  - type: Plans
-    url: plans/logicmonitor-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/logicmonitor-rate-limits.yml
-  - type: Packages
-    url: packages/logicmonitor-packages.yml
-  - type: SDKs
-    url: packages/logicmonitor-packages.yml
-  - type: CLI
-    url: cli/logicmonitor-cli.yml
-  - type: Conformance
-    url: conformance/logicmonitor-conformance.yml
-  - type: Compliance
-    url: security/logicmonitor-trust-center.yml
-  - type: TrustCenter
-    url: security/logicmonitor-trust-center.yml
-  - type: DomainSecurity
-    url: security/logicmonitor-domain-security.yml
-  - type: Authentication
-    url: authentication/logicmonitor-authentication.yml
-  - type: LLMsTxt
-    url: llms/logicmonitor-llms.txt
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: Webhooks
-    url: asyncapi/logicmonitor-webhooks.yml
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-overview-graph-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-device-data-source-associated-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-datasource-overview-graph-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-data-source-update-reasons-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-2-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-event-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-log-source-pagination-response-schema.json
+  - type: JSONSchema
+    url: json-schema/logicmonitor-rest-user-customized-data-v3-schema.json
 integrations:
-  - name: See integrations
-    url: https://www.logicmonitor.com/integrations
-  - url: https://www.logicmonitor.com/feed/
-    type: Blog
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: See integrations
+  url: https://www.logicmonitor.com/integrations
+- url: https://www.logicmonitor.com/feed/
+  type: Blog
 x-enrichment:
-  date: '2026-08-29'
+  date: '2026-10-04'
   status: enriched
-  artifacts_added: 25
-  pass: local-v1
+  artifacts_added: 152
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

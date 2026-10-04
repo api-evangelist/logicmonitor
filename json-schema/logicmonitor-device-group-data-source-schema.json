@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-device-group-data-source-schema.json",
+  "title": "DeviceGroupDataSource",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-device-groups-api-openapi.yml#/components/schemas/DeviceGroupDataSource",
+  "type": "object",
+  "properties": {
+    "stopMonitoring": {
+      "description": "Boolean flag for enabling/disabling monitoring of DataSource",
+      "type": "boolean"
+    },
+    "dataSourceId": {
+      "format": "int32",
+      "description": "The ID of the DataSource",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "dataSourceGroupName": {
+      "description": "The DataSource Group name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "deviceGroupId": {
+      "format": "int32",
+      "description": "The ID of the Device Group for the DataSource",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "dataSourceDisplayName": {
+      "description": "The Display Name of the DataSource",
+      "readOnly": true,
+      "type": "string"
+    },
+    "disableAlerting": {
+      "description": "Boolean flag for enabling/disabling alerting for DataSource",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "dataSourceName": {
+      "description": "The Name of the DataSource",
+      "readOnly": true,
+      "type": "string"
+    },
+    "dataSourceType": {
+      "description": "The Type of the DataSource",
+      "readOnly": true,
+      "type": "string"
+    }
+  }
+}

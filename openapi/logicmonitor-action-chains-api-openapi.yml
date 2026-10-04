@@ -197,37 +197,6 @@ paths:
         required: true
 components:
   schemas:
-    ActionChainPaginationResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActionChain'
-    ActionChain:
-      type: object
-      required:
-      - name
-      - stages
-      properties:
-        name:
-          description: The action chain name
-          type: string
-          example: Test AC
-        stages:
-          description: The list of stages in the action chain
-          type: array
-          items:
-            $ref: '#/components/schemas/Stage'
-        description:
-          description: The action chain description
-          type: string
-          example: This chain description
-        id:
-          format: int32
-          description: The Id of the action chain
-          readOnly: true
-          type: integer
     Stage:
       description: A stage in the action chain
       type: object
@@ -252,6 +221,37 @@ components:
           - diagnosticSource
           - remediationSource
           example: diagnosticSource
+    ActionChain:
+      type: object
+      required:
+      - name
+      - stages
+      properties:
+        name:
+          description: The action chain name
+          type: string
+          example: Test AC
+        stages:
+          description: The list of stages in the action chain
+          type: array
+          items:
+            $ref: '#/components/schemas/Stage'
+        description:
+          description: The action chain description
+          type: string
+          example: This chain description
+        id:
+          format: int32
+          description: The Id of the action chain
+          readOnly: true
+          type: integer
+    ActionChainPaginationResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionChain'
     ErrorResponse:
       type: object
       properties:

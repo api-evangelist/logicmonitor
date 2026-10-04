@@ -250,6 +250,149 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RemediationSource'
+    AccessGroup:
+      description: Module's access groups
+      type: object
+      required:
+      - name
+      properties:
+        createdBy:
+          description: User who created access group
+          readOnly: true
+          type: string
+        name:
+          description: The name of the access group
+          type: string
+          example: LinuxGroup
+        tenantId:
+          description: Tenancy details
+          type: string
+        description:
+          description: Description about access group
+          type: string
+        id:
+          format: int32
+          description: The id of the access group
+          readOnly: true
+          type: integer
+        updatedOn:
+          format: int64
+          description: Time when access group updated
+          readOnly: true
+          type: integer
+        createdOn:
+          format: int64
+          description: Time when access group created
+          readOnly: true
+          type: integer
+    IntegrationMetadata:
+      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
+      readOnly: true
+      type: object
+      properties:
+        targetLastPublishedId:
+          description: Specifies the target last published Id
+          readOnly: true
+          type: string
+        targetLastPublishedChecksum:
+          description: The metadata checksum for the target last published LMModule content
+          readOnly: true
+          type: string
+        targetLastPublishedVersion:
+          description: Specifies the target last published version
+          readOnly: true
+          type: string
+        originChecksum:
+          description: The metadata checksum for the LMModule content
+          readOnly: true
+          type: string
+        originAuthorNamespace:
+          description: Specifies the origin Author companies namespace
+          readOnly: true
+          type: string
+        originLocator:
+          description: Specifies the origin version locator
+          readOnly: true
+          type: string
+        isChangedFromOrigin:
+          description: Specifies if the Applies To function is changed from origin or not
+          readOnly: true
+          type: boolean
+        auditedRegistryId:
+          description: Specifies the audited registry Id
+          readOnly: true
+          type: string
+        targetLineageId:
+          description: Specifies the target lineage Id
+          readOnly: true
+          type: string
+        logicModuleType:
+          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
+
+            The type of LogicModule'
+          readOnly: true
+          type: string
+          enum:
+          - DATASOURCE
+          - EVENTSOURCE
+          - CONFIGSOURCE
+          - PROPERTYSOURCE
+          - DIAGNOSTICSOURCE
+          - REMEDIATIONSOURCE
+          - TOPOLOGYSOURCE
+          - JOBMONITOR
+          - APPLIESTO_FUNCTION
+          - SNMP_SYSOID_MAP
+          - LOGSOURCE
+        isChangedFromTargetLastPublished:
+          description: Specifies if the Applies To function is changed from target last published or not
+          readOnly: true
+          type: boolean
+        originLineageId:
+          description: The origin lineage Id of the LMmodule
+          readOnly: true
+          type: string
+        originAuthorCompanyUUID:
+          description: Specifies the origin Author companies unique Id
+          readOnly: true
+          type: string
+        localModuleId:
+          format: int32
+          description: The LocalModule Id
+          readOnly: true
+          type: integer
+        originRegistryId:
+          description: The Registry ID of the Exchange Integration this module is based from
+          readOnly: true
+          type: string
+        originVersion:
+          description: Specifies the origin version
+          readOnly: true
+          type: string
+        auditedVersion:
+          description: Specifies the audited registry version
+          readOnly: true
+          type: string
+        originName:
+          description: Specifies the origin module name
+          readOnly: true
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          description: The error message
+          readOnly: true
+          type: string
+        errorCode:
+          format: int32
+          description: The error code
+          readOnly: true
+          type: integer
+        errorDetail:
+          description: The error detail
+          readOnly: true
+          type: object
     RemediationSource:
       type: object
       properties:
@@ -347,133 +490,6 @@ components:
         group:
           description: The group the LMModule is in
           type: string
-    IntegrationMetadata:
-      description: The local module's IntegrationMetadata, readable for troubleshooting purposes
-      readOnly: true
-      type: object
-      properties:
-        targetLastPublishedId:
-          description: Specifies the target last published Id
-          readOnly: true
-          type: string
-        targetLastPublishedChecksum:
-          description: The metadata checksum for the target last published LMModule content
-          readOnly: true
-          type: string
-        targetLastPublishedVersion:
-          description: Specifies the target last published version
-          readOnly: true
-          type: string
-        originChecksum:
-          description: The metadata checksum for the LMModule content
-          readOnly: true
-          type: string
-        originAuthorNamespace:
-          description: Specifies the origin Author companies namespace
-          readOnly: true
-          type: string
-        originLocator:
-          description: Specifies the origin version locator
-          readOnly: true
-          type: string
-        isChangedFromOrigin:
-          description: Specifies if the Applies To function is changed from origin or not
-          readOnly: true
-          type: boolean
-        auditedRegistryId:
-          description: Specifies the audited registry Id
-          readOnly: true
-          type: string
-        targetLineageId:
-          description: Specifies the target lineage Id
-          readOnly: true
-          type: string
-        logicModuleType:
-          description: 'The values can be DataSources | EventSources | PropertySources | ConfigSources | LogSources | TopologySources | Jobmonitors | AppliesTo Functions | SNMP SysOID Maps
-
-            The type of LogicModule'
-          readOnly: true
-          type: string
-          enum:
-          - DATASOURCE
-          - EVENTSOURCE
-          - CONFIGSOURCE
-          - PROPERTYSOURCE
-          - DIAGNOSTICSOURCE
-          - REMEDIATIONSOURCE
-          - TOPOLOGYSOURCE
-          - JOBMONITOR
-          - APPLIESTO_FUNCTION
-          - SNMP_SYSOID_MAP
-          - LOGSOURCE
-        isChangedFromTargetLastPublished:
-          description: Specifies if the Applies To function is changed from target last published or not
-          readOnly: true
-          type: boolean
-        originLineageId:
-          description: The origin lineage Id of the LMmodule
-          readOnly: true
-          type: string
-        originAuthorCompanyUUID:
-          description: Specifies the origin Author companies unique Id
-          readOnly: true
-          type: string
-        localModuleId:
-          format: int32
-          description: The LocalModule Id
-          readOnly: true
-          type: integer
-        originRegistryId:
-          description: The Registry ID of the Exchange Integration this module is based from
-          readOnly: true
-          type: string
-        originVersion:
-          description: Specifies the origin version
-          readOnly: true
-          type: string
-        auditedVersion:
-          description: Specifies the audited registry version
-          readOnly: true
-          type: string
-        originName:
-          description: Specifies the origin module name
-          readOnly: true
-          type: string
-    AccessGroup:
-      description: Module's access groups
-      type: object
-      required:
-      - name
-      properties:
-        createdBy:
-          description: User who created access group
-          readOnly: true
-          type: string
-        name:
-          description: The name of the access group
-          type: string
-          example: LinuxGroup
-        tenantId:
-          description: Tenancy details
-          type: string
-        description:
-          description: Description about access group
-          type: string
-        id:
-          format: int32
-          description: The id of the access group
-          readOnly: true
-          type: integer
-        updatedOn:
-          format: int64
-          description: Time when access group updated
-          readOnly: true
-          type: integer
-        createdOn:
-          format: int64
-          description: Time when access group created
-          readOnly: true
-          type: integer
     RemediationSourceExecution:
       description: Represents a remediation execution for a host in the LogicMonitor system.
       type: object
@@ -525,22 +541,6 @@ components:
           description: When true, the API waits for execution to finish and returns script output in the response
           type: boolean
           example: false
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          description: The error message
-          readOnly: true
-          type: string
-        errorCode:
-          format: int32
-          description: The error code
-          readOnly: true
-          type: integer
-        errorDetail:
-          description: The error detail
-          readOnly: true
-          type: object
   securitySchemes:
     LMv1:
       in: header

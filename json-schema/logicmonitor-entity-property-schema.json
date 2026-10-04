@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-entity-property-schema.json",
+  "title": "EntityProperty",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-devices-api-openapi.yml#/components/schemas/EntityProperty",
+  "type": "object",
+  "properties": {
+    "inheritList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/InheritanceProp"
+      }
+    },
+    "name": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "type": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "value": {
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "InheritanceProp": {
+      "type": "object",
+      "properties": {
+        "fullpath": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "value": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

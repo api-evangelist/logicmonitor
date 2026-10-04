@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-rest-cloud-recommendation-v3-schema.json",
+  "title": "RestCloudRecommendationV3",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-cost-optimization-recommendations-api-openapi.yml#/components/schemas/RestCloudRecommendationV3",
+  "type": "object",
+  "properties": {
+    "resourceDisplayName": {
+      "description": "Display name of the resource associated with the recommendation",
+      "type": "string"
+    },
+    "resourceId": {
+      "format": "int32",
+      "description": "ID of the resource associated with the recommendation",
+      "type": "integer"
+    },
+    "providerConsoleUrl": {
+      "description": "URL to the resource in the cloud provider's console",
+      "type": "string"
+    },
+    "annualSavings": {
+      "format": "double",
+      "description": "Potential annual cost savings in USD",
+      "type": "number"
+    },
+    "recommendationCategory": {
+      "description": "Recommendation category",
+      "type": "string"
+    },
+    "createdAtMS": {
+      "format": "int64",
+      "description": "Date when the recommendation was generated, in epoch milliseconds",
+      "type": "integer"
+    },
+    "criteria": {
+      "description": "Criteria for the recommendation",
+      "type": "string"
+    },
+    "cloudAccountId": {
+      "description": "ID of the cloud account associated with the recommendation",
+      "type": "string"
+    },
+    "deviceSubtype": {
+      "description": "Device subtype associated with the recommendation",
+      "type": "string"
+    },
+    "recommendation": {
+      "description": "Recommendation details",
+      "type": "string"
+    },
+    "recommendationId": {
+      "format": "int64",
+      "description": "Unique numerical identifier for the recommendation",
+      "type": "integer"
+    },
+    "recommendationStatus": {
+      "description": "Status of the recommendation",
+      "type": "string"
+    },
+    "updatedAtMS": {
+      "format": "int64",
+      "description": "Date when the recommendation was last updated, in epoch milliseconds",
+      "type": "integer"
+    },
+    "cloudProvider": {
+      "description": "Cloud provider type associated with the recommendation",
+      "type": "string"
+    },
+    "cloudServiceType": {
+      "description": "Cloud service type associated with the recommendation",
+      "type": "string"
+    },
+    "id": {
+      "description": "Unique identifier for the recommendation, including the recommendation category",
+      "type": "string"
+    }
+  }
+}

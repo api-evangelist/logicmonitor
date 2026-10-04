@@ -82,6 +82,7 @@ request_id_tracing:
     No request-id or correlation header is documented or declared. Audit Logs (GET /setting/accesslogs) are
     the only after-the-fact trace of an API call.
 idempotency:
+  coverage: none
   supported: false
   key_header: null
   note: >-

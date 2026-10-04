@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-role-schema.json",
+  "title": "Role",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-roles-api-openapi.yml#/components/schemas/Role",
+  "type": "object",
+  "required": [
+    "name",
+    "privileges"
+  ],
+  "properties": {
+    "enableRemoteSessionInCompanyLevel": {
+      "description": "Whether Remote Session should be enabled at the account level",
+      "readOnly": true,
+      "type": "boolean"
+    },
+    "customHelpLabel": {
+      "description": "The label for the custom help URL as it will appear in the Help & Support dropdown menu",
+      "type": "string"
+    },
+    "customHelpURL": {
+      "description": "The URL that should be added to the Help & Support dropdown menu",
+      "type": "string"
+    },
+    "privileges": {
+      "description": "The account privileges associated with the role. Privileges can be added to a role for each area of your account",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Privilege"
+      }
+    },
+    "associatedUserCount": {
+      "format": "int32",
+      "description": "The count of the users which are belongs to the role",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "name": {
+      "description": "The name of the role",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the role",
+      "type": "string"
+    },
+    "id": {
+      "format": "int32",
+      "description": "The Id of the role",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "twoFARequired": {
+      "description": "Whether Two-Factor Authentication should be required for this role",
+      "type": "boolean"
+    },
+    "requireEULA": {
+      "description": "Whether or not users assigned this role should be required to acknowledge the EULA (end user license agreement)",
+      "type": "boolean"
+    },
+    "acctRequireTwoFA": {
+      "description": "Whether Two-Factor Authentication should be required for the entire account",
+      "readOnly": true,
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "Privilege": {
+      "type": "object",
+      "required": [
+        "objectId",
+        "objectType",
+        "operation"
+      ],
+      "properties": {
+        "objectName": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "subOperation": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "objectId": {
+          "type": "string"
+        },
+        "objectType": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

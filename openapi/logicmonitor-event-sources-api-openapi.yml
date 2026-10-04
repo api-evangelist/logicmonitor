@@ -330,20 +330,6 @@ paths:
     - url: /santaba/rest
 components:
   schemas:
-    EventSourcePaginationResponse:
-      type: object
-      properties:
-        total:
-          format: int32
-          readOnly: true
-          type: integer
-        searchId:
-          readOnly: true
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventSource'
     RestEventSourceFilter:
       type: object
       properties:
@@ -358,6 +344,20 @@ components:
           type: string
         operator:
           type: string
+    EventSourcePaginationResponse:
+      type: object
+      properties:
+        total:
+          format: int32
+          readOnly: true
+          type: integer
+        searchId:
+          readOnly: true
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSource'
     EventSource:
       type: object
       required:
@@ -438,25 +438,6 @@ components:
           description: The error detail
           readOnly: true
           type: object
-    EventSourceFilter:
-      type: object
-      properties:
-        eventSourceId:
-          format: int32
-          type: integer
-        op:
-          type: string
-        originId:
-          type: string
-        name:
-          type: string
-        comment:
-          type: string
-        id:
-          format: int32
-          type: integer
-        value:
-          type: string
     IntegrationMetadata:
       description: The local module's IntegrationMetadata, readable for troubleshooting purposes
       readOnly: true
@@ -549,32 +530,6 @@ components:
           description: Specifies the origin module name
           readOnly: true
           type: string
-    RestEventSourceFilter_2:
-      description: The filters for the EventSource
-      type: object
-      required:
-      - comment
-      - name
-      - operator
-      - value
-      properties:
-        name:
-          description: The filter name
-          type: string
-        comment:
-          description: The filter comment
-          type: string
-        id:
-          format: int32
-          description: The filter id
-          readOnly: true
-          type: integer
-        value:
-          description: The filter value
-          type: string
-        operator:
-          description: The filter operator
-          type: string
     AccessGroup:
       description: Module's access groups
       type: object
@@ -610,6 +565,51 @@ components:
           description: Time when access group created
           readOnly: true
           type: integer
+    RestEventSourceFilter_2:
+      description: The filters for the EventSource
+      type: object
+      required:
+      - comment
+      - name
+      - operator
+      - value
+      properties:
+        name:
+          description: The filter name
+          type: string
+        comment:
+          description: The filter comment
+          type: string
+        id:
+          format: int32
+          description: The filter id
+          readOnly: true
+          type: integer
+        value:
+          description: The filter value
+          type: string
+        operator:
+          description: The filter operator
+          type: string
+    EventSourceFilter:
+      type: object
+      properties:
+        eventSourceId:
+          format: int32
+          type: integer
+        op:
+          type: string
+        originId:
+          type: string
+        name:
+          type: string
+        comment:
+          type: string
+        id:
+          format: int32
+          type: integer
+        value:
+          type: string
     EventSource_2:
       type: object
       required:

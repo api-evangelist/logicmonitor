@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-ops-note-pagination-response-schema.json",
+  "title": "OpsNotePaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-ops-notes-api-openapi.yml#/components/schemas/OpsNotePaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/OpsNote"
+      }
+    }
+  },
+  "$defs": {
+    "OpsNote": {
+      "type": "object",
+      "required": [
+        "note"
+      ],
+      "properties": {
+        "note": {
+          "description": "The note message",
+          "type": "string"
+        },
+        "createdBy": {
+          "description": "The user that created the Ops Note",
+          "readOnly": true,
+          "type": "string"
+        },
+        "scopes": {
+          "description": "The scopes associated with the note. Each scope has a type of device, service, deviceGroup or serviceGroup. A note with no scope will show up for everything in the account",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OpsNoteScope"
+          }
+        },
+        "id": {
+          "description": "The id associated with the Ops Note",
+          "readOnly": true,
+          "type": "string"
+        },
+        "happenOnInSec": {
+          "format": "int64",
+          "description": "The date and time associated with the note, in epoch seconds format",
+          "type": "integer"
+        },
+        "tags": {
+          "description": "The tags that should be associated with the note. Each tag has a unique id and a name - you can either include the name of a new or existing tag, or the id of an existing tag",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OpsNoteTagBase"
+          }
+        }
+      }
+    },
+    "OpsNoteScope": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "OpsNoteTagBase": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "updateOnInSec": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "createdOnInSec": {
+          "format": "int64",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "name": {
+          "description": "release",
+          "type": "string"
+        },
+        "id": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}

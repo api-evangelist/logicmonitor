@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logicmonitor/main/json-schema/logicmonitor-property-pagination-response-schema.json",
+  "title": "PropertyPaginationResponse",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logicmonitor-websites-api-openapi.yml#/components/schemas/PropertyPaginationResponse",
+  "type": "object",
+  "properties": {
+    "total": {
+      "format": "int32",
+      "readOnly": true,
+      "type": "integer"
+    },
+    "searchId": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EntityProperty"
+      }
+    }
+  },
+  "$defs": {
+    "EntityProperty": {
+      "type": "object",
+      "properties": {
+        "inheritList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InheritanceProp"
+          }
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "value": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    },
+    "InheritanceProp": {
+      "type": "object",
+      "properties": {
+        "fullpath": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "format": "int32",
+          "readOnly": true,
+          "type": "integer"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "value": {
+          "readOnly": true,
+          "type": "string"
+        }
+      }
+    }
+  }
+}
