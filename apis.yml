@@ -1765,6 +1765,9 @@ apis:
   - type: Webhooks
     url: asyncapi/logicmonitor-webhooks.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/logicmonitor-capability-edges.yml
+    name: LogicMonitor Business Capability Map
   - type: Overlay
     url: overlays/logicmonitor-rest-api-v3-overlay.yaml
   - type: License
