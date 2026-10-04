@@ -1,12 +1,14 @@
 aid: logicmonitor
 name: LogicMonitor
-description: LogicMonitor is an AI-powered hybrid observability and AIOps platform that monitors infrastructure, cloud and multi-cloud estates,
-  containers, networks, databases, storage, logs, traces, websites and internet performance from a single SaaS portal, with an agentic AIOps layer
-  (Edwin AI) for event correlation and governed remediation. Everything the portal does is addressable through the LogicMonitor REST API v3 —
-  a published Swagger 2.0 contract of 220 paths and 403 operations covering devices, device groups, collectors, alerts, scheduled downtime, dashboards,
-  websites, reports, log pipelines, cost optimization and user administration, with per-operation x-minimum-permissions metadata. First-party
-  Python, Go, PowerShell and Terraform tooling wraps it, and telemetry can be pushed in over OpenTelemetry OTLP, OpenMetrics/Prometheus exposition,
-  and the Push Metrics and LM Logs ingestion APIs.
+description: LogicMonitor is an AI-powered hybrid observability and AIOps platform that monitors infrastructure,
+  cloud and multi-cloud estates, containers, networks, databases, storage, logs, traces, websites and
+  internet performance from a single SaaS portal, with an agentic AIOps layer (Edwin AI) for event correlation
+  and governed remediation. Everything the portal does is addressable through the LogicMonitor REST API
+  v3 — a published Swagger 2.0 contract of 220 paths and 403 operations covering devices, device groups,
+  collectors, alerts, scheduled downtime, dashboards, websites, reports, log pipelines, cost optimization
+  and user administration, with per-operation x-minimum-permissions metadata. First-party Python, Go,
+  PowerShell and Terraform tooling wraps it, and telemetry can be pushed in over OpenTelemetry OTLP, OpenMetrics/Prometheus
+  exposition, and the Push Metrics and LM Logs ingestion APIs.
 type: Index
 deliveryModel:
   model: saas
@@ -145,15 +147,17 @@ common:
   url: skills/_index.yml
 - type: Webhooks
   url: asyncapi/logicmonitor-webhooks.yml
+- type: CapabilityMap
+  url: capabilities/logicmonitor-capability-edges.yml
+  name: LogicMonitor Business Capability Map
 apis:
 - aid: logicmonitor:logicmonitor-mcp
   name: LogicMonitor MCP Server
-  description: >-
-    A Model Context Protocol server over the LogicMonitor REST API v3, published to npm as logicmonitor-api-mcp
-    and hosted in the LogicMonitor GitHub organization, exposing 13 resource-shaped tools for devices,
-    device groups, alerts, websites, collectors, users, dashboards, device data, scheduled downtime, ops
-    notes and session state. Local stdio only — there is no vendor-hosted endpoint — and its README states
-    it is a community project not officially supported by LogicMonitor.
+  description: A Model Context Protocol server over the LogicMonitor REST API v3, published to npm as
+    logicmonitor-api-mcp and hosted in the LogicMonitor GitHub organization, exposing 13 resource-shaped
+    tools for devices, device groups, alerts, websites, collectors, users, dashboards, device data, scheduled
+    downtime, ops notes and session state. Local stdio only — there is no vendor-hosted endpoint — and
+    its README states it is a community project not officially supported by LogicMonitor.
   humanURL: https://github.com/logicmonitor/logicmonitor-api-mcp
   tags:
   - MCP
@@ -181,8 +185,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -216,8 +219,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -249,8 +251,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -284,8 +285,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -317,8 +317,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -352,8 +351,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -385,8 +383,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -416,8 +413,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -451,8 +447,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -471,9 +466,8 @@ apis:
     url: json-schema/logicmonitor-access-log-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-automated-diagnostic-remediation-api
   name: LogicMonitor Automated Diagnostic & Remediation API
-  description: >-
-    The Automated Diagnostic & Remediation API from LogicMonitor — 2 operation(s) for automated diagnostic
-    & remediation.
+  description: The Automated Diagnostic & Remediation API from LogicMonitor — 2 operation(s) for automated
+    diagnostic & remediation.
   humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
   baseURL: https://{account}.logicmonitor.com/santaba/rest
   tags:
@@ -486,8 +480,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -519,8 +512,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -554,8 +546,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -595,8 +586,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -626,8 +616,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -648,8 +637,7 @@ apis:
     url: json-schema/logicmonitor-configsource-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-cost-optimization-recommendations-api
   name: LogicMonitor Cost Optimization Recommendations API
-  description: >-
-    The Cost Optimization Recommendations API from LogicMonitor — 3 operation(s) for cost optimization
+  description: The Cost Optimization Recommendations API from LogicMonitor — 3 operation(s) for cost optimization
     recommendations.
   humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
   baseURL: https://{account}.logicmonitor.com/santaba/rest
@@ -663,8 +651,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -696,8 +683,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -733,8 +719,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -768,8 +753,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -796,8 +780,7 @@ apis:
     url: json-schema/logicmonitor-device-instances-schema.json
 - aid: logicmonitor:logicmonitor-datasource-instances-api
   name: LogicMonitor Datasource Instances API
-  description: >-
-    The Datasource Instances API from LogicMonitor — 13 operation(s) for datasource instances.
+  description: The Datasource Instances API from LogicMonitor — 13 operation(s) for datasource instances.
   humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
   baseURL: https://{account}.logicmonitor.com/santaba/rest
   tags:
@@ -810,8 +793,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -851,8 +833,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -882,8 +863,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -913,8 +893,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -948,8 +927,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -989,8 +967,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1026,8 +1003,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1057,8 +1033,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1086,8 +1061,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1106,8 +1080,7 @@ apis:
     url: json-schema/logicmonitor-escalation-chain-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-integrationauditlogs-api
   name: LogicMonitor Integration Audit Logs API
-  description: >-
-    The IntegrationAuditLogs API from LogicMonitor — 1 operation(s) for integrationauditlogs.
+  description: The IntegrationAuditLogs API from LogicMonitor — 1 operation(s) for integrationauditlogs.
   humanURL: https://www.logicmonitor.com/support/rest-api-developers-guide/
   baseURL: https://{account}.logicmonitor.com/santaba/rest
   tags:
@@ -1120,8 +1093,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1151,8 +1123,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1184,8 +1155,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1217,8 +1187,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1252,8 +1221,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1283,8 +1251,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1316,8 +1283,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1353,8 +1319,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1386,8 +1351,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1419,8 +1383,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1452,8 +1415,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1485,8 +1447,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1518,8 +1479,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1551,8 +1511,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1586,8 +1545,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1623,8 +1581,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1656,8 +1613,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1689,8 +1645,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1722,8 +1677,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1745,8 +1699,7 @@ apis:
   - type: JSONSchema
     url: json-schema/logicmonitor-device-group-data-source-alert-config-schema.json
   - type: JSONSchema
-    url: >-
-      json-schema/logicmonitor-device-data-source-instance-alert-setting-pagination-response-schema.json
+    url: json-schema/logicmonitor-device-data-source-instance-alert-setting-pagination-response-schema.json
 - aid: logicmonitor:logicmonitor-topologysource-api
   name: LogicMonitor Topology Source API
   description: The TopologySource API from LogicMonitor — 3 operation(s) for topologysource.
@@ -1762,8 +1715,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1795,8 +1747,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1828,8 +1779,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1861,8 +1811,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1894,8 +1843,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1933,8 +1881,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -1974,8 +1921,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -2007,8 +1953,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -2058,8 +2003,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -2109,8 +2053,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -2160,8 +2103,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
@@ -2211,8 +2153,7 @@ apis:
   - type: DeveloperPortal
     url: https://www.logicmonitor.com/support/rest-api-developers-guide/
   - type: GettingStarted
-    url: >-
-      https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
+    url: https://www.logicmonitor.com/support/rest-api-developers-guide/overview/using-logicmonitors-rest-api
   - type: Authentication
     url: authentication/logicmonitor-authentication.yml
   - type: Conventions
