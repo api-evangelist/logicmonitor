@@ -20,6 +20,19 @@ checked:
 - slack/integrations/slack-integration-edges.yml
 - opentofu/integrations/opentofu-integration-edges.yml
 - terraform/integrations/terraform-integration-edges.yml
+- cisco-catalyst-center/integrations/cisco-catalyst-center-integration-edges.yml
+- cisco-catalyst-sdwan/integrations/cisco-catalyst-sdwan-integration-edges.yml
+- cisco-ise/integrations/cisco-ise-integration-edges.yml
+- cisco-meraki/integrations/cisco-meraki-integration-edges.yml
+- thousandeyes/integrations/thousandeyes-integration-edges.yml
+- https://directory.github.partners/sitemap.xml
+- https://docs.github.com/en/apps/github-marketplace/github-marketplace-overview/about-marketplace-badges
+- https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns
+- https://docs.github.com/en/code-security/tutorials/secret-scanning-partner-program
+- https://github.com/marketplace?type=actions
+- https://github.com/marketplace?type=apps
+- https://github.com/partners/technology-partners
+- https://partner.github.com/
 marketplace_apps: []
 edges:
 - partner_name: OpenTelemetry
@@ -333,6 +346,126 @@ edges:
   badges:
   - Verified publisher (Terraform partner tier)
   - Verified publisher (GitHub domain-verified organization)
+- partner_name: Cisco Catalyst Center (own)
+  partner: cisco-catalyst-center
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.cisco.com/en-US/apps/420402
+  mirror_of: cisco-catalyst-center/integrations/cisco-catalyst-center-integration-edges.yml
+  apps:
+  - LogicMonitor | LM Envision
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: AIOps, Monitoring & Performance
+- partner_name: Cisco Catalyst SD-WAN (own)
+  partner: cisco-catalyst-sdwan
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.cisco.com/en-US/apps/420402
+  mirror_of: cisco-catalyst-sdwan/integrations/cisco-catalyst-sdwan-integration-edges.yml
+  apps:
+  - LogicMonitor | LM Envision
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: AIOps, Monitoring & Performance
+- partner_name: Cisco Identity Services Engine (own)
+  partner: cisco-ise
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.cisco.com/en-US/apps/420402
+  mirror_of: cisco-ise/integrations/cisco-ise-integration-edges.yml
+  apps:
+  - LogicMonitor | LM Envision
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: AIOps, Monitoring & Performance
+- partner_name: Cisco Meraki (own)
+  partner: cisco-meraki
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.cisco.com/en-US/apps/420402
+  mirror_of: cisco-meraki/integrations/cisco-meraki-integration-edges.yml
+  apps:
+  - LogicMonitor | LM Envision
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: AIOps, Monitoring & Performance
+- partner_name: ThousandEyes (own)
+  partner: thousandeyes
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.cisco.com/en-US/apps/420402
+  mirror_of: thousandeyes/integrations/thousandeyes-integration-edges.yml
+  apps:
+  - LogicMonitor | LM Envision
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: AIOps, Monitoring & Performance
+- partner_name: GitHub secret scanning partner program
+  partner: github
+  partner_match: register-name
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+  category: GitHub platform partnership (security)
+  contract_reference:
+    register: GitHub secret scanning partner program (docs.github.com supported-secret-scanning-patterns, 'Partner'
+      column = isPublic in the page's own pattern data)
+    standard: GitHub secret scanning partner program
+    spec_file: null
+    role: secret-scanning-partner
+    registered_name: LogicMonitor
+    register_id: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+    matched_domain: null
+    matched_by: register-name
+    register_name_note: register-name 'logicmonitor' = logicmonitor; wikidata P856 logicmonitor.com agrees or unheld
+    token_types:
+    - logicmonitor_bearer_token
+    - logicmonitor_lmv1_access_key
+    context:
+      push_protection: 2
+      validity_check: 0
+    signal_note: 'participation only: GitHub notifies the provider when its token leaks publicly (the provider runs
+      a verification endpoint for the programme); token types and counts are context, never counted'
+    detected_by: sweep-github-marketplace.py
+    detected: '2026-10-21'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  detected_by: sweep-github-marketplace.py
+  first_seen: '2026-10-21'
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
