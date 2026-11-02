@@ -1,0 +1,80 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://www.logicmonitor.com/pricing
+sources:
+- https://www.logicmonitor.com/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Essentials
+published: true
+note: Prices stated as starting monthly list pricing in USD based on standard minimum quantities; many
+  capabilities listed as add-ons without prices. 15-day free trial mentioned.
+plan_count: 3
+currency: USD
+plans:
+- name: Essentials
+  price_text: $16 per Hybrid Unit*
+  price: 16
+  currency: USD
+  period: month
+  unit: Hybrid Unit
+  included_quota: Observability for faster troubleshooting and modernization; available for deployments
+    of up to 999 Hybrid Units
+- name: Advanced
+  price_text: $27 per Hybrid Unit*
+  price: 27
+  currency: USD
+  period: month
+  unit: Hybrid Unit
+  included_quota: Enterprise-grade observability for maturing hybrid infrastructure
+- name: Signature + Edwin AI
+  price_text: $53 per Hybrid Unit*
+  price: 53
+  currency: USD
+  period: month
+  unit: Hybrid Unit
+  included_quota: Deep observability for full-stack clarity with proactive, AI-powered operations
+rate_limit_statements:
+- LM Essentials is designed for organizations that need core LogicMonitor platform capabilities and is
+  available for deployments of up to 999 Hybrid Units.
+- Sandbox Portal Test sandbox included for up to 10% of paid capacity.
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Essentials
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Advanced
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Signature + Edwin AI
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
